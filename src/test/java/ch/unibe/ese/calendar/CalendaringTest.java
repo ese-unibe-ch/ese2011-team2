@@ -1,11 +1,13 @@
 package ch.unibe.ese.calendar;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.security.AccessControlException;
 import java.security.AllPermission;
 import java.security.CodeSource;
-import java.security.Permission;
 import java.security.PermissionCollection;
 import java.security.Permissions;
 import java.security.Policy;
@@ -13,6 +15,7 @@ import java.security.PrivilegedAction;
 import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
 import java.util.Date;
+import java.util.Iterator;
 
 import javax.security.auth.Subject;
 
@@ -26,15 +29,16 @@ import ch.unibe.ese.calendar.security.CalendarPolicy;
 /**
  * Requirements from http://ese.unibe.ch/exercises/warming-up
  * 
-    Users have a name.
-    Calendars have a name, and an owner (the user who can edit it).
+ * Users have a name: userHasName
+ * Calendars have a name: calendarHasName
+ * and an owner: calendarHasOwner
     Calendars have events.
     An event has a
         start date/time
         end date/time
         a name. 
     An event can be public or private (private events are visible to the owner only).
-    A user can obtain an iterator over the list of events he is allowed to see in a calendar, starting from a specific date.
+  * A user can obtain an iterator over the list of events he is allowed to see in a calendar, starting from a specific date.
     A user can obtain the list of events he is allowed to see in a calendar for a given date. 
  * @author reto
  *
@@ -42,6 +46,8 @@ import ch.unibe.ese.calendar.security.CalendarPolicy;
 
 public class CalendaringTest {
 
+	private static final String SUSANNE_EVENT_2_DESC = "Meet Oskar";
+	private static final String SUSANNE_EVENT_1_DESC = "Software engineering Exam";
 	private static final String STUDENT_SUSANNE_EXAMS = "student.susanne.exams";
 	CalendarManager calendarManager = CalendarManager.getInstance();
 
@@ -125,7 +131,7 @@ public class CalendaringTest {
 							juc.set(2011, 9, 21, 22, 15);
 							Date end = juc.getTime();
 							CalendarEvent calendarEvent = new CalendarEvent(
-									start, end, "Meet Bob (dress up!)");
+									start, end, "Meet Bob (dress up!)", true);
 							cal.addEvent(calendarEvent);
 							return null;
 						}
@@ -137,7 +143,15 @@ public class CalendaringTest {
 	}
 
 	@Test
-	public void addEvent() {
+	public void addAndRetrieveEvent() throws Throwable {
+		addSusanneEvents();
+		//now bob should see exactly one event
+		bobIteratesOneEvent();
+		//while Susanne sees both events
+		susanneGetTwoEventInOder();
+	}
+
+	private void addSusanneEvents() {
 		final User user = new User("Susanne");
 		Subject.doAs(user.getSubject(), new PrivilegedAction<Object>() {
 			@Override
@@ -145,15 +159,76 @@ public class CalendaringTest {
 				Calendar cal = calendarManager
 						.getCalendar(STUDENT_SUSANNE_EXAMS);
 				java.util.Calendar juc = java.util.Calendar.getInstance();
-				juc.set(2011, 11, 21, 10, 15);
-				Date start = juc.getTime();
-				juc.set(2011, 11, 21, 11, 15);
-				Date end = juc.getTime();
-				CalendarEvent calendarEvent = new CalendarEvent(start, end,
-						"Software engineering Exam");
-				cal.addEvent(calendarEvent);
+				{
+					juc.set(2011, 11, 21, 10, 15);
+					Date start = juc.getTime();
+					juc.set(2011, 11, 21, 11, 15);
+					Date end = juc.getTime();
+					CalendarEvent calendarEvent = new CalendarEvent(start, end,
+							SUSANNE_EVENT_1_DESC, true);
+					cal.addEvent(calendarEvent);
+				}
+				{
+					juc.set(2011, 11, 21, 20, 15);
+					Date start = juc.getTime();
+					juc.set(2011, 11, 21, 21, 15);
+					Date end = juc.getTime();
+					CalendarEvent calendarEvent = new CalendarEvent(start, end,
+							SUSANNE_EVENT_2_DESC, false);
+					cal.addEvent(calendarEvent);
+				}
 				return null;
 			}
 		});
+	}
+	
+	private void bobIteratesOneEvent() throws Throwable {
+		final User user = new User("Bob");
+		try {
+			Subject.doAs(user.getSubject(), new PrivilegedExceptionAction<Object>() {
+				@Override
+				public Object run() {
+					Calendar cal = calendarManager
+							.getCalendar(STUDENT_SUSANNE_EXAMS);
+					java.util.Calendar juc = java.util.Calendar.getInstance();
+					juc.set(2011, 11, 21, 0, 0);
+					Date start = juc.getTime();
+					Iterator<CalendarEvent> iter = cal.iterate(start);
+					assertTrue(iter.hasNext());
+					assertNotNull(iter.next());
+					assertFalse(iter.hasNext());
+					return null;
+				}
+			});
+		} catch (PrivilegedActionException e) {
+			throw e.getCause();
+		}	
+	}
+	
+	private void susanneGetTwoEventInOder() throws Throwable {
+		final User user = new User("Susanne");
+		try {
+			Subject.doAs(user.getSubject(), new PrivilegedExceptionAction<Object>() {
+				@Override
+				public Object run() {
+					Calendar cal = calendarManager
+							.getCalendar(STUDENT_SUSANNE_EXAMS);
+					java.util.Calendar juc = java.util.Calendar.getInstance();
+					juc.set(2011, 11, 21, 0, 0);
+					Date start = juc.getTime();
+					Iterator<CalendarEvent> iter = cal.iterate(start);
+					assertTrue(iter.hasNext());
+					CalendarEvent first = iter.next();
+					assertEquals(SUSANNE_EVENT_1_DESC, first.getName());
+					assertTrue(iter.hasNext());
+					CalendarEvent second = iter.next();
+					assertEquals(SUSANNE_EVENT_2_DESC, second.getName());
+					assertFalse("no third element", iter.hasNext());
+					return null;
+				}
+			});
+		} catch (PrivilegedActionException e) {
+			throw e.getCause();
+		}
 	}
 }
