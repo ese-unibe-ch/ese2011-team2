@@ -23,7 +23,24 @@ import ch.unibe.ese.calendar.exceptions.CalendarAlreayExistsException;
 import ch.unibe.ese.calendar.exceptions.NoSuchCalendarException;
 import ch.unibe.ese.calendar.security.CalendarPolicy;
 
-public class CalendarTest {
+/**
+ * Requirements from http://ese.unibe.ch/exercises/warming-up
+ * 
+    Users have a name.
+    Calendars have a name, and an owner (the user who can edit it).
+    Calendars have events.
+    An event has a
+        start date/time
+        end date/time
+        a name. 
+    An event can be public or private (private events are visible to the owner only).
+    A user can obtain an iterator over the list of events he is allowed to see in a calendar, starting from a specific date.
+    A user can obtain the list of events he is allowed to see in a calendar for a given date. 
+ * @author reto
+ *
+ */
+
+public class CalendaringTest {
 
 	private static final String STUDENT_SUSANNE_EXAMS = "student.susanne.exams";
 	CalendarManager calendarManager = CalendarManager.getInstance();
@@ -51,6 +68,13 @@ public class CalendarTest {
 			}
 		});
 
+	}
+	
+	@Test
+	public void userHasName() {
+		String name = "Joe Testing";
+		User user = new User(name);
+		assertEquals(name, user.getName());
 	}
 
 	@Test(expected = NoSuchCalendarException.class)
