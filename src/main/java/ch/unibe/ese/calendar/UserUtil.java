@@ -2,7 +2,6 @@ package ch.unibe.ese.calendar;
 
 import java.util.Set;
 
-import javax.management.RuntimeErrorException;
 import javax.security.auth.Subject;
 
 import ch.unibe.ese.calendar.security.CalendarPrincipal;

@@ -4,11 +4,10 @@ import java.security.BasicPermission;
 import java.security.Permission;
 
 /** 
- * Permission to write to a calendar
+ * Permission to read non-public events from and to write to a calendar
  * 
- * @author reto
  */
-public class CalendarWritePermission extends BasicPermission {
+public class PrivelegedCalendarAccessPermission extends BasicPermission {
 
 	/**
 	 * The actions parameter is ignored and only here to support serialization in the policy file format 
@@ -16,7 +15,7 @@ public class CalendarWritePermission extends BasicPermission {
 	 * @param calendarName The name of the calendar
 	 * @param actions ignored
 	 */
-	public CalendarWritePermission(String calendarName, String actions) {
+	public PrivelegedCalendarAccessPermission(String calendarName, String actions) {
 		super(calendarName, actions);
 	}
 

@@ -11,6 +11,10 @@ import ch.unibe.ese.calendar.Calendar;
 import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.User;
 
+/**
+ * When this policy is in place a subjects with a CalendarPrincipal (i.e. the Subject returned by 
+ * <code>User.getSubject</code> has privileged calendar access to the calendar they own.
+ */
 public class CalendarPolicy extends Policy {
 	
 	private Policy originalPolicy;
@@ -31,7 +35,7 @@ public class CalendarPolicy extends Policy {
 				//assign permssions for all owned calendars
 				Set<Calendar> userCalendars = CalendarManager.getInstance().getCalendarsOf(user);
 				for (Calendar cal : userCalendars) {
-					result.add(new CalendarWritePermission(cal.getName(), null));
+					result.add(new PrivelegedCalendarAccessPermission(cal.getName(), null));
 				}
 			}
 		}

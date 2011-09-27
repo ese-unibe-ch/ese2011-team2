@@ -16,6 +16,7 @@ import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.security.auth.Subject;
 
@@ -39,7 +40,7 @@ import ch.unibe.ese.calendar.security.CalendarPolicy;
         a name. 
     An event can be public or private (private events are visible to the owner only).
   * A user can obtain an iterator over the list of events he is allowed to see in a calendar, starting from a specific date.
-    A user can obtain the list of events he is allowed to see in a calendar for a given date. 
+  * A user can obtain the list of events he is allowed to see in a calendar for a given date. 
  * @author reto
  *
  */
@@ -149,6 +150,47 @@ public class CalendaringTest {
 		bobIteratesOneEvent();
 		//while Susanne sees both events
 		susanneGetTwoEventInOder();
+		addLaterEventAndGet24hLists();
+	}
+
+	private void addLaterEventAndGet24hLists() throws Throwable {
+		final User user = new User("Susanne");
+		try {
+			Subject.doAs(user.getSubject(), new PrivilegedExceptionAction<Object>() {
+				@Override
+				public Object run() {
+					Calendar cal = calendarManager
+							.getCalendar(STUDENT_SUSANNE_EXAMS);
+					java.util.Calendar juc = java.util.Calendar.getInstance();
+					{
+						juc.set(2011, 11, 23, 20, 15);
+						Date start = juc.getTime();
+						juc.set(2011, 11, 23, 21, 15);
+						Date end = juc.getTime();
+						CalendarEvent calendarEvent = new CalendarEvent(start, end,
+								"a later event", false);
+						cal.addEvent(calendarEvent);
+					}
+					//two events on day 21
+					{
+						juc.set(2011, 11, 21, 0, 0);
+						Date date = juc.getTime();
+						List<CalendarEvent> events = cal.getEventsAt(date);
+						assertEquals(2, events.size());
+					}
+					//one event on day 23
+					{
+						juc.set(2011, 11, 23, 0, 0);
+						Date date = juc.getTime();
+						List<CalendarEvent> events = cal.getEventsAt(date);
+						assertEquals(1, events.size());
+					}
+					return null;
+				}
+			});
+		} catch (PrivilegedActionException e) {
+			throw e.getCause();
+		}
 	}
 
 	private void addSusanneEvents() {
