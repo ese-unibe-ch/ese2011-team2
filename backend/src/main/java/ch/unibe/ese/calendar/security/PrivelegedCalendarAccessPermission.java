@@ -7,6 +7,7 @@ import java.security.Permission;
  * Permission to read non-public events from and to write to a calendar
  * 
  */
+@SuppressWarnings("serial")
 public class PrivelegedCalendarAccessPermission extends BasicPermission {
 
 	/**
