@@ -7,6 +7,7 @@ import java.security.BasicPermission;
  * 
  * @author reto
  */
+@SuppressWarnings("serial")
 public class CalendarAdminPermission extends BasicPermission {
 
 	public CalendarAdminPermission() {
