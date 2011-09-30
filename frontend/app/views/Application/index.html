@@ -1,6 +1,15 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
-
+<div id="header">
+            <div id="logo">
+                calendar
+                         </div>
+            <ul id="tools">
+                <li>
+                    <a href="@{Secure.logout()}">Log out</a>
+                </li>
+            </ul>
+        </div>
 <h1>Welcome to the ESE Calendaring app</h1>
 bla bla<br/>
 The secret token (TODO: access control): ${token}<br/>
