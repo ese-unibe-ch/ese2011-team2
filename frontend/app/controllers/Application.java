@@ -9,8 +9,9 @@ import ch.unibe.ese.calendar.CalendarEvent;
 
 import models.*;
 
+@With(Secure.class)
 public class Application extends Controller {
-
+	
     public static void index() {
     	CalendarEvent event = new CalendarEvent(new Date(500), 
     			new Date(1500), "an important second", true);
