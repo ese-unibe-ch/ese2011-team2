@@ -3,7 +3,7 @@ An exercise calendaring application
 Requirement specified at: http://ese.unibe.ch/exercises/warming-up
 
 ## Compiling
-This projects using [maven](http://maven.apache.org/) , to compile run (in the directory where this README file and pom.xml is)
+This project is using [maven](http://maven.apache.org/) , to compile run (in the directory where this README file and pom.xml is)
 
     mvn clean install
     
