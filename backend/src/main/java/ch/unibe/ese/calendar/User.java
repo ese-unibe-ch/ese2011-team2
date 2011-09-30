@@ -12,9 +12,24 @@ import ch.unibe.ese.calendar.security.CalendarPrincipal;
 public class User {
 
 	private String userName;
+	private Object password;
 
-	public User(String userName) {
+	/**
+	 * craetes a user with the specified username and password
+	 * @param userName
+	 * @param password
+	 */
+	public User(String userName, String password) {
 		this.userName = userName;
+		this.password = password;
+	}
+	
+	/**
+	 * creates a user with the specified username and a random password
+	 * @param userName
+	 */
+	public User(String userName) {
+		this(userName, Integer.toString((int)(Math.random()*1000)));
 	}
 
 	public Subject getSubject() {
@@ -57,6 +72,10 @@ public class User {
 
 	public String getName() {
 		return userName;
+	}
+
+	public Object getPassword() {
+		return password;
 	}
 
 }
