@@ -273,4 +273,27 @@ public class CalendaringTest {
 			throw e.getCause();
 		}
 	}
+	
+	@Test
+	public void anotherTest() {
+	        UserManager um = UserManager.getIsntance();
+	        final CalendarManager cm = CalendarManager.getInstance();
+	        
+	        Policy.setPolicy(new CalendarPolicy());
+	        User aaron = um.createUser("aaron", "ese");
+	       
+	        Subject.doAs(aaron.getSubject(), new PrivilegedAction<Object>() {
+	            @Override
+	            public Object run() {
+	                Calendar aaroncal = cm.createCalendar("Aarons Kalender");
+	                java.util.Calendar juc = java.util.Calendar.getInstance();
+	                juc.set(2011, 11, 23, 20, 15);
+	                Date start = juc.getTime();
+	                juc.set(2011, 11, 23, 23, 00);
+	                Date end = juc.getTime();
+	                aaroncal.addEvent(new CalendarEvent(start, end, "Toller Film", true));
+	                return null;
+	            }
+	        });
+	}
 }
