@@ -23,11 +23,14 @@ public class Application extends Controller {
     	User user = UserManager.getIsntance().getUserByName(userName);
     	CalendarManager calendarManager = CalendarManager.getInstance();
     	Set<Calendar> userCalendars = calendarManager.getCalendarsOf(user);
+    	   	
     	CalendarEvent event = new CalendarEvent(new Date(500), 
     			new Date(1500), "an important second", true);
+    	
+    	
         final String token = "You ("+user+") own: "+userCalendars.size()+" calendars";
         //TODO return user calendars
-		render(token, event);
+		render(token, event, userCalendars);
     }
 
 }

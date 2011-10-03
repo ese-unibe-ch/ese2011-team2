@@ -12,5 +12,13 @@
         </div>
 <h1>Welcome to the ESE Calendaring app</h1>
 bla bla<br/>
+Your Calendars are: <br/>
+
+<ul>
+	#{list items: userCalendars, as:'calendars'}
+		<a href="showcalendar?name=${calendars.name}">${calendars.name}</a><br/>
+	#{/list}
+</ul>
+
 The secret token (TODO: access control): ${token}<br/>
 Event: ${event.name} -${event.start} -${event.end}<br/>
