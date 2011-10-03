@@ -1,7 +1,10 @@
 package ch.unibe.ese.calendar;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class UserManager {
 
@@ -32,6 +35,15 @@ public class UserManager {
 	 */
 	public synchronized User getUserByName(String userName) {
 		return users.get(userName);
+	}
+	
+	/**
+	 * @return an unmodifiable set of all users
+	 */
+	public synchronized Set<User> getAllUsers() {
+		Set<User> result = new HashSet<User>();
+		result.addAll(users.values());
+		return Collections.unmodifiableSet(result);
 	}
 	
 	

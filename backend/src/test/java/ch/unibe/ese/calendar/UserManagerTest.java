@@ -17,5 +17,7 @@ public class UserManagerTest {
 		User retrievedUser = um.getUserByName("beta");
 		assertEquals(createdUser, retrievedUser);
 		assertEquals("tester", retrievedUser.getPassword());
+		um.createUser("beta2", "tester");
+		assertEquals(2, um.getAllUsers().size());
 	}
 }
