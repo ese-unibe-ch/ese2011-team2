@@ -1,5 +1,6 @@
 package ch.unibe.ese.calendar.security;
 
+import java.security.AllPermission;
 import java.security.PermissionCollection;
 import java.security.Permissions;
 import java.security.Policy;
@@ -40,7 +41,8 @@ public class CalendarPolicy extends Policy {
 			}
 		}
 		if (!hasPrincipal) {
-			return originalPolicy.getPermissions(domain);
+			result.add(new AllPermission());
+			//return originalPolicy.getPermissions(domain);
 		}
 		return result;
 	}
