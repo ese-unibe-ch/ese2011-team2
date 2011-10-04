@@ -1,6 +1,7 @@
 package controllers;
 
 import java.security.PrivilegedAction;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
@@ -50,7 +51,7 @@ public class Application extends Controller {
 				return calendar.iterate(new Date(0));
 			}
 		});
-    	render(iterator);  
+    	render(iterator, calendar);  
     }
     
     public static void users(){   	
@@ -65,5 +66,22 @@ public class Application extends Controller {
     	Set<User> users = UserManager.getIsntance().getAllUsers();
     	render(user, users, otherCalendars);
     }
+    
+    public static void createEvent(String calendarName, String name, String startDate, String endDate, boolean isPublic){
+
+    	SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy hh:mm");
+    	Date sDate=null;
+    	Date eDate=null;
+    	try {
+        	sDate = simple.parse(startDate);
+        	eDate = simple.parse(endDate);
+		} catch (Exception e) { }
+		
+		CalendarEvent event = new CalendarEvent(sDate, eDate, name, isPublic);
+	//	calendar.addEvent(event);
+		
+		calendar(calendarName);
+    }
+    
 
 }

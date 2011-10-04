@@ -18,4 +18,26 @@
 		${Events.name}<br/>
 	#{/list}
 
-bla bla<br/>
+<h2>Create a new Event</h2>
+			#{form @Application.createEvent()}
+
+				<p>
+					<label for="name">Event Name: </label> <br/>
+					<input type="text" name="eventName"/>
+				</p>
+				<p>
+					<label for="startDate">Start Date (dd.MM.yyyy HH:mm): </label> <br/>
+					<input type="text" name="startDate"/>
+				</p>
+				<p>
+					<label for="endDate">End Date (dd.MM.yyyy HH:mm): </label> <br/>
+					<input type="text" name="endDate"/>
+				</p>
+				<p>
+					<input type="checkbox" name="isPublic"/>
+					<label for="isPublic">Make public</label>
+				</p>
+				<p>
+					<input type="submit" value="create Event">
+				</p>
+			#{/form}
