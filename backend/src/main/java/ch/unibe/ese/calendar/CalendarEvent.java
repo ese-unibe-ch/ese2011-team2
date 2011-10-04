@@ -32,4 +32,11 @@ public class CalendarEvent {
 		return name;
 	}
 
+	@Override
+	public String toString() {
+		return "CalendarEvent [isPublic=" + isPublic + ", end=" + end
+				+ ", start=" + start + ", name=" + name + "]";
+	}
+
+	
 }

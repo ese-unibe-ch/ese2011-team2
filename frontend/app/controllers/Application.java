@@ -1,9 +1,13 @@
 package controllers;
 
 import java.security.PrivilegedAction;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import javax.security.auth.Subject;
@@ -45,10 +49,17 @@ public class Application extends Controller {
     	User user = UserManager.getIsntance().getUserByName(userName);
     	CalendarManager calendarManager = CalendarManager.getInstance();
     	final Calendar calendar = calendarManager.getCalendar(name);
+    	
     	Iterator<CalendarEvent> iterator = Subject.doAs(user.getSubject(), new PrivilegedAction<Iterator<CalendarEvent>>() {
 			@Override
-			public Iterator<CalendarEvent> run() {		
-				return calendar.iterate(new Date(0));
+			public Iterator<CalendarEvent> run() {
+				//copying to set to make sure we iterate overiterator as user
+				List<CalendarEvent> list = new ArrayList<CalendarEvent>();
+				Iterator<CalendarEvent> iterator = calendar.iterate(new Date(0));
+				while (iterator.hasNext()) {
+					list.add(iterator.next());
+				}
+				return list.iterator();
 			}
 		});
     	render(iterator, calendar);  
@@ -67,19 +78,37 @@ public class Application extends Controller {
     	render(user, users, otherCalendars);
     }
     
-    public static void createEvent(String calendarName, String name, String startDate, String endDate, boolean isPublic){
+    public static void createEvent(String calendarName, String name, String startDate, String endDate, boolean isPublic) throws Throwable{
 
+    	System.out.println("creating event");
     	SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy hh:mm");
     	Date sDate=null;
     	Date eDate=null;
-    	try {
         	sDate = simple.parse(startDate);
+        	//try {
         	eDate = simple.parse(endDate);
-		} catch (Exception e) { }
+		//} catch (Exception e) { }
 		
-		CalendarEvent event = new CalendarEvent(sDate, eDate, name, isPublic);
-	//	calendar.addEvent(event);
+		final CalendarEvent event = new CalendarEvent(sDate, eDate, name, isPublic);
+		final Calendar calendar = CalendarManager.getInstance().getCalendar(calendarName);
+		String userName = Security.connected();
+    	User user = UserManager.getIsntance().getUserByName(userName);
+		try {
+			Subject.doAs(user.getSubject(), new PrivilegedExceptionAction<Object>() {
+				@Override
+				public Object run() {
+					System.out.println("pre created size "+calendar.getEventsAt(new Date(event.getStart().getTime()-2000)).size());
+					calendar.addEvent(event);
+					System.out.println("created event "+event);
+					System.out.println("created size "+calendar.getEventsAt(new Date(event.getStart().getTime()-2000)).size());
+					return null;
+				}
+			});
+		} catch (PrivilegedActionException e) {
+			throw e.getCause();
+		}
 		
+		System.out.println("created event  in "+calendarName);
 		calendar(calendarName);
     }
     

@@ -21,9 +21,10 @@
 <h2>Create a new Event</h2>
 			#{form @Application.createEvent()}
 
+				<input type="hidden" name="calendarName" value="${calendar.name}"
 				<p>
 					<label for="name">Event Name: </label> <br/>
-					<input type="text" name="eventName"/>
+					<input type="text" name="name"/>
 				</p>
 				<p>
 					<label for="startDate">Start Date (dd.MM.yyyy HH:mm): </label> <br/>
