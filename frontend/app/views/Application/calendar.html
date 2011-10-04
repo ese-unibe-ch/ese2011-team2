@@ -1,0 +1,21 @@
+#{extends 'main.html' /}
+#{set title:'Calendar' /}
+<div id="header">
+            <div id="logo">
+                calendar
+                         </div>
+            <ul id="tools">
+                <li>
+                    <a href="@{Secure.logout()}">Log out</a> <br/>
+                </li>
+                <li>    
+                    <a href="/"> Home </a>
+                </li>
+            </ul>
+        </div>
+<h2>This are your calendar Events</h2>
+	#{list items: iterator, as:'Events'}
+		${Events.name}<br/>
+	#{/list}
+
+bla bla<br/>

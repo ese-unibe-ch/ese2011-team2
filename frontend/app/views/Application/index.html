@@ -16,7 +16,7 @@ Your Calendars are: <br/>
 
 <ul>
 	#{list items: userCalendars, as:'calendars'}
-		<a href="showcalendar?name=${calendars.name}">${calendars.name}</a><br/>
+		<a href="calendar?name=${calendars.name}">${calendars.name}</a><br/>
 	#{/list}
 </ul>
 
