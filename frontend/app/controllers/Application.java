@@ -53,11 +53,17 @@ public class Application extends Controller {
     	render(iterator);  
     }
     
-    public static void user(String name){
-    	
+    public static void users(){   	
     	Set<User> users = UserManager.getIsntance().getAllUsers();
     	//TODO  other users except user
     	render(users);
+    }
+    
+    public static void user(String name){
+    	User user = UserManager.getIsntance().getUserByName(name);
+    	Set<Calendar> otherCalendars = CalendarManager.getInstance().getCalendarsOf(user);
+    	Set<User> users = UserManager.getIsntance().getAllUsers();
+    	render(user, users, otherCalendars);
     }
 
 }

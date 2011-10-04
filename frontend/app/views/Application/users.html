@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-#{set title:'User' /}
+#{set title:'Users' /}
 <div id="header">
             <div id="logo">
                 Users
@@ -13,23 +13,8 @@
                 </li>
             </ul>
         </div>
-        
-<h3> events of ${user.name}</h3>   
-<ul>
-	#{list items: otherCalendars, as:'calendar'}
-		<i>${calendar.name} :</i><br/>
-			<ul>
-				#{list items: calendar.startDateSortedSet, as:'Events'}
-					<if ${Events.isPublic}>									
-						${Events.name}<br/>
-					</if>					
-				#{/list}
-			</ul>
-	#{/list}
-</ul>  
-        
-      
-<h4>Switch to another user</h4>
+<h2>This are the other users</h2>
+
 	#{list items: users, as:'User'}
 		<a href="user?name=${User.name}"> ${User.name}</a><br/>
 	#{/list}
