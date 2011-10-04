@@ -5,6 +5,7 @@
 # Home page
 GET     /                                       Application.index							
 GET		/calendar								Application.calendar
+GET		/user									Application.user
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

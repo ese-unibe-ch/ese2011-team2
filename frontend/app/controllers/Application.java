@@ -25,10 +25,11 @@ public class Application extends Controller {
 	
     public static void index() {
     	String userName = Security.connected();
-    	User user = UserManager.getIsntance().getUserByName(userName);
+    	UserManager um = UserManager.getIsntance();
+    	User user = um.getUserByName(userName);
     	CalendarManager calendarManager = CalendarManager.getInstance();
-    	Set<Calendar> userCalendars = calendarManager.getCalendarsOf(user);
-    	
+    	Set<Calendar> userCalendars = calendarManager.getCalendarsOf(user);    	
+
     	CalendarEvent event = new CalendarEvent(new Date(500), 
     			new Date(1500), "an important second", true);
     	
@@ -49,8 +50,14 @@ public class Application extends Controller {
 				return calendar.iterate(new Date(0));
 			}
 		});
-    	render(iterator);  	
+    	render(iterator);  
     }
     
+    public static void user(String name){
+    	
+    	Set<User> users = UserManager.getIsntance().getAllUsers();
+    	//TODO  other users except user
+    	render(users);
+    }
 
 }
