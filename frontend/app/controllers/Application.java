@@ -66,9 +66,10 @@ public class Application extends Controller {
     }
     
     public static void users(){   	
+    	String userName = Security.connected();
+    	User user = UserManager.getIsntance().getUserByName(userName);
     	Set<User> users = UserManager.getIsntance().getAllUsers();
-    	//TODO  other users except user
-    	render(users);
+    	render(user, users);
     }
     
     public static void user(String name){

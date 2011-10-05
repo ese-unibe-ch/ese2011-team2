@@ -16,7 +16,9 @@
 <h2>This are the other users</h2>
 
 	#{list items: users, as:'User'}
+		#{if User.name != user.name}
 		<a href="user?name=${User.name}"> ${User.name}</a><br/>
+		#{/if}
 	#{/list}
 
 

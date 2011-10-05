@@ -20,9 +20,9 @@
 		<i>${calendar.name} :</i><br/>
 			<ul>
 				#{list items: calendar.startDateSortedSet, as:'Events'}
-					<if ${Events.isPublic}>									
+					#{if Events.isPublic}									
 						${Events.name}<br/>
-					</if>					
+					#{/if}					
 				#{/list}
 			</ul>
 	#{/list}
@@ -31,7 +31,9 @@
       
 <h4>Switch to another user</h4>
 	#{list items: users, as:'User'}
-		<a href="user?name=${User.name}"> ${User.name}</a><br/>
+		#{if User.name != user.name}
+			<a href="user?name=${User.name}"> ${User.name}</a><br/>
+		#{/if}
 	#{/list}
 
 
