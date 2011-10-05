@@ -11,19 +11,15 @@
             </ul>
         </div>
 <h1>Welcome to the ESE Calendaring app</h1>
-bla bla<br/>
 Your Calendars are: <br/>
 
 <ul>
 	#{list items: userCalendars, as:'calendars'}
-		<a href="calendar?name=${calendars.name}">${calendars.name}</a><br/>
+		<li><a href="calendar?name=${calendars.name}">${calendars.name}</a></li>
 	#{/list}
 </ul>
+<p>
 
-The secret token (TODO: access control): ${token}<br/>
-Event: ${event.name} -${event.start} -${event.end}<br/>
-
-
-Kalendars of other <a href="users"> users </a>
-
+Calendars of other <a href="users"> users </a>
+</p>
 

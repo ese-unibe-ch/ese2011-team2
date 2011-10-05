@@ -35,6 +35,8 @@ public class Bootstrap extends Job {
 		}
 		createAaronCalendars(um, cm);
 		createJudithCalendars(um, cm);
+		createErwannCalendars(um, cm);
+		
 
 	}
 
@@ -85,6 +87,30 @@ public class Bootstrap extends Job {
 			}
 		});
 
+	}
+	
+	private void createErwannCalendars(UserManager um, final CalendarManager cm) {
+		User aaron = um.createUser("erwann", "ese");
+		Subject.doAs(aaron.getSubject(), new PrivilegedAction<Object>() {
+			@Override
+			public Object run() {
+
+				Calendar aaroncal;
+				try {
+					aaroncal = cm.createCalendar("Erwanns Kalender");
+				} catch (CalendarAlreayExistsException e) {
+					aaroncal = cm.getCalendar("Erwanns Kalender");
+				}
+				java.util.Calendar juc = java.util.Calendar.getInstance();
+				juc.set(2011, 11, 21, 20, 15);
+				Date start = juc.getTime();
+				juc.set(2011, 11, 21, 23, 00);
+				Date end = juc.getTime();
+				aaroncal.addEvent(new CalendarEvent(start, end, "Standard lager",
+						true));
+				return null;
+			}
+		});
 	}
 
 }

@@ -33,14 +33,10 @@ public class Application extends Controller {
     	UserManager um = UserManager.getIsntance();
     	User user = um.getUserByName(userName);
     	CalendarManager calendarManager = CalendarManager.getInstance();
-    	Set<Calendar> userCalendars = calendarManager.getCalendarsOf(user);    	
-
-    	CalendarEvent event = new CalendarEvent(new Date(500), 
-    			new Date(1500), "an important second", true);
-    	
+    	Set<Calendar> userCalendars = calendarManager.getCalendarsOf(user); 
     	
         final String token = "You ("+user+") own: "+userCalendars.size()+" calendars";
-		render(token, event, userCalendars);
+		render(token, userCalendars);
     }
 
     public static void calendar(String name) {
@@ -73,22 +69,21 @@ public class Application extends Controller {
     }
     
     public static void user(String name){
+    	String currentUserName = Security.connected();
+    	User currentUser = UserManager.getIsntance().getUserByName(currentUserName);
     	User user = UserManager.getIsntance().getUserByName(name);
     	Set<Calendar> otherCalendars = CalendarManager.getInstance().getCalendarsOf(user);
     	Set<User> users = UserManager.getIsntance().getAllUsers();
-    	render(user, users, otherCalendars);
+    	render(currentUser, user, users, otherCalendars);
     }
     
     public static void createEvent(String calendarName, String name, String startDate, String endDate, boolean isPublic) throws Throwable{
 
     	System.out.println("creating event");
     	SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy hh:mm");
-    	Date sDate=null;
-    	Date eDate=null;
-        	sDate = simple.parse(startDate);
-        	//try {
-        	eDate = simple.parse(endDate);
-		//} catch (Exception e) { }
+    	
+    	Date sDate = simple.parse(startDate);
+    	Date eDate = simple.parse(endDate);
 		
 		final CalendarEvent event = new CalendarEvent(sDate, eDate, name, isPublic);
 		final Calendar calendar = CalendarManager.getInstance().getCalendar(calendarName);

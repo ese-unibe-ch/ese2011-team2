@@ -13,12 +13,13 @@
                 </li>
             </ul>
         </div>
-<h2>This are the other users</h2>
+<h2>This are the other users (other than ${user.name})</h2>
 
+<ul>
 	#{list items: users, as:'User'}
 		#{if User.name != user.name}
-		<a href="user?name=${User.name}"> ${User.name}</a><br/>
+		<li><a href="user?name=${User.name}"> ${User.name}</a></li>
 		#{/if}
 	#{/list}
-
+</ul>
 

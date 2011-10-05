@@ -14,10 +14,10 @@
             </ul>
         </div>
 <h2>This are your calendar Events</h2>
-	#{list items: iterator, as:'Events'}
-		${Events.name}<br/>
+	<ul>#{list items: iterator, as:'Events'}
+		<li>${Events.name}</li>
 	#{/list}
-
+</ul>
 <h2>Create a new Event</h2>
 			#{form @Application.createEvent()}
 
