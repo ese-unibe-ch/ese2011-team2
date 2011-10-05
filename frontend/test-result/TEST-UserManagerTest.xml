@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<testsuite failures="1" time="0" errors="0" skipped="0" tests="0" name="UserManagerTest">
+  <testcase classname="UserManagerTest" name="createAndRetrieveUser" time="0">
+                  <failure type="" message="Failure, expected:&lt;2&gt; but was:&lt;5&gt;">
+        <![CDATA[
+          In /test/UserManagerTest.java, line 26
+          
+              		assertEquals(2, um.getAllUsers().size()); :
+          
+        ]]>
+        </failure>
+        }
+                  </testcase>
+</testsuite>
