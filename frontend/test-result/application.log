@@ -1,7 +1,7 @@
-05 Okt 2011 10:23:47,509 INFO  ~ Starting /Users/lyriael/Documents/Uni Bern/HS11/ESE/reto/ese2011-warmup/frontend
-05 Okt 2011 10:23:47,513 WARN  ~ Declaring modules in application.conf is deprecated. Use dependencies.yml instead (module.secure)
-05 Okt 2011 10:23:47,514 INFO  ~ Module secure is available (/usr/local/Cellar/play/1.2.3/libexec/modules/secure)
-05 Okt 2011 10:23:48,210 WARN  ~ You're running Play! in DEV mode
-05 Okt 2011 10:23:48,321 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
-05 Okt 2011 10:23:57,301 INFO  ~ Connected to jdbc:h2:mem:play;MODE=MYSQL;LOCK_MODE=0
-05 Okt 2011 10:23:57,351 INFO  ~ Application 'frontend' is now started !
+10 Oct 2011 15:14:17,530 INFO  ~ Starting /home/reto/projects/github/calendar/frontend
+10 Oct 2011 15:14:17,533 WARN  ~ Declaring modules in application.conf is deprecated. Use dependencies.yml instead (module.secure)
+10 Oct 2011 15:14:17,562 INFO  ~ Module secure is available (/home/reto/lib/play-1.2.3/modules/secure)
+10 Oct 2011 15:14:18,039 WARN  ~ You're running Play! in DEV mode
+10 Oct 2011 15:14:18,119 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+10 Oct 2011 15:14:36,055 INFO  ~ Connected to jdbc:h2:mem:play;MODE=MYSQL;LOCK_MODE=0
+10 Oct 2011 15:14:36,221 INFO  ~ Application 'frontend' is now started !

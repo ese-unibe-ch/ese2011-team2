@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<testsuite failures="1" time="0.012" errors="0" skipped="0" tests="0" name="ApplicationTest">
-  <testcase classname="ApplicationTest" name="testThatIndexPageWorks" time="0.012">
-                  <failure type="" message="Failure, Response status  expected:&lt;200&gt; but was:&lt;302&gt;">
-        <![CDATA[
-          In /test/ApplicationTest.java, line 12
-          
-                      assertIsOk(response); :
-          
-        ]]>
-        </failure>
-        }
-                  </testcase>
+<testsuite failures="0" time="0.008" errors="0" skipped="0" tests="1" name="ApplicationTest">
+  <testcase classname="ApplicationTest" name="testThatIndexPageWorks" time="0.008">
+      </testcase>
 </testsuite>

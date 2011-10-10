@@ -9,9 +9,10 @@ public class ApplicationTest extends FunctionalTest {
     @Test
     public void testThatIndexPageWorks() {
         Response response = GET("/");
-        assertIsOk(response);
+        Assert.assertEquals("expecting a redirect to login page", (Integer)302, response.status);
+        /*assertIsROk(response);
         assertContentType("text/html", response);
-        assertCharset(play.Play.defaultWebEncoding, response);
+        assertCharset(play.Play.defaultWebEncoding, response);*/
     }
     
 }
