@@ -96,7 +96,7 @@ public class CalendaringTest {
 
 	@Test
 	public void calendarHasName() {
-		Calendar cal = calendarManager.getCalendar(STUDENT_SUSANNE_EXAMS);
+		EseCalendar cal = calendarManager.getCalendar(STUDENT_SUSANNE_EXAMS);
 		assertEquals(STUDENT_SUSANNE_EXAMS, cal.getName());
 	}
 
@@ -107,7 +107,7 @@ public class CalendaringTest {
 				new PrivilegedAction<User>() {
 					@Override
 					public User run() {
-						Calendar cal = calendarManager
+						EseCalendar cal = calendarManager
 								.createCalendar("student.bob.exams");
 						return cal.getOwner();
 					}
@@ -123,7 +123,7 @@ public class CalendaringTest {
 					new PrivilegedExceptionAction<Object>() {
 						@Override
 						public Object run() {
-							Calendar cal = calendarManager
+							EseCalendar cal = calendarManager
 									.getCalendar(STUDENT_SUSANNE_EXAMS);
 							java.util.Calendar juc = java.util.Calendar
 									.getInstance();
@@ -159,7 +159,7 @@ public class CalendaringTest {
 			Subject.doAs(user.getSubject(), new PrivilegedExceptionAction<Object>() {
 				@Override
 				public Object run() {
-					Calendar cal = calendarManager
+					EseCalendar cal = calendarManager
 							.getCalendar(STUDENT_SUSANNE_EXAMS);
 					java.util.Calendar juc = java.util.Calendar.getInstance();
 					{
@@ -198,7 +198,7 @@ public class CalendaringTest {
 		Subject.doAs(user.getSubject(), new PrivilegedAction<Object>() {
 			@Override
 			public Object run() {
-				Calendar cal = calendarManager
+				EseCalendar cal = calendarManager
 						.getCalendar(STUDENT_SUSANNE_EXAMS);
 				java.util.Calendar juc = java.util.Calendar.getInstance();
 				{
@@ -230,7 +230,7 @@ public class CalendaringTest {
 			Subject.doAs(user.getSubject(), new PrivilegedExceptionAction<Object>() {
 				@Override
 				public Object run() {
-					Calendar cal = calendarManager
+					EseCalendar cal = calendarManager
 							.getCalendar(STUDENT_SUSANNE_EXAMS);
 					java.util.Calendar juc = java.util.Calendar.getInstance();
 					juc.set(2011, 11, 21, 0, 0);
@@ -253,7 +253,7 @@ public class CalendaringTest {
 			Subject.doAs(user.getSubject(), new PrivilegedExceptionAction<Object>() {
 				@Override
 				public Object run() {
-					Calendar cal = calendarManager
+					EseCalendar cal = calendarManager
 							.getCalendar(STUDENT_SUSANNE_EXAMS);
 					java.util.Calendar juc = java.util.Calendar.getInstance();
 					juc.set(2011, 11, 21, 0, 0);

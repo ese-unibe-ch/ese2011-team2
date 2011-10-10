@@ -8,7 +8,7 @@ import java.security.Principal;
 import java.security.ProtectionDomain;
 import java.util.Set;
 
-import ch.unibe.ese.calendar.Calendar;
+import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.User;
 
@@ -34,8 +34,8 @@ public class CalendarPolicy extends Policy {
 				hasPrincipal = true;
 				User user = ((CalendarPrincipal) p).getUser();
 				//assign permssions for all owned calendars
-				Set<Calendar> userCalendars = CalendarManager.getInstance().getCalendarsOf(user);
-				for (Calendar cal : userCalendars) {
+				Set<EseCalendar> userCalendars = CalendarManager.getInstance().getCalendarsOf(user);
+				for (EseCalendar cal : userCalendars) {
 					result.add(new PrivelegedCalendarAccessPermission(cal.getName(), null));
 				}
 			}

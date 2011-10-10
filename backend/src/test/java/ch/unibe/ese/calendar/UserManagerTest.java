@@ -11,7 +11,7 @@ public class UserManagerTest {
 
 	@Test
 	public void createAndRetrieveUser() {
-		UserManager um = UserManager.getIsntance();
+		UserManager um = UserManager.getInstance();
 		User createdUser = um.createUser("beta", "tester");
 		assertNotNull(createdUser);
 		User retrievedUser = um.getUserByName("beta");

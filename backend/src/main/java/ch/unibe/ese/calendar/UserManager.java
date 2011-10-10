@@ -15,7 +15,7 @@ public class UserManager {
 		
 	}
 
-	public static UserManager getIsntance() {
+	public static UserManager getInstance() {
 		if (instance == null) {
 			instance = new UserManager();
 		}
