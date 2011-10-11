@@ -10,7 +10,7 @@ import javax.security.auth.Subject;
 
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
-import ch.unibe.ese.calendar.Calendar;
+import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.User;
@@ -23,7 +23,7 @@ import ch.unibe.ese.calendar.security.CalendarPolicy;
 public class Bootstrap extends Job {
 
 	public void doJob() {
-		UserManager um = UserManager.getIsntance();
+		UserManager um = UserManager.getInstance();
 		final CalendarManager cm = CalendarManager.getInstance();
 
 		System.out.println("context: " + AccessController.getContext());
@@ -46,7 +46,7 @@ public class Bootstrap extends Job {
 			@Override
 			public Object run() {
 
-				Calendar aaroncal;
+				EseCalendar aaroncal;
 				try {
 					aaroncal = cm.createCalendar("Aarons Kalender");
 				} catch (CalendarAlreayExistsException e) {
@@ -70,7 +70,7 @@ public class Bootstrap extends Job {
 			@Override
 			public Object run() {
 
-				Calendar judithcal;
+				EseCalendar judithcal;
 				try {
 					judithcal = cm.createCalendar("Judiths Kalender");
 				} catch (CalendarAlreayExistsException e) {
@@ -95,7 +95,7 @@ public class Bootstrap extends Job {
 			@Override
 			public Object run() {
 
-				Calendar aaroncal;
+				EseCalendar aaroncal;
 				try {
 					aaroncal = cm.createCalendar("Erwanns Kalender");
 				} catch (CalendarAlreayExistsException e) {

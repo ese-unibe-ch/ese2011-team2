@@ -5,20 +5,25 @@ import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.security.auth.Subject;
 
 import play.*;
+import play.data.binding.types.CalendarBinder;
 import play.mvc.*;
+import sun.security.action.GetLongAction;
 
-
-import ch.unibe.ese.calendar.Calendar;
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.CalendarManager;
+import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
 import ch.unibe.ese.calendar.exceptions.CalendarAlreayExistsException;
@@ -30,51 +35,79 @@ public class Application extends Controller {
 	
     public static void index() {
     	String userName = Security.connected();
-    	UserManager um = UserManager.getIsntance();
+    	UserManager um = UserManager.getInstance();
     	User user = um.getUserByName(userName);
     	CalendarManager calendarManager = CalendarManager.getInstance();
-    	Set<Calendar> userCalendars = calendarManager.getCalendarsOf(user); 
+    	Set<EseCalendar> userCalendars = calendarManager.getCalendarsOf(user); 
     	
         final String token = "You ("+user+") own: "+userCalendars.size()+" calendars";
 		render(token, userCalendars);
     }
 
-    public static void calendar(String name) {
+    public static void currentCalendar(String name) {
+    	java.util.Calendar juc = java.util.Calendar.getInstance(getLocale());
+    	juc.setTime(new Date());
+    	calendar(name, juc.get(java.util.Calendar.DAY_OF_MONTH), juc.get(java.util.Calendar.MONTH), 
+    			juc.get(java.util.Calendar.YEAR));
+    }
+    
+    public static void calendar(String name, int day, int month, int year) {
     	System.out.println("name: "+name);
     	String userName = Security.connected();
-    	User user = UserManager.getIsntance().getUserByName(userName);
+    	User user = UserManager.getInstance().getUserByName(userName);
     	CalendarManager calendarManager = CalendarManager.getInstance();
-    	final Calendar calendar = calendarManager.getCalendar(name);
-    	
+    	final EseCalendar calendar = calendarManager.getCalendar(name);
+    	Calendar juc = Calendar.getInstance(getLocale());
+    	juc.set(year, month, day, 0,0,0);
+    	final Date date = juc.getTime();
     	Iterator<CalendarEvent> iterator = Subject.doAs(user.getSubject(), new PrivilegedAction<Iterator<CalendarEvent>>() {
 			@Override
 			public Iterator<CalendarEvent> run() {
 				//copying to set to make sure we iterate overiterator as user
 				List<CalendarEvent> list = new ArrayList<CalendarEvent>();
-				Iterator<CalendarEvent> iterator = calendar.iterate(new Date(0));
+				Iterator<CalendarEvent> iterator = calendar.getEventsAt(date).iterator();
 				while (iterator.hasNext()) {
 					list.add(iterator.next());
 				}
 				return list.iterator();
 			}
 		});
-    	render(iterator, calendar);  
+    	
+    	CalendarBrowser calendarBrowser = new CalendarBrowser(calendar, day, month, year, getLocale());
+    	render(iterator, calendar, calendarBrowser);  
+    }
+    
+    /**
+     * @return the client locale guessed from accept-language haeder
+     */
+    private static Locale getLocale() {
+    	//TODO make real
+    	return new Locale("de", "CH");
     }
     
     public static void users(){   	
     	String userName = Security.connected();
-    	User user = UserManager.getIsntance().getUserByName(userName);
-    	Set<User> users = UserManager.getIsntance().getAllUsers();
+    	User user = UserManager.getInstance().getUserByName(userName);
+    	Set<User> users = UserManager.getInstance().getAllUsers();
     	render(user, users);
     }
     
     public static void user(String name){
     	String currentUserName = Security.connected();
-    	User currentUser = UserManager.getIsntance().getUserByName(currentUserName);
-    	User user = UserManager.getIsntance().getUserByName(name);
-    	Set<Calendar> otherCalendars = CalendarManager.getInstance().getCalendarsOf(user);
-    	Set<User> users = UserManager.getIsntance().getAllUsers();
-    	render(currentUser, user, users, otherCalendars);
+    	User currentUser = UserManager.getInstance().getUserByName(currentUserName);
+    	User user = UserManager.getInstance().getUserByName(name);
+    	Set<EseCalendar> otherCalendars = CalendarManager.getInstance().getCalendarsOf(user);
+    	Set<CalendarBrowser> calBrowsers  = new HashSet<CalendarBrowser>();
+    	java.util.Calendar juc = java.util.Calendar.getInstance(getLocale());
+    	juc.setTime(new Date());
+    	int selectedDay = juc.get(java.util.Calendar.DAY_OF_MONTH);
+		int year = juc.get(java.util.Calendar.YEAR);
+		int month = juc.get(java.util.Calendar.MONTH);
+    	for (EseCalendar cal : otherCalendars) {
+			calBrowsers.add(new CalendarBrowser(cal, selectedDay, month, year, getLocale()));
+    	}
+    	Set<User> users = UserManager.getInstance().getAllUsers();
+    	render(currentUser, user, users, calBrowsers);
     }
     
     public static void createEvent(String calendarName, String name, String startDate, String endDate, boolean isPublic) throws Throwable{
@@ -86,9 +119,9 @@ public class Application extends Controller {
     	Date eDate = simple.parse(endDate);
 		
 		final CalendarEvent event = new CalendarEvent(sDate, eDate, name, isPublic);
-		final Calendar calendar = CalendarManager.getInstance().getCalendar(calendarName);
+		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(calendarName);
 		String userName = Security.connected();
-    	User user = UserManager.getIsntance().getUserByName(userName);
+    	User user = UserManager.getInstance().getUserByName(userName);
 		try {
 			Subject.doAs(user.getSubject(), new PrivilegedExceptionAction<Object>() {
 				@Override
@@ -105,7 +138,7 @@ public class Application extends Controller {
 		}
 		
 		System.out.println("created event  in "+calendarName);
-		calendar(calendarName);
+		currentCalendar(calendarName);
     }
     
 

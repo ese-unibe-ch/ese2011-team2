@@ -16,13 +16,9 @@
         
 <h3>Events of ${user.name}</h3>   
 <ul>
-	#{list items: otherCalendars, as:'calendar'}
-		<i>${calendar.name} :</i><br/>
-			<ul>
-				#{list items: calendar.iterate(new java.util.Date(0)), as:'Events'}							
-					<li>${Events.name}</li>			
-				#{/list}
-			</ul>
+	#{list items: calBrowsers, as:'calendarBrowser'}
+		<i>${calendarBrowser.calendar.name} :</i><br/>
+			#{month calendarBrowser /}
 	#{/list}
 </ul>  
         
@@ -30,7 +26,7 @@
 <h4>Switch to another user  (other than ${user.name} and ${currentUser.name})</h4>
 	<ul>#{list items: users, as:'User'}
 		#{if (User.name != user.name) && (User.name != currentUser.name)}
-			<li><a href="user?name=${User.name}"> ${User.name}</a></li>
+			<li><a href="@{Application.user(User.name)}"> ${User.name}</a></li>
 		#{/if}
 	#{/list}
 	</ul>

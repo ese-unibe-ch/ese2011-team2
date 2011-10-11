@@ -14,12 +14,12 @@
 Your Calendars are: <br/>
 
 <ul>
-	#{list items: userCalendars, as:'calendars'}
-		<li><a href="calendar?name=${calendars.name}">${calendars.name}</a></li>
+	#{list items: userCalendars, as:'calendar'}
+		<li><a href="@{Application.currentCalendar(calendar.name)}">${calendar.name}</a></li>
 	#{/list}
 </ul>
 <p>
 
-Calendars of other <a href="users"> users </a>
+Calendars of other <a href="@{Application.users()}"> users </a>
 </p>
 

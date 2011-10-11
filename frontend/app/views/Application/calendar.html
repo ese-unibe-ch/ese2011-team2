@@ -13,15 +13,24 @@
                 </li>
             </ul>
         </div>
-<h2>This are your calendar Events</h2>
-	<ul>#{list items: iterator, as:'Events'}
-		<li>${Events.name}</li>
+
+#{month calendarBrowser /}
+<h2>Events on selected day:</h2>
+	<ul>#{list items: iterator, as:'event'}
+		<!--  TODO: handle timezone correctly -->
+		%{
+			visibility = "private"
+			if (event.public) {
+				visibility = "public"
+			}
+		}% 
+		<li>${event.start.format("HH:mm")} - ${event.end.format("HH:mm")} ${event.name} (${visibility})</li>
 	#{/list}
 </ul>
 <h2>Create a new Event</h2>
 			#{form @Application.createEvent()}
 
-				<input type="hidden" name="calendarName" value="${calendar.name}"
+				<input type="hidden" name="calendarName" value="${calendar.name}">
 				<p>
 					<label for="name">Event Name: </label> <br/>
 					<input type="text" name="name"/>

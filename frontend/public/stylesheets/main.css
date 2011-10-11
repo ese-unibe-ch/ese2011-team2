@@ -1,3 +1,28 @@
 #header {
 	background-color: green
 }
+td {
+	text-align: center;
+}
+
+td.public {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+td.private {
+	font-weight: bold;
+}
+
+td.selected {
+	background-color: yellow;
+}
+
+td.today {
+	background-color: blue;
+	color: white;
+}
+td a {
+	text-decoration: inherit;
+	color: inherit;
+}
