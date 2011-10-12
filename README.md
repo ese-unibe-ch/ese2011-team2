@@ -1,16 +1,17 @@
-# ESE exercise app
+# Simple Calendaring application frontend
+Requirement specified at: http://ese.unibe.ch/exercises/simple-ui
 
-This is just an exercise project
+## Compiling
+This is a play framework project, you don't need to compile it
 
-## Compiling and running
+## Running
 
-To run just invoke `play` in the directory frontend
+You need to have [play](http://www.playframework.org/) installed, in the folder where his README is execute:
 
-    cd frontend
-    play
+    play run
+    
+## Using with eclipse
+To build the files needed to import the project into eclipse run (in the directory where this README file is)
 
-The backend is contained as a compiled jar in frontend/lib, so unless youmodified the code there's no need to compile it. To compile it run `mvn clean install`in the backend directory
-
-    cd backend
-    mvn clean install
+    play eclipsify
 
