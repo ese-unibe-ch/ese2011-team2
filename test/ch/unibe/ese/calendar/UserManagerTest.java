@@ -23,7 +23,7 @@ public class UserManagerTest extends UnitTest {
 		User retrievedUser = um.getUserByName("beta");
 		assertEquals(createdUser, retrievedUser);
 		assertEquals("tester", retrievedUser.getPassword());
-		um.createUser("beta2", "tester");
-		assertEquals(2, um.getAllUsers().size());
+		User user2 = um.createUser("beta2", "tester");
+		assertTrue(um.getAllUsers().contains(user2));
 	}
 }

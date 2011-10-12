@@ -1,31 +1,49 @@
 package ch.unibe.ese.calendar.security;
 
-import java.security.BasicPermission;
-import java.security.Permission;
 
 /** 
  * Permission to read non-public events from and to write to a calendar
  * 
  */
 @SuppressWarnings("serial")
-public class PrivelegedCalendarAccessPermission extends BasicPermission {
+public class PrivelegedCalendarAccessPermission extends Permission {
 
+	private String calendarName;
+	
 	/**
-	 * The actions parameter is ignored and only here to support serialization in the policy file format 
+	 * Permission for priviledged access to a calendar
 	 * 
 	 * @param calendarName The name of the calendar
-	 * @param actions ignored
 	 */
-	public PrivelegedCalendarAccessPermission(String calendarName, String actions) {
-		super(calendarName, actions);
+	public PrivelegedCalendarAccessPermission(String calendarName) {
+		this.calendarName = calendarName;
 	}
 
 	@Override
-	public boolean implies(Permission p) {
-		// TODO Auto-generated method stub
-		boolean result =  super.implies(p);
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((calendarName == null) ? 0 : calendarName.hashCode());
 		return result;
-	}	
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PrivelegedCalendarAccessPermission other = (PrivelegedCalendarAccessPermission) obj;
+		if (calendarName == null) {
+			if (other.calendarName != null)
+				return false;
+		} else if (!calendarName.equals(other.calendarName))
+			return false;
+		return true;
+	}
 
 
 }

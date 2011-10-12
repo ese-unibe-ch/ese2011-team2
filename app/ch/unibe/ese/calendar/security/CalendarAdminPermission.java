@@ -1,6 +1,5 @@
 package ch.unibe.ese.calendar.security;
 
-import java.security.BasicPermission;
 
 /** 
  * Permission to do calendar administration tasks (like purgin the calendar manager)
@@ -8,10 +7,9 @@ import java.security.BasicPermission;
  * @author reto
  */
 @SuppressWarnings("serial")
-public class CalendarAdminPermission extends BasicPermission {
+public class CalendarAdminPermission extends Permission {
 
 	public CalendarAdminPermission() {
-		super("Calendar Admin", null);
 	}	
 
 

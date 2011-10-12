@@ -10,6 +10,7 @@ import java.util.NoSuchElementException;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import ch.unibe.ese.calendar.security.Policy;
 import ch.unibe.ese.calendar.security.PrivelegedCalendarAccessPermission;
 
 public class EseCalendar {
@@ -52,8 +53,8 @@ public class EseCalendar {
 	 * 
 	 * @param calendarEvent
 	 */
-	public void addEvent(CalendarEvent calendarEvent) {
-		AccessController.checkPermission(new PrivelegedCalendarAccessPermission(name, ""));
+	public void addEvent(User user, CalendarEvent calendarEvent) {
+		Policy.getInstance().checkPermission(user, new PrivelegedCalendarAccessPermission(name));
 		startDateSortedSet.add(calendarEvent);
 		
 	}
@@ -64,9 +65,9 @@ public class EseCalendar {
 	 * @param start the date at which to start iterating events
 	 * @return an iterator with events strating after start
 	 */
-	public Iterator<CalendarEvent> iterate(Date start) {
+	public Iterator<CalendarEvent> iterate(User user, Date start) {
 		Iterator<CalendarEvent> unfilteredEvents = startDateSortedSet.tailSet(new CalendarEvent(start, null, null, false)).iterator();
-		return new ACFilteringIterator(unfilteredEvents);
+		return new ACFilteringIterator(user, unfilteredEvents);
 	}
 	
 	/**
@@ -75,10 +76,10 @@ public class EseCalendar {
 	 * @param date the point in time specifying the start of the 24h period for which events are to be returned
 	 * @return a list of the events
 	 */
-	public List<CalendarEvent> getEventsAt(Date date) {
+	public List<CalendarEvent> getEventsAt(User user, Date date) {
 		Date endDate = new Date(date.getTime()+24*60*60*1000);
 		List<CalendarEvent> result = new ArrayList<CalendarEvent>();
-		Iterator<CalendarEvent> iter = iterate(date);
+		Iterator<CalendarEvent> iter = iterate(user, date);
 		while (iter.hasNext()) {
 			CalendarEvent ce = iter.next();
 			if (ce.getStart().compareTo(endDate) > 0) {
@@ -94,9 +95,11 @@ public class EseCalendar {
 		private boolean hasNext;
 		private CalendarEvent next;
 		private Iterator<CalendarEvent> unfilteredEvents;
+		private User user;
 		
-		public ACFilteringIterator(Iterator<CalendarEvent> unfilteredEvents) {
+		public ACFilteringIterator(User user, Iterator<CalendarEvent> unfilteredEvents) {
 			this.unfilteredEvents = unfilteredEvents;
+			this.user = user;
 			prepareNext();
 		}
 
@@ -105,9 +108,7 @@ public class EseCalendar {
 			if (unfilteredEvents.hasNext()) {
 				CalendarEvent ce = unfilteredEvents.next();
 				if (!ce.isPublic()) {
-					try {
-						AccessController.checkPermission(new PrivelegedCalendarAccessPermission(name, ""));
-					} catch (AccessControlException e) {
+					if (!Policy.getInstance().hasPermission(user, new PrivelegedCalendarAccessPermission(name))) {
 						prepareNext();
 						return;
 					}

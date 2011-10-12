@@ -60,20 +60,10 @@ public class Application extends Controller {
     	Calendar juc = Calendar.getInstance(getLocale());
     	juc.set(year, month, day, 0,0,0);
     	final Date date = juc.getTime();
-    	Iterator<CalendarEvent> iterator = Subject.doAs(user.getSubject(), new PrivilegedAction<Iterator<CalendarEvent>>() {
-			@Override
-			public Iterator<CalendarEvent> run() {
-				//copying to set to make sure we iterate overiterator as user
-				List<CalendarEvent> list = new ArrayList<CalendarEvent>();
-				Iterator<CalendarEvent> iterator = calendar.getEventsAt(date).iterator();
-				while (iterator.hasNext()) {
-					list.add(iterator.next());
-				}
-				return list.iterator();
-			}
-		});
-    	
-    	CalendarBrowser calendarBrowser = new CalendarBrowser(calendar, day, month, year, getLocale());
+  
+		Iterator<CalendarEvent> iterator = calendar.getEventsAt(user, date).iterator();
+
+    	CalendarBrowser calendarBrowser = new CalendarBrowser(user, calendar, day, month, year, getLocale());
     	render(iterator, calendar, calendarBrowser);  
     }
     
@@ -104,7 +94,7 @@ public class Application extends Controller {
 		int year = juc.get(java.util.Calendar.YEAR);
 		int month = juc.get(java.util.Calendar.MONTH);
     	for (EseCalendar cal : otherCalendars) {
-			calBrowsers.add(new CalendarBrowser(cal, selectedDay, month, year, getLocale()));
+			calBrowsers.add(new CalendarBrowser(user, cal, selectedDay, month, year, getLocale()));
     	}
     	Set<User> users = UserManager.getInstance().getAllUsers();
     	render(currentUser, user, users, calBrowsers);
@@ -122,20 +112,12 @@ public class Application extends Controller {
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(calendarName);
 		String userName = Security.connected();
     	User user = UserManager.getInstance().getUserByName(userName);
-		try {
-			Subject.doAs(user.getSubject(), new PrivilegedExceptionAction<Object>() {
-				@Override
-				public Object run() {
-					System.out.println("pre created size "+calendar.getEventsAt(new Date(event.getStart().getTime()-2000)).size());
-					calendar.addEvent(event);
-					System.out.println("created event "+event);
-					System.out.println("created size "+calendar.getEventsAt(new Date(event.getStart().getTime()-2000)).size());
-					return null;
-				}
-			});
-		} catch (PrivilegedActionException e) {
-			throw e.getCause();
-		}
+
+		System.out.println("pre created size "+calendar.getEventsAt(user, new Date(event.getStart().getTime()-2000)).size());
+		calendar.addEvent(user, event);
+		System.out.println("created event "+event);
+		System.out.println("created size "+calendar.getEventsAt(user, new Date(event.getStart().getTime()-2000)).size());
+
 		
 		System.out.println("created event  in "+calendarName);
 		currentCalendar(calendarName);

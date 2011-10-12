@@ -11,6 +11,7 @@ import controllers.CalendarBrowser.Day;
 
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.EseCalendar;
+import ch.unibe.ese.calendar.User;
 
 public class CalendarBrowser {
 
@@ -41,7 +42,7 @@ public class CalendarBrowser {
 		}
 
 		public boolean getHasPublicEvents() {
-			for (CalendarEvent event: calendar.getEventsAt(asCalendar().getTime())) {
+			for (CalendarEvent event: calendar.getEventsAt(user, asCalendar().getTime())) {
 				if (event.isPublic()) {
 					return true;
 				}
@@ -50,7 +51,7 @@ public class CalendarBrowser {
 		}
 
 		public boolean getHasPrivateEvents() {
-			for (CalendarEvent event: calendar.getEventsAt(asCalendar().getTime())) {
+			for (CalendarEvent event: calendar.getEventsAt(user, asCalendar().getTime())) {
 				if (!event.isPublic()) {
 					return true;
 				}
@@ -78,8 +79,10 @@ public class CalendarBrowser {
 	private int month;
 	private int year;
 	private int selectedDay;
+	private User user;
 
-	public CalendarBrowser(EseCalendar calendar, int selectedDay, int month, int year, Locale locale) {
+	public CalendarBrowser(User user, EseCalendar calendar, int selectedDay, int month, int year, Locale locale) {
+		this.user = user;
 		this.calendar = calendar;
 		this.month = month;
 		this.year = year;

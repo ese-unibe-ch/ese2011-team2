@@ -11,6 +11,7 @@ import javax.security.auth.Subject;
 import ch.unibe.ese.calendar.exceptions.CalendarAlreayExistsException;
 import ch.unibe.ese.calendar.exceptions.NoSuchCalendarException;
 import ch.unibe.ese.calendar.security.CalendarAdminPermission;
+import ch.unibe.ese.calendar.security.Policy;
 
 public class CalendarManager {
 	
@@ -29,13 +30,11 @@ public class CalendarManager {
 	 * @return the newly created calendar
 	 * @throws CalendarAlreayExistsException if a calendar with that name already exists
 	 */
-	public synchronized EseCalendar createCalendar(String name) throws CalendarAlreayExistsException {
+	public synchronized EseCalendar createCalendar(User user, String name) throws CalendarAlreayExistsException {
 		if (calendars.containsKey(name)) {
 			throw new CalendarAlreayExistsException();
 		} else {
-			Subject currentSubject = Subject.getSubject(AccessController.getContext());
-			User owner = UserUtil.getUserForSubject(currentSubject);
-			EseCalendar calendar = new EseCalendar(name, owner);
+			EseCalendar calendar = new EseCalendar(name, user);
 			calendars.put(name, calendar);
 			return calendar;
 		}	
@@ -71,8 +70,8 @@ public class CalendarManager {
 		return result;
 	}
 
-	public void purge() {
-		AccessController.checkPermission(new CalendarAdminPermission());
+	public void purge(User user) {
+		Policy.getInstance().checkPermission(user, new CalendarAdminPermission());
 		calendars.clear();
 		
 	}

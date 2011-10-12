@@ -2,7 +2,6 @@ package ch.unibe.ese.calendar;
 
 import javax.security.auth.Subject;
 
-import ch.unibe.ese.calendar.security.CalendarPrincipal;
 
 /**
  * Represents a User. Users have a unique names identifying them.
@@ -10,6 +9,8 @@ import ch.unibe.ese.calendar.security.CalendarPrincipal;
  *
  */
 public class User {
+	
+	public static final User ADMIN = new User("admin");
 
 	private String userName;
 	private Object password;
@@ -32,12 +33,6 @@ public class User {
 		this(userName, Integer.toString((int)(Math.random()*1000)));
 	}
 
-	public Subject getSubject() {
-		Subject subject = new Subject();
-		CalendarPrincipal calendarPrincipal = new CalendarPrincipal(this);
-		subject.getPrincipals().add(calendarPrincipal);
-		return subject;
-	}
 
 	@Override
 	public int hashCode() {
