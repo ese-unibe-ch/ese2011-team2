@@ -1,0 +1,25 @@
+#{extends 'main.html' /}
+#{set title:'Users' /}
+<div id="header">
+            <div id="logo">
+                Users
+                         </div>
+            <ul id="tools">
+                <li>
+                    <a href="@{Secure.logout()}">Log out</a> <br/>
+                </li>
+                <li>    
+                    <a href="/"> Home </a>
+                </li>
+            </ul>
+        </div>
+<h2>This are the other users (other than ${user.name})</h2>
+
+<ul>
+	#{list items: users, as:'User'}
+		#{if User.name != user.name}
+		<li><a href="user?name=${User.name}"> ${User.name}</a></li>
+		#{/if}
+	#{/list}
+</ul>
+

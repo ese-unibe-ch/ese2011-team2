@@ -1,0 +1,34 @@
+#{extends 'main.html' /}
+#{set title:'User' /}
+<div id="header">
+            <div id="logo">
+                Users
+                         </div>
+            <ul id="tools">
+                <li>
+                    <a href="@{Secure.logout()}">Log out</a> <br/>
+                </li>
+                <li>    
+                    <a href="/"> Home </a>
+                </li>
+            </ul>
+        </div>
+        
+<h3>Events of ${user.name}</h3>   
+<ul>
+	#{list items: calBrowsers, as:'calendarBrowser'}
+		<i>${calendarBrowser.calendar.name} :</i><br/>
+			#{month calendarBrowser /}
+	#{/list}
+</ul>  
+        
+      
+<h4>Switch to another user  (other than ${user.name} and ${currentUser.name})</h4>
+	<ul>#{list items: users, as:'User'}
+		#{if (User.name != user.name) && (User.name != currentUser.name)}
+			<li><a href="@{Application.user(User.name)}"> ${User.name}</a></li>
+		#{/if}
+	#{/list}
+	</ul>
+
+
