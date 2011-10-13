@@ -10,6 +10,19 @@
         #{get 'moreScripts' /}
     </head>
     <body>
+    	<div id="header">
+            <div id="headline">
+                #{get 'header' /}
+                         </div>
+            <ul id="tools">
+                <li>
+                    <a href="@{Secure.logout()}">Log out</a> <br/>
+                </li>
+                <li>    
+                    <a href="/"> Home </a>
+                </li>
+            </ul>
+        </div>
         #{doLayout /}
     </body>
 </html>

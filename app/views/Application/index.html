@@ -1,15 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
-<div id="header">
-            <div id="logo">
-                calendar
-                         </div>
-            <ul id="tools">
-                <li>
-                    <a href="@{Secure.logout()}">Log out</a>
-                </li>
-            </ul>
-        </div>
+#{set header:'calendar' /}
 <h1>Welcome to the ESE Calendaring app</h1>
 Your Calendars are: <br/>
 

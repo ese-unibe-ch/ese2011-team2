@@ -1,19 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'User' /}
-<div id="header">
-            <div id="logo">
-                Users
-                         </div>
-            <ul id="tools">
-                <li>
-                    <a href="@{Secure.logout()}">Log out</a> <br/>
-                </li>
-                <li>    
-                    <a href="/"> Home </a>
-                </li>
-            </ul>
-        </div>
-        
+#{set header:'User' /}
 <h3>Events of ${user.name}</h3>   
 <ul>
 	#{list items: calBrowsers, as:'calendarBrowser'}

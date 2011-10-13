@@ -1,18 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'Users' /}
-<div id="header">
-            <div id="logo">
-                Users
-                         </div>
-            <ul id="tools">
-                <li>
-                    <a href="@{Secure.logout()}">Log out</a> <br/>
-                </li>
-                <li>    
-                    <a href="/"> Home </a>
-                </li>
-            </ul>
-        </div>
+#{set header:'Users' /}
 <h2>This are the other users (other than ${user.name})</h2>
 
 <ul>

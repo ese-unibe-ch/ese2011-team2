@@ -1,6 +1,20 @@
-#header {
-	background-color: green
+body {
+	font:1em/1.4 Verdana, Arial, Helvetica, sans-serif;
 }
+
+#header {
+	background-color: gray;	
+}
+
+#headline {
+	loat: left;
+	font-size: 3em;
+}
+
+#tools {
+	float: right;
+}
+
 td {
 	text-align: center;
 }
