@@ -1,14 +1,18 @@
-body {
+html, body {
 	font:1em/1.4 Verdana, Arial, Helvetica, sans-serif;
 	text-align: center;
 	background-color: black;
+	height: 100%;
 }
 
 #content {
 	background-color: white;
-	width: 700px;
+	width: 800px;
+	height: auto !important;
+	min-height: 100%;
 	margin: 0 auto;
 	text-align: left;
+	overflow: auto;
 }
 
 #header {
@@ -23,7 +27,7 @@ body {
 }
 
 #tools {
-	width: 100px;
+	width: 80px;
 	float: right;
 }
 
