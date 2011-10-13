@@ -15,3 +15,7 @@ To build the files needed to import the project into eclipse run (in the directo
 
     play eclipsify
 
+## Available users for testing
+    erwann, pw: ese
+    judith, pw: ese
+    aaron, pw ese
