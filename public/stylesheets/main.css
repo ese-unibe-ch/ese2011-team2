@@ -13,15 +13,18 @@ body {
 
 #header {
 	background-color: gray;	
+	overflow: auto;
 }
 
 #headline {
-	loat: left;
+	width: 500px;
+	float: left;
 	font-size: 3em;
 }
 
 #tools {
-	float: right;
+	width: 100px;
+	float: left;
 }
 
 td {
