@@ -2,7 +2,6 @@ package controllers;
  
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
-import models.*;
  
 public class Security extends Secure.Security {
 	

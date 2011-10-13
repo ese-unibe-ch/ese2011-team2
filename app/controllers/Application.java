@@ -28,7 +28,6 @@ import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
 import ch.unibe.ese.calendar.exceptions.CalendarAlreayExistsException;
 
-import models.*;
 
 @With(Secure.class)
 public class Application extends Controller {
