@@ -1,5 +1,14 @@
 body {
 	font:1em/1.4 Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	background-color: black;
+}
+
+#content {
+	background-color: white;
+	width: 700px;
+	margin: 0 auto;
+	text-align: left;
 }
 
 #header {
