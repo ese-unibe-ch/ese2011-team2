@@ -16,7 +16,7 @@ public class User {
 	private Object password;
 
 	/**
-	 * craetes a user with the specified username and password
+	 * creates a user with the specified username and password
 	 * @param userName
 	 * @param password
 	 */

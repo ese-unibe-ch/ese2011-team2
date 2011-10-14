@@ -31,7 +31,7 @@ public class Policy {
 		Set<Permission> result = new HashSet<Permission>();
 		Set<EseCalendar> userCalendars = CalendarManager.getInstance().getCalendarsOf(user);
 		for (EseCalendar cal : userCalendars) {
-			result.add(new PrivelegedCalendarAccessPermission(cal.getName()));
+			result.add(new PrivilegedCalendarAccessPermission(cal.getName()));
 		}
 		return result;
 	}

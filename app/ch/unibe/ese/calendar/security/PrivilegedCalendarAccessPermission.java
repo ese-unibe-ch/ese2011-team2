@@ -6,7 +6,7 @@ package ch.unibe.ese.calendar.security;
  * 
  */
 @SuppressWarnings("serial")
-public class PrivelegedCalendarAccessPermission extends Permission {
+public class PrivilegedCalendarAccessPermission extends Permission {
 
 	private String calendarName;
 	
@@ -15,7 +15,7 @@ public class PrivelegedCalendarAccessPermission extends Permission {
 	 * 
 	 * @param calendarName The name of the calendar
 	 */
-	public PrivelegedCalendarAccessPermission(String calendarName) {
+	public PrivilegedCalendarAccessPermission(String calendarName) {
 		this.calendarName = calendarName;
 	}
 
@@ -36,7 +36,7 @@ public class PrivelegedCalendarAccessPermission extends Permission {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PrivelegedCalendarAccessPermission other = (PrivelegedCalendarAccessPermission) obj;
+		PrivilegedCalendarAccessPermission other = (PrivilegedCalendarAccessPermission) obj;
 		if (calendarName == null) {
 			if (other.calendarName != null)
 				return false;

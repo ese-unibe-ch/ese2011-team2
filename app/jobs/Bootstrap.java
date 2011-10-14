@@ -9,7 +9,7 @@ import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
-import ch.unibe.ese.calendar.exceptions.CalendarAlreayExistsException;
+import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
 
 @OnApplicationStart
 public class Bootstrap extends Job {
@@ -30,7 +30,7 @@ public class Bootstrap extends Job {
 		EseCalendar aaroncal;
 		try {
 			aaroncal = cm.createCalendar(aaron, "Aarons Kalender");
-		} catch (CalendarAlreayExistsException e) {
+		} catch (CalendarAlreadyExistsException e) {
 			aaroncal = cm.getCalendar("Aarons Kalender");
 		}
 		java.util.Calendar juc = java.util.Calendar.getInstance();
@@ -49,7 +49,7 @@ public class Bootstrap extends Job {
 		EseCalendar judithcal;
 		try {
 			judithcal = cm.createCalendar(judith, "Judiths Kalender");
-		} catch (CalendarAlreayExistsException e) {
+		} catch (CalendarAlreadyExistsException e) {
 			judithcal = cm.getCalendar("Judiths Kalender");
 		}
 		java.util.Calendar juc = java.util.Calendar.getInstance();
@@ -68,7 +68,7 @@ public class Bootstrap extends Job {
 		EseCalendar aaroncal;
 		try {
 			aaroncal = cm.createCalendar(erwann, "Erwanns Kalender");
-		} catch (CalendarAlreayExistsException e) {
+		} catch (CalendarAlreadyExistsException e) {
 			aaroncal = cm.getCalendar("Erwanns Kalender");
 		}
 		java.util.Calendar juc = java.util.Calendar.getInstance();

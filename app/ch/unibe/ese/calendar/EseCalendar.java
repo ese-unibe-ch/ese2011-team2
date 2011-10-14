@@ -11,7 +11,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import ch.unibe.ese.calendar.security.Policy;
-import ch.unibe.ese.calendar.security.PrivelegedCalendarAccessPermission;
+import ch.unibe.ese.calendar.security.PrivilegedCalendarAccessPermission;
 
 public class EseCalendar {
 	
@@ -54,7 +54,7 @@ public class EseCalendar {
 	 * @param calendarEvent
 	 */
 	public void addEvent(User user, CalendarEvent calendarEvent) {
-		Policy.getInstance().checkPermission(user, new PrivelegedCalendarAccessPermission(name));
+		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
 		startDateSortedSet.add(calendarEvent);
 		
 	}
@@ -108,7 +108,7 @@ public class EseCalendar {
 			if (unfilteredEvents.hasNext()) {
 				CalendarEvent ce = unfilteredEvents.next();
 				if (!ce.isPublic()) {
-					if (!Policy.getInstance().hasPermission(user, new PrivelegedCalendarAccessPermission(name))) {
+					if (!Policy.getInstance().hasPermission(user, new PrivilegedCalendarAccessPermission(name))) {
 						prepareNext();
 						return;
 					}

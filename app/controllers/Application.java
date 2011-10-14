@@ -26,7 +26,7 @@ import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
-import ch.unibe.ese.calendar.exceptions.CalendarAlreayExistsException;
+import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
 
 
 @With(Secure.class)

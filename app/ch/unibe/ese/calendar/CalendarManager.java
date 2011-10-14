@@ -8,7 +8,7 @@ import java.util.Set;
 
 import javax.security.auth.Subject;
 
-import ch.unibe.ese.calendar.exceptions.CalendarAlreayExistsException;
+import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
 import ch.unibe.ese.calendar.exceptions.NoSuchCalendarException;
 import ch.unibe.ese.calendar.security.CalendarAdminPermission;
 import ch.unibe.ese.calendar.security.Policy;
@@ -28,11 +28,11 @@ public class CalendarManager {
 	 * 
 	 * @param name the name of the calendar
 	 * @return the newly created calendar
-	 * @throws CalendarAlreayExistsException if a calendar with that name already exists
+	 * @throws CalendarAlreadyExistsException if a calendar with that name already exists
 	 */
-	public synchronized EseCalendar createCalendar(User user, String name) throws CalendarAlreayExistsException {
+	public synchronized EseCalendar createCalendar(User user, String name) throws CalendarAlreadyExistsException {
 		if (calendars.containsKey(name)) {
-			throw new CalendarAlreayExistsException();
+			throw new CalendarAlreadyExistsException();
 		} else {
 			EseCalendar calendar = new EseCalendar(name, user);
 			calendars.put(name, calendar);

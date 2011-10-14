@@ -21,7 +21,7 @@ import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.User;
-import ch.unibe.ese.calendar.exceptions.CalendarAlreayExistsException;
+import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
 import ch.unibe.ese.calendar.exceptions.NoSuchCalendarException;
 import ch.unibe.ese.calendar.security.Policy;
 import ch.unibe.ese.calendar.security.PermissionDeniedException;
@@ -70,7 +70,7 @@ public class CalendaringTest extends UnitTest {
 		calendarManager.getCalendar("student.john.exams");
 	}
 
-	@Test(expected = CalendarAlreayExistsException.class)
+	@Test(expected = CalendarAlreadyExistsException.class)
 	public void noDoubleCreation() {
 		calendarManager.createCalendar(User.ADMIN, STUDENT_SUSANNE_EXAMS);
 	}
