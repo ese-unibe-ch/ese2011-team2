@@ -2,6 +2,10 @@
 #{set title:'Calendar' /}
 #{set header:'Calendar' /}
 
+<head>
+	<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/calendar.css'}">
+</head>
+
 #{month calendarBrowser /}
 <h2>Events on selected day:</h2>
 	<ul>#{list items: iterator, as:'event'}

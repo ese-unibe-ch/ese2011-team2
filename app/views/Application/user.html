@@ -1,6 +1,11 @@
 #{extends 'main.html' /}
 #{set title:'User' /}
 #{set header:'User' /}
+
+<head>
+	<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/user.css'}">
+</head>
+
 <h3>Events of ${user.name}</h3>   
 <ul>
 	#{list items: calBrowsers, as:'calendarBrowser'}

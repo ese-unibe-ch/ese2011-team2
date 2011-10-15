@@ -1,6 +1,11 @@
 #{extends 'main.html' /}
 #{set title:'Users' /}
 #{set header:'Users' /}
+
+<head>
+	<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/users.css'}">
+</head>
+
 <h2>This are the other users (other than ${user.name})</h2>
 
 <ul>
