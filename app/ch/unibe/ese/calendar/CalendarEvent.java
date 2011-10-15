@@ -10,7 +10,9 @@ public class CalendarEvent {
 	private String name;
 
 	public CalendarEvent(Date start, Date end, String name, boolean isPublic) {
-		assert(name!=null && start!=null && end!=null);
+		if (name==null || start==null || end==null) {
+			throw new IllegalArgumentException();
+		}
 		this.name = name;
 		this.start = start;
 		this.end = end;

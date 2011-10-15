@@ -40,7 +40,6 @@ public class Bootstrap extends Job {
 		Date end = juc.getTime();
 		aaroncal.addEvent(User.ADMIN, new CalendarEvent(start, end,
 				"Toller Film", true));
-
 	}
 
 	private void createJudithCalendars(UserManager um, final CalendarManager cm) {
@@ -65,18 +64,18 @@ public class Bootstrap extends Job {
 	private void createErwannCalendars(UserManager um, final CalendarManager cm) {
 		User erwann = um.createUser("erwann", "ese");
 
-		EseCalendar aaroncal;
+		EseCalendar erwanncal;
 		try {
-			aaroncal = cm.createCalendar(erwann, "Erwanns Kalender");
+			erwanncal = cm.createCalendar(erwann, "Erwanns Kalender");
 		} catch (CalendarAlreadyExistsException e) {
-			aaroncal = cm.getCalendar("Erwanns Kalender");
+			erwanncal = cm.getCalendar("Erwanns Kalender");
 		}
 		java.util.Calendar juc = java.util.Calendar.getInstance();
 		juc.set(2011, 11, 21, 20, 15);
 		Date start = juc.getTime();
 		juc.set(2011, 11, 21, 23, 00);
 		Date end = juc.getTime();
-		aaroncal.addEvent(User.ADMIN, new CalendarEvent(start, end,
+		erwanncal.addEvent(User.ADMIN, new CalendarEvent(start, end,
 				"Standard lager", true));
 
 	}

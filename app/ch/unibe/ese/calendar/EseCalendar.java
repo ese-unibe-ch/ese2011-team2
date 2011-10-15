@@ -63,10 +63,10 @@ public class EseCalendar {
 	 * Iterates through the events with a start date after start
 	 * 
 	 * @param start the date at which to start iterating events
-	 * @return an iterator with events strating after start
+	 * @return an iterator with events starting after start
 	 */
 	public Iterator<CalendarEvent> iterate(User user, Date start) {
-		Iterator<CalendarEvent> unfilteredEvents = startDateSortedSet.tailSet(new CalendarEvent(start, null, null, false)).iterator();
+		Iterator<CalendarEvent> unfilteredEvents = startDateSortedSet.tailSet(new CalendarEvent(start, start, "test", false)).iterator();
 		return new ACFilteringIterator(user, unfilteredEvents);
 	}
 	
