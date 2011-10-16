@@ -3,6 +3,7 @@ package controllers;
 import java.security.PrivilegedAction;
 import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -122,5 +123,21 @@ public class Application extends Controller {
 		currentCalendar(calendarName);
     }
     
+    /**
+     * Ugly: an Event is identified by its name, but events don't have unique names...
+     * @param calendarName
+     * @param name
+     */
+    public static void deleteEvent(String calendarName, String name, String startDate) throws ParseException {
+    	
+    	SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy hh:mm");   	
+    	Date sDate = simple.parse(startDate);
+    	
+    	final EseCalendar calendar = CalendarManager.getInstance().getCalendar(calendarName);
+    	String userName = Security.connected();
+    	User user = UserManager.getInstance().getUserByName(userName);
+    	calendar.removeEvent(user, name, sDate);
+    	currentCalendar(calendarName);
+    }
 
 }

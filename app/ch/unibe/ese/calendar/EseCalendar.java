@@ -56,7 +56,22 @@ public class EseCalendar {
 	public void addEvent(User user, CalendarEvent calendarEvent) {
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
 		startDateSortedSet.add(calendarEvent);
-		
+	}
+	
+	/**
+	 * Removes an event from the calendar
+	 * 
+	 * Needs a startDate so we don't have to go through the whole list for finding the right event.
+	 */
+	public void removeEvent(User user, String name, Date start) {
+		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
+		CalendarEvent compareDummy = new CalendarEvent(start, start, "compare-dummy", false);
+		Iterator<CalendarEvent> afterStart = startDateSortedSet.tailSet(compareDummy).iterator();
+		CalendarEvent e;
+		do {
+			e = afterStart.next();
+		} while (e.getName().equals(name));
+		startDateSortedSet.remove(e);
 	}
 
 	/**
@@ -66,7 +81,8 @@ public class EseCalendar {
 	 * @return an iterator with events starting after start
 	 */
 	public Iterator<CalendarEvent> iterate(User user, Date start) {
-		Iterator<CalendarEvent> unfilteredEvents = startDateSortedSet.tailSet(new CalendarEvent(start, start, "test", false)).iterator();
+		CalendarEvent compareDummy = new CalendarEvent(start, start, "compare-dummy", false);
+		Iterator<CalendarEvent> unfilteredEvents = startDateSortedSet.tailSet(compareDummy).iterator();
 		return new ACFilteringIterator(user, unfilteredEvents);
 	}
 	
