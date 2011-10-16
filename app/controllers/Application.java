@@ -136,8 +136,11 @@ public class Application extends Controller {
     	final EseCalendar calendar = CalendarManager.getInstance().getCalendar(calendarName);
     	String userName = Security.connected();
     	User user = UserManager.getInstance().getUserByName(userName);
-    	calendar.removeEvent(user, name, sDate);
-    	currentCalendar(calendarName);
+    	CalendarEvent e = calendar.removeEvent(user, name, sDate);
+    	Calendar juc = Calendar.getInstance(getLocale());
+    	juc.setTime(e.getStart());
+    	calendar(calendarName, juc.get(java.util.Calendar.DAY_OF_MONTH), juc.get(java.util.Calendar.MONTH), 
+    			juc.get(java.util.Calendar.YEAR));
     }
 
 }

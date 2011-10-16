@@ -34,12 +34,26 @@ public class Bootstrap extends Job {
 			aaroncal = cm.getCalendar("Aarons Kalender");
 		}
 		java.util.Calendar juc = java.util.Calendar.getInstance();
-		juc.set(2011, 11, 23, 20, 15);
+		juc.set(2011, 10, 23, 20, 15);
 		Date start = juc.getTime();
-		juc.set(2011, 11, 23, 23, 00);
+		juc.set(2011, 10, 23, 23, 00);
 		Date end = juc.getTime();
 		aaroncal.addEvent(User.ADMIN, new CalendarEvent(start, end,
 				"Toller Film", true));
+		
+		juc.set(2011, 11, 23, 20, 15);
+		start = juc.getTime();
+		juc.set(2011, 11, 23, 23, 00);
+		end = juc.getTime();
+		aaroncal.addEvent(User.ADMIN, new CalendarEvent(start, end,
+				"Party", true));
+		
+		juc.set(2011, 12, 23, 20, 15);
+		start = juc.getTime();
+		juc.set(2011, 12, 24, 04, 00);
+		end = juc.getTime();
+		aaroncal.addEvent(User.ADMIN, new CalendarEvent(start, end,
+				"Moar Party", true));
 	}
 
 	private void createJudithCalendars(UserManager um, final CalendarManager cm) {
