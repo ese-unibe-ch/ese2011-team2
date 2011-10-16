@@ -25,23 +25,6 @@
 		#{/list}
 	</ul>
 </div>
-<h2>Create a new Event</h2>
-			#{form @Application.createEvent()}
-
-<div id=selectedDay>
-	<h2>Events on selected day:</h2>
-		<ul>#{list items: iterator, as:'event'}
-			<!--  TODO: handle timezone correctly -->
-			%{
-				visibility = "private"
-				if (event.public) {
-					visibility = "public"
-				}
-			}% 
-			<li>${event.start.format("HH:mm")} - ${event.end.format("HH:mm")} ${event.name} (${visibility})</li>
-		#{/list}
-	</ul>
-</div>
 
 <div id=createEvent>
 	<h2>Create a new Event</h2>
