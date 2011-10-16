@@ -7,7 +7,7 @@ html, body {
 
 #content {
 	background-color: white;
-	width: 800px;
+	width: 900px;
 	height: auto !important;
 	min-height: 100%;
 	margin: 0 auto;
@@ -21,7 +21,7 @@ html, body {
 }
 
 #headline {
-	width: 680px;
+	width: 780px;
 	float: left;
 	font-size: 3em;
 }
@@ -29,30 +29,4 @@ html, body {
 #tools {
 	width: 80px;
 	float: right;
-}
-
-td {
-	text-align: center;
-}
-
-td.public {
-	font-weight: bold;
-	text-decoration: underline;
-}
-
-td.private {
-	font-weight: bold;
-}
-
-td.selected {
-	background-color: yellow;
-}
-
-td.today {
-	background-color: blue;
-	color: white;
-}
-td a {
-	text-decoration: inherit;
-	color: inherit;
 }
