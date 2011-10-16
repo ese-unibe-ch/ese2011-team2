@@ -16,7 +16,9 @@
 				visibility = "public"
 			}
 		}% 
-		<li>${event.start.format("HH:mm")} - ${event.end.format("HH:mm")} ${event.name} (${visibility})</li>
+		<li>${event.start.format("HH:mm")} - ${event.end.format("HH:mm")} ${event.name} (${visibility}) 
+			<a href=@{Application.deleteEvent(calendar.name, event.name, event.start.format("dd.MM.yyyy HH:mm"))}>Delete</a> 
+		</li>
 	#{/list}
 </ul>
 <h2>Create a new Event</h2>

@@ -63,14 +63,14 @@ public class EseCalendar {
 	 * 
 	 * Needs a startDate so we don't have to go through the whole list for finding the right event.
 	 */
-	public void removeEvent(User user, String name, Date start) {
+	public void removeEvent(User user, String eventName, Date start) {
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
 		CalendarEvent compareDummy = new CalendarEvent(start, start, "compare-dummy", false);
 		Iterator<CalendarEvent> afterStart = startDateSortedSet.tailSet(compareDummy).iterator();
 		CalendarEvent e;
 		do {
 			e = afterStart.next();
-		} while (e.getName().equals(name));
+		} while (e.getName().equals(eventName));
 		startDateSortedSet.remove(e);
 	}
 
