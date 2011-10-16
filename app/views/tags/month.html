@@ -1,3 +1,7 @@
+<head>
+	<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/month.css'}">
+</head>
+
 <table>
 <tr>
 <td><a href="@{Application.calendar(_arg.calendar.name, 
@@ -30,7 +34,7 @@
 			}
 		}%
 		<td class="${classValue}"><a href="@{Application.calendar(_arg.calendar.name, 
-day.dayOfMonth, day.month, day.year)}">${day.dayOfMonth}</a></td>
+		day.dayOfMonth, day.month, day.year)}">${day.dayOfMonth}</a></td>
 		#{/list}
 		</tr>
 #{/list}
