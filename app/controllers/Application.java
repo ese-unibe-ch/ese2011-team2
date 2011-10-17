@@ -187,7 +187,11 @@ public class Application extends Controller {
 		User user = UserManager.getInstance().getUserByName(userName);
 		CalendarEvent event = calendar.getEventByHash(user, hash, oldDate);
 		event.set(name, sDate, eDate, isPublic);
-		currentCalendar(calendarName);
+		Calendar juc = Calendar.getInstance(getLocale());
+		juc.setTime(sDate);
+		calendar(calendarName, juc.get(java.util.Calendar.DAY_OF_MONTH),
+				juc.get(java.util.Calendar.MONTH),
+				juc.get(java.util.Calendar.YEAR));
 	}
 
 }
