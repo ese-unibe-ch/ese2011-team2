@@ -127,7 +127,7 @@ public class Application extends Controller {
      * Update: an event is now identified by its unique hash!
      * For finding it easily, we have to know it's startDate.
      * @param calendarName
-     * @param name
+     * @param hash hashCode() of the to be deleted event
      */
     public static void deleteEvent(String calendarName, int hash, String startDate) throws ParseException {
     	
@@ -142,6 +142,10 @@ public class Application extends Controller {
     	juc.setTime(e.getStart());
     	calendar(calendarName, juc.get(java.util.Calendar.DAY_OF_MONTH), juc.get(java.util.Calendar.MONTH), 
     			juc.get(java.util.Calendar.YEAR));
+    }
+    
+ public static void editEvent(String calendarName, int hash, String startDate) throws ParseException {
+    	throw new RuntimeException("Not yet implemented");
     }
 
 }
