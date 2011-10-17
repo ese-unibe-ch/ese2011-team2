@@ -35,11 +35,18 @@ public class CalendarEvent {
 		return name;
 	}
 
+	public void set(String eventName, Date startDate, Date endDate,
+			boolean isPublic) {
+		this.name = eventName;
+		this.start = startDate;
+		this.end = endDate;
+		this.isPublic = isPublic;
+	}
+	
 	@Override
 	public String toString() {
 		return "CalendarEvent [isPublic=" + isPublic + ", end=" + end
 				+ ", start=" + start + ", name=" + name + "]";
 	}
-
 	
 }

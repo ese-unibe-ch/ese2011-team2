@@ -170,9 +170,28 @@ public class Application extends Controller {
 				calendarName);
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
-		CalendarEvent e = calendar.getEventByHash(user, hash, sDate);
-		//TODO: Open some page for editing...
-		throw new RuntimeException("Not yet implemented");
+		CalendarEvent event = calendar.getEventByHash(user, hash, sDate);
+		render(calendar, event);
+	}
+	
+	public static void saveEditedEvent(String calendarName, int hash, String oldStartDate, 
+			String name, String startDate, String endDate, boolean isPublic) 
+			throws ParseException {
+		SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy hh:mm");
+		Date oldDate = simple.parse(oldStartDate);
+		Date sDate = simple.parse(startDate);
+		Date eDate = simple.parse(endDate);
+		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
+				calendarName);
+		String userName = Security.connected();
+		User user = UserManager.getInstance().getUserByName(userName);
+		CalendarEvent event = calendar.getEventByHash(user, hash, oldDate);
+		event.set(name, sDate, eDate, isPublic);
+		Calendar juc = Calendar.getInstance(getLocale());
+		juc.setTime(sDate);
+		calendar(calendarName, juc.get(java.util.Calendar.DAY_OF_MONTH),
+				juc.get(java.util.Calendar.MONTH),
+				juc.get(java.util.Calendar.YEAR));
 	}
 
 }
