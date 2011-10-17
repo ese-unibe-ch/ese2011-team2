@@ -1,0 +1,30 @@
+#{extends 'main.html' /}
+#{set title:'Edit Event' /}
+#{set header:'Edit Event' /}
+
+<h2>Edit "${event.name}"</h2>
+
+#{form @Application.saveEditedEvent()}
+					<input type="hidden" name="calendarName" value="${calendar.name}">
+					<input type="hidden" name="hash" value="${event.hashCode()}">
+					<input type="hidden" name="oldStartDate" value="${event.start.format("dd.MM.yyyy hh:mm")}">
+					<p>
+						<label for="name">Event Name: </label> <br/>
+						<input type="text" name="name" value="${event.name}"/>
+					</p>
+					<p>
+						<label for="startDate">Start Date: </label> <br/>
+						<input type="text" name="startDate" value="${event.start.format("dd.MM.yyyy hh:mm")}"/>
+					</p>
+					<p>
+						<label for="endDate">End Date: </label> <br/>
+						<input type="text" name="endDate" value="${event.end.format("dd.MM.yyyy hh:mm")}"/>
+					</p>
+					<p>
+						<input type="checkbox" name="isPublic" #{if event.isPublic} checked #{/if}/>
+						<label for="isPublic">Make public</label>
+					</p>
+					<p>
+						<input type="submit" value="edit Event">
+					</p>
+				#{/form}
