@@ -124,11 +124,12 @@ public class Application extends Controller {
     }
     
     /**
-     * Ugly: an Event is identified by its name, but events don't have unique names...
+     * Update: an event is now identified by its unique hash!
+     * For finding it easily, we have to know it's startDate.
      * @param calendarName
      * @param name
      */
-    public static void deleteEvent(String calendarName, String name, String startDate) throws ParseException {
+    public static void deleteEvent(String calendarName, int hash, String startDate) throws ParseException {
     	
     	SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy hh:mm");   	
     	Date sDate = simple.parse(startDate);
@@ -136,7 +137,7 @@ public class Application extends Controller {
     	final EseCalendar calendar = CalendarManager.getInstance().getCalendar(calendarName);
     	String userName = Security.connected();
     	User user = UserManager.getInstance().getUserByName(userName);
-    	CalendarEvent e = calendar.removeEvent(user, name, sDate);
+    	CalendarEvent e = calendar.removeEvent(user, hash, sDate);
     	Calendar juc = Calendar.getInstance(getLocale());
     	juc.setTime(e.getStart());
     	calendar(calendarName, juc.get(java.util.Calendar.DAY_OF_MONTH), juc.get(java.util.Calendar.MONTH), 
