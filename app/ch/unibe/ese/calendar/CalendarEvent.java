@@ -36,11 +36,11 @@ public class CalendarEvent {
 	}
 
 	public void set(String eventName, Date startDate, Date endDate,
-			boolean isPublic2) {
+			boolean isPublic) {
 		this.name = eventName;
 		this.start = startDate;
 		this.end = endDate;
-		this.isPublic = isPublic2;
+		this.isPublic = isPublic;
 	}
 	
 	@Override
