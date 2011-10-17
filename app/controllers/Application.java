@@ -141,8 +141,7 @@ public class Application extends Controller {
 	 * easily, we have to know it's startDate.
 	 * 
 	 * @param calendarName
-	 * @param hash
-	 *            hashCode() of the to be deleted event
+	 * @param hash hashCode() of the to be deleted event
 	 */
 	public static void deleteEvent(String calendarName, int hash,
 			String startDate) throws ParseException {
