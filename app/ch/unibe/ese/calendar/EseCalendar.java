@@ -66,13 +66,24 @@ public class EseCalendar {
 	 */
 	public CalendarEvent removeEvent(User user, int hash, Date start) {
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
+		CalendarEvent e = getEventByHash(user, hash, start);
+		startDateSortedSet.remove(e);
+		return e;
+	}
+	
+	/**
+	 * Only returns an event if the user has privileged access.
+	 * @param hash The hash the event produces by calling hashCode()
+	 * @return null, if the Event is not found.
+	 */
+	public CalendarEvent getEventByHash(User user, int hash, Date start) {
+		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
 		CalendarEvent compareDummy = new CalendarEvent(start, start, "compare-dummy", false);
 		Iterator<CalendarEvent> afterStart = startDateSortedSet.tailSet(compareDummy).iterator();
 		CalendarEvent e;
 		do {
 			e = afterStart.next();
 		} while (e.hashCode() != hash);
-		startDateSortedSet.remove(e);
 		return e;
 	}
 
