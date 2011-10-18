@@ -10,7 +10,9 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-public class EseCalendarTest {
+import play.test.UnitTest;
+
+public class EseCalendarTest extends UnitTest {
 	
 	private EseCalendar calendar;
 	private User user;

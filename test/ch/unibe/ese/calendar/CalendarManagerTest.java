@@ -6,11 +6,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import play.test.UnitTest;
+
 import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
 import ch.unibe.ese.calendar.exceptions.NoSuchCalendarException;
 import ch.unibe.ese.calendar.security.PermissionDeniedException;
 
-public class CalendarManagerTest {
+public class CalendarManagerTest extends UnitTest {
 	
 	CalendarManager calManager;
 	User user;
