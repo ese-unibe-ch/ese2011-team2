@@ -1,16 +1,16 @@
 package ch.unibe.ese.calendar;
 
+import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import play.test.UnitTest;
-
-public class UserTest extends UnitTest{
+public class UserTest{
 	
 	User uOne, uTwo, uNull;
 	
 	@Before
-	public void setup(){
+	public void setUp(){
 		uOne = new User("userOne", "password1");
 		uTwo = new User("userTwo", "password2");
 		uNull = new User(null, null);
@@ -38,7 +38,7 @@ public class UserTest extends UnitTest{
 	}
 	
 	@Test
-	public void isEqual(){
+	public void userEqual(){
 		//Reflexivity
 		assertTrue(uOne.equals(uOne));
 		assertTrue(uTwo.equals(uTwo));
@@ -60,6 +60,10 @@ public class UserTest extends UnitTest{
 		
 		//else
 		assertFalse(uNull.equals(null));
+		assertFalse(uOne.equals("bla"));
+		assertFalse(uNull.equals(uOne));
+		User uOneSameName = new User("userOne", "paswrd");
+		assertTrue(uOne.equals(uOneSameName));
 	}
 	
 	@Test
