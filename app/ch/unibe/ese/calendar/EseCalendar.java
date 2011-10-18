@@ -112,12 +112,12 @@ public class EseCalendar {
 	public Iterator<CalendarEvent> iterate(User user, Date start) {
 		CalendarEvent compareDummy = new CalendarEvent(start, start, "compare-dummy", false);
 		Iterator<CalendarEvent> unfilteredEvents = startDateSortedSet.tailSet(compareDummy).iterator();
-		return new ACFilteringIterator(user, unfilteredEvents);
+		return new ACFilteringEventIterator(user, unfilteredEvents);
 	}
 	
 	public Iterator<EventSeries> iterateSeries(User user){
 		Iterator<EventSeries> allEventSeries = startDateSortedSetOfSeries.iterator();
-		return new IteratorWrapper(user, allEventSeries);
+		return new ACFilteringEventSeriesIterator(user, allEventSeries);
 	}
 	
 	/**
@@ -139,6 +139,7 @@ public class EseCalendar {
 		}
 		return result;
 	}
+	
 	public List<SerialEvent> getSerialEventsForDay(User user, Date date){
 		List<SerialEvent> result = new ArrayList<SerialEvent>();
 		Iterator<EventSeries> iter = iterateSeries(user);
@@ -198,14 +199,14 @@ public class EseCalendar {
 		return false;
 	}
 
-	private class ACFilteringIterator implements Iterator<CalendarEvent> {
+	private class ACFilteringEventIterator implements Iterator<CalendarEvent> {
 
 		private boolean hasNext;
 		private CalendarEvent next;
 		private Iterator<CalendarEvent> unfilteredEvents;
 		private User user;
 		
-		public ACFilteringIterator(User user, Iterator<CalendarEvent> unfilteredEvents) {
+		public ACFilteringEventIterator(User user, Iterator<CalendarEvent> unfilteredEvents) {
 			this.unfilteredEvents = unfilteredEvents;
 			this.user = user;
 			prepareNext();
@@ -247,14 +248,14 @@ public class EseCalendar {
 		}
 
 	}
-	private class IteratorWrapper implements Iterator<EventSeries> {
+	private class ACFilteringEventSeriesIterator implements Iterator<EventSeries> {
 
 		private boolean hasNext;
 		private EventSeries next;
 		private Iterator<EventSeries> eventSeries;
 		private User user;
 		
-		public IteratorWrapper(User user, Iterator<EventSeries> eventSeries) {
+		public ACFilteringEventSeriesIterator(User user, Iterator<EventSeries> eventSeries) {
 			this.eventSeries = eventSeries;
 			this.user = user;
 			prepareNext();
