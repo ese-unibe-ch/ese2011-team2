@@ -105,7 +105,7 @@ public class EseCalendar {
 	}
 
 	/**
-	 * Iterates through the events with a start date after start
+	 * Iterates through the non-serial events with a start date after start
 	 * 
 	 * @param start the date at which to start iterating events
 	 * @return an iterator with events starting after start
@@ -115,7 +115,11 @@ public class EseCalendar {
 		Iterator<CalendarEvent> unfilteredEvents = startDateSortedSet.tailSet(compareDummy).iterator();
 		return new ACFilteringEventIterator(user, unfilteredEvents);
 	}
-	
+	/**
+	 * Iterates through all serial events
+	 * 
+	 * @return an iterator with all serial events
+	 */
 	public Iterator<EventSeries> iterateSeries(User user){
 		Iterator<EventSeries> allEventSeries = startDateSortedSetOfSeries.iterator();
 		return new ACFilteringEventSeriesIterator(user, allEventSeries);
