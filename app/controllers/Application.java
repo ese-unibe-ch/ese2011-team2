@@ -27,6 +27,7 @@ import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.EventSeries;
+import ch.unibe.ese.calendar.SerialEvent;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
 import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
@@ -66,10 +67,11 @@ public class Application extends Controller {
 
 		Iterator<CalendarEvent> iterator = calendar.getEventsAt(user, date)
 				.iterator();
+		Iterator<SerialEvent> iteratorSE = calendar.getSerialEventsForDay(user, date).iterator();
 
 		CalendarBrowser calendarBrowser = new CalendarBrowser(user, calendar,
 				day, month, year, getLocale());
-		render(iterator, calendar, calendarBrowser);
+		render(iterator,iteratorSE, calendar, calendarBrowser);
 	}
 
 	/**

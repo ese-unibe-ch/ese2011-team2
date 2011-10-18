@@ -26,7 +26,23 @@
 		#{/list}
 	</ul>
 </div>
-
+<div id=selectedDay>
+<h2>SerialEvents:</h2>
+<ul>#{list items: iteratorSE, as:'event'}
+			<!--  TODO: handle timezone correctly -->
+			%{
+				visibility = "private"
+				if (event.public) {
+					visibility = "public"
+				}
+			}% 
+			<li>${event.start.format("HH:mm")} - ${event.end.format("HH:mm")} ${event.name} (${visibility}) <br/>
+				<a href=@{Application.editEvent(calendar.name, event.hashCode(), event.start.format("dd.MM.yyyy HH:mm"))}>Edit</a> | 
+				<a href=@{Application.deleteEvent(calendar.name, event.hashCode(), event.start.format("dd.MM.yyyy HH:mm"))}>Delete</a> 
+			</li>
+		#{/list}
+	</ul>
+</div>
 <div id=createEvent>
 	<h2>Create a new Event</h2>
 				#{form @Application.createEvent()}
