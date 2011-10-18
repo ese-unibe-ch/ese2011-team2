@@ -2,10 +2,10 @@ package ch.unibe.ese.calendar;
 
 import java.util.Comparator;
 
-class StartDateComparator implements Comparator<CalendarEvent> {
+class StartDateComparator implements Comparator<CalendarEntry> {
 
 	@Override
-	public int compare(CalendarEvent event1, CalendarEvent event2) {
+	public int compare(CalendarEntry event1, CalendarEntry event2) {
 		if (event1.equals(event2)) {
 			return 0;
 		}

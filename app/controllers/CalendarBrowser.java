@@ -9,7 +9,7 @@ import javax.swing.CellEditor;
 
 import controllers.CalendarBrowser.Day;
 
-import ch.unibe.ese.calendar.CalendarEvent;
+import ch.unibe.ese.calendar.CalendarEntry;
 import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.User;
 
@@ -42,7 +42,7 @@ public class CalendarBrowser {
 		}
 
 		public boolean getHasPublicEvents() {
-			for (CalendarEvent event: calendar.getEventsAt(user, asCalendar().getTime())) {
+			for (CalendarEntry event: calendar.getEventsAt(user, asCalendar().getTime())) {
 				if (event.isPublic()) {
 					return true;
 				}
@@ -51,7 +51,7 @@ public class CalendarBrowser {
 		}
 
 		public boolean getHasPrivateEvents() {
-			for (CalendarEvent event: calendar.getEventsAt(user, asCalendar().getTime())) {
+			for (CalendarEntry event: calendar.getEventsAt(user, asCalendar().getTime())) {
 				if (!event.isPublic()) {
 					return true;
 				}

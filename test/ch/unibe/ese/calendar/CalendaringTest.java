@@ -194,10 +194,10 @@ public class CalendaringTest extends UnitTest {
 		Date start = juc.getTime();
 		Iterator<CalendarEvent> iter = cal.iterate(user, start);
 		assertTrue(iter.hasNext());
-		CalendarEvent first = iter.next();
+		CalendarEntry first = iter.next();
 		assertEquals(SUSANNE_EVENT_1_DESC, first.getName());
 		assertTrue(iter.hasNext());
-		CalendarEvent second = iter.next();
+		CalendarEntry second = iter.next();
 		assertEquals(SUSANNE_EVENT_2_DESC, second.getName());
 		assertFalse("no third element", iter.hasNext());
 

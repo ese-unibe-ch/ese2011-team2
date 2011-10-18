@@ -47,8 +47,18 @@
 						<input type="checkbox" name="isPublic"/>
 						<label for="isPublic">Make public</label>
 					</p>
+					
 					<p>
-						<input type="submit" value="create Event">
+							<label for="repetition">Repetition: </label> <br/>
+							<input type="radio" name="repetition" value="never" /> Never<br />
+							<input type="radio" name="repetition" value="daily" /> Daily<br />
+							<input type="radio" name="repetition" value="weekly" /> Weekly<br />
+							<input type="radio" name="repetition" value="yearly" /> Yearly <br />	
 					</p>
+					<p>
+						<input type="submit" value ="create Event">
+					</p>
+					
+
 				#{/form}
 </div>

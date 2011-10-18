@@ -22,9 +22,11 @@ import play.data.binding.types.CalendarBinder;
 import play.mvc.*;
 import sun.security.action.GetLongAction;
 
+import ch.unibe.ese.calendar.CalendarEntry;
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
+import ch.unibe.ese.calendar.EventSeries;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
 import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
@@ -107,32 +109,38 @@ public class Application extends Controller {
 	}
 
 	public static void createEvent(String calendarName, String name,
-			String startDate, String endDate, boolean isPublic)
+			String startDate, String endDate, boolean isPublic, String repetition)
 			throws Throwable {
 
-		System.out.println("creating event");
+			System.out.println("creating event");
 		SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy hh:mm");
 
 		Date sDate = simple.parse(startDate);
 		Date eDate = simple.parse(endDate);
-
-		final CalendarEvent event = new CalendarEvent(sDate, eDate, name,
-				isPublic);
-		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
-				calendarName);
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
+		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
+				calendarName);
 
-		System.out.println("pre created size "
+		if (repetition.equalsIgnoreCase("never")) {
+				System.out.println("selected repetition: never");
+			final CalendarEvent event = new CalendarEvent(sDate, eDate, name,
+					isPublic);
+				System.out.println("pre created size "
 				+ calendar.getEventsAt(user,
 						new Date(event.getStart().getTime() - 2000)).size());
-		calendar.addEvent(user, event);
-		System.out.println("created event " + event);
-		System.out.println("created size "
-				+ calendar.getEventsAt(user,
-						new Date(event.getStart().getTime() - 2000)).size());
+			calendar.addEvent(user, event);
+				System.out.println("created event " + event);
+				System.out.println("created size "
+					+ calendar.getEventsAt(user,
+							new Date(event.getStart().getTime() - 2000)).size());
 
-		System.out.println("created event  in " + calendarName);
+				System.out.println("created event  in " + calendarName);
+		}
+		else{
+			final EventSeries eventseries = new EventSeries(sDate, eDate, name, isPublic, repetition);
+			calendar.addEventSeries(user, eventseries);
+		}
 		currentCalendar(calendarName);
 	}
 
@@ -153,7 +161,7 @@ public class Application extends Controller {
 				calendarName);
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
-		CalendarEvent e = calendar.removeEvent(user, hash, sDate);
+		CalendarEntry e = calendar.removeEvent(user, hash, sDate);
 		Calendar juc = Calendar.getInstance(getLocale());
 		juc.setTime(e.getStart());
 		calendar(calendarName, juc.get(java.util.Calendar.DAY_OF_MONTH),
@@ -170,7 +178,7 @@ public class Application extends Controller {
 				calendarName);
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
-		CalendarEvent event = calendar.getEventByHash(user, hash, sDate);
+		CalendarEntry event = calendar.getEventByHash(user, hash, sDate);
 		render(calendar, event);
 	}
 	
@@ -185,7 +193,7 @@ public class Application extends Controller {
 				calendarName);
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
-		CalendarEvent event = calendar.getEventByHash(user, hash, oldDate);
+		CalendarEntry event = calendar.getEventByHash(user, hash, oldDate);
 		event.set(name, sDate, eDate, isPublic);
 		currentCalendar(calendarName);
 	}
