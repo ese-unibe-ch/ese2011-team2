@@ -111,10 +111,8 @@ public class Application extends Controller {
 	public static void createEvent(String calendarName, String name,
 			String startDate, String endDate, boolean isPublic, String repetition)
 			throws Throwable {
-
-			System.out.println("creating event");
-		SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy hh:mm");
-
+		System.out.println("creating event");
+		SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 		Date sDate = simple.parse(startDate);
 		Date eDate = simple.parse(endDate);
 		String userName = Security.connected();
@@ -154,7 +152,7 @@ public class Application extends Controller {
 	public static void deleteEvent(String calendarName, int hash,
 			String startDate) throws ParseException {
 
-		SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy hh:mm");
+		SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 		Date sDate = simple.parse(startDate);
 
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
@@ -171,7 +169,7 @@ public class Application extends Controller {
 
 	public static void editEvent(String calendarName, int hash, String startDate)
 			throws ParseException {
-		SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy hh:mm");
+		SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 		Date sDate = simple.parse(startDate);
 
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
@@ -185,7 +183,7 @@ public class Application extends Controller {
 	public static void saveEditedEvent(String calendarName, int hash, String oldStartDate, 
 			String name, String startDate, String endDate, boolean isPublic) 
 			throws ParseException {
-		SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy hh:mm");
+		SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 		Date oldDate = simple.parse(oldStartDate);
 		Date sDate = simple.parse(startDate);
 		Date eDate = simple.parse(endDate);
@@ -195,7 +193,11 @@ public class Application extends Controller {
 		User user = UserManager.getInstance().getUserByName(userName);
 		CalendarEntry event = calendar.getEventByHash(user, hash, oldDate);
 		event.set(name, sDate, eDate, isPublic);
-		currentCalendar(calendarName);
+		Calendar juc = Calendar.getInstance(getLocale());
+		juc.setTime(sDate);
+		calendar(calendarName, juc.get(java.util.Calendar.DAY_OF_MONTH),
+				juc.get(java.util.Calendar.MONTH),
+				juc.get(java.util.Calendar.YEAR));
 	}
 
 }
