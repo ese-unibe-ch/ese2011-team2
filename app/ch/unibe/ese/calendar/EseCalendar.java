@@ -4,6 +4,7 @@ import java.security.AccessControlException;
 import java.security.AccessController;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -140,6 +141,12 @@ public class EseCalendar {
 		return result;
 	}
 	
+	/**
+	 * 
+	 * @param user the user requesting the event
+	 * @param date a point in time that is part of the day for which the vents are requested
+	 * @return a sorted list of SerialEventS for the specified day
+	 */
 	public List<SerialEvent> getSerialEventsForDay(User user, Date date){
 		List<SerialEvent> result = new ArrayList<SerialEvent>();
 		Iterator<EventSeries> iter = iterateSeries(user);
@@ -167,6 +174,7 @@ public class EseCalendar {
 			}
 			
 		}
+		Collections.sort(result, new StartDateComparator());
 		return result;
 		
 	} 
