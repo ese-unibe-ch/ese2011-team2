@@ -3,6 +3,7 @@ package ch.unibe.ese.calendar;
 import java.security.AccessControlException;
 import java.security.AccessController;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -152,16 +153,29 @@ public class EseCalendar {
 	
 	private boolean dateMatches(Date date, EventSeries es) {
 			Repetition repetition = es.getRepetition();
-			java.util.Calendar juc = java.util.Calendar.getInstance(new Locale("de", "CH"));
-			juc.setTime(es.getStart());
-			int weekDayOfEventSerie = juc.DAY_OF_WEEK;
-			int yearDayOfEventSerie = juc.DAY_OF_YEAR;
-			juc.setTime(date);
-			int weekDayOfDate = juc.DAY_OF_WEEK;
-			int yearDayOfDate = juc.DAY_OF_YEAR;
-			if (repetition.equals(repetition.DAILY)) return true;
-			if (repetition.equals(repetition.WEEKLY)) return (weekDayOfEventSerie == weekDayOfDate);
-			if (repetition.equals(repetition.YEARLY)) return (yearDayOfEventSerie == yearDayOfDate);
+			java.util.Calendar juc1 = java.util.Calendar.getInstance(new Locale("de", "CH"));
+			juc1.setTime(es.getStart());
+			
+			int weekDayOfEventSerie = juc1.get(Calendar.DAY_OF_WEEK);
+			int yearDayOfEventSerie = juc1.get(Calendar.DAY_OF_YEAR);
+			java.util.Calendar juc2 = java.util.Calendar.getInstance(new Locale("de", "CH"));
+			juc2.setTime(date);
+			int weekDayOfDate = juc2.get(Calendar.DAY_OF_WEEK);
+			int yearDayOfDate = juc2.get(Calendar.DAY_OF_YEAR);
+			if (repetition.equals(repetition.DAILY)) {
+				System.out.println("daily");
+				return true;
+			}
+			if (repetition.equals(repetition.WEEKLY)){
+				System.out.println("weekly");
+				System.out.println("weekDayOfEventSerie" + weekDayOfEventSerie);
+				System.out.println("weekDayOfDate" + weekDayOfDate);
+				return (weekDayOfEventSerie == weekDayOfDate);
+			}
+			if (repetition.equals(repetition.YEARLY)) {
+				System.out.println("yearly");
+				return (yearDayOfEventSerie == yearDayOfDate);
+			}
 		return false;
 	}
 

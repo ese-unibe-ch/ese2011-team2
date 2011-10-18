@@ -47,11 +47,21 @@ public class CalendarBrowser {
 					return true;
 				}
 			}
+			for (CalendarEntry event: calendar.getSerialEventsForDay(user, asCalendar().getTime())) {
+				if (event.isPublic()) {
+					return true;
+				}
+			}
 			return false;
 		}
 
 		public boolean getHasPrivateEvents() {
 			for (CalendarEntry event: calendar.getEventsAt(user, asCalendar().getTime())) {
+				if (!event.isPublic()) {
+					return true;
+				}
+			}
+			for (CalendarEntry event: calendar.getSerialEventsForDay(user, asCalendar().getTime())) {
 				if (!event.isPublic()) {
 					return true;
 				}
