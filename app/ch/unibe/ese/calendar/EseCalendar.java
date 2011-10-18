@@ -141,8 +141,24 @@ public class EseCalendar {
 		Iterator<EventSeries> iter = iterateSeries(user);
 		while (iter.hasNext()) {
 			EventSeries es = iter.next();
+			
 			if (dateMatches(date, es)) {
-				SerialEvent se = new SerialEvent(date, date, es.name, es.isPublic, es);
+				java.util.Calendar juc = java.util.Calendar.getInstance(new Locale("de", "CH"));
+				juc.setTime(date);
+				int year = juc.get(Calendar.YEAR);
+				int month =juc.get(Calendar.MONTH);
+				int day = juc.get(Calendar.DAY_OF_MONTH);
+				juc.setTime(es.start);
+				int hour = juc.get(Calendar.HOUR_OF_DAY);
+				int min = juc.get(Calendar.MINUTE);
+				juc.set(year, month, day, hour, min);
+				Date start = juc.getTime();
+				juc.setTime(es.end);
+				int hour2 = juc.get(Calendar.HOUR_OF_DAY);
+				int min2 = juc.get(Calendar.MINUTE);
+				juc.set(year, month, day, hour2, min2);
+				Date end = juc.getTime();
+				SerialEvent se = new SerialEvent(start, end, es.name, es.isPublic, es);
 				result.add(se);
 			}
 			
