@@ -50,6 +50,14 @@ public class EseCalendar {
 	public User getOwner() {
 		return owner;
 	}
+	
+	public SortedSet<CalendarEvent> getStartDateSortedSet() {
+		return startDateSortedSet;
+	}
+	
+	public SortedSet<EventSeries> getStartDateSortedSetOfSeries() {
+		return startDateSortedSetOfSeries;
+	}
 
 	/**
 	 * Adds the event to the calendar

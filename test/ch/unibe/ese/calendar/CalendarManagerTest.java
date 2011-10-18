@@ -2,6 +2,7 @@ package ch.unibe.ese.calendar;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,6 +19,11 @@ public class CalendarManagerTest {
 	public void setup() {
 		calManager = CalendarManager.getInstance();
 		user = new User("dummy");
+	}
+	
+	@After
+	public void teardown() {
+		calManager.purge(user.ADMIN);
 	}
 	
 	@Test
