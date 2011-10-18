@@ -111,7 +111,7 @@ public class Application extends Controller {
 			throws Throwable {
 
 		System.out.println("creating event");
-		SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy hh:mm");
+		SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 
 		Date sDate = simple.parse(startDate);
 		Date eDate = simple.parse(endDate);
@@ -146,7 +146,7 @@ public class Application extends Controller {
 	public static void deleteEvent(String calendarName, int hash,
 			String startDate) throws ParseException {
 
-		SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy hh:mm");
+		SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 		Date sDate = simple.parse(startDate);
 
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
@@ -163,7 +163,7 @@ public class Application extends Controller {
 
 	public static void editEvent(String calendarName, int hash, String startDate)
 			throws ParseException {
-		SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy hh:mm");
+		SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 		Date sDate = simple.parse(startDate);
 
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
@@ -177,7 +177,7 @@ public class Application extends Controller {
 	public static void saveEditedEvent(String calendarName, int hash, String oldStartDate, 
 			String name, String startDate, String endDate, boolean isPublic) 
 			throws ParseException {
-		SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy hh:mm");
+		SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 		Date oldDate = simple.parse(oldStartDate);
 		Date sDate = simple.parse(startDate);
 		Date eDate = simple.parse(endDate);
