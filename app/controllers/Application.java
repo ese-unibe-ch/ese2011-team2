@@ -26,6 +26,7 @@ import ch.unibe.ese.calendar.CalendarEntry;
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
+import ch.unibe.ese.calendar.DateFormat;
 import ch.unibe.ese.calendar.EventSeries;
 import ch.unibe.ese.calendar.SerialEvent;
 import ch.unibe.ese.calendar.User;
@@ -114,9 +115,8 @@ public class Application extends Controller {
 			String startDate, String endDate, boolean isPublic, String repetition)
 			throws Throwable {
 		System.out.println("creating event");
-		SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-		Date sDate = simple.parse(startDate);
-		Date eDate = simple.parse(endDate);
+		Date sDate = DateFormat.parse(startDate);
+		Date eDate = DateFormat.parse(endDate);
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
@@ -154,8 +154,7 @@ public class Application extends Controller {
 	public static void deleteEvent(String calendarName, int hash,
 			String startDate) throws ParseException {
 
-		SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-		Date sDate = simple.parse(startDate);
+		Date sDate = DateFormat.parse(startDate);
 
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
 				calendarName);
@@ -171,8 +170,7 @@ public class Application extends Controller {
 
 	public static void editEvent(String calendarName, int hash, String startDate)
 			throws ParseException {
-		SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-		Date sDate = simple.parse(startDate);
+		Date sDate = DateFormat.parse(startDate);
 
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
 				calendarName);
@@ -185,10 +183,10 @@ public class Application extends Controller {
 	public static void saveEditedEvent(String calendarName, int hash, String oldStartDate, 
 			String name, String startDate, String endDate, boolean isPublic) 
 			throws ParseException {
-		SimpleDateFormat simple = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-		Date oldDate = simple.parse(oldStartDate);
-		Date sDate = simple.parse(startDate);
-		Date eDate = simple.parse(endDate);
+		
+		Date oldDate = DateFormat.parse(oldStartDate);
+		Date sDate = DateFormat.parse(startDate);
+		Date eDate = DateFormat.parse(endDate);
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
 				calendarName);
 		String userName = Security.connected();
