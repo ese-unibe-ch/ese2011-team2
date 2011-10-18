@@ -87,11 +87,6 @@ public class EseCalendar {
 		return e;
 	}
 	
-	public CalendarEntry removeEventSeries(EventSeries eventSerie){
-		//TODO
-		return null;
-	}
-	
 	/**
 	 * Only returns an event if the user has privileged access.
 	 * @param hash The hash the event produces by calling hashCode()

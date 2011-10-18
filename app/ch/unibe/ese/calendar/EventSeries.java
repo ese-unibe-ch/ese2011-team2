@@ -8,13 +8,7 @@ public class EventSeries extends CalendarEntry{
 	private Repetition repetition;
 	
 	public EventSeries(Date start, Date end, String name, boolean isPublic, String sRepetition) {
-		if (name==null || start==null || end==null) {
-			throw new IllegalArgumentException();
-		}
-		this.name = name;
-		this.start = start;
-		this.end = end;
-		this.isPublic = isPublic;
+		super(start, end, name, isPublic);
 		setRepetition(sRepetition);
 	}
 
