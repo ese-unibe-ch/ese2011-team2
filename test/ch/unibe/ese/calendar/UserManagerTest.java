@@ -4,6 +4,9 @@ package ch.unibe.ese.calendar;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Map;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import play.test.UnitTest;
@@ -15,9 +18,20 @@ import ch.unibe.ese.calendar.UserManager;
 
 public class UserManagerTest extends UnitTest {
 
+	private UserManager um;
+	private User gamma;
+	private User gamm;
+	
+	@Before
+	public void setUp() {
+		um = UserManager.getInstance();
+		gamma = um.createUser("gamma", "delta");
+		gamm = um.createUser("gamm", "delt");
+	}
+	
 	@Test
 	public void createAndRetrieveUser() {
-		UserManager um = UserManager.getInstance();
+		
 		User createdUser = um.createUser("beta", "tester");
 		assertNotNull(createdUser);
 		User retrievedUser = um.getUserByName("beta");
@@ -25,5 +39,26 @@ public class UserManagerTest extends UnitTest {
 		assertEquals("tester", retrievedUser.getPassword());
 		User user2 = um.createUser("beta2", "tester");
 		assertTrue(um.getAllUsers().contains(user2));
+	}
+	
+	@Test
+	public void testRegex() {
+		Map<String, User> foundUsers = um.getUserByRegex("ga.*");
+		assertTrue(foundUsers.containsValue(gamma));
+		assertTrue(foundUsers.containsValue(gamm));
+	}
+	
+	@Test
+	public void testRegex2() {
+		Map<String, User> foundUsers = um.getUserByRegex("gamma.*");
+		assertTrue(foundUsers.containsValue(gamma));
+		assertFalse(foundUsers.containsValue(gamm));
+	}
+	
+	@Test
+	public void testRegex3() {
+		Map<String, User> foundUsers = um.getUserByRegex("ni.*");
+		assertFalse(foundUsers.containsValue(gamma));
+		assertFalse(foundUsers.containsValue(gamm));
 	}
 }

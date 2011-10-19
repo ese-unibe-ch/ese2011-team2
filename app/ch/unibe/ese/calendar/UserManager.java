@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 public class UserManager {
 
@@ -35,6 +36,15 @@ public class UserManager {
 	 */
 	public synchronized User getUserByName(String userName) {
 		return users.get(userName);
+	}
+	
+	public synchronized Map<String, User> getUserByRegex(String regex) {		
+		Map<String, User> foundUsers = new HashMap<String, User>();
+		for (User u: users.values()) {
+			if (Pattern.matches(regex, u.getName()))
+				foundUsers.put(u.getName(), u);
+		}
+		return foundUsers;
 	}
 	
 	/**
