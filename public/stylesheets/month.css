@@ -15,11 +15,11 @@ td.private {
 }
 
 td.selected {
-	background-color: yellow;
+	background-color: gray;
 }
 
 td.today {
-	background-color: blue;
+	background-color: black;
 	color: white;
 }
 td a {
