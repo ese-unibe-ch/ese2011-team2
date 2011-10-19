@@ -189,11 +189,11 @@ public class EseCalendar {
 			juc1.setTime(es.getStart());
 			
 			int weekDayOfEventSerie = juc1.get(Calendar.DAY_OF_WEEK);
-			int yearDayOfEventSerie = juc1.get(Calendar.DAY_OF_YEAR);
+			int monthDayOfEventSerie = juc1.get(Calendar.DAY_OF_MONTH);
 			java.util.Calendar juc2 = java.util.Calendar.getInstance(new Locale("de", "CH"));
 			juc2.setTime(date);
 			int weekDayOfDate = juc2.get(Calendar.DAY_OF_WEEK);
-			int yearDayOfDate = juc2.get(Calendar.DAY_OF_YEAR);
+			int monthDayOfDate = juc2.get(Calendar.DAY_OF_MONTH);
 			if (repetition.equals(repetition.DAILY)) {
 				System.out.println("daily");
 				return true;
@@ -204,9 +204,9 @@ public class EseCalendar {
 				System.out.println("weekDayOfDate" + weekDayOfDate);
 				return (weekDayOfEventSerie == weekDayOfDate);
 			}
-			if (repetition.equals(repetition.YEARLY)) {
-				System.out.println("yearly");
-				return (yearDayOfEventSerie == yearDayOfDate);
+			if (repetition.equals(repetition.MONTHLY)) {
+				System.out.println("monthly");
+				return (monthDayOfEventSerie == monthDayOfDate);
 			}
 		return false;
 	}
