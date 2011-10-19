@@ -141,12 +141,14 @@ public class Application extends Controller {
 			final EventSeries eventseries = new EventSeries(sDate, eDate, name, isPublic, repetition);
 			calendar.addEventSeries(user, eventseries);
 		}
-		currentCalendar(calendarName);
+		calendarOfDate(calendarName, sDate);
 	}
 
 	/**
-	 * Update: an event is now identified by its unique hash! For finding it
+	 * An event is identified by its unique hash. For finding it
 	 * easily, we have to know it's startDate.
+	 * 
+	 * TODO: Introduce an ID for identifying an event
 	 * 
 	 * @param calendarName
 	 * @param hash hashCode() of the to be deleted event
@@ -161,8 +163,17 @@ public class Application extends Controller {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		CalendarEntry e = calendar.removeEvent(user, hash, sDate);
+		calendarOfDate(calendarName, e.getStart());
+	}
+	
+	/**
+	 * Should only be called from inside the code
+	 * @param calendarName
+	 * @param date
+	 */
+	private static void calendarOfDate(String calendarName, Date date) {
 		Calendar juc = Calendar.getInstance(getLocale());
-		juc.setTime(e.getStart());
+		juc.setTime(date);
 		calendar(calendarName, juc.get(java.util.Calendar.DAY_OF_MONTH),
 				juc.get(java.util.Calendar.MONTH),
 				juc.get(java.util.Calendar.YEAR));
@@ -193,11 +204,7 @@ public class Application extends Controller {
 		User user = UserManager.getInstance().getUserByName(userName);
 		CalendarEntry event = calendar.getEventByHash(user, hash, oldDate);
 		event.set(name, sDate, eDate, isPublic);
-		Calendar juc = Calendar.getInstance(getLocale());
-		juc.setTime(sDate);
-		calendar(calendarName, juc.get(java.util.Calendar.DAY_OF_MONTH),
-				juc.get(java.util.Calendar.MONTH),
-				juc.get(java.util.Calendar.YEAR));
+		calendarOfDate(calendarName, sDate);
 	}
 
 }
