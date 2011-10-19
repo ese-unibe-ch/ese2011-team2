@@ -36,7 +36,7 @@ import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
 @With(Secure.class)
 public class Application extends Controller {
 
-	public static void index() {
+	public static void index(List<String> foundUsers) {
 		String userName = Security.connected();
 		UserManager um = UserManager.getInstance();
 		User user = um.getUserByName(userName);
@@ -45,7 +45,7 @@ public class Application extends Controller {
 
 		final String token = "You (" + user + ") own: " + userCalendars.size()
 				+ " calendars";
-		render(token, userCalendars);
+		render(token, userCalendars, foundUsers);
 	}
 
 	public static void currentCalendar(String name) {
@@ -205,6 +205,18 @@ public class Application extends Controller {
 		CalendarEntry event = calendar.getEventByHash(user, hash, oldDate);
 		event.set(name, sDate, eDate, isPublic);
 		calendarOfDate(calendarName, sDate);
+	}
+	
+	public static void searchUser(String name) {
+		User user = UserManager.getInstance().getUserByName(name);
+		//working with strings makes error handling easy.
+		ArrayList<String> foundUsers = new ArrayList<String>();
+		try {
+		foundUsers.add(user.getName());
+		} catch (NullPointerException e) {
+			foundUsers.add("No such user found in database");
+		}
+		index(foundUsers);
 	}
 
 }

@@ -19,3 +19,14 @@ Your Calendars are: <br/>
 Calendars of other <a href="@{Application.users()}"> users </a>
 </p>
 
+<h4>Search for other users</h4>
+#{form @Application.searchUser()}
+	<input type="text" name="name" placeholder="only exact match works"/>
+	<input type="submit" value ="search">
+#{/form}
+
+<ul>
+#{list items:foundUsers, as:'user'}
+	<li> <a href="user?name=${user}">${user}</a> </li>
+#{/list}
+</ul>
