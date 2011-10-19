@@ -71,7 +71,7 @@ public class Bootstrap extends Job {
 		juc.set(2011, 11, 23, 23, 00);
 		Date end = juc.getTime();
 		judithcal.addEvent(User.ADMIN, new CalendarEvent(start, end,
-				"Super Tolle Party", true));
+				"Tolle party", true));
 
 	}
 
