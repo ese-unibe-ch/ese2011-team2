@@ -4,10 +4,10 @@
 
 <table>
 <tr>
-<td><a href="@{Application.calendar(_arg.calendar.name, 
+<td><a href="@{Application.calendar(_arg.user.name, _arg.calendar.name, 
 -1, _arg.previousMonth, _arg.previousMonthYear)}">&lt;</a></td>
 <td colspan="5">${_arg.monthLabel}</td>
-<td><a href="@{Application.calendar(_arg.calendar.name, 
+<td><a href="@{Application.calendar(_arg.user.name, _arg.calendar.name, 
 -1, _arg.nextMonth, _arg.nextMonthYear)}">></a></td>
 </tr>
 <tr>
@@ -33,7 +33,7 @@
 				classValue = classValue+" selected"
 			}
 		}%
-		<td class="${classValue}"><a href="@{Application.calendar(_arg.calendar.name, 
+		<td class="${classValue}"><a href="@{Application.calendar(_arg.user.name, _arg.calendar.name, 
 		day.dayOfMonth, day.month, day.year)}">${day.dayOfMonth}</a></td>
 		#{/list}
 		</tr>

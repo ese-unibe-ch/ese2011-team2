@@ -51,20 +51,24 @@ public class Application extends Controller {
 	public static void currentCalendar(String name) {
 		java.util.Calendar juc = java.util.Calendar.getInstance(getLocale());
 		juc.setTime(new Date());
-		calendar(name, juc.get(java.util.Calendar.DAY_OF_MONTH),
+		String userName = Security.connected();
+		calendar(userName, name, juc.get(java.util.Calendar.DAY_OF_MONTH),
 				juc.get(java.util.Calendar.MONTH),
 				juc.get(java.util.Calendar.YEAR));
 	}
 
-	public static void calendar(String name, int day, int month, int year) {
+	public static void calendar(String userName, String name, int day, int month, int year) {
 		System.out.println("name: " + name);
-		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		CalendarManager calendarManager = CalendarManager.getInstance();
 		final EseCalendar calendar = calendarManager.getCalendar(name);
 		Calendar juc = Calendar.getInstance(getLocale());
 		juc.set(year, month, day, 0, 0, 0);
+		boolean isConnectedUser = false;
 		final Date date = juc.getTime();
+		if (userName.equals(Security.connected())) {
+			isConnectedUser = true;
+		}
 
 		Iterator<CalendarEvent> iterator = calendar.getEventsAt(user, date)
 				.iterator();
@@ -72,7 +76,7 @@ public class Application extends Controller {
 
 		CalendarBrowser calendarBrowser = new CalendarBrowser(user, calendar,
 				day, month, year, getLocale());
-		render(iterator,iteratorSE, calendar, calendarBrowser);
+		render(iterator,iteratorSE, calendar, calendarBrowser, isConnectedUser);
 	}
 
 	/**
@@ -163,7 +167,7 @@ public class Application extends Controller {
 		CalendarEntry e = calendar.removeEvent(user, hash, sDate);
 		Calendar juc = Calendar.getInstance(getLocale());
 		juc.setTime(e.getStart());
-		calendar(calendarName, juc.get(java.util.Calendar.DAY_OF_MONTH),
+		calendar(userName, calendarName, juc.get(java.util.Calendar.DAY_OF_MONTH),
 				juc.get(java.util.Calendar.MONTH),
 				juc.get(java.util.Calendar.YEAR));
 	}
@@ -195,7 +199,7 @@ public class Application extends Controller {
 		event.set(name, sDate, eDate, isPublic);
 		Calendar juc = Calendar.getInstance(getLocale());
 		juc.setTime(sDate);
-		calendar(calendarName, juc.get(java.util.Calendar.DAY_OF_MONTH),
+		calendar(userName, calendarName, juc.get(java.util.Calendar.DAY_OF_MONTH),
 				juc.get(java.util.Calendar.MONTH),
 				juc.get(java.util.Calendar.YEAR));
 	}

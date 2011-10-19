@@ -187,5 +187,9 @@ public class CalendarBrowser {
 	public int getNextMonthYear() {
 		return month < 11 ? year : year+1;
 	}
+	
+	public User getUser() {
+		return user;
+	}
 
 }
