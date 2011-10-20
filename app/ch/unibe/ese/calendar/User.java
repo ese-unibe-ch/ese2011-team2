@@ -1,5 +1,10 @@
 package ch.unibe.ese.calendar;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.security.auth.Subject;
 
 
@@ -14,6 +19,7 @@ public class User {
 
 	private String userName;
 	private Object password;
+	private List<User> myContacts = new ArrayList<User>();
 
 	/**
 	 * creates a user with the specified username and password
@@ -32,7 +38,20 @@ public class User {
 	public User(String userName) {
 		this(userName, Integer.toString((int)(Math.random()*1000)));
 	}
-
+	
+	public void addToMyContacts(User userToAdd) {
+		if (!myContacts.contains(userToAdd)) {
+			myContacts.add(userToAdd);
+		}
+	}
+	
+	public void removeFromMyContacts(User userToRemove) {
+		myContacts.remove(userToRemove);
+	}
+	
+	public List<User> getMyContacts() {
+		return myContacts;
+	}
 
 	@Override
 	public int hashCode() {

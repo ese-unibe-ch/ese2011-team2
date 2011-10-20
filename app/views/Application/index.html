@@ -27,7 +27,10 @@ Calendars of other <a href="@{Application.users()}"> users </a>
 
 <ul>
 #{list items:foundUsers, as:'user'}
-	<li> <a href="user?name=${user}">${user}</a> </li>
+	<li> 
+		<a href="user?name=${user}">${user}</a> 
+		<a href=@{Application.addToContacts(user)}>add to myContacts</a>
+	</li>
 #{/list}
 #{ifErrors} <p>Error(s) found!</p> #{/ifErrors}
 </ul>

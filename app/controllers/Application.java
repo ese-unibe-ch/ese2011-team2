@@ -74,7 +74,9 @@ public class Application extends Controller {
 
 		CalendarBrowser calendarBrowser = new CalendarBrowser(user, calendar,
 				day, month, year, getLocale());
-		render(iterator,iteratorSE, calendar, calendarBrowser);
+		
+		List<User> myContacts = user.getMyContacts();
+		render(iterator,iteratorSE, calendar, calendarBrowser, myContacts);
 	}
 
 	/**
@@ -217,6 +219,15 @@ public class Application extends Controller {
 			//TODO error handling
 		}
 		index(foundUsers);
+	}
+	
+	public static void addToContacts(String name) {
+		String userName = Security.connected();
+		User user = UserManager.getInstance().getUserByName(userName);
+		User userToAdd = UserManager.getInstance().getUserByName(name);
+		user.addToMyContacts(userToAdd);
+		//temporarily used to refresh the page, since the index method requires found users
+		searchUser(name); 
 	}
 
 }
