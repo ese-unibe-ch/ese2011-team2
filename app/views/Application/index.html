@@ -21,7 +21,7 @@ Calendars of other <a href="@{Application.users()}"> users </a>
 
 <h4>Search for other users</h4>
 #{form @Application.searchUser()}
-	<input type="text" name="name" placeholder="only exact match works"/>
+	<input type="text" name="searchRegex" placeholder="takes a java regex"/>
 	<input type="submit" value ="search">
 #{/form}
 
@@ -32,5 +32,4 @@ Calendars of other <a href="@{Application.users()}"> users </a>
 		<a href=@{Application.addToContacts(user)}>add to myContacts</a>
 	</li>
 #{/list}
-#{ifErrors} <p>Error(s) found!</p> #{/ifErrors}
 </ul>

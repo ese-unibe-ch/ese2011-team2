@@ -75,7 +75,7 @@ public class Application extends Controller {
 		CalendarBrowser calendarBrowser = new CalendarBrowser(user, calendar,
 				day, month, year, getLocale());
 		
-		List<User> myContacts = user.getMyContacts();
+		Set<User> myContacts = user.getMyContacts();
 		render(iterator,iteratorSE, calendar, calendarBrowser, myContacts);
 	}
 
@@ -211,12 +211,13 @@ public class Application extends Controller {
 		calendarOfDate(calendarName, sDate);
 	}
 	
-	public static void searchUser(String name) {
+	public static void searchUser(String searchRegex) {
 		Set<String> foundUsers = null;
 		try {
-		 foundUsers = UserManager.getInstance().getUserByRegex(name).keySet();
+			foundUsers = UserManager.getInstance().getUserByRegex(searchRegex).keySet();
 		} catch (PatternSyntaxException e) {
 			//TODO error handling
+			error(e);
 		}
 		index(foundUsers);
 	}
@@ -227,7 +228,7 @@ public class Application extends Controller {
 		User userToAdd = UserManager.getInstance().getUserByName(name);
 		user.addToMyContacts(userToAdd);
 		//temporarily used to refresh the page, since the index method requires found users
-		searchUser(name); 
+		searchUser(name);
 	}
 
 }

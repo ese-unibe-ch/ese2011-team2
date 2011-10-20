@@ -1,11 +1,8 @@
 package ch.unibe.ese.calendar;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-
-import javax.security.auth.Subject;
+import java.util.Set;
 
 
 /**
@@ -19,7 +16,7 @@ public class User {
 
 	private String userName;
 	private Object password;
-	private List<User> myContacts = new ArrayList<User>();
+	private Set<User> myContacts = new HashSet<User>();
 
 	/**
 	 * creates a user with the specified username and password
@@ -49,7 +46,7 @@ public class User {
 		myContacts.remove(userToRemove);
 	}
 	
-	public List<User> getMyContacts() {
+	public Set<User> getMyContacts() {
 		return myContacts;
 	}
 
