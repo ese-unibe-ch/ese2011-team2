@@ -1,0 +1,11 @@
+<head>
+	<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/myContacts.css'}">
+</head>
+
+<h2>My Contacts</h2>
+
+#{list items:_arg, as:'contact'}
+	<li> 
+		${contact.name}
+	</li>
+#{/list}
