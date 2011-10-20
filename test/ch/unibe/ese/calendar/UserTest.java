@@ -81,4 +81,26 @@ public class UserTest{
 		assertEquals(uNull.toString(), "User [userName=null]");
 	}
 	
+	@Test
+	public void addUserToContacts() {
+		uOne.addToMyContacts(uTwo);
+		assertTrue(uOne.getMyContacts().contains(uTwo));
+	}
+	
+	@Test
+	public void trytoAddUserTwiceToContacts() {
+		uOne.addToMyContacts(uTwo);
+		uOne.addToMyContacts(uTwo);
+		assertEquals(1, uOne.getMyContacts().size());
+		assertTrue(uOne.getMyContacts().contains(uTwo));
+	}
+	
+	@Test
+	public void removeContacts() {
+		uOne.addToMyContacts(uTwo);
+		assertTrue(uOne.getMyContacts().contains(uTwo));
+		uOne.removeFromMyContacts(uTwo);
+		assertFalse(uOne.getMyContacts().contains(uTwo));
+	}
+	
 }
