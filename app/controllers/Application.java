@@ -13,7 +13,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
+import java.util.regex.PatternSyntaxException;
 
 import javax.security.auth.Subject;
 
@@ -36,7 +38,7 @@ import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
 @With(Secure.class)
 public class Application extends Controller {
 
-	public static void index(List<String> foundUsers) {
+	public static void index(Set<String> foundUsers) {
 		String userName = Security.connected();
 		UserManager um = UserManager.getInstance();
 		User user = um.getUserByName(userName);
@@ -208,13 +210,11 @@ public class Application extends Controller {
 	}
 	
 	public static void searchUser(String name) {
-		User user = UserManager.getInstance().getUserByName(name);
-		//working with strings makes error handling easy.
-		ArrayList<String> foundUsers = new ArrayList<String>();
+		Set<String> foundUsers = null;
 		try {
-		foundUsers.add(user.getName());
-		} catch (NullPointerException e) {
-			foundUsers.add("No such user found in database");
+		 foundUsers = UserManager.getInstance().getUserByRegex(name).keySet();
+		} catch (PatternSyntaxException e) {
+			//TODO error handling
 		}
 		index(foundUsers);
 	}
