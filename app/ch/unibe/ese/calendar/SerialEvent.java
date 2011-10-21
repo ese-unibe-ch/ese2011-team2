@@ -9,6 +9,7 @@ public class SerialEvent extends CalendarEvent {
 	SerialEvent(Date start, Date end, String name, boolean isPublic, EventSeries eventSeries) {
 		super(start, end, name, isPublic);
 		this.eventSeries = eventSeries;
+		this.isASerie = true;
 	}
 
 }

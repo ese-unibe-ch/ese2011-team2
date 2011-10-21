@@ -23,4 +23,5 @@ public class EventSeries extends CalendarEntry{
 	public Repetition getRepetition(){
 		return repetition;
 	}
+	
 }
