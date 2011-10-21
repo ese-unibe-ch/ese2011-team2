@@ -131,9 +131,9 @@ public class EseCalendar {
 	 * @param date the point in time specifying the start of the 24h period for which events are to be returned
 	 * @return a list of the events
 	 */
-	public List<CalendarEvent> getEventsAt(User user, Date date) {
+	public SortedSet<CalendarEntry> getEventsAt(User user, Date date) {
 		Date endDate = new Date(date.getTime()+24*60*60*1000);
-		List<CalendarEvent> result = new ArrayList<CalendarEvent>();
+		SortedSet<CalendarEntry> result = new TreeSet<CalendarEntry>(new StartDateComparator());
 		Iterator<CalendarEvent> iter = iterate(user, date);
 		while (iter.hasNext()) {
 			CalendarEvent ce = iter.next();
@@ -151,8 +151,8 @@ public class EseCalendar {
 	 * @param date a point in time that is part of the day for which the vents are requested
 	 * @return a sorted list of SerialEventS for the specified day
 	 */
-	public List<SerialEvent> getSerialEventsForDay(User user, Date date){
-		List<SerialEvent> result = new ArrayList<SerialEvent>();
+	public SortedSet<CalendarEntry> getSerialEventsForDay(User user, Date date){
+		SortedSet<CalendarEntry> result =  new TreeSet<CalendarEntry>(new StartDateComparator());
 		Iterator<EventSeries> iter = iterateSeries(user);
 		while (iter.hasNext()) {
 			EventSeries es = iter.next();
@@ -178,7 +178,6 @@ public class EseCalendar {
 			}
 			
 		}
-		Collections.sort(result, new StartDateComparator());
 		return result;
 		
 	} 

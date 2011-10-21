@@ -9,6 +9,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.SortedSet;
 
 import javax.security.auth.Subject;
 
@@ -132,14 +133,14 @@ public class CalendaringTest extends UnitTest {
 		{
 			juc.set(2011, 11, 21, 0, 0);
 			Date date = juc.getTime();
-			List<CalendarEvent> events = cal.getEventsAt(user, date);
+			SortedSet<CalendarEntry> events = cal.getEventsAt(user, date);
 			assertEquals(2, events.size());
 		}
 		// one event on day 23
 		{
 			juc.set(2011, 11, 23, 0, 0);
 			Date date = juc.getTime();
-			List<CalendarEvent> events = cal.getEventsAt(user, date);
+			SortedSet<CalendarEntry> events = cal.getEventsAt(user, date);
 			assertEquals(1, events.size());
 		}
 

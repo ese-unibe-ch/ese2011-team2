@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.regex.PatternSyntaxException;
 
 import javax.security.auth.Subject;
@@ -68,15 +69,15 @@ public class Application extends Controller {
 		juc.set(year, month, day, 0, 0, 0);
 		final Date date = juc.getTime();
 
-		Iterator<CalendarEvent> iterator = calendar.getEventsAt(user, date)
-				.iterator();
-		Iterator<SerialEvent> iteratorSE = calendar.getSerialEventsForDay(user, date).iterator();
-
+		SortedSet<CalendarEntry> set1 = calendar.getEventsAt(user, date);
+		SortedSet<CalendarEntry> set2 = calendar.getSerialEventsForDay(user, date);
+		set1.addAll(set2);
+		Iterator<CalendarEntry> iterator = set1.iterator();
 		CalendarBrowser calendarBrowser = new CalendarBrowser(user, calendar,
 				day, month, year, getLocale());
 		
 		Set<User> myContacts = user.getMyContacts();
-		render(iterator,iteratorSE, calendar, calendarBrowser, myContacts);
+		render(iterator, calendar, calendarBrowser, myContacts);
 	}
 
 	/**

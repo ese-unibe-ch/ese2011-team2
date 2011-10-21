@@ -2,14 +2,17 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.SortedSet;
 
 import javax.swing.CellEditor;
 
 import controllers.CalendarBrowser.Day;
 
 import ch.unibe.ese.calendar.CalendarEntry;
+import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.User;
 
@@ -42,13 +45,12 @@ public class CalendarBrowser {
 		}
 
 		public boolean getHasPublicEvents() {
-			for (CalendarEntry event: calendar.getEventsAt(user, asCalendar().getTime())) {
-				if (event.isPublic()) {
-					return true;
-				}
-			}
-			for (CalendarEntry event: calendar.getSerialEventsForDay(user, asCalendar().getTime())) {
-				if (event.isPublic()) {
+			SortedSet<CalendarEntry> set1 = calendar.getEventsAt(user, asCalendar().getTime());
+			SortedSet<CalendarEntry> set2 = calendar.getSerialEventsForDay(user, asCalendar().getTime());
+			set1.addAll(set2);	
+			Iterator<CalendarEntry> iterator = set1.iterator();
+			while (iterator.hasNext()){
+				if (iterator.next().isPublic()){
 					return true;
 				}
 			}
@@ -56,13 +58,12 @@ public class CalendarBrowser {
 		}
 
 		public boolean getHasPrivateEvents() {
-			for (CalendarEntry event: calendar.getEventsAt(user, asCalendar().getTime())) {
-				if (!event.isPublic()) {
-					return true;
-				}
-			}
-			for (CalendarEntry event: calendar.getSerialEventsForDay(user, asCalendar().getTime())) {
-				if (!event.isPublic()) {
+			SortedSet<CalendarEntry> set1 = calendar.getEventsAt(user, asCalendar().getTime());
+			SortedSet<CalendarEntry> set2 = calendar.getSerialEventsForDay(user, asCalendar().getTime());
+			set1.addAll(set2);	
+			Iterator<CalendarEntry> iterator = set1.iterator();
+			while (iterator.hasNext()){
+				if (!iterator.next().isPublic()){
 					return true;
 				}
 			}
