@@ -24,8 +24,12 @@ Your Calendars are: <br/>
 <ul>
 #{list items:foundUsers, as:'User'}
 	<li> 
-		<a href="user?name=${User}">${User}</a> #{if User != user.name}
-		<a href=@{Application.addToContacts(User)}>add to myContacts</a> #{/if}
+		#{form @Application.addToContacts(User)} 
+			<label for="add"> <a href="user?name=${User}">${User}</a> </label>
+			#{if User != user.name}
+				<input type="submit" name="add" value="add to myContacts">
+			#{/if}
+		#{/form}
 	</li>
 #{/list}
 </ul>
