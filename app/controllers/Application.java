@@ -48,7 +48,7 @@ public class Application extends Controller {
 
 		final String token = "You (" + user + ") own: " + userCalendars.size()
 				+ " calendars";
-		render(token, userCalendars, foundUsers);
+		render(token, user, userCalendars, foundUsers);
 	}
 
 	public static void currentCalendar(String name) {
@@ -86,13 +86,6 @@ public class Application extends Controller {
 	private static Locale getLocale() {
 		// TODO make real
 		return new Locale("de", "CH");
-	}
-
-	public static void users() {
-		String userName = Security.connected();
-		User user = UserManager.getInstance().getUserByName(userName);
-		Set<User> users = UserManager.getInstance().getAllUsers();
-		render(user, users);
 	}
 
 	public static void user(String name) {

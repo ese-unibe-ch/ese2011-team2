@@ -14,10 +14,6 @@ Your Calendars are: <br/>
 		<li><a href="@{Application.currentCalendar(calendar.name)}">${calendar.name}</a></li>
 	#{/list}
 </ul>
-<p>
-
-Calendars of other <a href="@{Application.users()}"> users </a>
-</p>
 
 <h4>Search for other users</h4>
 #{form @Application.searchUser()}
@@ -26,10 +22,10 @@ Calendars of other <a href="@{Application.users()}"> users </a>
 #{/form}
 
 <ul>
-#{list items:foundUsers, as:'user'}
+#{list items:foundUsers, as:'User'}
 	<li> 
-		<a href="user?name=${user}">${user}</a> 
-		<a href=@{Application.addToContacts(user)}>add to myContacts</a>
+		<a href="user?name=${User}">${User}</a> #{if User != user.name}
+		<a href=@{Application.addToContacts(User)}>add to myContacts</a> #{/if}
 	</li>
 #{/list}
 </ul>
