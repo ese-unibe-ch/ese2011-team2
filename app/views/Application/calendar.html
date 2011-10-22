@@ -18,15 +18,11 @@
 			<!--  TODO: handle timezone correctly -->
 			%{
 				visibility = "private"
-				if (event.public) {
+				if (event.public) 
 					visibility = "public"
-				}
-			}% 
-			%{
 				rep = "Event"
-				if (event.isASerie) {
-					rep= "SerialEvent"
-				}
+				if (event.isASerie)
+					rep = "SerialEvent"
 			}% 
 			<li>${event.start.format("HH:mm")} - ${event.end.format("HH:mm")} ${event.name} (${visibility}) (${rep})<br/>
 				<a href=@{Application.editEvent(calendar.name, event.hashCode(), event.start.format("dd.MM.yyyy HH:mm"))}>Edit</a> | 
