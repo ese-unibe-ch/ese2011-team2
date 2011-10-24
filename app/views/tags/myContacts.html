@@ -6,6 +6,6 @@
 
 	#{list items:_arg, as:'contact'}
 		<li> 
-			<input type="checkbox" name="checkedContacts[]" value=${contact.name} checked>&nbsp;${contact.name}<br>
+			<input type="checkbox" name="checkedContacts[]" value=${contact.name} #{if contact.isSelected} checked #{/if}>&nbsp;${contact.name}<br>
 		</li>
 	#{/list}

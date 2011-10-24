@@ -16,6 +16,7 @@ public class User {
 
 	private String userName;
 	private Object password;
+	private boolean isSelected;
 	private Set<User> myContacts = new HashSet<User>();
 
 	/**
@@ -26,6 +27,7 @@ public class User {
 	public User(String userName, String password) {
 		this.userName = userName;
 		this.password = password;
+		this.isSelected = false;
 	}
 	
 	/**
@@ -87,6 +89,14 @@ public class User {
 
 	public Object getPassword() {
 		return password;
+	}
+	
+	public void setIsSelected(boolean check){
+		isSelected = check;
+	}
+	
+	public boolean getIsSelected(){
+		return isSelected;
 	}
 
 }

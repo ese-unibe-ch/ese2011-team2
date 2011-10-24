@@ -56,10 +56,10 @@ public class Application extends Controller {
 		juc.setTime(new Date());
 		calendar(name, juc.get(java.util.Calendar.DAY_OF_MONTH),
 				juc.get(java.util.Calendar.MONTH),
-				juc.get(java.util.Calendar.YEAR), null);
+				juc.get(java.util.Calendar.YEAR));
 	}
 
-	public static void calendar(String name, int day, int month, int year, String[] checkedContacts) {
+	public static void calendar(String name, int day, int month, int year) {
 		
 		System.out.println("name: " + name);
 		String userName = Security.connected();
@@ -74,31 +74,20 @@ public class Application extends Controller {
 		SortedSet<CalendarEntry> set2 = calendar.getSerialEventsForDay(user, date);
 		set1.addAll(set2);
 		
-		if (checkedContacts != null) {
-			System.out.println("test1");
-			int length = checkedContacts.length ;
-			
-			User contact = UserManager.getInstance().getUserByName(checkedContacts[0]);
-			Set<EseCalendar> contactCalendars = calendarManager.getCalendarsOf(contact);
-				
-			if (length >=2){
-				System.out.println("test2");
-				for (int i = 1; i< length; i++){
-					contact = UserManager.getInstance().getUserByName(checkedContacts[i]);
-					contactCalendars.addAll(calendarManager.getCalendarsOf(contact));
-					
+		
+		Set<User> contacts = user.getMyContacts();
+		Iterator<User> iterU = contacts.iterator();
+		
+		while (iterU.hasNext()){
+			User contact = iterU.next();
+			if (contact.getIsSelected()){
+				Set<EseCalendar> contactCalendars = calendarManager.getCalendarsOf(contact);
+				Iterator<EseCalendar> eseCIter = contactCalendars.iterator();
+				while (eseCIter.hasNext()){
+					EseCalendar contactCal = eseCIter.next();
+					set1.addAll(contactCal.getEventsAt(user, date));
+					set1.addAll(contactCal.getSerialEventsForDay(user, date));
 				}
-			}
-			Iterator<EseCalendar> eseCIter = contactCalendars.iterator();
-			while (eseCIter.hasNext()) {
-				System.out.println("testWhile");
-				  EseCalendar contactCal = eseCIter.next();
-				  
-				  
-				  System.out.println(contactCal.getEventsAt(user, date).size());
-				  
-				  set1.addAll(contactCal.getEventsAt(user, date));
-				  set1.addAll(contactCal.getSerialEventsForDay(user, date));
 			}
 		}
 		
@@ -204,7 +193,7 @@ public class Application extends Controller {
 		juc.setTime(date);
 		calendar(calendarName, juc.get(java.util.Calendar.DAY_OF_MONTH),
 				juc.get(java.util.Calendar.MONTH),
-				juc.get(java.util.Calendar.YEAR), null);
+				juc.get(java.util.Calendar.YEAR));
 	}
 
 	public static void editEvent(String calendarName, int hash, String startDate)
@@ -256,7 +245,32 @@ public class Application extends Controller {
 	}
 
 	public static void includeContacts(String calendarName, int selectedDay, int month, int year, String[] checkedContacts) {
-		calendar(calendarName,selectedDay, month, year, checkedContacts);
+		String userName = Security.connected();
+		User user = UserManager.getInstance().getUserByName(userName);
+		Set<User> contacts = user.getMyContacts();
+		Iterator<User> iterU = contacts.iterator();
+		//setAllContactsToUnSelected(iterU);
+		if (checkedContacts != null){
+			int length = checkedContacts.length;	
+			while (iterU.hasNext()){
+				User contact = iterU.next();
+				for (int i =0 ;i<length; i++){
+					if (contact.getName().equalsIgnoreCase(checkedContacts[i])){
+						contact.setIsSelected(true);
+					}
+				}
+				
+			}
+		}	
+		calendar(calendarName,selectedDay, month, year);
+	}
+
+	private static void setAllContactsToUnSelected(Iterator<User> iterU) {
+		while (iterU.hasNext()){
+			User contact = iterU.next();
+			contact.setIsSelected(false);
+		}
+		
 	}
 
 }
