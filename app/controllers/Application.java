@@ -248,12 +248,13 @@ public class Application extends Controller {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		Set<User> contacts = user.getMyContacts();
-		Iterator<User> iterU = contacts.iterator();
-		//setAllContactsToUnSelected(iterU);
+		Iterator<User> iterU1 = contacts.iterator();
+		setAllContactsToUnSelected(iterU1);
+		Iterator<User> iterU2 = contacts.iterator();
 		if (checkedContacts != null){
 			int length = checkedContacts.length;	
-			while (iterU.hasNext()){
-				User contact = iterU.next();
+			while (iterU2.hasNext()){
+				User contact = iterU2.next();
 				for (int i =0 ;i<length; i++){
 					if (contact.getName().equalsIgnoreCase(checkedContacts[i])){
 						contact.setIsSelected(true);
