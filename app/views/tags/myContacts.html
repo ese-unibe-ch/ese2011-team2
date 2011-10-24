@@ -4,8 +4,8 @@
 
 <h2>My Contacts</h2>
 
-#{list items:_arg, as:'contact'}
-	<li> 
-		${contact.name}
-	</li>
-#{/list}
+	#{list items:_arg, as:'contact'}
+		<li> 
+			<input type="checkbox" name="checkedContacts[]" value=${contact.name} checked>&nbsp;${contact.name}<br>
+		</li>
+	#{/list}

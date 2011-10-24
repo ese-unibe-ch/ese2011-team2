@@ -56,10 +56,11 @@ public class Application extends Controller {
 		juc.setTime(new Date());
 		calendar(name, juc.get(java.util.Calendar.DAY_OF_MONTH),
 				juc.get(java.util.Calendar.MONTH),
-				juc.get(java.util.Calendar.YEAR));
+				juc.get(java.util.Calendar.YEAR), null);
 	}
 
-	public static void calendar(String name, int day, int month, int year) {
+	public static void calendar(String name, int day, int month, int year, String[] checkedContacts) {
+		
 		System.out.println("name: " + name);
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
@@ -72,6 +73,35 @@ public class Application extends Controller {
 		SortedSet<CalendarEntry> set1 = calendar.getEventsAt(user, date);
 		SortedSet<CalendarEntry> set2 = calendar.getSerialEventsForDay(user, date);
 		set1.addAll(set2);
+		
+		if (checkedContacts != null) {
+			System.out.println("test1");
+			int length = checkedContacts.length ;
+			
+			User contact = UserManager.getInstance().getUserByName(checkedContacts[0]);
+			Set<EseCalendar> contactCalendars = calendarManager.getCalendarsOf(contact);
+				
+			if (length >=2){
+				System.out.println("test2");
+				for (int i = 1; i< length; i++){
+					contact = UserManager.getInstance().getUserByName(checkedContacts[i]);
+					contactCalendars.addAll(calendarManager.getCalendarsOf(contact));
+					
+				}
+			}
+			Iterator<EseCalendar> eseCIter = contactCalendars.iterator();
+			while (eseCIter.hasNext()) {
+				System.out.println("testWhile");
+				  EseCalendar contactCal = eseCIter.next();
+				  
+				  
+				  System.out.println(contactCal.getEventsAt(user, date).size());
+				  
+				  set1.addAll(contactCal.getEventsAt(user, date));
+				  set1.addAll(contactCal.getSerialEventsForDay(user, date));
+			}
+		}
+		
 		Iterator<CalendarEntry> iterator = set1.iterator();
 		CalendarBrowser calendarBrowser = new CalendarBrowser(user, calendar,
 				day, month, year, getLocale());
@@ -174,7 +204,7 @@ public class Application extends Controller {
 		juc.setTime(date);
 		calendar(calendarName, juc.get(java.util.Calendar.DAY_OF_MONTH),
 				juc.get(java.util.Calendar.MONTH),
-				juc.get(java.util.Calendar.YEAR));
+				juc.get(java.util.Calendar.YEAR), null);
 	}
 
 	public static void editEvent(String calendarName, int hash, String startDate)
@@ -223,6 +253,10 @@ public class Application extends Controller {
 		user.addToMyContacts(userToAdd);
 		//temporarily used to refresh the page, since the index method requires found users
 		searchUser(name);
+	}
+
+	public static void includeContacts(String calendarName, int selectedDay, int month, int year, String[] checkedContacts) {
+		calendar(calendarName,selectedDay, month, year, checkedContacts);
 	}
 
 }

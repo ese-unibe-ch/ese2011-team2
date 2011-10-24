@@ -173,6 +173,10 @@ public class CalendarBrowser {
 		return year;
 	}
 	
+	public int getSelectedDay(){
+		return selectedDay;
+	}
+	
 	public int getPreviousMonth() {
 		return month > 0? month-1 : 11;
 	}

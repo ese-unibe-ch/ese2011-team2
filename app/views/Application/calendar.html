@@ -9,9 +9,16 @@
 <div id=month>
 #{month calendarBrowser /}
 </div>
-<div id=myContacts>
-#{myContacts myContacts /}
-</div>
+#{form @Application.includeContacts(calendar.name ,calendarBrowser.selectedDay,calendarBrowser.month,calendarBrowser.year)}
+	<div id=myContacts>
+	#{myContacts myContacts /}
+	</div>
+
+	<p>
+		<input type="submit" value ="include Contacts">
+	</p>
+#{/form}
+
 <div id=selectedDay>
 	<h2>Events on selected day:</h2>
 		<ul>#{list items: iterator, as:'event'}

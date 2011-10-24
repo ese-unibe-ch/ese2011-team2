@@ -18,15 +18,14 @@ public class Bootstrap extends Job {
 		UserManager um = UserManager.getInstance();
 		final CalendarManager cm = CalendarManager.getInstance();
 
-		createAaronCalendars(um, cm);
-		createJudithCalendars(um, cm);
-		createErwannCalendars(um, cm);
+		createSomeCallendars(um, cm);
 
 	}
 
-	private void createAaronCalendars(UserManager um, final CalendarManager cm) {
-		User aaron = um.createUser("aaron", "ese");
+	private void createSomeCallendars(UserManager um, final CalendarManager cm) {
 
+		User aaron = um.createUser("aaron", "ese");
+		
 		EseCalendar aaroncal;
 		try {
 			aaroncal = cm.createCalendar(aaron, "Aarons Kalender");
@@ -54,9 +53,7 @@ public class Bootstrap extends Job {
 		end = juc.getTime();
 		aaroncal.addEvent(User.ADMIN, new CalendarEvent(start, end,
 				"Moar Party", true));
-	}
-
-	private void createJudithCalendars(UserManager um, final CalendarManager cm) {
+	
 		User judith = um.createUser("judith", "ese");
 
 		EseCalendar judithcal;
@@ -65,17 +62,14 @@ public class Bootstrap extends Job {
 		} catch (CalendarAlreadyExistsException e) {
 			judithcal = cm.getCalendar("Judiths Kalender");
 		}
-		java.util.Calendar juc = java.util.Calendar.getInstance();
 		juc.set(2011, 11, 23, 22, 15);
-		Date start = juc.getTime();
+		start = juc.getTime();
 		juc.set(2011, 11, 23, 23, 00);
-		Date end = juc.getTime();
+		end = juc.getTime();
 		judithcal.addEvent(User.ADMIN, new CalendarEvent(start, end,
 				"Tolle party", true));
 
-	}
-
-	private void createErwannCalendars(UserManager um, final CalendarManager cm) {
+	
 		User erwann = um.createUser("erwann", "ese");
 
 		EseCalendar erwanncal;
@@ -84,13 +78,15 @@ public class Bootstrap extends Job {
 		} catch (CalendarAlreadyExistsException e) {
 			erwanncal = cm.getCalendar("Erwanns Kalender");
 		}
-		java.util.Calendar juc = java.util.Calendar.getInstance();
 		juc.set(2011, 11, 21, 20, 15);
-		Date start = juc.getTime();
+		start = juc.getTime();
 		juc.set(2011, 11, 21, 23, 00);
-		Date end = juc.getTime();
+		end = juc.getTime();
 		erwanncal.addEvent(User.ADMIN, new CalendarEvent(start, end,
 				"Standard lager", true));
+		
+		erwann.addToMyContacts(judith);
+		erwann.addToMyContacts(aaron);
 
 	}
 }
