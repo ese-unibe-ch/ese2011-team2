@@ -84,7 +84,7 @@ public class UserTest{
 	@Test
 	public void addUserToContacts() {
 		uOne.addToMyContacts(uTwo);
-		assertTrue(uOne.getMyContacts().contains(uTwo));
+		assertTrue(uOne.getMyContacts().keySet().contains(uTwo));
 	}
 	
 	@Test
@@ -92,15 +92,15 @@ public class UserTest{
 		uOne.addToMyContacts(uTwo);
 		uOne.addToMyContacts(uTwo);
 		assertEquals(1, uOne.getMyContacts().size());
-		assertTrue(uOne.getMyContacts().contains(uTwo));
+		assertTrue(uOne.getMyContacts().keySet().contains(uTwo));
 	}
 	
 	@Test
 	public void removeContacts() {
 		uOne.addToMyContacts(uTwo);
-		assertTrue(uOne.getMyContacts().contains(uTwo));
+		assertTrue(uOne.getMyContacts().keySet().contains(uTwo));
 		uOne.removeFromMyContacts(uTwo);
-		assertFalse(uOne.getMyContacts().contains(uTwo));
+		assertFalse(uOne.getMyContacts().keySet().contains(uTwo));
 	}
 	
 }

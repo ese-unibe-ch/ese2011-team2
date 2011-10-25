@@ -11,7 +11,7 @@
 </div>
 #{form @Application.includeContacts(calendar.name ,calendarBrowser.selectedDay,calendarBrowser.month,calendarBrowser.year)}
 	<div id=myContacts>
-	#{myContacts myContacts /}
+	#{myContacts myContacts:myContacts, user:user /}
 	</div>
 
 	<p>

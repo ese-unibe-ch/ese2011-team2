@@ -1,7 +1,10 @@
 package ch.unibe.ese.calendar;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -16,8 +19,7 @@ public class User {
 
 	private String userName;
 	private Object password;
-	private boolean isSelected;
-	private Set<User> myContacts = new HashSet<User>();
+	private Map<User, Boolean> myContacts = new HashMap<User, Boolean>();
 
 	/**
 	 * creates a user with the specified username and password
@@ -27,7 +29,6 @@ public class User {
 	public User(String userName, String password) {
 		this.userName = userName;
 		this.password = password;
-		this.isSelected = false;
 	}
 	
 	/**
@@ -37,18 +38,19 @@ public class User {
 	public User(String userName) {
 		this(userName, Integer.toString((int)(Math.random()*1000)));
 	}
-	
-	public void addToMyContacts(User userToAdd) {
-		if (!myContacts.contains(userToAdd)) {
-			myContacts.add(userToAdd);
-		}
+	/**
+	 * throws a fucking exception if user already in myContacts.
+	 * @param userToAdd
+	 */
+	public void addToMyContacts(User userToAdd){
+		myContacts.put(userToAdd, false);
 	}
 	
 	public void removeFromMyContacts(User userToRemove) {
 		myContacts.remove(userToRemove);
 	}
 	
-	public Set<User> getMyContacts() {
+	public Map<User, Boolean> getMyContacts() {
 		return myContacts;
 	}
 
@@ -91,12 +93,18 @@ public class User {
 		return password;
 	}
 	
-	public void setIsSelected(boolean check){
-		isSelected = check;
-	}
-	
-	public boolean getIsSelected(){
-		return isSelected;
+	public void setContactSelection(User user, boolean selected) {
+		myContacts.remove(user);
+		myContacts.put(user, selected);
 	}
 
+	public void unselectAllContacts() {
+		Iterator<User> userIt = myContacts.keySet().iterator();
+		while(userIt.hasNext())
+			setContactSelection(userIt.next(), false);
+	}
+	
+	public boolean isContactSelected(User user) {
+		return myContacts.get(user);
+	}
 }

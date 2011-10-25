@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.SortedSet;
 
 import javax.swing.CellEditor;
@@ -14,6 +15,7 @@ import controllers.CalendarBrowser.Day;
 import ch.unibe.ese.calendar.CalendarEntry;
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.EseCalendar;
+import ch.unibe.ese.calendar.EventIteratorMerger;
 import ch.unibe.ese.calendar.User;
 
 public class CalendarBrowser {
@@ -70,6 +72,22 @@ public class CalendarBrowser {
 			return false;
 		}
 		
+		/**
+		 * If there is a CalendarEntry on the specific day on any other users calendar,
+		 * this method returns true. We don't have to check if the event is public or not 
+		 * because the iterator will only give us the events visible to us.
+		 * @return true, if there is a visible event on any given users calendar.
+		 */
+		public boolean getHasContactEvents() {
+			for (EseCalendar c: otherUsersCalendar) {
+				EventIteratorMerger overAllIterator = new EventIteratorMerger(c.getEventsAt(user, asCalendar().getTime()).iterator(),
+						c.getSerialEventsForDay(user, asCalendar().getTime()).iterator());
+				if (overAllIterator.hasNext())
+						return true;
+				}
+			return false;
+		}
+		
 		public Calendar asCalendar() {
 			return (Calendar) juc.clone();
 		}
@@ -91,14 +109,27 @@ public class CalendarBrowser {
 	private int year;
 	private int selectedDay;
 	private User user;
+	private Set<EseCalendar> otherUsersCalendar;
 
-	public CalendarBrowser(User user, EseCalendar calendar, int selectedDay, int month, int year, Locale locale) {
+	/**
+	 * TODO: javadoc
+	 * @param user
+	 * @param calendar
+	 * @param otherUsersCalendar
+	 * @param selectedDay
+	 * @param month
+	 * @param year
+	 * @param locale
+	 */
+	public CalendarBrowser(User user, EseCalendar calendar, Set<EseCalendar> otherUsersCalendar,
+			int selectedDay, int month, int year, Locale locale) {
 		this.user = user;
 		this.calendar = calendar;
 		this.month = month;
 		this.year = year;
 		this.locale = locale;
 		this.selectedDay = selectedDay;
+		this.otherUsersCalendar = otherUsersCalendar;
 	}
 	
 	public String getMonthLabel() {

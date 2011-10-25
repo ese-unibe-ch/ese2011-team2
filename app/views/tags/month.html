@@ -32,6 +32,9 @@
 			if (day.selected) { 
 				classValue = classValue+" selected"
 			}
+			if (day.hasContactEvents) {
+				classValue = classValue+" contactEvent"
+			}
 		}%
 		<td class="${classValue}"><a href="@{Application.calendar(_arg.calendar.name, 
 		day.dayOfMonth, day.month, day.year)}">${day.dayOfMonth}</a></td>

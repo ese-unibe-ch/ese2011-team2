@@ -75,13 +75,15 @@ public class Application extends Controller {
 		set1.addAll(set2);
 		
 		
-		Set<User> contacts = user.getMyContacts();
-		Iterator<User> iterU = contacts.iterator();
+		Map<User, Boolean> contacts = user.getMyContacts();
+		Iterator<User> iterU = contacts.keySet().iterator();
+		Set<EseCalendar> selectedUsersCal = new HashSet<EseCalendar>();
 		
 		while (iterU.hasNext()){
 			User contact = iterU.next();
-			if (contact.getIsSelected()){
+			if (contacts.get(contact)){
 				Set<EseCalendar> contactCalendars = calendarManager.getCalendarsOf(contact);
+				selectedUsersCal.addAll(contactCalendars);
 				Iterator<EseCalendar> eseCIter = contactCalendars.iterator();
 				while (eseCIter.hasNext()){
 					EseCalendar contactCal = eseCIter.next();
@@ -93,10 +95,10 @@ public class Application extends Controller {
 		
 		Iterator<CalendarEntry> iterator = set1.iterator();
 		CalendarBrowser calendarBrowser = new CalendarBrowser(user, calendar,
-				day, month, year, getLocale());
+				selectedUsersCal, day, month, year, getLocale());
 		
-		Set<User> myContacts = user.getMyContacts();
-		render(iterator, calendar, calendarBrowser, myContacts);
+		Set<User> myContacts = user.getMyContacts().keySet();
+		render(iterator, calendar, calendarBrowser, myContacts, user);
 	}
 
 	/**
@@ -121,7 +123,7 @@ public class Application extends Controller {
 		int year = juc.get(java.util.Calendar.YEAR);
 		int month = juc.get(java.util.Calendar.MONTH);
 		for (EseCalendar cal : otherCalendars) {
-			calBrowsers.add(new CalendarBrowser(user, cal, selectedDay, month,
+			calBrowsers.add(new CalendarBrowser(user, cal, null, selectedDay, month,
 					year, getLocale()));
 		}
 		Set<User> users = UserManager.getInstance().getAllUsers();
@@ -247,31 +249,13 @@ public class Application extends Controller {
 	public static void includeContacts(String calendarName, int selectedDay, int month, int year, String[] checkedContacts) {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
-		Set<User> contacts = user.getMyContacts();
-		Iterator<User> iterU1 = contacts.iterator();
-		setAllContactsToUnSelected(iterU1);
-		Iterator<User> iterU2 = contacts.iterator();
-		if (checkedContacts != null){
-			int length = checkedContacts.length;	
-			while (iterU2.hasNext()){
-				User contact = iterU2.next();
-				for (int i =0 ;i<length; i++){
-					if (contact.getName().equalsIgnoreCase(checkedContacts[i])){
-						contact.setIsSelected(true);
-					}
-				}
-				
+		//user.unselectAllContacts(); //this might not work >.<
+		if (checkedContacts != null) {
+			for (String uName: checkedContacts) {
+				User u = UserManager.getInstance().getUserByName(uName);
+				user.setContactSelection(u, true);
 			}
 		}	
 		calendar(calendarName,selectedDay, month, year);
 	}
-
-	private static void setAllContactsToUnSelected(Iterator<User> iterU) {
-		while (iterU.hasNext()){
-			User contact = iterU.next();
-			contact.setIsSelected(false);
-		}
-		
-	}
-
 }

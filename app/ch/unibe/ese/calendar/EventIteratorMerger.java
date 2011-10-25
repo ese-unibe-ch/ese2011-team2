@@ -3,26 +3,26 @@ package ch.unibe.ese.calendar;
 import java.util.Iterator;
 
 /**
- * Merges multiple Iterator<CalendarEvent> into one, assuming the se iterators are 
+ * Merges multiple Iterator<CalendarEntry> into one, assuming these iterators are 
  * chronological by start date this Iterator will be so too
  *
  */
-class EventIteratorMerger implements Iterator<CalendarEvent> {
+public class EventIteratorMerger implements Iterator<CalendarEntry> {
 
-	private Iterator<CalendarEvent>[] baseIterators;
-	private CalendarEvent[] nextFromBase;
-	private CalendarEvent next;
+	private Iterator<CalendarEntry>[] baseIterators;
+	private CalendarEntry[] nextFromBase;
+	private CalendarEntry next;
 	private StartDateComparator startDateComparator = new StartDateComparator();
 	
 	
-	EventIteratorMerger(Iterator<CalendarEvent>... baseIterators) {
+	public EventIteratorMerger(Iterator<CalendarEntry>... baseIterators) {
 		if (baseIterators.length < 2) {
 			throw new IllegalArgumentException("must merge at least 2 base iterator");
 		}
 		this.baseIterators = baseIterators;
-		nextFromBase = new CalendarEvent[baseIterators.length];
+		nextFromBase = new CalendarEntry[baseIterators.length];
 		for (int i = 0; i < baseIterators.length; i++) {
-			Iterator<CalendarEvent> baseIter = baseIterators[i];
+			Iterator<CalendarEntry> baseIter = baseIterators[i];
 			if (baseIter.hasNext()) {
 				nextFromBase[i] = baseIter.next();
 			} else {
@@ -64,8 +64,8 @@ class EventIteratorMerger implements Iterator<CalendarEvent> {
 	}
 
 	@Override
-	public CalendarEvent next() {
-		CalendarEvent result = next;
+	public CalendarEntry next() {
+		CalendarEntry result = next;
 		prepareNext();
 		return result;
 	}

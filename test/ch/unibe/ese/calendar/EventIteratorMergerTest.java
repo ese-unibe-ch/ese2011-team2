@@ -70,14 +70,14 @@ public class EventIteratorMergerTest{
 	 */
 	@Test
 	public void merge3and2() {
-		Set<CalendarEvent> set3 = new TreeSet<CalendarEvent>(new StartDateComparator());
+		Set<CalendarEntry> set3 = new TreeSet<CalendarEntry>(new StartDateComparator());
 		set3.add(calendarEvent4);
 		set3.add(calendarEvent1);
 		set3.add(calendarEvent3);
-		Set<CalendarEvent> set2 = new TreeSet<CalendarEvent>(new StartDateComparator());
+		Set<CalendarEntry> set2 = new TreeSet<CalendarEntry>(new StartDateComparator());
 		set2.add(calendarEvent2);
 		set2.add(calendarEvent5);
-		Iterator<CalendarEvent> merged = new EventIteratorMerger(set3.iterator(),set2.iterator());
+		Iterator<CalendarEntry> merged = new EventIteratorMerger(set3.iterator(), set2.iterator());
 		assertTrue(merged.hasNext());
 		assertEquals(calendarEvent1, merged.next());
 		assertTrue(merged.hasNext());
