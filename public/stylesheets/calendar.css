@@ -1,10 +1,24 @@
-#month {
+#calendarArea {
 	width: auto;
+	margin: 2em;
+	overflow: auto;
+}
+
+#month {
+	float: left;
+	margin-left: 1em;
+}
+
+#myContacts {
+	float: left;
+	width: 180px;
 }
 
 #selectedDay {
+	margin: 2em;
 	width: auto;
 }
 
 #createEvent {
+	margin: 2em;
 }

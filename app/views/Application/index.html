@@ -6,30 +6,34 @@
 	<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/index.css'}">
 </head>
 
-<h1>Welcome to the ESE Calendaring app</h1>
-Your Calendars are: <br/>
-
-<ul>
-	#{list items: userCalendars, as:'calendar'}
-		<li><a href="@{Application.currentCalendar(calendar.name)}">${calendar.name}</a></li>
+<div id="welcome">
+	<h1>Welcome to the ESE Calendaring app</h1>
+	Your Calendars are: <br/>
+	
+	<ul>
+		#{list items: userCalendars, as:'calendar'}
+			<li><a href="@{Application.currentCalendar(calendar.name)}">${calendar.name}</a></li>
+		#{/list}
+	</ul>
+</div>
+	
+<div id="search">
+	<h4>Search for other users</h4>
+	#{form @Application.searchUser()}
+		<input type="text" name="searchRegex" placeholder="takes a java regex"/>
+		<input type="submit" value ="search">
+	#{/form}
+	
+	<ul>
+	#{list items:foundUsers, as:'User'}
+		<li> 
+			#{form @Application.addToContacts(User)} 
+				<label for="add"> <a href="user?name=${User}">${User}</a> </label>
+				#{if User != user.name}
+					<input type="submit" name="add" value="add to myContacts">
+				#{/if}
+			#{/form}
+		</li>
 	#{/list}
-</ul>
-
-<h4>Search for other users</h4>
-#{form @Application.searchUser()}
-	<input type="text" name="searchRegex" placeholder="takes a java regex"/>
-	<input type="submit" value ="search">
-#{/form}
-
-<ul>
-#{list items:foundUsers, as:'User'}
-	<li> 
-		#{form @Application.addToContacts(User)} 
-			<label for="add"> <a href="user?name=${User}">${User}</a> </label>
-			#{if User != user.name}
-				<input type="submit" name="add" value="add to myContacts">
-			#{/if}
-		#{/form}
-	</li>
-#{/list}
-</ul>
+	</ul>
+</div>

@@ -6,18 +6,19 @@
 	<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/calendar.css'}">
 </head>
 
-<div id=month>
-#{month calendarBrowser /}
-</div>
-#{form @Application.includeContacts(calendar.name ,calendarBrowser.selectedDay,calendarBrowser.month,calendarBrowser.year)}
-	<div id=myContacts>
-	#{myContacts myContacts:myContacts, user:user /}
+<div id=calendarArea>
+	#{form @Application.includeContacts(calendar.name ,calendarBrowser.selectedDay,calendarBrowser.month,calendarBrowser.year)}
+		<div id=myContacts>
+			#{myContacts myContacts:myContacts, user:user /}
+			<p>
+				<input type="submit" value ="include Contacts">
+			</p>
+		</div>
+	#{/form}
+	<div id=month>
+	#{month calendarBrowser /}
 	</div>
-
-	<p>
-		<input type="submit" value ="include Contacts">
-	</p>
-#{/form}
+</div>
 
 <div id=selectedDay>
 	<h2>Events on selected day:</h2>
@@ -44,15 +45,15 @@
 					<input type="hidden" name="calendarName" value="${calendar.name}">
 					<p>
 						<label for="name">Event Name: </label> <br/>
-						<input type="text" size="25%" name="name" placeholder="Date with secretary (for example)"/>
+						<input type="text" size="35%" name="name" placeholder="Date with secretary (for example)"/>
 					</p>
 					<p>
 						<label for="startDate">Start Date: </label> <br/>
-						<input type="text" size="25%" name="startDate" placeholder="24.12.2011 20:00 (for example)"/>
+						<input type="text" size="35%" name="startDate" placeholder="24.12.2011 20:00 (for example)"/>
 					</p>
 					<p>
 						<label for="endDate">End Date: </label> <br/>
-						<input type="text" size="25%" name="endDate" placeholder="24.12.2011 23:30 (for example)"/>
+						<input type="text" size="35%" name="endDate" placeholder="24.12.2011 23:30 (for example)"/>
 					</p>
 					<p>
 						<input type="checkbox" name="isPublic"/>

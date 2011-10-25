@@ -1,8 +1,5 @@
 table {
 	border: thin solid grey;
-	margin: auto;
-	margin-top: 1em;
-	margin-bottom: 1em;
 }
 
 td {
@@ -28,7 +25,7 @@ td.today {
 }
 
 td.contactEvent {
-	color: #F5A8A8;
+	color: #FF8000;
 }
 td a {
 	text-decoration: inherit;
