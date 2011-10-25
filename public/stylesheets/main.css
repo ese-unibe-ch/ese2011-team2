@@ -2,7 +2,7 @@ html, body {
 	font:1em/1.4 Verdana, Arial, Helvetica, sans-serif;
 	text-align: center;
 	background-color: black;
-	height: 100%;
+	height: 99%;
 }
 
 h1 {
@@ -14,6 +14,7 @@ h2 {
 }
 
 #content {
+	border: thick solid #424242;
 	background-color: white;
 	width: 1000px;
 	height: auto !important;
@@ -34,6 +35,7 @@ h2 {
 	font-size: 3em;
 	text-align: center;
 	padding-left: 3em;
+	text-shadow:2px 4px 5px #1C1C1C;
 }
 
 #tools {

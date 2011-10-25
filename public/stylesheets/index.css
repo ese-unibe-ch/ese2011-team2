@@ -1,9 +1,10 @@
 #welcome {
-	margin-left: 2em;
+	margin-left: 1em;
 	float: left;
 }
 
 #search {
 	float: right;
-	margin-right: 2em;
+	margin-right: 1em;
+	min-width: 250px;
 }

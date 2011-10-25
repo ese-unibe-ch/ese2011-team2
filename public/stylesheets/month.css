@@ -1,5 +1,4 @@
 table {
-	border: thin solid grey;
 }
 
 td {
@@ -25,7 +24,7 @@ td.today {
 }
 
 td.contactEvent {
-	color: #FF8000;
+	color: #FF1E1E;
 }
 td a {
 	text-decoration: inherit;
