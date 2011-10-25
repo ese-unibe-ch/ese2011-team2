@@ -131,10 +131,12 @@ public class EventSeries extends CalendarEntry {
 
 		@Override
 		public CalendarEvent next() {
-			while (dateMatches(currentDate)) {
+			while (!dateMatches(currentDate)) {
 				currentDate = nextDay();
 			}
-			return null;
+			CalendarEvent result = getAsSerialEventForDay(currentDate);
+			currentDate = nextDay();
+			return result;
 		}
 
 		private Date nextDay() {
