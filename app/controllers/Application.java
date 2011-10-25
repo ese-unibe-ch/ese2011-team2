@@ -29,7 +29,7 @@ import ch.unibe.ese.calendar.CalendarEntry;
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
-import ch.unibe.ese.calendar.DateFormat;
+import ch.unibe.ese.calendar.EseDateFormat;
 import ch.unibe.ese.calendar.EventSeries;
 import ch.unibe.ese.calendar.SerialEvent;
 import ch.unibe.ese.calendar.User;
@@ -132,8 +132,8 @@ public class Application extends Controller {
 			String startDate, String endDate, boolean isPublic, String repetition)
 			throws Throwable {
 		System.out.println("creating event");
-		Date sDate = DateFormat.parse(startDate);
-		Date eDate = DateFormat.parse(endDate);
+		Date sDate = EseDateFormat.getInstance().parse(startDate);
+		Date eDate = EseDateFormat.getInstance().parse(endDate);
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
@@ -173,7 +173,7 @@ public class Application extends Controller {
 	public static void deleteEvent(String calendarName, int hash,
 			String startDate) throws ParseException {
 
-		Date sDate = DateFormat.parse(startDate);
+		Date sDate = EseDateFormat.getInstance().parse(startDate);
 
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
 				calendarName);
@@ -198,7 +198,7 @@ public class Application extends Controller {
 
 	public static void editEvent(String calendarName, int hash, String startDate)
 			throws ParseException {
-		Date sDate = DateFormat.parse(startDate);
+		Date sDate = EseDateFormat.getInstance().parse(startDate);
 
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
 				calendarName);
@@ -212,9 +212,9 @@ public class Application extends Controller {
 			String name, String startDate, String endDate, boolean isPublic) 
 			throws ParseException {
 		
-		Date oldDate = DateFormat.parse(oldStartDate);
-		Date sDate = DateFormat.parse(startDate);
-		Date eDate = DateFormat.parse(endDate);
+		Date oldDate = EseDateFormat.getInstance().parse(oldStartDate);
+		Date sDate = EseDateFormat.getInstance().parse(startDate);
+		Date eDate = EseDateFormat.getInstance().parse(endDate);
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
 				calendarName);
 		String userName = Security.connected();
