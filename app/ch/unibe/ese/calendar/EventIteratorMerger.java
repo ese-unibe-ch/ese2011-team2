@@ -1,37 +1,45 @@
 package ch.unibe.ese.calendar;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 /**
- * Merges multiple Iterator<CalendarEntry> into one, assuming these iterators are 
- * chronological by start date this Iterator will be so too
- *
+ * Merges multiple Iterator<CalendarEvent> into one, assuming these iterators
+ * are chronological by start date this Iterator will be so too
+ * 
  */
-public class EventIteratorMerger implements Iterator<CalendarEntry> {
+public class EventIteratorMerger implements Iterator<CalendarEvent> {
 
-	private Iterator<CalendarEntry>[] baseIterators;
-	private CalendarEntry[] nextFromBase;
-	private CalendarEntry next;
+	private List<Iterator<CalendarEvent>> baseIterators;
+	private CalendarEvent[] nextFromBase;
+	private CalendarEvent next;
 	private StartDateComparator startDateComparator = new StartDateComparator();
-	
-	
-	public EventIteratorMerger(Iterator<CalendarEntry>... baseIterators) {
-		if (baseIterators.length < 2) {
-			throw new IllegalArgumentException("must merge at least 2 base iterator");
+
+	public EventIteratorMerger(Iterator<CalendarEvent>... baseIterators) {
+		this(Arrays.asList(baseIterators));
+	}
+
+	public EventIteratorMerger(List<Iterator<CalendarEvent>> baseIterators) {
+		if (baseIterators.size() < 2) {
+			throw new IllegalArgumentException(
+					"must merge at least 2 base iterator");
 		}
 		this.baseIterators = baseIterators;
-		nextFromBase = new CalendarEntry[baseIterators.length];
-		for (int i = 0; i < baseIterators.length; i++) {
-			Iterator<CalendarEntry> baseIter = baseIterators[i];
+		nextFromBase = new CalendarEvent[baseIterators.size()];
+		for (int i = 0; i < baseIterators.size(); i++) {
+			Iterator<CalendarEvent> baseIter = baseIterators.get(i);
 			if (baseIter.hasNext()) {
 				nextFromBase[i] = baseIter.next();
 			} else {
-				//just to be explicit
+				// just to be explicit
 				nextFromBase[i] = null;
 			}
 		}
 		prepareNext();
 	}
+
 
 	private void prepareNext() {
 		next = null;
@@ -42,17 +50,19 @@ public class EventIteratorMerger implements Iterator<CalendarEntry> {
 				return;
 			}
 		}
-		for (int i = (currentEarliest+1); i < nextFromBase.length; i++) {
+		for (int i = (currentEarliest + 1); i < nextFromBase.length; i++) {
 			if (nextFromBase[i] == null) {
 				continue;
 			}
-			if (startDateComparator.compare(nextFromBase[i], nextFromBase[currentEarliest]) < 0) {
+			if (startDateComparator.compare(nextFromBase[i],
+					nextFromBase[currentEarliest]) < 0) {
 				currentEarliest = i;
 			}
 		}
 		next = nextFromBase[currentEarliest];
-		if (baseIterators[currentEarliest].hasNext()) {
-			nextFromBase[currentEarliest] = baseIterators[currentEarliest].next();
+		if (baseIterators.get(currentEarliest).hasNext()) {
+			nextFromBase[currentEarliest] = baseIterators.get(currentEarliest)
+					.next();
 		} else {
 			nextFromBase[currentEarliest] = null;
 		}
@@ -64,15 +74,15 @@ public class EventIteratorMerger implements Iterator<CalendarEntry> {
 	}
 
 	@Override
-	public CalendarEntry next() {
-		CalendarEntry result = next;
+	public CalendarEvent next() {
+		CalendarEvent result = next;
 		prepareNext();
 		return result;
 	}
 
 	@Override
 	public void remove() {
-		throw new UnsupportedOperationException("not implemented");	
+		throw new UnsupportedOperationException("not implemented");
 	}
 
 }

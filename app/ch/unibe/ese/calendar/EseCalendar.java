@@ -17,9 +17,18 @@ import ch.unibe.ese.calendar.EventSeries.Repetition;
 import ch.unibe.ese.calendar.security.Policy;
 import ch.unibe.ese.calendar.security.PrivilegedCalendarAccessPermission;
 
+/**
+ * 
+ * A Calendar is a collections of individual events and series of events It provides methods to access 
+ * the events at a certain day or to iterate through them. Most methods receive the user for which the 
+ * operation is performed the operation is then executed (or denied execution) according the 
+ * permissions of the user.
+ *
+ */
 public class EseCalendar {
 	
 	private SortedSet<CalendarEvent> startDateSortedSet = new TreeSet<CalendarEvent>(new StartDateComparator());
+	//what's the point on sorting them by start date, it could be just a set no?
 	private SortedSet<EventSeries> startDateSortedSetOfSeries = new TreeSet<EventSeries>(new StartDateComparator());
 	/**
 	 * Constructs a calendar. Application typically create and retrieve calendars using the CalendarManager.
@@ -106,16 +115,53 @@ public class EseCalendar {
 	}
 
 	/**
-	 * Iterates through the non-serial events with a start date after start
+	 * Iterates through all events with a start date after start
 	 * 
 	 * @param start the date at which to start iterating events
 	 * @return an iterator with events starting after start
 	 */
 	public Iterator<CalendarEvent> iterate(User user, Date start) {
+		Iterator<CalendarEvent> iterateIndividual = iterateIndividualEvents(user, start);
+		Iterator<CalendarEvent> iterateSeries = iterateSerialEvents(user, start);
+		return new EventIteratorMerger(iterateIndividual, iterateSeries);
+	}
+	
+	/**
+	 * Iterates through the non-serial events with a start date after start
+	 * 
+	 * @param start the date at which to start iterating events
+	 * @return an iterator with events starting after start
+	 */
+	Iterator<CalendarEvent> iterateIndividualEvents(User user, Date start) {
 		CalendarEvent compareDummy = new CalendarEvent(start, start, "compare-dummy", false);
 		Iterator<CalendarEvent> unfilteredEvents = startDateSortedSet.tailSet(compareDummy).iterator();
 		return new ACFilteringEventIterator(user, unfilteredEvents);
 	}
+	
+	/**
+	 * Iterates through the serial events with a start date after start
+	 * 
+	 * @param start the date at which to start iterating events
+	 * @return an iterator with events starting after start
+	 */
+	Iterator<CalendarEvent> iterateSerialEvents(User user, Date start) {
+		List<Iterator<CalendarEvent>> seriesIterators = new ArrayList<Iterator<CalendarEvent>>(); 
+		Iterator<EventSeries> eventSeries = iterateSeries(user);
+		while (eventSeries.hasNext()) {
+			EventSeries series = eventSeries.next();
+			seriesIterators.add(series.iterator(start));
+		}
+		if (seriesIterators.size() > 1) {
+			return new EventIteratorMerger(seriesIterators);
+		}
+		if (seriesIterators.size() == 1) {
+			return seriesIterators.get(0);
+		}
+		//empty iterator
+		return Collections.EMPTY_LIST.iterator();
+	}
+	
+	
 	/**
 	 * Iterates through all serial events
 	 * 
@@ -127,14 +173,14 @@ public class EseCalendar {
 	}
 	
 	/**
-	 * Gets a list of events starting within the 24 hour period starting at date;
+	 * Gets a list of all events starting within the 24 hour period starting at date;
 	 * 
 	 * @param date the point in time specifying the start of the 24h period for which events are to be returned
 	 * @return a list of the events
 	 */
-	public SortedSet<CalendarEntry> getEventsAt(User user, Date date) {
+	public SortedSet<CalendarEvent> getEventsAt(User user, Date date) {
 		Date endDate = new Date(date.getTime()+24*60*60*1000);
-		SortedSet<CalendarEntry> result = new TreeSet<CalendarEntry>(new StartDateComparator());
+		SortedSet<CalendarEvent> result = new TreeSet<CalendarEvent>(new StartDateComparator());
 		Iterator<CalendarEvent> iter = iterate(user, date);
 		while (iter.hasNext()) {
 			CalendarEvent ce = iter.next();
@@ -146,70 +192,9 @@ public class EseCalendar {
 		return result;
 	}
 	
-	/**
-	 * 
-	 * @param user the user requesting the event
-	 * @param date a point in time that is part of the day for which the vents are requested
-	 * @return a sorted list of SerialEventS for the specified day
-	 */
-	public SortedSet<CalendarEntry> getSerialEventsForDay(User user, Date date){
-		SortedSet<CalendarEntry> result =  new TreeSet<CalendarEntry>(new StartDateComparator());
-		Iterator<EventSeries> iter = iterateSeries(user);
-		while (iter.hasNext()) {
-			EventSeries es = iter.next();
-			
-			if (dateMatches(date, es)) {
-				java.util.Calendar juc = java.util.Calendar.getInstance(new Locale("de", "CH"));
-				juc.setTime(date);
-				int year = juc.get(Calendar.YEAR);
-				int month =juc.get(Calendar.MONTH);
-				int day = juc.get(Calendar.DAY_OF_MONTH);
-				juc.setTime(es.start);
-				int hour = juc.get(Calendar.HOUR_OF_DAY);
-				int min = juc.get(Calendar.MINUTE);
-				juc.set(year, month, day, hour, min);
-				Date start = juc.getTime();
-				juc.setTime(es.end);
-				int hour2 = juc.get(Calendar.HOUR_OF_DAY);
-				int min2 = juc.get(Calendar.MINUTE);
-				juc.set(year, month, day, hour2, min2);
-				Date end = juc.getTime();
-				SerialEvent se = new SerialEvent(start, end, es.name, es.isPublic, es);
-				result.add(se);
-			}
-			
-		}
-		return result;
-		
-	} 
 	
-	private boolean dateMatches(Date date, EventSeries es) {
-			Repetition repetition = es.getRepetition();
-			java.util.Calendar juc1 = java.util.Calendar.getInstance(new Locale("de", "CH"));
-			juc1.setTime(es.getStart());
-			
-			int weekDayOfEventSerie = juc1.get(Calendar.DAY_OF_WEEK);
-			int monthDayOfEventSerie = juc1.get(Calendar.DAY_OF_MONTH);
-			java.util.Calendar juc2 = java.util.Calendar.getInstance(new Locale("de", "CH"));
-			juc2.setTime(date);
-			int weekDayOfDate = juc2.get(Calendar.DAY_OF_WEEK);
-			int monthDayOfDate = juc2.get(Calendar.DAY_OF_MONTH);
-			if (repetition.equals(repetition.DAILY)) {
-				System.out.println("daily");
-				return true;
-			}
-			if (repetition.equals(repetition.WEEKLY)){
-				System.out.println("weekly");
-				System.out.println("weekDayOfEventSerie" + weekDayOfEventSerie);
-				System.out.println("weekDayOfDate" + weekDayOfDate);
-				return (weekDayOfEventSerie == weekDayOfDate);
-			}
-			if (repetition.equals(repetition.MONTHLY)) {
-				System.out.println("monthly");
-				return (monthDayOfEventSerie == monthDayOfDate);
-			}
-		return false;
-	}
+	
+	
 
 	private class ACFilteringEventIterator implements Iterator<CalendarEvent> {
 

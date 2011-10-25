@@ -8,10 +8,10 @@ import java.util.Date;
  */
 public abstract class CalendarEntry {
 
-	protected boolean isPublic;
-	protected Date end;
-	protected Date start;
-	protected String name;
+	private boolean isPublic;
+	private Date end;
+	private Date start;
+	private String name;
 
 	CalendarEntry(Date start, Date end, String name, boolean isPublic) {
 		if (name==null || start==null || end==null) {

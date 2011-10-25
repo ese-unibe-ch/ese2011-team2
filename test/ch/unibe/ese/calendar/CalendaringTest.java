@@ -133,14 +133,14 @@ public class CalendaringTest extends UnitTest {
 		{
 			juc.set(2011, 11, 21, 0, 0);
 			Date date = juc.getTime();
-			SortedSet<CalendarEntry> events = cal.getEventsAt(user, date);
+			SortedSet<CalendarEvent> events = cal.getEventsAt(user, date);
 			assertEquals(2, events.size());
 		}
 		// one event on day 23
 		{
 			juc.set(2011, 11, 23, 0, 0);
 			Date date = juc.getTime();
-			SortedSet<CalendarEntry> events = cal.getEventsAt(user, date);
+			SortedSet<CalendarEvent> events = cal.getEventsAt(user, date);
 			assertEquals(1, events.size());
 		}
 
@@ -179,7 +179,7 @@ public class CalendaringTest extends UnitTest {
 		java.util.Calendar juc = java.util.Calendar.getInstance();
 		juc.set(2011, 11, 21, 0, 0);
 		Date start = juc.getTime();
-		Iterator<CalendarEvent> iter = cal.iterate(user, start);
+		Iterator<CalendarEvent> iter = cal.iterateIndividualEvents(user, start);
 		assertTrue(iter.hasNext());
 		assertNotNull(iter.next());
 		assertFalse(iter.hasNext());
@@ -193,7 +193,7 @@ public class CalendaringTest extends UnitTest {
 		java.util.Calendar juc = java.util.Calendar.getInstance();
 		juc.set(2011, 11, 21, 0, 0);
 		Date start = juc.getTime();
-		Iterator<CalendarEvent> iter = cal.iterate(user, start);
+		Iterator<CalendarEvent> iter = cal.iterateIndividualEvents(user, start);
 		assertTrue(iter.hasNext());
 		CalendarEntry first = iter.next();
 		assertEquals(SUSANNE_EVENT_1_DESC, first.getName());

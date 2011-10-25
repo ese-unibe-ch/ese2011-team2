@@ -70,9 +70,8 @@ public class Application extends Controller {
 		juc.set(year, month, day, 0, 0, 0);
 		final Date date = juc.getTime();
 
-		SortedSet<CalendarEntry> set1 = calendar.getEventsAt(user, date);
-		SortedSet<CalendarEntry> set2 = calendar.getSerialEventsForDay(user, date);
-		set1.addAll(set2);
+		SortedSet<CalendarEvent> set1 = calendar.getEventsAt(user, date);
+
 		
 		
 		Map<User, Boolean> contacts = user.getMyContacts();
@@ -88,12 +87,11 @@ public class Application extends Controller {
 				while (eseCIter.hasNext()){
 					EseCalendar contactCal = eseCIter.next();
 					set1.addAll(contactCal.getEventsAt(user, date));
-					set1.addAll(contactCal.getSerialEventsForDay(user, date));
 				}
 			}
 		}
 		
-		Iterator<CalendarEntry> iterator = set1.iterator();
+		Iterator<CalendarEvent> iterator = set1.iterator();
 		CalendarBrowser calendarBrowser = new CalendarBrowser(user, calendar,
 				selectedUsersCal, day, month, year, getLocale());
 		

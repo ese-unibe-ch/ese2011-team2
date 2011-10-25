@@ -47,10 +47,8 @@ public class CalendarBrowser {
 		}
 
 		public boolean getHasPublicEvents() {
-			SortedSet<CalendarEntry> set1 = calendar.getEventsAt(user, asCalendar().getTime());
-			SortedSet<CalendarEntry> set2 = calendar.getSerialEventsForDay(user, asCalendar().getTime());
-			set1.addAll(set2);	
-			Iterator<CalendarEntry> iterator = set1.iterator();
+			SortedSet<CalendarEvent> set1 = calendar.getEventsAt(user, asCalendar().getTime());
+			Iterator<CalendarEvent> iterator = set1.iterator();
 			while (iterator.hasNext()){
 				if (iterator.next().isPublic()){
 					return true;
@@ -60,10 +58,8 @@ public class CalendarBrowser {
 		}
 
 		public boolean getHasPrivateEvents() {
-			SortedSet<CalendarEntry> set1 = calendar.getEventsAt(user, asCalendar().getTime());
-			SortedSet<CalendarEntry> set2 = calendar.getSerialEventsForDay(user, asCalendar().getTime());
-			set1.addAll(set2);	
-			Iterator<CalendarEntry> iterator = set1.iterator();
+			SortedSet<CalendarEvent> set1 = calendar.getEventsAt(user, asCalendar().getTime());
+			Iterator<CalendarEvent> iterator = set1.iterator();
 			while (iterator.hasNext()){
 				if (!iterator.next().isPublic()){
 					return true;
@@ -80,8 +76,7 @@ public class CalendarBrowser {
 		 */
 		public boolean getHasContactEvents() {
 			for (EseCalendar c: otherUsersCalendar) {
-				EventIteratorMerger overAllIterator = new EventIteratorMerger(c.getEventsAt(user, asCalendar().getTime()).iterator(),
-						c.getSerialEventsForDay(user, asCalendar().getTime()).iterator());
+				Iterator<CalendarEvent> overAllIterator = c.getEventsAt(user, asCalendar().getTime()).iterator();
 				if (overAllIterator.hasNext())
 						return true;
 				}

@@ -18,11 +18,11 @@ public class DateFormatTest extends UnitTest{
 	
 	@Test(expected=ParseException.class) 
 	public void wrongStringFormat() throws ParseException {
-		Date testDate = EseDateFormat.getInstance().parse("2001.05.01 13:20");
+		EseDateFormat.getInstance().parse("2001.05.01 13:20");
 	}
 	
 	@Test(expected=ParseException.class) 
 	public void rubbishString() throws ParseException {
-		Date testDate = EseDateFormat.getInstance().parse("0MGLOL");
+		EseDateFormat.getInstance().parse("0MGLOL");
 	}
 }
