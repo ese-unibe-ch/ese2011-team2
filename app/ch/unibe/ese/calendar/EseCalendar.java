@@ -61,11 +61,19 @@ public class EseCalendar {
 		return owner;
 	}
 	
-	public SortedSet<CalendarEvent> getStartDateSortedSet() {
+	/**
+	 * this method is used only for tests.  
+	 */
+	//I think we should use blackbox tests instead (reto)
+	SortedSet<CalendarEvent> getStartDateSortedSet() {
 		return startDateSortedSet;
 	}
 	
-	public SortedSet<EventSeries> getStartDateSortedSetOfSeries() {
+	/**
+	 * this method is used only for tests. I think we should use blackbox tests instead 
+	 */
+	//I think we should use blackbox tests instead (reto)
+	SortedSet<EventSeries> getStartDateSortedSetOfSeries() {
 		return startDateSortedSetOfSeries;
 	}
 
@@ -102,6 +110,7 @@ public class EseCalendar {
 	 * @param hash The hash the event produces by calling hashCode()
 	 * @return null, if the Event is not found.
 	 */
+	//TODO use a uid instead of hash
 	public CalendarEntry getEventByHash(User user, int hash, Date start) {
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
 		CalendarEvent compareDummy = new CalendarEvent(start, start, "compare-dummy", false);
@@ -167,7 +176,7 @@ public class EseCalendar {
 	 * 
 	 * @return an iterator with all serial events
 	 */
-	public Iterator<EventSeries> iterateSeries(User user){
+	Iterator<EventSeries> iterateSeries(User user){
 		Iterator<EventSeries> allEventSeries = startDateSortedSetOfSeries.iterator();
 		return new ACFilteringEventSeriesIterator(user, allEventSeries);
 	}
