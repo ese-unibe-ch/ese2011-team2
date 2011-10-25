@@ -2,14 +2,18 @@ package ch.unibe.ese.calendar;
 
 import java.util.Date;
 
-public class CalendarEntry {
+/**
+ * Represents a thing contained in a calendar, i.e. an <code>Event</code> or an <code>EventSeries</code> 
+ *
+ */
+public abstract class CalendarEntry {
 
 	protected boolean isPublic;
 	protected Date end;
 	protected Date start;
 	protected String name;
 
-	public CalendarEntry(Date start, Date end, String name, boolean isPublic) {
+	CalendarEntry(Date start, Date end, String name, boolean isPublic) {
 		if (name==null || start==null || end==null) {
 			throw new IllegalArgumentException();
 		}
@@ -19,18 +23,35 @@ public class CalendarEntry {
 		this.isPublic = isPublic;
 	}
 
+	/**
+	 * 
+	 * @return true iff this is a public event
+	 */
 	public boolean isPublic() {
 		return isPublic;
 	}
 
+	/**
+	 * 
+	 * @return the end of event
+	 */
 	public Date getEnd() {
 		return end;
 	}
 
+	/**
+	 * 
+	 * @return the start of the event
+	 */
 	public Date getStart() {
 		return start;
 	}
 
+	/**
+	 * The name is typically a short description of the event
+	 * 
+	 * @return the name of the event
+	 */
 	public String getName() {
 		return name;
 	}
