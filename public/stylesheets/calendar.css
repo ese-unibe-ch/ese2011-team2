@@ -1,3 +1,12 @@
+#contentLeft {
+	margin: 2em;
+}
+
+#contentMiddle {
+	float: left;
+	margin-left: 1.5em;
+}
+
 #calendarArea {
 	width: auto;
 	margin: 2em;
@@ -5,8 +14,6 @@
 }
 
 #month {
-	float: left;
-	margin-left: 1em;
 }
 
 #myContacts {
@@ -15,10 +22,23 @@
 }
 
 #selectedDay {
-	margin: 2em;
+	margin-top: 1em;
+	padding-left: 1em;
+	border: thin solid grey;
 	width: auto;
 }
 
 #createEvent {
-	margin: 2em;
+	margin-top: 1em;
+	padding-left: 1em;
+	border: thin solid grey;
+	overflow: auto;
+}
+
+#forms {
+	float: left;
+}
+
+#repetition {
+	float: left;
 }
