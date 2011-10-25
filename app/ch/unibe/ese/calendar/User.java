@@ -94,7 +94,6 @@ public class User {
 	}
 	
 	public void setContactSelection(User user, boolean selected) {
-		myContacts.remove(user);
 		myContacts.put(user, selected);
 	}
 

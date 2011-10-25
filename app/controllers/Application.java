@@ -247,7 +247,7 @@ public class Application extends Controller {
 	public static void includeContacts(String calendarName, int selectedDay, int month, int year, String[] checkedContacts) {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
-		//user.unselectAllContacts(); //this might not work >.<
+		user.unselectAllContacts();
 		if (checkedContacts != null) {
 			for (String uName: checkedContacts) {
 				User u = UserManager.getInstance().getUserByName(uName);
