@@ -53,7 +53,7 @@ public class User {
 	}
 	
 	/**
-	 * Removs a user from the Map myContacts.
+	 * Removes a user from the Map myContacts.
 	 * There is no return value.
 	 * @param userToRemove The user you want to remove
 	 */
@@ -61,6 +61,12 @@ public class User {
 		myContacts.remove(userToRemove);
 	}
 	
+	/**
+	 * Gets all users added to contacts as a Map.
+	 * 
+	 * @return a Map containing all myContacts as a key with a 
+	 * boolean value, which declares if the contact is selected or not.
+	 */
 	public Map<User, Boolean> getMyContacts() {
 		return myContacts;
 	}
@@ -96,6 +102,10 @@ public class User {
 		return "User [userName=" + userName + "]";
 	}
 
+	/**
+	 * Gets the name of the user.
+	 * @return the name of the user as a String.
+	 */
 	public String getName() {
 		return userName;
 	}
@@ -104,6 +114,15 @@ public class User {
 		return password;
 	}
 	
+	/**
+	 * Sets the selection value of a specified user to
+	 * passed boolean.
+	 * @param user
+	 * , whose selection value is to be changed.
+	 * @param selected
+	 * , a boolean used to select a user if true,
+	 * deselect if false.
+	 */
 	public void setContactSelection(User user, boolean selected) {
 		myContacts.put(user, selected);
 	}
@@ -118,6 +137,14 @@ public class User {
 			setContactSelection(userIt.next(), false);
 	}
 	
+	/**
+	 * Gets the selection value as a boolean of a 
+	 * specified user.
+	 * @param user
+	 * , whose selection value is to be returned.
+	 * @return a boolean which is true if user
+	 * was selected, false if not.
+	 */
 	public boolean isContactSelected(User user) {
 		return myContacts.get(user);
 	}
