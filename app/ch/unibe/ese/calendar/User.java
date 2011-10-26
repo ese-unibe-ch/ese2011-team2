@@ -9,8 +9,8 @@ import java.util.Set;
 
 
 /**
- * Represents a User. Users have a unique names identifying them.
- * 
+ * Represents a User. Users have a unique names identifying them and
+ * a Map myContacts, to which a user connected to a boolean can be added.
  *
  */
 public class User {
@@ -38,14 +38,25 @@ public class User {
 	public User(String userName) {
 		this(userName, Integer.toString((int)(Math.random()*1000)));
 	}
+	
 	/**
-	 * throws a f*cking exception if user already in myContacts.
-	 * @param userToAdd
+	 * Adds a user to the Map myContacts. By default, they are
+	 * not selected. 
+	 * 
+	 * If the user is already in the list, he is still only once in the map
+	 * and selected is set to false.
+	 * 
+	 * @param userToAdd The user you want to add
 	 */
 	public void addToMyContacts(User userToAdd){
 		myContacts.put(userToAdd, false);
 	}
 	
+	/**
+	 * Removs a user from the Map myContacts.
+	 * There is no return value.
+	 * @param userToRemove The user you want to remove
+	 */
 	public void removeFromMyContacts(User userToRemove) {
 		myContacts.remove(userToRemove);
 	}
@@ -97,6 +108,10 @@ public class User {
 		myContacts.put(user, selected);
 	}
 
+	/**
+	 * Sets isContactSeleced(User u) to false for every user
+	 * in myContacts.
+	 */
 	public void unselectAllContacts() {
 		Iterator<User> userIt = myContacts.keySet().iterator();
 		while(userIt.hasNext())
