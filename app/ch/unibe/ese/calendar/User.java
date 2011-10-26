@@ -39,7 +39,7 @@ public class User {
 		this(userName, Integer.toString((int)(Math.random()*1000)));
 	}
 	/**
-	 * throws a fucking exception if user already in myContacts.
+	 * throws a f*cking exception if user already in myContacts.
 	 * @param userToAdd
 	 */
 	public void addToMyContacts(User userToAdd){
