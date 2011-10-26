@@ -14,7 +14,7 @@ h2 {
 }
 
 #content {
-	border: thick solid #424242;
+	border: medium solid #424242;
 	background-color: white;
 	width: 1000px;
 	height: auto !important;

@@ -28,7 +28,7 @@
 	#{list items:foundUsers, as:'User'}
 		<li> 
 			#{form @Application.addToContacts(User)} 
-				<label for="add"> <a href="user?name=${User}">${User}</a> </label>
+				<label for="add">${User}</label>
 				#{if User != user.name}
 					<input type="submit" name="add" value="add to myContacts">
 				#{/if}
