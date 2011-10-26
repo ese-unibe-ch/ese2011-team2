@@ -113,8 +113,7 @@ public class EseCalendar {
 	//TODO use a uid instead of hash
 	public CalendarEntry getEventByHash(User user, int hash, Date start) {
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
-		CalendarEvent compareDummy = new CalendarEvent(start, start, "compare-dummy", false);
-		Iterator<CalendarEvent> afterStart = startDateSortedSet.tailSet(compareDummy).iterator();
+		Iterator<CalendarEvent> afterStart = iterate(user, start);
 		//TODO: also check, startDateSortedSet for this hash (or create own method for deleting series)
 		CalendarEntry e;
 		do {

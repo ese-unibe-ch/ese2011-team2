@@ -68,5 +68,7 @@ public abstract class CalendarEntry {
 		return "CalendarEvent [isPublic=" + isPublic + ", end=" + end
 				+ ", start=" + start + ", name=" + name + "]";
 	}
+	
+	public abstract boolean getIsASerie();
 
 }

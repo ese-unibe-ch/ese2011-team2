@@ -112,6 +112,10 @@ public class EventSeries extends CalendarEntry {
 		}
 		return false;
 	}
+	
+	public boolean getIsASerie(){
+		return false;
+	}
 
 	private class DayMergingIterator implements Iterator<CalendarEvent> {
 
