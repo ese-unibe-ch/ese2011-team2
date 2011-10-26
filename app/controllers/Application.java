@@ -244,7 +244,17 @@ public class Application extends Controller {
 		//temporarily used to refresh the page, since the index method requires found users
 		searchUser(name);
 	}
-
+	
+	/**
+	 * First sets all Contacts to unselected then sets all Contacts who have a String 
+	 * in checkedContacts[] to selected
+	 * 
+	 * @param calendarName
+	 * @param selectedDay
+	 * @param month
+	 * @param year
+	 * @param checkedContacts: all Contacts who's checkbox is selected
+	 */
 	public static void includeContacts(String calendarName, int selectedDay, int month, int year, String[] checkedContacts) {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
