@@ -36,6 +36,7 @@ import ch.unibe.ese.calendar.SerialEvent;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
 import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
+import ch.unibe.ese.calendar.exceptions.EventNotFoundException;
 
 @With(Secure.class)
 public class Application extends Controller {
@@ -180,8 +181,12 @@ public class Application extends Controller {
 				calendarName);
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
-		CalendarEntry e = calendar.removeEvent(user, hash, sDate);
-		calendarOfDate(calendarName, e.getStart());
+		try {
+			CalendarEntry e = calendar.removeEvent(user, hash, sDate);
+			calendarOfDate(calendarName, e.getStart());
+		} catch (EventNotFoundException exception) {
+			error(exception);
+		}
 	}
 	
 	/**
@@ -205,8 +210,12 @@ public class Application extends Controller {
 				calendarName);
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
-		CalendarEntry event = calendar.getEventByHash(user, hash, sDate);
-		render(calendar, event);
+		try {
+			CalendarEntry event = calendar.getEventByHash(user, hash, sDate);
+			render(calendar, event);
+		} catch (EventNotFoundException exception) {
+			error(exception);
+		}
 	}
 	
 	public static void saveEditedEvent(String calendarName, int hash, String oldStartDate, 

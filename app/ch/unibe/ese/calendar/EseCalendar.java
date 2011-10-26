@@ -14,6 +14,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import ch.unibe.ese.calendar.EventSeries.Repetition;
+import ch.unibe.ese.calendar.exceptions.EventNotFoundException;
 import ch.unibe.ese.calendar.security.Policy;
 import ch.unibe.ese.calendar.security.PrivilegedCalendarAccessPermission;
 
@@ -118,7 +119,9 @@ public class EseCalendar {
 		CalendarEntry e;
 		do {
 			e = afterStart.next();
-		} while (e.hashCode() != hash);
+		} while (e != null && e.hashCode() != hash);
+		if (e == null)
+			throw new EventNotFoundException("Permission denied");
 		return e;
 	}
 
