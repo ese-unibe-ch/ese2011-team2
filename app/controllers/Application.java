@@ -30,6 +30,7 @@ import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.EseDateFormat;
+import ch.unibe.ese.calendar.EventIteratorMerger;
 import ch.unibe.ese.calendar.EventSeries;
 import ch.unibe.ese.calendar.SerialEvent;
 import ch.unibe.ese.calendar.User;
@@ -71,8 +72,7 @@ public class Application extends Controller {
 		final Date date = juc.getTime();
 
 		SortedSet<CalendarEvent> set1 = calendar.getEventsAt(user, date);
-
-		
+		Iterator<CalendarEvent> iterator = set1.iterator();
 		
 		Map<User, Boolean> contacts = user.getMyContacts();
 		Iterator<User> iterU = contacts.keySet().iterator();
@@ -86,12 +86,13 @@ public class Application extends Controller {
 				Iterator<EseCalendar> eseCIter = contactCalendars.iterator();
 				while (eseCIter.hasNext()){
 					EseCalendar contactCal = eseCIter.next();
-					set1.addAll(contactCal.getEventsAt(user, date));
+					Iterator<CalendarEvent> iteratorCalEvent =  contactCal.getEventsAt(user, date).iterator();
+					iterator = new EventIteratorMerger(iterator, iteratorCalEvent); 
 				}
 			}
 		}
 		
-		Iterator<CalendarEvent> iterator = set1.iterator();
+		
 		CalendarBrowser calendarBrowser = new CalendarBrowser(user, calendar,
 				selectedUsersCal, day, month, year, getLocale());
 		
