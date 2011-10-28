@@ -185,7 +185,7 @@ public class Application extends Controller {
 			CalendarEntry e = calendar.removeEvent(user, hash, sDate);
 			calendarOfDate(calendarName, e.getStart());
 		} catch (EventNotFoundException exception) {
-			error(exception);
+			error(exception.getMessage());
 		}
 	}
 	
@@ -214,7 +214,7 @@ public class Application extends Controller {
 			CalendarEntry event = calendar.getEventByHash(user, hash, sDate);
 			render(calendar, event);
 		} catch (EventNotFoundException exception) {
-			error(exception);
+			error(exception.getMessage());
 		}
 	}
 	
@@ -240,7 +240,7 @@ public class Application extends Controller {
 			foundUsers = UserManager.getInstance().getUserByRegex(searchRegex).keySet();
 		} catch (PatternSyntaxException e) {
 			//TODO error handling
-			error(e);
+			error(e.getMessage());
 		}
 		index(foundUsers);
 	}
