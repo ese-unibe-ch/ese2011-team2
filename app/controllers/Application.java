@@ -116,6 +116,7 @@ public class Application extends Controller {
 		User user = UserManager.getInstance().getUserByName(name);
 		Set<EseCalendar> otherCalendars = CalendarManager.getInstance()
 				.getCalendarsOf(user);
+		assert (otherCalendars != null);
 		Set<CalendarBrowser> calBrowsers = new HashSet<CalendarBrowser>();
 		java.util.Calendar juc = java.util.Calendar.getInstance(getLocale());
 		juc.setTime(new Date());
