@@ -6,7 +6,7 @@
 	<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/calendar.css'}">
 </head>
 <div id=contentLeft>
-	#{form @Application.includeContacts(calendar.name ,calendarBrowser.selectedDay,calendarBrowser.month,calendarBrowser.year)}
+	#{form @Application.includeContacts(calendar.name)}
 		<div id=myContacts>
 			#{myContacts myContacts:myContacts, user:user /}
 			<p>

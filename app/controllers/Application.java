@@ -40,28 +40,25 @@ import ch.unibe.ese.calendar.exceptions.EventNotFoundException;
 
 @With(Secure.class)
 public class Application extends Controller {
-
-	public static void index(Set<String> foundUsers) {
-		String userName = Security.connected();
-		UserManager um = UserManager.getInstance();
-		User user = um.getUserByName(userName);
-		CalendarManager calendarManager = CalendarManager.getInstance();
-		Set<EseCalendar> userCalendars = calendarManager.getCalendarsOf(user);
-
-		final String token = "You (" + user + ") own: " + userCalendars.size()
-				+ " calendars";
-		render(token, user, userCalendars, foundUsers);
-	}
-
+	
+	public static int selectedDay, selectedMonth, selectedYear;
+	
 	public static void currentCalendar(String name) {
 		java.util.Calendar juc = java.util.Calendar.getInstance(getLocale());
 		juc.setTime(new Date());
-		calendar(name, juc.get(java.util.Calendar.DAY_OF_MONTH),
-				juc.get(java.util.Calendar.MONTH),
-				juc.get(java.util.Calendar.YEAR));
+		selectedDay = juc.get(java.util.Calendar.DAY_OF_MONTH);
+		selectedMonth = juc.get(java.util.Calendar.MONTH);
+		selectedYear = juc.get(java.util.Calendar.YEAR);
+		calendar(name);
 	}
 
-	public static void calendar(String name, int day, int month, int year) {
+	/**
+	 * This method shows the calendar page. 
+	 * The selected day is read from instance variables.
+	 * 
+	 * @param name The name of the calendar
+	 */
+	public static void calendar(String name) {
 		
 		System.out.println("name: " + name);
 		String userName = Security.connected();
@@ -69,7 +66,7 @@ public class Application extends Controller {
 		CalendarManager calendarManager = CalendarManager.getInstance();
 		final EseCalendar calendar = calendarManager.getCalendar(name);
 		Calendar juc = Calendar.getInstance(getLocale());
-		juc.set(year, month, day, 0, 0, 0);
+		juc.set(selectedYear, selectedMonth, selectedDay, 0, 0, 0);
 		final Date date = juc.getTime();
 
 		SortedSet<CalendarEvent> set1 = calendar.getEventsAt(user, date);
@@ -95,7 +92,7 @@ public class Application extends Controller {
 		
 		
 		CalendarBrowser calendarBrowser = new CalendarBrowser(user, calendar,
-				selectedUsersCal, day, month, year, getLocale());
+				selectedUsersCal, selectedDay, selectedMonth, selectedYear, getLocale());
 		
 		Set<User> myContacts = user.getMyContacts().keySet();
 		render(iterator, calendar, calendarBrowser, myContacts, user);
@@ -149,9 +146,40 @@ public class Application extends Controller {
 			final EventSeries eventseries = new EventSeries(sDate, eDate, name, isPublic, repetition);
 			calendar.addEventSeries(user, eventseries);
 		}
-		calendarOfDate(calendarName, sDate);
+		calendar(calendarName);
 	}
 
+	/**
+	 * Shows the calendar with the given date selected.
+	 * @param calendarName
+	 * @param day
+	 * @param month
+	 * @param year
+	 */
+	public static void selectDate(String calendarName, int day, int month, int year) {
+		selectedDay = day;
+		selectedMonth = month;
+		selectedYear = year;
+		calendar(calendarName);
+	}
+	
+	/**
+	 * -- this method is not in use right now --
+	 * 
+	 * Does same as selectDate(String calendarName, int day, int month, int year),
+	 * but with other parameters. Small helper method.
+	 * Shows the calendar with the given Date selected.	 * 
+	 * @param calendarName
+	 * @param date 
+	 */
+	private static void selectDate(String calendarName, Date date) {
+		Calendar juc = Calendar.getInstance(getLocale());
+		juc.setTime(date);
+		selectDate(calendarName, juc.get(java.util.Calendar.DAY_OF_MONTH),
+				juc.get(java.util.Calendar.MONTH),
+				juc.get(java.util.Calendar.YEAR));
+	}
+	
 	/**
 	 * An event is identified by its unique hash. For finding it
 	 * easily, we have to know it's startDate.
@@ -172,23 +200,10 @@ public class Application extends Controller {
 		User user = UserManager.getInstance().getUserByName(userName);
 		try {
 			CalendarEntry e = calendar.removeEvent(user, hash, sDate);
-			calendarOfDate(calendarName, e.getStart());
+			calendar(calendarName);
 		} catch (EventNotFoundException exception) {
 			error(exception.getMessage());
 		}
-	}
-	
-	/**
-	 * Should only be called from inside the code
-	 * @param calendarName
-	 * @param date
-	 */
-	private static void calendarOfDate(String calendarName, Date date) {
-		Calendar juc = Calendar.getInstance(getLocale());
-		juc.setTime(date);
-		calendar(calendarName, juc.get(java.util.Calendar.DAY_OF_MONTH),
-				juc.get(java.util.Calendar.MONTH),
-				juc.get(java.util.Calendar.YEAR));
 	}
 
 	public static void editEvent(String calendarName, int hash, String startDate)
@@ -220,40 +235,17 @@ public class Application extends Controller {
 		User user = UserManager.getInstance().getUserByName(userName);
 		CalendarEntry event = calendar.getEventByHash(user, hash, oldDate);
 		event.set(name, sDate, eDate, isPublic);
-		calendarOfDate(calendarName, sDate);
-	}
-	
-	public static void searchUser(String searchRegex) {
-		Set<String> foundUsers = null;
-		try {
-			foundUsers = UserManager.getInstance().getUserByRegex(searchRegex).keySet();
-		} catch (PatternSyntaxException e) {
-			//TODO error handling
-			error(e.getMessage());
-		}
-		index(foundUsers);
-	}
-	
-	public static void addToContacts(String name) {
-		String userName = Security.connected();
-		User user = UserManager.getInstance().getUserByName(userName);
-		User userToAdd = UserManager.getInstance().getUserByName(name);
-		user.addToMyContacts(userToAdd);
-		//temporarily used to refresh the page, since the index method requires found users
-		searchUser(name);
+		selectDate(calendarName, sDate);
 	}
 	
 	/**
-	 * First sets all Contacts to unselected then sets all Contacts who have a String 
-	 * in checkedContacts[] to selected
+	 * First sets all Contacts to unselected then sets all Contacts that have 
+	 * their name in checkedContacts[] to selected
 	 * 
 	 * @param calendarName
-	 * @param selectedDay
-	 * @param month
-	 * @param year
 	 * @param checkedContacts: all Contacts who's checkbox is selected
 	 */
-	public static void includeContacts(String calendarName, int selectedDay, int month, int year, String[] checkedContacts) {
+	public static void includeContacts(String calendarName, String[] checkedContacts) {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		user.unselectAllContacts();
@@ -263,6 +255,6 @@ public class Application extends Controller {
 				user.setContactSelection(u, true);
 			}
 		}	
-		calendar(calendarName,selectedDay, month, year);
+		calendar(calendarName);
 	}
 }

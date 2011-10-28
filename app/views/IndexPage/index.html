@@ -19,15 +19,14 @@
 	
 <div id="search">
 	<h4>Search for other users</h4>
-	#{form @Application.searchUser()}
+	#{form @IndexPage.searchUser()}
 		<input type="text" name="searchRegex" placeholder="takes a java regex"/>
 		<input type="submit" value ="search">
 	#{/form}
-	
-	<ul>
 	#{list items:foundUsers, as:'User'}
+	<ul>
 		<li> 
-			#{form @Application.addToContacts(User)} 
+			#{form @IndexPage.addToContacts(User)} 
 				#{if User != user.name}
 					<label for="add"> <a href="@{Application.user(User)}">${User}</a> </label>
 					<input type="submit" name="add" value="add to myContacts">
@@ -37,6 +36,6 @@
 				#{/else}
 			#{/form}
 		</li>
-	#{/list}
 	</ul>
+	#{/list}
 </div>
