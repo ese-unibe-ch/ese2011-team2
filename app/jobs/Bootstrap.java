@@ -18,19 +18,19 @@ public class Bootstrap extends Job {
 		UserManager um = UserManager.getInstance();
 		final CalendarManager cm = CalendarManager.getInstance();
 
-		createSomeCallendars(um, cm);
+		createSomeCalendars(um, cm);
 
 	}
 
-	private void createSomeCallendars(UserManager um, final CalendarManager cm) {
+	private void createSomeCalendars(UserManager um, final CalendarManager cm) {
 
 		User aaron = um.createUser("aaron", "ese");
 		
 		EseCalendar aaroncal;
 		try {
-			aaroncal = cm.createCalendar(aaron, "Aarons Kalender");
+			aaroncal = cm.createCalendar(aaron, "Aarons Calendar");
 		} catch (CalendarAlreadyExistsException e) {
-			aaroncal = cm.getCalendar("Aarons Kalender");
+			aaroncal = cm.getCalendar("Aarons Calendar");
 		}
 		java.util.Calendar juc = java.util.Calendar.getInstance();
 		juc.set(2011, 10, 23, 20, 15);
@@ -58,9 +58,9 @@ public class Bootstrap extends Job {
 
 		EseCalendar judithcal;
 		try {
-			judithcal = cm.createCalendar(judith, "Judiths Kalender");
+			judithcal = cm.createCalendar(judith, "Judiths Calendar");
 		} catch (CalendarAlreadyExistsException e) {
-			judithcal = cm.getCalendar("Judiths Kalender");
+			judithcal = cm.getCalendar("Judiths Calendar");
 		}
 		juc.set(2011, 11, 23, 22, 15);
 		start = juc.getTime();
@@ -74,9 +74,9 @@ public class Bootstrap extends Job {
 
 		EseCalendar erwanncal;
 		try {
-			erwanncal = cm.createCalendar(erwann, "Erwanns Kalender");
+			erwanncal = cm.createCalendar(erwann, "Erwanns Calendar");
 		} catch (CalendarAlreadyExistsException e) {
-			erwanncal = cm.getCalendar("Erwanns Kalender");
+			erwanncal = cm.getCalendar("Erwanns Calendar");
 		}
 		juc.set(2011, 11, 21, 20, 15);
 		start = juc.getTime();

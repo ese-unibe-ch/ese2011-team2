@@ -116,19 +116,7 @@ public class Application extends Controller {
 		User user = UserManager.getInstance().getUserByName(name);
 		Set<EseCalendar> otherCalendars = CalendarManager.getInstance()
 				.getCalendarsOf(user);
-		assert (otherCalendars != null);
-		Set<CalendarBrowser> calBrowsers = new HashSet<CalendarBrowser>();
-		java.util.Calendar juc = java.util.Calendar.getInstance(getLocale());
-		juc.setTime(new Date());
-		int selectedDay = juc.get(java.util.Calendar.DAY_OF_MONTH);
-		int year = juc.get(java.util.Calendar.YEAR);
-		int month = juc.get(java.util.Calendar.MONTH);
-		for (EseCalendar cal : otherCalendars) {
-			calBrowsers.add(new CalendarBrowser(user, cal, null, selectedDay, month,
-					year, getLocale()));
-		}
-		Set<User> users = UserManager.getInstance().getAllUsers();
-		render(currentUser, user, users, calBrowsers);
+		render(currentUser, user, otherCalendars);
 	}
 
 	public static void createEvent(String calendarName, String name,

@@ -1,26 +1,25 @@
 #{extends 'main.html' /}
 #{set title:'User' /}
-#{set header:'User' /}
+#{set header: user.name /}
 
 <head>
 	<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/user.css'}">
 </head>
 
-<h3>Events of ${user.name}</h3>   
-<ul>
-	#{list items: calBrowsers, as:'calendarBrowser'}
-		<i>${calendarBrowser.calendar.name} :</i><br/>
-			#{month calendarBrowser /}
-	#{/list}
-</ul>  
-        
-      
-<h4>Switch to another user  (other than ${user.name} and ${currentUser.name})</h4>
-	<ul>#{list items: users, as:'User'}
-		#{if (User.name != user.name) && (User.name != currentUser.name)}
-			<li><a href="@{Application.user(User.name)}"> ${User.name}</a></li>
-		#{/if}
-	#{/list}
-	</ul>
+<div id=contentLeft>
+	<div id=userInfo>
+		<h2>${user.name}</h2>
+	</div>
+</div>
 
+<div id=contentMiddle>
+	<div id=calendars>
+		<h2>Calendars of ${user.name}</h3>   
+		<ul>
+			#{list items: otherCalendars, as:'calendar'}
+				<i><a href="@{Application.currentCalendar(calendar.name)}">${calendar.name}</a></i>
+			#{/list}
+		</ul>  
+	</div>
+</div>
 
