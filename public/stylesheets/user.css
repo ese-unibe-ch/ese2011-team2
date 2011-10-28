@@ -1,0 +1,30 @@
+#contentLeft {
+	float: left;
+	margin: 1em;
+}
+
+#contentMiddle {
+	float: left;
+	margin-top: 1em;
+}
+
+#userInfo {
+	border: thin solid grey;
+	-moz-box-shadow: 3px 11px 10px #303030;
+    -webkit-box-shadow: 3px 11px 10px #303030;
+    box-shadow: 3px 11px 10px #303030;
+	padding-left: 1em;
+	float: left;
+	width: 180px;
+	padding-bottom: 0.5em;
+	min-height: 259px;
+}
+
+#calendars {
+	border: thin solid grey;
+    -moz-box-shadow: 6px 10px 15px #303030;
+    -webkit-box-shadow: 6px 10px 15px #303030;
+    box-shadow: 6px 10px 15px #303030;
+    padding-bottom: 0.5em;
+    min-height: 259px;
+}

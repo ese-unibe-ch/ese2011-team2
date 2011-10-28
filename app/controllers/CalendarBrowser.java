@@ -17,6 +17,7 @@ import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.EventIteratorMerger;
 import ch.unibe.ese.calendar.User;
+import ch.unibe.ese.calendar.UserManager;
 
 public class CalendarBrowser {
 
@@ -75,6 +76,9 @@ public class CalendarBrowser {
 		 * @return true, if there is a visible event on any given users calendar.
 		 */
 		public boolean getHasContactEvents() {
+			if (!user.equals(UserManager.getInstance().getUserByName(Security.connected()))) {
+				return false;
+			}
 			for (EseCalendar c: otherUsersCalendar) {
 				Iterator<CalendarEvent> overAllIterator = c.getEventsAt(user, asCalendar().getTime()).iterator();
 				if (overAllIterator.hasNext())

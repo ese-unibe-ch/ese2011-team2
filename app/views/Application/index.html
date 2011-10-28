@@ -28,10 +28,13 @@
 	#{list items:foundUsers, as:'User'}
 		<li> 
 			#{form @Application.addToContacts(User)} 
-				<label for="add">${User}</label>
 				#{if User != user.name}
+					<label for="add"> <a href="@{Application.user(User)}">${User}</a> </label>
 					<input type="submit" name="add" value="add to myContacts">
 				#{/if}
+				#{else}
+					<label for="add"> <a href="@{index()}">${User}</a> </label>
+				#{/else}
 			#{/form}
 		</li>
 	#{/list}
