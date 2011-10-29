@@ -66,12 +66,4 @@ public class IndexPage extends Controller {
 		index();
 	}
 	
-	public static void addToContacts(String name) {
-		String userName = Security.connected();
-		User user = UserManager.getInstance().getUserByName(userName);
-		User userToAdd = UserManager.getInstance().getUserByName(name);
-		user.addToMyContacts(userToAdd);
-		index();
-	}
-
 }

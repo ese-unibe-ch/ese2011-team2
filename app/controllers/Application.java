@@ -115,6 +115,22 @@ public class Application extends Controller {
 				.getCalendarsOf(user);
 		render(currentUser, user, otherCalendars);
 	}
+	
+	public static void addToContacts(String calendarName, String name) {
+		String userName = Security.connected();
+		User user = UserManager.getInstance().getUserByName(userName);
+		User userToAdd = UserManager.getInstance().getUserByName(name);
+		user.addToMyContacts(userToAdd);
+		calendar(calendarName);
+	}
+	
+	public static void removeFromContacts(String calendarName, String name) {
+		String userName = Security.connected();
+		User user = UserManager.getInstance().getUserByName(userName);
+		User userToRemove = UserManager.getInstance().getUserByName(name);
+		user.removeFromMyContacts(userToRemove);
+		calendar(calendarName);
+	}
 
 	public static void createEvent(String calendarName, String name,
 			String startDate, String endDate, boolean isPublic, String repetition)

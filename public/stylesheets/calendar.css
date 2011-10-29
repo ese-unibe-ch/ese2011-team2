@@ -8,11 +8,16 @@
 	margin-top: 1em;
 }
 
+#contentRight {
+	float: left;
+	margin-top: 1em;
+}
+
 #myContacts {
 	border: thin solid grey;
 	-moz-box-shadow: 3px 11px 10px #303030;
-    -webkit-box-shadow: 3px 11px 10px #303030;
-    box-shadow: 3px 11px 10px #303030;
+	-webkit-box-shadow: 3px 11px 10px #303030;
+	box-shadow: 3px 11px 10px #303030;
 	padding-left: 1em;
 	float: left;
 	width: 180px;
@@ -23,18 +28,18 @@
 
 #month {
 	border: thin solid grey;
-    -moz-box-shadow: 6px 10px 15px #303030;
-    -webkit-box-shadow: 6px 10px 15px #303030;
-    box-shadow: 6px 10px 15px #303030;
-    padding-bottom: 0.5em;
-    min-height: 259px;
+	-moz-box-shadow: 6px 10px 15px #303030;
+	-webkit-box-shadow: 6px 10px 15px #303030;
+	box-shadow: 6px 10px 15px #303030;
+	padding-bottom: 0.5em;
+	min-height: 259px;
 }
 
 #selectedDay {
 	border: thin solid grey;
-    -moz-box-shadow: 6px 10px 15px #303030;
-    -webkit-box-shadow: 6px 10px 15px #303030;
-    box-shadow: 6px 10px 15px #303030;
+	-moz-box-shadow: 6px 10px 15px #303030;
+	-webkit-box-shadow: 6px 10px 15px #303030;
+	box-shadow: 6px 10px 15px #303030;
 	margin-top: 1em;
 	padding-left: 1em;
 	width: auto;
@@ -42,9 +47,9 @@
 
 #createEvent {
 	border: thin solid grey;
-    -moz-box-shadow: 6px 10px 15px #303030;
-    -webkit-box-shadow: 6px 10px 15px #303030;
-    box-shadow: 6px 10px 15px #303030;
+	-moz-box-shadow: 6px 10px 15px #303030;
+	-webkit-box-shadow: 6px 10px 15px #303030;
+	box-shadow: 6px 10px 15px #303030;
 	margin-top: 1em;
 	padding-left: 1em;
 	overflow: auto;
@@ -57,5 +62,9 @@
 #repetition {
 	margin-top: 1.5em;
 	float: left;
+	margin-left: 2em;
+}
+
+#addToContacts {
 	margin-left: 2em;
 }

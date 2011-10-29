@@ -84,3 +84,20 @@
 	</div>
 	#{/if}
 </div>
+
+<div id=contentRight>
+	#{if user.name != calendar.owner.name}
+		<div id=addToContacts>
+		#{if user.myContacts.containsKey(calendar.owner)}
+			#{form @Application.removeFromContacts(calendar.name, calendar.owner.name)} 
+				<input type="submit" name="add" value="remove from myContacts">
+			#{/form}
+		#{/if}
+		#{else}
+			#{form @Application.addToContacts(calendar.name, calendar.owner.name)} 
+				<input type="submit" name="add" value="add to myContacts">
+			#{/form}
+		#{/else}
+		</div>
+	#{/if}
+</div>
