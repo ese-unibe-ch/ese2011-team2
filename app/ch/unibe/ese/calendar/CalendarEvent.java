@@ -6,8 +6,8 @@ public class CalendarEvent extends CalendarEntry {
 	
 	protected boolean isASerie;
 	
-	public CalendarEvent(Date start, Date end, String name, boolean isPublic) {
-		super(start, end, name, isPublic);
+	public CalendarEvent(Date start, Date end, String name, boolean isPublic, EseCalendar calendar) {
+		super(start, end, name, isPublic, calendar);
 		isASerie = false;
 	}
 	public boolean getIsASerie(){

@@ -37,22 +37,19 @@ public class Bootstrap extends Job {
 		Date start = juc.getTime();
 		juc.set(2011, 10, 23, 23, 00);
 		Date end = juc.getTime();
-		aaroncal.addEvent(User.ADMIN, new CalendarEvent(start, end,
-				"Toller Film", true));
+		aaroncal.addEvent(User.ADMIN, start, end, "Toller Film", true);
 		
 		juc.set(2011, 11, 23, 20, 15);
 		start = juc.getTime();
 		juc.set(2011, 11, 23, 23, 00);
 		end = juc.getTime();
-		aaroncal.addEvent(User.ADMIN, new CalendarEvent(start, end,
-				"Party", true));
+		aaroncal.addEvent(User.ADMIN, start, end, "Tolle Party", true);
 		
 		juc.set(2011, 12, 23, 20, 15);
 		start = juc.getTime();
 		juc.set(2011, 12, 24, 04, 00);
 		end = juc.getTime();
-		aaroncal.addEvent(User.ADMIN, new CalendarEvent(start, end,
-				"Moar Party", true));
+		aaroncal.addEvent(User.ADMIN, start, end, "MOAR PARTY!", true);
 	
 		User judith = um.createUser("judith", "ese");
 
@@ -66,8 +63,7 @@ public class Bootstrap extends Job {
 		start = juc.getTime();
 		juc.set(2011, 11, 23, 23, 00);
 		end = juc.getTime();
-		judithcal.addEvent(User.ADMIN, new CalendarEvent(start, end,
-				"Tolle party", true));
+		judithcal.addEvent(User.ADMIN, start, end, "Movienight", true);
 
 	
 		User erwann = um.createUser("erwann", "ese");
@@ -82,8 +78,7 @@ public class Bootstrap extends Job {
 		start = juc.getTime();
 		juc.set(2011, 11, 21, 23, 00);
 		end = juc.getTime();
-		erwanncal.addEvent(User.ADMIN, new CalendarEvent(start, end,
-				"Standard lager", true));
+		erwanncal.addEvent(User.ADMIN, start, end, "Standardlager", true);
 		
 		erwann.addToMyContacts(judith);
 		erwann.addToMyContacts(aaron);

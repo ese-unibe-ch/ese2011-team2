@@ -12,8 +12,9 @@ public abstract class CalendarEntry {
 	private Date end;
 	private Date start;
 	private String name;
+	private EseCalendar calendar;
 
-	CalendarEntry(Date start, Date end, String name, boolean isPublic) {
+	CalendarEntry(Date start, Date end, String name, boolean isPublic, EseCalendar calendar) {
 		if (name==null || start==null || end==null) {
 			throw new IllegalArgumentException();
 		}
@@ -21,6 +22,7 @@ public abstract class CalendarEntry {
 		this.start = start;
 		this.end = end;
 		this.isPublic = isPublic;
+		this.calendar = calendar;
 	}
 
 	/**
@@ -54,6 +56,10 @@ public abstract class CalendarEntry {
 	 */
 	public String getName() {
 		return name;
+	}
+	
+	public EseCalendar getCalendar() {
+		return calendar;
 	}
 
 	public void set(String eventName, Date startDate, Date endDate, boolean isPublic) {

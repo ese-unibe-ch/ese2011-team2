@@ -145,12 +145,11 @@ public class Application extends Controller {
 
 		if (repetition.equalsIgnoreCase("never")) {
 				System.out.println("selected repetition: never");
-			final CalendarEvent event = new CalendarEvent(sDate, eDate, name,
-					isPublic);
+				final CalendarEvent event = calendar.addEvent(user, sDate, 
+						eDate, name, isPublic);
 				System.out.println("pre created size "
 				+ calendar.getEventsAt(user,
 						new Date(event.getStart().getTime() - 2000)).size());
-			calendar.addEvent(user, event);
 				System.out.println("created event " + event);
 				System.out.println("created size "
 					+ calendar.getEventsAt(user,
@@ -159,8 +158,8 @@ public class Application extends Controller {
 				System.out.println("created event  in " + calendarName);
 		}
 		else{
-			final EventSeries eventseries = new EventSeries(sDate, eDate, name, isPublic, repetition);
-			calendar.addEventSeries(user, eventseries);
+			final EventSeries eventseries = calendar.addEventSeries(user, sDate, 
+					eDate, name, isPublic, repetition);
 		}
 		calendar(calendarName);
 	}
