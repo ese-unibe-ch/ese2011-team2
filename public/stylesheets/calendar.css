@@ -51,6 +51,7 @@
 	-webkit-box-shadow: 6px 10px 15px #303030;
 	box-shadow: 6px 10px 15px #303030;
 	margin-top: 1em;
+	margin-bottom: 2em;
 	padding-left: 1em;
 	overflow: auto;
 }
