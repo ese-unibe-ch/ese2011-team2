@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -15,6 +16,7 @@ import controllers.CalendarBrowser.Day;
 import ch.unibe.ese.calendar.CalendarEntry;
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.EseCalendar;
+import ch.unibe.ese.calendar.EseDateFormat;
 import ch.unibe.ese.calendar.EventIteratorMerger;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
@@ -120,7 +122,7 @@ public class CalendarBrowser {
 	 * @param year
 	 * @param locale
 	 */
-	public CalendarBrowser(User user, EseCalendar calendar, Set<EseCalendar> otherUsersCalendar,
+	public CalendarBrowser(User user, EseCalendar calendar, Set<EseCalendar> otherUsersCalendar, 
 			int selectedDay, int month, int year, Locale locale) {
 		this.user = user;
 		this.calendar = calendar;
@@ -135,6 +137,14 @@ public class CalendarBrowser {
 		Calendar juc = Calendar.getInstance(locale);
 		juc.set(Calendar.MONTH, month);
 		return juc.getDisplayName(Calendar.MONTH, Calendar.LONG, locale)+" "+year;
+	}
+	
+	public String getDayLabel() {
+		Calendar juc = Calendar.getInstance(locale);
+		juc.set(year, month, selectedDay);
+		String date = selectedDay+"."+(month+1)+"."+year;
+		return juc.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, locale) 
+				+" "+date;
 	}
 	
 	public String[] getWeekDaysLabels() {

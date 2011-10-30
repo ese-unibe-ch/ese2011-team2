@@ -31,6 +31,8 @@
 	-moz-box-shadow: 6px 10px 15px #303030;
 	-webkit-box-shadow: 6px 10px 15px #303030;
 	box-shadow: 6px 10px 15px #303030;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
 	padding-bottom: 0.5em;
 	min-height: 259px;
 }
@@ -63,7 +65,7 @@
 #repetition {
 	margin-top: 1.5em;
 	float: left;
-	margin-left: 2em;
+	margin-left: 3em;
 }
 
 #addToContacts {

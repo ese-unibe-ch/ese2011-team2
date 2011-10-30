@@ -90,7 +90,6 @@ public class Application extends Controller {
 			}
 		}
 		
-		
 		CalendarBrowser calendarBrowser = new CalendarBrowser(user, calendar,
 				selectedUsersCal, selectedDay, selectedMonth, selectedYear, getLocale());
 		
@@ -103,7 +102,7 @@ public class Application extends Controller {
 	 */
 	private static Locale getLocale() {
 		// TODO make real
-		return new Locale("de", "CH");
+		return new Locale("en", "CH");
 	}
 
 	public static void user(String name) {

@@ -21,7 +21,7 @@
 	#{month calendarBrowser /}
 	</div>
 	<div id=selectedDay>
-	<h2>Events on selected day:</h2>
+	<h2>Events on ${calendarBrowser.dayLabel}:</h2>
 		<ul>#{list items: iterator, as:'event'}
 			<!--  TODO: handle timezone correctly -->
 			%{
