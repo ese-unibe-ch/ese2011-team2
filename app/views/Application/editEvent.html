@@ -30,6 +30,9 @@
 		</p>
 		<p>
 			<input type="submit" value="edit Event">
+			#{form @Application.calendar(calendar.name)} 
+				<input type="submit" name="add" value="cancel">
+			#{/form}
 		</p>
 	#{/form}
 </div>
