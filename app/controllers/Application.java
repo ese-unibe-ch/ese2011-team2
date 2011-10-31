@@ -132,7 +132,7 @@ public class Application extends Controller {
 	}
 
 	public static void createEvent(String calendarName, String name,
-			String startDate, String endDate, boolean isPublic, String repetition)
+			String startDate, String endDate, String visibility, String repetition)
 			throws Throwable {
 		System.out.println("creating event");
 		Date sDate = EseDateFormat.getInstance().parse(startDate);
@@ -145,7 +145,7 @@ public class Application extends Controller {
 		if (repetition.equalsIgnoreCase("never")) {
 				System.out.println("selected repetition: never");
 				final CalendarEvent event = calendar.addEvent(user, sDate, 
-						eDate, name, isPublic);
+						eDate, name, visibility);
 				System.out.println("pre created size "
 				+ calendar.getEventsAt(user,
 						new Date(event.getStart().getTime() - 2000)).size());
@@ -158,7 +158,7 @@ public class Application extends Controller {
 		}
 		else{
 			final EventSeries eventseries = calendar.addEventSeries(user, sDate, 
-					eDate, name, isPublic, repetition);
+					eDate, name, visibility, repetition);
 		}
 		calendar(calendarName);
 	}
@@ -237,7 +237,7 @@ public class Application extends Controller {
 	}
 	
 	public static void saveEditedEvent(String calendarName, int hash, String oldStartDate, 
-			String name, String startDate, String endDate, boolean isPublic) 
+			String name, String startDate, String endDate, String visibility) 
 			throws ParseException {
 		
 		Date oldDate = EseDateFormat.getInstance().parse(oldStartDate);
@@ -248,7 +248,7 @@ public class Application extends Controller {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		CalendarEntry event = calendar.getEventByHash(user, hash, oldDate);
-		event.set(name, sDate, eDate, isPublic);
+		event.set(name, sDate, eDate, visibility);
 		selectDate(calendarName, sDate);
 	}
 	

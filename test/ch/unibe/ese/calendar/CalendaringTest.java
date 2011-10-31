@@ -99,7 +99,7 @@ public class CalendaringTest extends UnitTest {
 		Date start = juc.getTime();
 		juc.set(2011, 9, 21, 22, 15);
 		Date end = juc.getTime();
-		cal.addEvent(user, start, end, "Meet Bob (dess up!)", true);
+		cal.addEvent(user, start, end, "Meet Bob (dess up!)", "Public");
 
 	}
 
@@ -123,7 +123,7 @@ public class CalendaringTest extends UnitTest {
 			Date start = juc.getTime();
 			juc.set(2011, 11, 23, 21, 15);
 			Date end = juc.getTime();
-			cal.addEvent(user, start, end, "a later event", false);
+			cal.addEvent(user, start, end, "a later event", "Private");
 		}
 		// two events on day 21
 		{
@@ -152,14 +152,14 @@ public class CalendaringTest extends UnitTest {
 			Date start = juc.getTime();
 			juc.set(2011, 11, 21, 11, 15);
 			Date end = juc.getTime();
-			cal.addEvent(user, start, end, SUSANNE_EVENT_1_DESC, true);
+			cal.addEvent(user, start, end, SUSANNE_EVENT_1_DESC, "Public");
 		}
 		{
 			juc.set(2011, 11, 21, 20, 15);
 			Date start = juc.getTime();
 			juc.set(2011, 11, 21, 21, 15);
 			Date end = juc.getTime();
-			cal.addEvent(user, start, end, SUSANNE_EVENT_2_DESC, false);
+			cal.addEvent(user, start, end, SUSANNE_EVENT_2_DESC, "Private");
 		}
 
 	}

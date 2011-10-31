@@ -83,17 +83,17 @@ public class EseCalendar {
 	 * 
 	 * @param calendarEvent
 	 */
-	public CalendarEvent addEvent(User user, Date start, Date end, String eventName, boolean isPublic) {
+	public CalendarEvent addEvent(User user, Date start, Date end, String eventName, String visibility) {
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
-		CalendarEvent event = new CalendarEvent(start, end, eventName, isPublic, this);
+		CalendarEvent event = new CalendarEvent(start, end, eventName, visibility, this);
 		startDateSortedSet.add(event);
 		return event;
 	}
 	
-	public EventSeries addEventSeries(User user, Date start, Date end, String eventName, boolean isPublic, 
+	public EventSeries addEventSeries(User user, Date start, Date end, String eventName, String visibility, 
 			String sRepetition){
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
-		EventSeries eventSeries = new EventSeries(start, end, eventName, isPublic, sRepetition, this);
+		EventSeries eventSeries = new EventSeries(start, end, eventName, visibility, sRepetition, this);
 		startDateSortedSetOfSeries.add(eventSeries);
 		return eventSeries;
 	}
@@ -149,7 +149,7 @@ public class EseCalendar {
 	 * @return an iterator with events starting after start
 	 */
 	Iterator<CalendarEvent> iterateIndividualEvents(User user, Date start) {
-		CalendarEvent compareDummy = new CalendarEvent(start, start, "compare-dummy", false, this);
+		CalendarEvent compareDummy = new CalendarEvent(start, start, "compare-dummy", "Private", this);
 		Iterator<CalendarEvent> unfilteredEvents = startDateSortedSet.tailSet(compareDummy).iterator();
 		return new ACFilteringEventIterator(user, unfilteredEvents);
 	}
@@ -229,7 +229,7 @@ public class EseCalendar {
 			hasNext = false;
 			if (unfilteredEvents.hasNext()) {
 				CalendarEvent ce = unfilteredEvents.next();
-				if (!ce.isPublic()) {
+				if (ce.hasType("Private")) {
 					if (!Policy.getInstance().hasPermission(user, new PrivilegedCalendarAccessPermission(name))) {
 						prepareNext();
 						return;
@@ -278,7 +278,7 @@ public class EseCalendar {
 			hasNext = false;
 			if (eventSeries.hasNext()) {
 				EventSeries es = eventSeries.next();
-				if (!es.isPublic()) {
+				if (es.hasType("Private")) {
 					if (!Policy.getInstance().hasPermission(user, new PrivilegedCalendarAccessPermission(name))) {
 						prepareNext();
 						return;

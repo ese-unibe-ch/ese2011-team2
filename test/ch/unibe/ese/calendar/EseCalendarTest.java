@@ -42,14 +42,14 @@ public class EseCalendarTest extends UnitTest {
 	@Test
 	public void addEvent() {
 		assertTrue(calendar.getStartDateSortedSet().isEmpty());
-		CalendarEvent event = calendar.addEvent(user.ADMIN, start, end, eventName, true);
+		CalendarEvent event = calendar.addEvent(user.ADMIN, start, end, eventName, "Public");
 		assertFalse(calendar.getStartDateSortedSet().isEmpty());
 		assertTrue(calendar.getStartDateSortedSet().contains(event));
 	}
 	
 	@Test
 	public void removeEvent() {
-		CalendarEvent event = calendar.addEvent(user.ADMIN, start, end, eventName, true);
+		CalendarEvent event = calendar.addEvent(user.ADMIN, start, end, eventName, "Public");
 		assertTrue(calendar.getStartDateSortedSet().contains(event));
 		calendar.removeEvent(user.ADMIN, event.hashCode(), event.getStart());
 		assertTrue(calendar.getStartDateSortedSet().isEmpty());
@@ -58,7 +58,7 @@ public class EseCalendarTest extends UnitTest {
 	@Test
 	public void addEventSeries() {
 		assertTrue(calendar.getStartDateSortedSetOfSeries().isEmpty());
-		EventSeries eventSeries = calendar.addEventSeries(user.ADMIN, start, end, eventName, true, "weekly");
+		EventSeries eventSeries = calendar.addEventSeries(user.ADMIN, start, end, eventName, "Public", "weekly");
 		assertFalse(calendar.getStartDateSortedSetOfSeries().isEmpty());
 		assertTrue(calendar.getStartDateSortedSetOfSeries().contains(eventSeries));
 	}
@@ -66,13 +66,13 @@ public class EseCalendarTest extends UnitTest {
 	//HashCode of an event is not unique. We will need to refactor this sooner of later
 	@Test
 	public void getEventByHash() {
-		CalendarEvent event = calendar.addEvent(user.ADMIN, start, end, eventName, true);
+		CalendarEvent event = calendar.addEvent(user.ADMIN, start, end, eventName, "Public");
 		assertEquals(event, calendar.getEventByHash(user.ADMIN, event.hashCode(), event.getStart()));
 	}
 	
 	@Test
 	public void getEventsAtGivenDate() throws ParseException {
-		CalendarEvent event = calendar.addEvent(user.ADMIN, start, end, eventName, true);
+		CalendarEvent event = calendar.addEvent(user.ADMIN, start, end, eventName, "Public");
 		Date dayOnWichEventIsHappening = EseDateFormat.getInstance().parse("12.11.11 20:00");
 		assertTrue(calendar.getEventsAt(user.ADMIN, dayOnWichEventIsHappening).contains(event));
 	}

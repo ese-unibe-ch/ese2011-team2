@@ -24,8 +24,10 @@
 			%{
 				eventOwner = event.calendar.owner.name
 				visibility = "private"
-				if (event.public) 
+				if (event.hasType("Public")) 
 					visibility = "public"
+				if (event.hasType("Busy")) 
+					visibility = "busy"
 				rep = "Event"
 				if (event.isASerie)
 					rep = "SerialEvent"
@@ -64,8 +66,10 @@
 		</div>
 		<div id=repetition>	
 					<p>
-						<input type="checkbox" name="isPublic"/>
-						<label for="isPublic">Make public</label>
+						<label for="visibility">Visibility: </label> <br/>
+						<input type="radio" name="visibility" value ="private" checked="checked" /> Private <br/>
+						<input type="radio" name="visibility" value ="public" /> Public <br/>
+						<input type="radio" name="visibility" value ="busy" /> Show as busy <br/>
 					</p>			
 					<p>
 							<label for="repetition">Repetition: </label> <br/>
