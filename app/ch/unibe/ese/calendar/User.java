@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.activity.InvalidActivityException;
 
@@ -79,6 +81,12 @@ public class User {
 	 */
 	public Map<User, Boolean> getMyContacts() {
 		return myContacts;
+	}
+	
+	public SortedSet<User> getSortedContacts() {
+		SortedSet sortedContacts = new TreeSet<User>(new ContactsComparator(this));
+		sortedContacts.addAll(myContacts.keySet());
+		return sortedContacts;
 	}
 
 	@Override
@@ -158,4 +166,5 @@ public class User {
 	public boolean isContactSelected(User user) {
 		return myContacts.get(user);
 	}
+	
 }

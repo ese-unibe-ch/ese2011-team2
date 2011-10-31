@@ -92,7 +92,7 @@ public class Application extends Controller {
 		CalendarBrowser calendarBrowser = new CalendarBrowser(user, calendar,
 				selectedUsersCal, selectedDay, selectedMonth, selectedYear, getLocale());
 		
-		Set<User> myContacts = user.getMyContacts().keySet();
+		Set<User> myContacts = user.getSortedContacts();
 		render(iterator, calendar, calendarBrowser, myContacts, user);
 	}
 
