@@ -29,6 +29,7 @@ public class User {
 	public User(String userName, String password) {
 		this.userName = userName;
 		this.password = password;
+		this.myContacts.put(this, true);
 	}
 	
 	/**

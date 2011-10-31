@@ -24,8 +24,9 @@ td.today {
 }
 
 td.contactEvent {
-	color: #FF1E1E;
+	font-weight: bold;
 }
+
 td a {
 	text-decoration: inherit;
 	color: inherit;
