@@ -3,9 +3,15 @@
 </head>
 
 <h2>My Contacts</h2>
-
+#{form @Application.includeContacts(_calendar.name)}
 	#{list items:_myContacts, as:'contact'}
 		<li> 
-			<input type="checkbox" name="checkedContacts[]" value=${contact.name} #{if _user.isContactSelected(contact)}checked="checked"#{/if}>&nbsp;${contact.name}<br>
+			<input type="checkbox" 
+			name="checkedContacts[]" 
+			value=${contact.name} 
+			#{if _user.isContactSelected(contact)}checked="checked"#{/if}
+			onClick="this.form.submit()">&nbsp;${contact.name}
+			<br>
 		</li>
 	#{/list}
+#{/form}

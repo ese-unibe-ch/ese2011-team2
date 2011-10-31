@@ -7,14 +7,9 @@
 </head>
 #{if user == calendar.owner}
 	<div id=contentLeft>
-		#{form @Application.includeContacts(calendar.name)}
-			<div id=myContacts>
-				#{myContacts myContacts:myContacts, user:user /}
-				<p>
-					<input type="submit" value ="include Contacts">
-				</p>
-			</div>
-		#{/form}
+		<div id=myContacts>
+			#{myContacts myContacts:myContacts, user:user, calendar:calendar /}
+		</div>
 	</div>
 #{/if}
 
