@@ -2,35 +2,55 @@ package ch.unibe.ese.calendar;
 
 import java.util.Date;
 
+import ch.unibe.ese.calendar.EventSeries.Repetition;
+
 /**
  * Represents a thing contained in a calendar, i.e. an <code>Event</code> or an <code>EventSeries</code> 
  *
  */
 public abstract class CalendarEntry {
 
-	private boolean isPublic;
 	private Date end;
 	private Date start;
 	private String name;
 	private EseCalendar calendar;
+	
+	public enum Visibility {
+		PRIVATE,PUBLIC,BUSY
+	}
 
-	CalendarEntry(Date start, Date end, String name, boolean isPublic, EseCalendar calendar) {
+	private Visibility visibility;
+	
+	CalendarEntry(Date start, Date end, String name, String visibility, EseCalendar calendar) {
 		if (name==null || start==null || end==null) {
 			throw new IllegalArgumentException();
 		}
 		this.name = name;
 		this.start = start;
 		this.end = end;
-		this.isPublic = isPublic;
 		this.calendar = calendar;
-	}
+		setVisibility(visibility);
+		}
+
+		public void setVisibility(String visibility) {
+			if (visibility.equalsIgnoreCase("PRIVATE"))
+				this.visibility = Visibility.PRIVATE;
+			if (visibility.equalsIgnoreCase("PUBLIC"))
+				this.visibility = Visibility.PUBLIC;
+			if (visibility.equalsIgnoreCase("BUSY"))
+				this.visibility = Visibility.BUSY;
+		}
 
 	/**
 	 * 
 	 * @return true iff this is a public event
 	 */
-	public boolean isPublic() {
-		return isPublic;
+	public Visibility getVisibility() {
+		return visibility;
+	}
+	
+	public boolean hasType(String type){
+		return visibility.toString().equalsIgnoreCase(type);
 	}
 
 	/**
@@ -62,16 +82,16 @@ public abstract class CalendarEntry {
 		return calendar;
 	}
 
-	public void set(String eventName, Date startDate, Date endDate, boolean isPublic) {
+	public void set(String eventName, Date startDate, Date endDate, String visibility) {
 		this.name = eventName;
 		this.start = startDate;
 		this.end = endDate;
-		this.isPublic = isPublic;
+		setVisibility(visibility);
 	}
 
 	@Override
 	public String toString() {
-		return "CalendarEvent [isPublic=" + isPublic + ", end=" + end
+		return "CalendarEvent [visibility=" + visibility + ", end=" + end
 				+ ", start=" + start + ", name=" + name + "]";
 	}
 	

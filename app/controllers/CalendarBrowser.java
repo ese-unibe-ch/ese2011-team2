@@ -53,7 +53,7 @@ public class CalendarBrowser {
 			SortedSet<CalendarEvent> set1 = calendar.getEventsAt(user, asCalendar().getTime());
 			Iterator<CalendarEvent> iterator = set1.iterator();
 			while (iterator.hasNext()){
-				if (iterator.next().isPublic()){
+				if (iterator.next().hasType("Public")){
 					return true;
 				}
 			}
@@ -64,7 +64,7 @@ public class CalendarBrowser {
 			SortedSet<CalendarEvent> set1 = calendar.getEventsAt(user, asCalendar().getTime());
 			Iterator<CalendarEvent> iterator = set1.iterator();
 			while (iterator.hasNext()){
-				if (!iterator.next().isPublic()){
+				if (iterator.next().hasType("Private")){
 					return true;
 				}
 			}
