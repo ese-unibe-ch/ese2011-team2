@@ -46,7 +46,7 @@
 					#{/if}
 			#{/if}
 			#{else}
-				busy
+				${eventOwner} is busy from ${event.start.format("HH:mm")} - ${event.end.format("HH:mm")}
 			#{/else}
 
 			</li>
