@@ -10,7 +10,7 @@ public class CalendarEvent extends CalendarEntry {
 		super(start, end, name, isPublic, calendar);
 		isASerie = false;
 	}
-	public boolean getIsASerie(){
+	public boolean isASerie(){
 		return isASerie;
 	}
 	

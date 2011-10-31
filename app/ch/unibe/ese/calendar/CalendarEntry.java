@@ -75,6 +75,6 @@ public abstract class CalendarEntry {
 				+ ", start=" + start + ", name=" + name + "]";
 	}
 	
-	public abstract boolean getIsASerie();
+	public abstract boolean isASerie();
 
 }

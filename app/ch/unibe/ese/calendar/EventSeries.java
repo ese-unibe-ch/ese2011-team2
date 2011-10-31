@@ -113,7 +113,7 @@ public class EventSeries extends CalendarEntry {
 		return false;
 	}
 	
-	public boolean getIsASerie(){
+	public boolean isASerie(){
 		return false;
 	}
 
