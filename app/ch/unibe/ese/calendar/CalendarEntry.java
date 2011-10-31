@@ -43,7 +43,7 @@ public abstract class CalendarEntry {
 
 	/**
 	 * 
-	 * @return true iff this is a public event
+	 * @return true if this is a public event
 	 */
 	public Visibility getVisibility() {
 		return visibility;
@@ -78,15 +78,12 @@ public abstract class CalendarEntry {
 		return name;
 	}
 	
+	/**
+	 * Gets the calendar the entry belongs to.
+	 * @return a calendar, which the entry belongs to.
+	 */
 	public EseCalendar getCalendar() {
 		return calendar;
-	}
-
-	public void set(String eventName, Date startDate, Date endDate, String visibility) {
-		this.name = eventName;
-		this.start = startDate;
-		this.end = endDate;
-		setVisibility(visibility);
 	}
 
 	@Override

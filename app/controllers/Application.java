@@ -250,8 +250,8 @@ public class Application extends Controller {
 				calendarName);
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
-		CalendarEntry event = calendar.getEventByHash(user, hash, oldDate);
-		event.set(name, sDate, eDate, visibility);
+		calendar.removeEvent(user, hash, oldDate);
+		calendar.addEvent(user, sDate, eDate, name, visibility);
 		selectDate(calendarName, sDate);
 	}
 	
