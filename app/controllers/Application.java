@@ -18,6 +18,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.regex.PatternSyntaxException;
 
+import javax.activity.InvalidActivityException;
 import javax.security.auth.Subject;
 
 import play.*;
@@ -68,14 +69,12 @@ public class Application extends Controller {
 		Calendar juc = Calendar.getInstance(getLocale());
 		juc.set(selectedYear, selectedMonth, selectedDay, 0, 0, 0);
 		final Date date = juc.getTime();
-
-		SortedSet<CalendarEvent> set1 = calendar.getEventsAt(user, date);
-		Iterator<CalendarEvent> iterator = set1.iterator();
 		
 		Map<User, Boolean> contacts = user.getMyContacts();
 		Iterator<User> iterU = contacts.keySet().iterator();
 		Set<EseCalendar> selectedUsersCal = new HashSet<EseCalendar>();
-		
+		//Does anybody know how to instantiate this any other way. Googling it right now.
+		Iterator iterator = new ArrayList<CalendarEvent>().iterator();
 		while (iterU.hasNext()){
 			User contact = iterU.next();
 			if (contacts.get(contact)){
@@ -127,7 +126,11 @@ public class Application extends Controller {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		User userToRemove = UserManager.getInstance().getUserByName(name);
-		user.removeFromMyContacts(userToRemove);
+		try {
+			user.removeFromMyContacts(userToRemove);
+		} catch (InvalidActivityException e) {
+			e.printStackTrace();
+		}
 		calendar(calendarName);
 	}
 
@@ -271,4 +274,5 @@ public class Application extends Controller {
 		}	
 		calendar(calendarName);
 	}
+
 }
