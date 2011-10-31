@@ -83,6 +83,12 @@ public class User {
 		return myContacts;
 	}
 	
+	/**
+	 * Gets all user in myContacts in a SortedSet.
+	 * 
+	 * @return a SortedSet containing all contacts, always starting with 
+	 * the connected User. The other users are sorted alphabetically.
+	 */
 	public SortedSet<User> getSortedContacts() {
 		SortedSet sortedContacts = new TreeSet<User>(new ContactsComparator(this));
 		sortedContacts.addAll(myContacts.keySet());
@@ -128,6 +134,10 @@ public class User {
 		return userName;
 	}
 
+	/**
+	 * Gets the password of the user.
+	 * @return the password of the user as an Object.
+	 */
 	public Object getPassword() {
 		return password;
 	}

@@ -8,6 +8,10 @@ public class ContactsComparator implements Comparator<User> {
 	
 	User connectedUser;
 	
+	/**
+	 * The ContactsComparator will make sure that the connectedUser is 
+	 * listed first and the other contacts sorted alphabetically.
+	 */
 	public ContactsComparator(User connectedUser) {
 		this.connectedUser = connectedUser;
 	}
