@@ -18,6 +18,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.regex.PatternSyntaxException;
 
+import javax.activity.InvalidActivityException;
 import javax.security.auth.Subject;
 
 import play.*;
@@ -125,7 +126,11 @@ public class Application extends Controller {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		User userToRemove = UserManager.getInstance().getUserByName(name);
-		user.removeFromMyContacts(userToRemove);
+		try {
+			user.removeFromMyContacts(userToRemove);
+		} catch (InvalidActivityException e) {
+			e.printStackTrace();
+		}
 		calendar(calendarName);
 	}
 

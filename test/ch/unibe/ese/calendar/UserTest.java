@@ -2,6 +2,8 @@ package ch.unibe.ese.calendar;
 
 import static org.junit.Assert.*;
 
+import javax.activity.InvalidActivityException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -99,7 +101,11 @@ public class UserTest{
 	public void removeContacts() {
 		uOne.addToMyContacts(uTwo);
 		assertTrue(uOne.getMyContacts().keySet().contains(uTwo));
-		uOne.removeFromMyContacts(uTwo);
+		try {
+			uOne.removeFromMyContacts(uTwo);
+		} catch (InvalidActivityException e) {
+			e.printStackTrace();
+		}
 		assertFalse(uOne.getMyContacts().keySet().contains(uTwo));
 	}
 	

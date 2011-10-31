@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.activity.InvalidActivityException;
+
 
 /**
  * Represents a User. Users have a unique names identifying them and
@@ -57,8 +59,15 @@ public class User {
 	 * Removes a user from the Map myContacts.
 	 * There is no return value.
 	 * @param userToRemove The user you want to remove
+	 * @throws InvalidActivityException if user tries to remove himself
+	 * from myContacts.
 	 */
-	public void removeFromMyContacts(User userToRemove) {
+	public void removeFromMyContacts(User userToRemove) 
+			throws InvalidActivityException {
+		if (userToRemove.equals(this)) {
+			throw new InvalidActivityException("You can't remove " +
+					"yourself from your contacts");
+		}
 		myContacts.remove(userToRemove);
 	}
 	
