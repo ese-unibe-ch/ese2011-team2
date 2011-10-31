@@ -122,7 +122,7 @@ public class CalendarBrowser {
 	 * @param year
 	 * @param locale
 	 */
-	public CalendarBrowser(User user, EseCalendar calendar, Set<EseCalendar> otherUsersCalendar, 
+	public CalendarBrowser(User user, EseCalendar calendar, Set<EseCalendar> otherUsersCalendar,
 			int selectedDay, int month, int year, Locale locale) {
 		this.user = user;
 		this.calendar = calendar;
@@ -135,7 +135,7 @@ public class CalendarBrowser {
 	
 	public String getMonthLabel() {
 		Calendar juc = Calendar.getInstance(locale);
-		juc.set(Calendar.MONTH, month);
+		juc.set(year, month+1, -1);
 		return juc.getDisplayName(Calendar.MONTH, Calendar.LONG, locale)+" "+year;
 	}
 	
