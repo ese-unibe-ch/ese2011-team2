@@ -35,7 +35,8 @@
 			<li>
 			#{if (!event.hasType("Busy") || (user.name == eventOwner))}
 				${event.start.format("HH:mm")} - ${event.end.format("HH:mm")} ${event.name} (${visibility} ${rep})<br/>
-					Created by: ${eventOwner}
+					Created by: ${eventOwner}<br/>
+					Description: ${event.description}
 				
 					#{if user.name == eventOwner}
 						#{if !event.isASerie()}
@@ -71,6 +72,10 @@
 					<p>
 						<label for="endDate">End Date: </label> <br/>
 						<input type="text" size="35%" name="endDate" placeholder="24.12.2011 23:30 (for example)"/>
+					</p>
+					
+					<p>
+						<textarea name="description" rows="5" cols="27" > </textarea>
 					</p>
 		</div>
 		<div id=repetition>	

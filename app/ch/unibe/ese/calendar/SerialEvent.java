@@ -7,8 +7,8 @@ public class SerialEvent extends CalendarEvent {
 	protected EventSeries eventSeries;
 	
 	SerialEvent(Date start, Date end, String name, String visibility, 
-			EventSeries eventSeries, EseCalendar calendar) {
-		super(start, end, name, visibility, calendar);
+			EventSeries eventSeries, EseCalendar calendar, String description) {
+		super(start, end, name, visibility, calendar, description);
 		this.eventSeries = eventSeries;
 		this.isASerie = true;
 	}

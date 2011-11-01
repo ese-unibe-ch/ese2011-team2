@@ -23,7 +23,7 @@ public class EventIteratorMergerTest extends UnitTest {
 		juc.set(2011, 11, 21, 11, 15);
 		Date end = juc.getTime();
 		calendarEvent1 = new CalendarEvent(start, end,
-				"event 1", "Public", null);
+				"event 1", "Public", null,"random Kommentar1");
 	}
 	
 	CalendarEvent calendarEvent2;
@@ -33,7 +33,7 @@ public class EventIteratorMergerTest extends UnitTest {
 		juc.set(2011, 11, 21, 11, 15);
 		Date end = juc.getTime();
 		calendarEvent1 = new CalendarEvent(start, end,
-				"event 1", "Public", null);
+				"event 1", "Public", null,"random Kommentar1");
 	}
 	
 	CalendarEvent calendarEvent3;
@@ -43,7 +43,7 @@ public class EventIteratorMergerTest extends UnitTest {
 		juc.set(2011, 11, 21, 11, 15);
 		Date end = juc.getTime();
 		calendarEvent1 = new CalendarEvent(start, end,
-				"event 1", "Public", null);
+				"event 1", "Public", null,"random Kommentar1");
 	}
 	
 	CalendarEvent calendarEvent4;
@@ -53,7 +53,7 @@ public class EventIteratorMergerTest extends UnitTest {
 		juc.set(2011, 11, 21, 11, 15);
 		Date end = juc.getTime();
 		calendarEvent1 = new CalendarEvent(start, end,
-				"event 1", "Public", null);
+				"event 1", "Public", null,"random Kommentar1");
 	}
 	
 	CalendarEvent calendarEvent5;
@@ -63,7 +63,7 @@ public class EventIteratorMergerTest extends UnitTest {
 		juc.set(2011, 11, 21, 11, 15);
 		Date end = juc.getTime();
 		calendarEvent1 = new CalendarEvent(start, end,
-				"event 1", "Public", null);
+				"event 1", "Public", null,"random Kommentar1");
 	}
 	
 	

@@ -63,10 +63,14 @@
 }
 
 #repetition {
-	margin-top: 1.5em;
 	float: left;
 	margin-left: 3em;
 }
+#repetition {
+	float: left;
+	margin-left: 3em;
+}
+
 
 #addToContacts {
 	margin-left: 2em;

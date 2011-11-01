@@ -42,18 +42,21 @@ public class Bootstrap extends Job {
 		Date start = juc.getTime();
 		juc.set(2011, 10, 23, 23, 00);
 		Date end = juc.getTime();
-		aaroncal.addEvent(User.ADMIN, start, end, "Toller Film", "Public");
+		aaroncal.addEvent(User.ADMIN, start, end, "Toller Film", "Public", "der Film ist wirklich super");
 		
 		juc.set(2011, 11, 23, 20, 15);
 		start = juc.getTime();
 		juc.set(2011, 11, 23, 23, 00);
 		end = juc.getTime();
-		aaroncal.addEvent(User.ADMIN, start, end, "Tolle Party", "Public");
+		aaroncal.addEvent(User.ADMIN, start, end, "Tolle Party", "Public", "Die Fetzen werden fliegen");
 		
 		juc.set(2011, 12, 23, 20, 15);
 		start = juc.getTime();
 		juc.set(2011, 12, 24, 04, 00);
 		end = juc.getTime();
+		aaroncal.addEvent(User.ADMIN, start, end, "MOAR PARTY!", "Public","random Kommentar1");
+	
+		User judith = um.createUser("judith", "ese");
 		aaroncal.addEvent(User.ADMIN, start, end, "MOAR PARTY!", "Public");
 		
 		Date judithBirthday = EseDateFormat.getInstance().parse("10.06.1985 00:00");
@@ -69,7 +72,7 @@ public class Bootstrap extends Job {
 		start = juc.getTime();
 		juc.set(2011, 11, 23, 23, 00);
 		end = juc.getTime();
-		judithcal.addEvent(User.ADMIN, start, end, "Movienight", "Public");
+		judithcal.addEvent(User.ADMIN, start, end, "Movienight", "Public", "random Kommentar2");
 
 		Date erwannBirthday = EseDateFormat.getInstance().parse("12.02.1832 00:00");
 		User erwann = um.createUser("erwann", "ese", erwannBirthday, false);
@@ -84,7 +87,7 @@ public class Bootstrap extends Job {
 		start = juc.getTime();
 		juc.set(2011, 11, 21, 23, 00);
 		end = juc.getTime();
-		erwanncal.addEvent(User.ADMIN, start, end, "Standardlager", "Public");
+		erwanncal.addEvent(User.ADMIN, start, end, "Standardlager", "Public", "random Kommentar3");
 		
 		erwann.addToMyContacts(judith);
 		erwann.addToMyContacts(aaron);
