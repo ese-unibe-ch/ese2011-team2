@@ -20,9 +20,9 @@ public class UserTest extends UnitTest {
 	@Before
 	public void setUp() throws ParseException {
 		birthday = EseDateFormat.getInstance().parse("12.04.1995 00:00");
-		uOne = new User("userOne", "password1", birthday, false);
-		uTwo = new User("userTwo", "password2", birthday, true);
-		uNull = new User(null, null, null, false);
+		uOne = new User("userOne", "password1", birthday, "private");
+		uTwo = new User("userTwo", "password2", birthday, "public");
+		uNull = new User(null, null, null, null);
 	}
 
 	@Test
@@ -71,7 +71,7 @@ public class UserTest extends UnitTest {
 		assertFalse(uNull.equals(null));
 		assertFalse(uOne.equals("bla"));
 		assertFalse(uNull.equals(uOne));
-		User uOneSameName = new User("userOne", "paswrd", birthday, false);
+		User uOneSameName = new User("userOne", "paswrd", birthday, "private");
 		assertTrue(uOne.equals(uOneSameName));
 	}
 

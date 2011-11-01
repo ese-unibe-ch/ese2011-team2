@@ -29,7 +29,7 @@ public class Bootstrap extends Job {
 	private void createSomeCalendars(UserManager um, final CalendarManager cm) throws ParseException {
 		
 		Date aaronBirthday = EseDateFormat.getInstance().parse("13.05.1966 00:00");
-		User aaron = um.createUser("aaron", "ese", aaronBirthday, true);
+		User aaron = um.createUser("aaron", "ese", aaronBirthday, "public");
 		
 		EseCalendar aaroncal;
 		try {
@@ -57,7 +57,7 @@ public class Bootstrap extends Job {
 		aaroncal.addEvent(User.ADMIN, start, end, "MOAR PARTY!", "Public","random Kommentar1");
 		
 		Date judithBirthday = EseDateFormat.getInstance().parse("10.06.1985 00:00");
-		User judith = um.createUser("judith", "ese", judithBirthday, true);
+		User judith = um.createUser("judith", "ese", judithBirthday, "public");
 
 		EseCalendar judithcal;
 		try {
@@ -72,7 +72,7 @@ public class Bootstrap extends Job {
 		judithcal.addEvent(User.ADMIN, start, end, "Movienight", "Public", "random Kommentar2");
 
 		Date erwannBirthday = EseDateFormat.getInstance().parse("12.02.1832 00:00");
-		User erwann = um.createUser("erwann", "ese", erwannBirthday, false);
+		User erwann = um.createUser("erwann", "ese", erwannBirthday, "private");
 
 		EseCalendar erwanncal;
 		try {

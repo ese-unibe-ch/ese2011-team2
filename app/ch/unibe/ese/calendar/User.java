@@ -25,28 +25,33 @@ public class User {
 	private String userName;
 	private Object password;
 	private Date birthday;
-	private boolean showDetailedProfile;
 	private Map<User, Boolean> myContacts = new HashMap<User, Boolean>();
+	
+	public enum DetailedProfileVisibility {
+		PRIVATE, PUBLIC, CONTACTSONLY
+	}
+	
+	private DetailedProfileVisibility detailedProfileVisibility;
 	
 	/**
 	 * creates a user with the specified username and password
 	 * @param userName
 	 * @param password
 	 */
-	public User(String userName, String password, Date birthday, boolean showDetailedProfile) {
+	public User(String userName, String password, Date birthday, String detailedProfileVisibility) {
 		this.userName = userName;
 		this.password = password;
 		this.birthday = birthday;
-		this.showDetailedProfile = showDetailedProfile;
+		setDetailedProfileVisibility(detailedProfileVisibility);
 		this.myContacts.put(this, true);
 	}
-	
+
 	/**
 	 * creates a user with the specified username and a random password
 	 * @param userName
 	 */
 	public User(String userName) {
-		this(userName, Integer.toString((int)(Math.random()*1000)), null, false);
+		this(userName, Integer.toString((int)(Math.random()*1000)), null, "private");
 	}
 	
 	/**
@@ -151,8 +156,21 @@ public class User {
 		return birthday;
 	}
 	
-	public boolean showDetailedProfile() {
-		return showDetailedProfile;
+	public DetailedProfileVisibility getDetailedProfileVisibility() {
+		return detailedProfileVisibility;
+	}
+	
+	
+	private void setDetailedProfileVisibility(String visibility) {
+		if (visibility.equalsIgnoreCase("private")) {
+			detailedProfileVisibility = DetailedProfileVisibility.PRIVATE;
+		}
+		if (visibility.equalsIgnoreCase("public")) {
+			detailedProfileVisibility = DetailedProfileVisibility.PUBLIC;
+		}
+		if (visibility.equalsIgnoreCase("contactsonly")) {
+			detailedProfileVisibility = DetailedProfileVisibility.CONTACTSONLY;
+		}
 	}
 	
 	/**
