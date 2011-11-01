@@ -243,12 +243,15 @@ public class Application extends Controller {
 	}
 	
 	public static void saveEditedEvent(String calendarName, int hash, String oldStartDate, 
-			String name, String startDate, String endDate, String visibility, String description) 
+			String name, String startDate, String duration, String visibility, String description) 
 			throws ParseException {
 		
 		Date oldDate = EseDateFormat.getInstance().parse(oldStartDate);
 		Date sDate = EseDateFormat.getInstance().parse(startDate);
-		Date eDate = EseDateFormat.getInstance().parse(endDate);
+		int minDur = Integer.parseInt(duration);
+		Date eDate = new Date();
+		eDate.setTime(sDate.getTime()+1000*60*minDur);
+		//Date eDate = EseDateFormat.getInstance().parse(endDate);
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
 				calendarName);
 		String userName = Security.connected();

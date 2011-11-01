@@ -21,8 +21,8 @@
 			<input type="text" size="35%" name="startDate" value="${event.start.format("dd.MM.yyyy hh:mm")}"/>
 		</p>
 		<p>
-			<label for="endDate">End Date: </label> <br/>
-			<input type="text" size="35%" name="endDate" value="${event.end.format("dd.MM.yyyy hh:mm")}"/>
+			<label for="duration">Duration (in minutes): </label> <br/>
+			<input type="text" size="35%" name="duration" value="${(event.end.getTime()-event.start.getTime())/(1000*60)}"/>
 		</p>
 		<p>
 			<label for="visibility">Visibility: </label> <br/>
@@ -34,9 +34,9 @@
 			<textarea name="description" rows="5" cols="27"> ${event.description}</textarea>
 		</p>
 		<p>
-			<input type="submit" value="edit Event">
+			<input type="submit" value="Apply">
 			#{form @Application.calendar(calendar.name)} 
-				<input type="submit" name="add" value="cancel">
+				<input type="submit" name="add" value="Cancel">
 			#{/form}
 		</p>
 	#{/form}
