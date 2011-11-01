@@ -55,9 +55,6 @@ public class Bootstrap extends Job {
 		juc.set(2011, 12, 24, 04, 00);
 		end = juc.getTime();
 		aaroncal.addEvent(User.ADMIN, start, end, "MOAR PARTY!", "Public","random Kommentar1");
-	
-		User judith = um.createUser("judith", "ese");
-		aaroncal.addEvent(User.ADMIN, start, end, "MOAR PARTY!", "Public");
 		
 		Date judithBirthday = EseDateFormat.getInstance().parse("10.06.1985 00:00");
 		User judith = um.createUser("judith", "ese", judithBirthday, true);
