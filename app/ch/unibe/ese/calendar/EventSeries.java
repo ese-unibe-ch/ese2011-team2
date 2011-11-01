@@ -49,8 +49,8 @@ public class EventSeries extends CalendarEntry {
 	 *            are requested
 	 * @return a sorted list of SerialEventS for the specified day
 	 */
-	public SortedSet<CalendarEntry> getSerialEventsForDay(User user, Date date) {
-		SortedSet<CalendarEntry> result = new TreeSet<CalendarEntry>(
+	public SortedSet<CalendarEvent> getSerialEventsForDay(User user, Date date) {
+		SortedSet<CalendarEvent> result = new TreeSet<CalendarEvent>(
 				new StartDateComparator());
 		if (dateMatches(date)) {
 			result.add(getAsSerialEventForDay(date));

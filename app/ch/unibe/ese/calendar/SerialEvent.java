@@ -2,7 +2,7 @@ package ch.unibe.ese.calendar;
 
 import java.util.Date;
 
-public class SerialEvent extends CalendarEvent {
+public class SerialEvent extends CalendarEventImpl {
 
 	protected EventSeries eventSeries;
 	

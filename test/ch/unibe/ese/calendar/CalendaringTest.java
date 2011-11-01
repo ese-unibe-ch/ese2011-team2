@@ -1,30 +1,15 @@
 package ch.unibe.ese.calendar;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 import java.util.SortedSet;
-
-import javax.security.auth.Subject;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import play.test.UnitTest;
-
-import ch.unibe.ese.calendar.CalendarEvent;
-import ch.unibe.ese.calendar.CalendarManager;
-import ch.unibe.ese.calendar.EseCalendar;
-import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
 import ch.unibe.ese.calendar.exceptions.NoSuchCalendarException;
-import ch.unibe.ese.calendar.security.Policy;
 import ch.unibe.ese.calendar.security.PermissionDeniedException;
 
 /**
@@ -187,10 +172,10 @@ public class CalendaringTest extends UnitTest {
 		Date start = juc.getTime();
 		Iterator<CalendarEvent> iter = cal.iterateIndividualEvents(user, start);
 		assertTrue(iter.hasNext());
-		CalendarEntry first = iter.next();
+		CalendarEvent first = iter.next();
 		assertEquals(SUSANNE_EVENT_1_DESC, first.getName());
 		assertTrue(iter.hasNext());
-		CalendarEntry second = iter.next();
+		CalendarEvent second = iter.next();
 		assertEquals(SUSANNE_EVENT_2_DESC, second.getName());
 		assertFalse("no third element", iter.hasNext());
 

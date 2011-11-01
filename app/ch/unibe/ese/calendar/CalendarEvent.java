@@ -2,17 +2,47 @@ package ch.unibe.ese.calendar;
 
 import java.util.Date;
 
-public class CalendarEvent extends CalendarEntry {
-	
-	protected boolean isASerie;
-	
-	public CalendarEvent(Date start, Date end, String name, String visibility, EseCalendar calendar, String description) {
-		super(start, end, name, visibility, calendar, description);
-		isASerie = false;
-		
-	}
-	public boolean isASerie(){
-		return isASerie;
-	}
-	
+import ch.unibe.ese.calendar.CalendarEntry.Visibility;
+
+public interface CalendarEvent {
+
+	/**
+	 * 
+	 * @return true if this is a public event
+	 */
+	public Visibility getVisibility();
+
+	public boolean hasType(String type);
+
+	/**
+	 * 
+	 * @return the end of event
+	 */
+	public Date getEnd();
+
+	/**
+	 * 
+	 * @return the start of the event
+	 */
+	public Date getStart();
+
+	/**
+	 * The name is typically a short description of the event
+	 * 
+	 * @return the name of the event
+	 */
+	public String getName();
+
+	/**
+	 * Gets the calendar the entry belongs to.
+	 * @return a calendar, which the entry belongs to.
+	 */
+	public EseCalendar getCalendar();
+
+	public String getDescription();
+
+	public String toString();
+
+	public boolean isASerie();
+
 }
