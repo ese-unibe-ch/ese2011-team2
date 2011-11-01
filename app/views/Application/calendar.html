@@ -64,47 +64,7 @@
 	
 	#{if user.name == calendar.owner.name}
 	<div id=createEvent>
-		<h2>Create a new Event</h2>
-		<div id=forms>
-				#{form @Application.createEvent()}
-					<input type="hidden" name="calendarName" value="${calendar.name}">
-					<p>
-						<label for="name">Event Name: </label> <br/>
-						<input type="text" size="35%" name="name" placeholder="Date with secretary (for example)"/>
-					</p>
-					<p>
-						<label for="startDate">Start Date: </label> <br/>
-						<input type="text" size="35%" name="startDate" placeholder="24.12.2011 20:00 (for example)"/>
-					</p>
-					<p>
-						<label for="endDate">End Date: </label> <br/>
-						<input type="text" size="35%" name="endDate" placeholder="24.12.2011 23:30 (for example)"/>
-					</p>
-					
-					<p>
-						<textarea name="description" rows="5" cols="27" > </textarea>
-					</p>
-		</div>
-		<div id=repetition>	
-					<p>
-						<label for="visibility">Visibility: </label> <br/>
-						<input type="radio" name="visibility" value ="private" checked="checked" /> Private <br/>
-						<input type="radio" name="visibility" value ="public" /> Public <br/>
-						<input type="radio" name="visibility" value ="busy" /> Show as busy <br/>
-					</p>			
-					<p>
-							<label for="repetition">Repetition: </label> <br/>
-							<input type="radio" name="repetition" value="never" checked="checked" /> Never<br />
-							<input type="radio" name="repetition" value="daily" /> Daily<br />
-							<input type="radio" name="repetition" value="weekly" /> Weekly<br />
-							<input type="radio" name="repetition" value="monthly" /> Monthly <br />	
-					</p>
-					<p>
-						<input type="submit" value ="create Event">
-					</p>
-		</div>				
-
-				#{/form}
+		#{addEvent calendar:calendar /}
 	</div>
 	#{/if}
 </div>

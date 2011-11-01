@@ -134,7 +134,7 @@ public class Application extends Controller {
 		calendar(calendarName);
 	}
 
-	public static void createEvent(String calendarName, String name,String startDate, 
+	public static void createEvent(String calendarName, String name, String startDate, 
 			String endDate, String visibility, String repetition, String description)
 			throws Throwable {
 		System.out.println("creating event");
@@ -159,7 +159,7 @@ public class Application extends Controller {
 
 				System.out.println("created event  in " + calendarName);
 		}
-		else{
+		else {
 			final EventSeries eventseries = calendar.addEventSeries(user, sDate, 
 					eDate, name, visibility, repetition, description);
 		}
