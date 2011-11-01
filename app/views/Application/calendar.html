@@ -35,7 +35,8 @@
 			<li>
 			#{if (!event.hasType("Busy") || (user.name == eventOwner))}
 				${event.start.format("HH:mm")} - ${event.end.format("HH:mm")} ${event.name} (${visibility} ${rep})<br/>
-					Created by: ${eventOwner}
+					Created by: ${eventOwner}<br/>
+					Description: ${event.description}
 				
 					#{if user.name == eventOwner}
 						#{if !event.isASerie()}
