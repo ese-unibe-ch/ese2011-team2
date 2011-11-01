@@ -12,7 +12,9 @@ import org.jaxen.function.StartsWithFunction;
 import org.junit.Before;
 import org.junit.Test;
 
-public class EventIteratorMergerTest{
+import play.test.UnitTest;
+
+public class EventIteratorMergerTest extends UnitTest {
 	java.util.Calendar juc = java.util.Calendar.getInstance();
 	CalendarEvent calendarEvent1;
 	{

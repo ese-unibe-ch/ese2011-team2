@@ -25,19 +25,19 @@ public class UserManagerTest extends UnitTest {
 	@Before
 	public void setUp() {
 		um = UserManager.getInstance();
-		gamma = um.createUser("gamma", "delta");
-		gamm = um.createUser("gamm", "delt");
+		gamma = um.createUser("gamma", "delta", null, false);
+		gamm = um.createUser("gamm", "delt", null, false);
 	}
 	
 	@Test
 	public void createAndRetrieveUser() {
 		
-		User createdUser = um.createUser("beta", "tester");
+		User createdUser = um.createUser("beta", "tester", null, false);
 		assertNotNull(createdUser);
 		User retrievedUser = um.getUserByName("beta");
 		assertEquals(createdUser, retrievedUser);
 		assertEquals("tester", retrievedUser.getPassword());
-		User user2 = um.createUser("beta2", "tester");
+		User user2 = um.createUser("beta2", "tester", null, false);
 		assertTrue(um.getAllUsers().contains(user2));
 	}
 	

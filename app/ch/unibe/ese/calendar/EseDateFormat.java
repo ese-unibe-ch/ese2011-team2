@@ -24,7 +24,7 @@ public class EseDateFormat {
 	/**
 	 * @param dateString String with format "dd.MM.yyyy HH:mm"
 	 * @return A Date object with the given arguments
-	 * @throws ParseException
+	 * @throws ParseException 
 	 */
 	public Date parse(String dateString) throws ParseException {
 		return dateFormat.parse(dateString);

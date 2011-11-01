@@ -1,5 +1,6 @@
 package ch.unibe.ese.calendar;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -23,16 +24,20 @@ public class User {
 
 	private String userName;
 	private Object password;
+	private Date birthday;
+	private boolean showDetailedProfile;
 	private Map<User, Boolean> myContacts = new HashMap<User, Boolean>();
-
+	
 	/**
 	 * creates a user with the specified username and password
 	 * @param userName
 	 * @param password
 	 */
-	public User(String userName, String password) {
+	public User(String userName, String password, Date birthday, boolean showDetailedProfile) {
 		this.userName = userName;
 		this.password = password;
+		this.birthday = birthday;
+		this.showDetailedProfile = showDetailedProfile;
 		this.myContacts.put(this, true);
 	}
 	
@@ -41,7 +46,7 @@ public class User {
 	 * @param userName
 	 */
 	public User(String userName) {
-		this(userName, Integer.toString((int)(Math.random()*1000)));
+		this(userName, Integer.toString((int)(Math.random()*1000)), null, false);
 	}
 	
 	/**
@@ -140,6 +145,14 @@ public class User {
 	 */
 	public Object getPassword() {
 		return password;
+	}
+	
+	public Date getBirthday() {
+		return birthday;
+	}
+	
+	public boolean showDetailedProfile() {
+		return showDetailedProfile;
 	}
 	
 	/**

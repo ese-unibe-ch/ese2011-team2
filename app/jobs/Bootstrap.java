@@ -1,5 +1,6 @@
 package jobs;
 
+import java.text.ParseException;
 import java.util.Date;
 
 import play.jobs.Job;
@@ -7,6 +8,7 @@ import play.jobs.OnApplicationStart;
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
+import ch.unibe.ese.calendar.EseDateFormat;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
 import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
@@ -17,14 +19,17 @@ public class Bootstrap extends Job {
 	public void doJob() {
 		UserManager um = UserManager.getInstance();
 		final CalendarManager cm = CalendarManager.getInstance();
-
-		createSomeCalendars(um, cm);
-
+		try {
+			createSomeCalendars(um, cm);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 
-	private void createSomeCalendars(UserManager um, final CalendarManager cm) {
-
-		User aaron = um.createUser("aaron", "ese");
+	private void createSomeCalendars(UserManager um, final CalendarManager cm) throws ParseException {
+		
+		Date aaronBirthday = EseDateFormat.getInstance().parse("13.05.1966 00:00");
+		User aaron = um.createUser("aaron", "ese", aaronBirthday, true);
 		
 		EseCalendar aaroncal;
 		try {
@@ -50,8 +55,9 @@ public class Bootstrap extends Job {
 		juc.set(2011, 12, 24, 04, 00);
 		end = juc.getTime();
 		aaroncal.addEvent(User.ADMIN, start, end, "MOAR PARTY!", "Public");
-	
-		User judith = um.createUser("judith", "ese");
+		
+		Date judithBirthday = EseDateFormat.getInstance().parse("10.06.1985 00:00");
+		User judith = um.createUser("judith", "ese", judithBirthday, true);
 
 		EseCalendar judithcal;
 		try {
@@ -65,8 +71,8 @@ public class Bootstrap extends Job {
 		end = juc.getTime();
 		judithcal.addEvent(User.ADMIN, start, end, "Movienight", "Public");
 
-	
-		User erwann = um.createUser("erwann", "ese");
+		Date erwannBirthday = EseDateFormat.getInstance().parse("12.02.1832 00:00");
+		User erwann = um.createUser("erwann", "ese", erwannBirthday, false);
 
 		EseCalendar erwanncal;
 		try {

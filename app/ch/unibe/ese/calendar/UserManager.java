@@ -1,6 +1,7 @@
 package ch.unibe.ese.calendar;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -23,8 +24,9 @@ public class UserManager {
 		return instance;
 	}
 	
-	public synchronized User createUser(String userName, String password) {
-		User user = new User(userName, password);
+	public synchronized User createUser(String userName, String password, 
+			Date birthday, boolean showDetailedProfile) {
+		User user = new User(userName, password, birthday, showDetailedProfile);
 		users.put(userName, user);
 		return user;
 	}
