@@ -149,9 +149,15 @@ public class EseCalendar {
 	 * @return an iterator with events starting after start
 	 */
 	Iterator<CalendarEvent> iterateIndividualEvents(User user, Date start) {
-		CalendarEvent compareDummy = new CalendarEvent(start, start, "compare-dummy", "Private", this, "");
-		Iterator<CalendarEvent> unfilteredEvents = startDateSortedSet.tailSet(compareDummy).iterator();
-		return new ACFilteringEventIterator(user, unfilteredEvents);
+		if (start == null)
+		{
+			Iterator<CalendarEvent> unfilteredEvents = startDateSortedSet.iterator();
+			return new ACFilteringEventIterator(user, unfilteredEvents);
+		} else {
+			CalendarEvent compareDummy = new CalendarEvent(start, start, "compare-dummy", "Private", this, "");
+			Iterator<CalendarEvent> unfilteredEvents = startDateSortedSet.tailSet(compareDummy).iterator();
+			return new ACFilteringEventIterator(user, unfilteredEvents);
+		}
 	}
 	
 	/**
@@ -194,16 +200,17 @@ public class EseCalendar {
 	 * @param date the point in time specifying the start of the 24h period for which events are to be returned
 	 * @return a list of the events
 	 */
-	public SortedSet<CalendarEvent> getEventsAt(User user, Date date) {
-		Date endDate = new Date(date.getTime()+24*60*60*1000);
+	public SortedSet<CalendarEvent> getEventsAt(User user, Date dayStart) {
+		Date dayEnd = new Date(dayStart.getTime()+24*60*60*1000);
 		SortedSet<CalendarEvent> result = new TreeSet<CalendarEvent>(new StartDateComparator());
-		Iterator<CalendarEvent> iter = iterate(user, date);
+		Iterator<CalendarEvent> iter = iterate(user, null);
 		while (iter.hasNext()) {
 			CalendarEvent ce = iter.next();
-			if (ce.getStart().compareTo(endDate) > 0) {
-				break;
+			if ((ce.getEnd().after(dayStart) && ce.getStart().before(dayEnd)) || 
+					(ce.getStart().after(dayStart) && ce.getEnd().before(dayEnd))) {
+				result.add(ce);
 			}
-			result.add(ce);
+			
 		}
 		return result;
 	}
