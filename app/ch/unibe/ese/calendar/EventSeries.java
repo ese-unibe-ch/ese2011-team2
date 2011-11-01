@@ -60,11 +60,15 @@ public class EventSeries extends CalendarEntry {
 	
 	/**
 	 * note that the caller is response to check if the date matches this series
+	 * 
+	 * @date Start of the day we want to get a SerialEvent of
+	 * @return 	A single instance of this event (of the type SerialEvent) with the 
+	 * 			parameters this series is defined by.
 	 */
-	private SerialEvent getAsSerialEventForDay(Date date) {
+	private SerialEvent getAsSerialEventForDay(Date dayStart) {
 		java.util.Calendar juc = java.util.Calendar.getInstance(new Locale(
 				"de", "CH"));
-		juc.setTime(date);
+		juc.setTime(dayStart);
 		int year = juc.get(Calendar.YEAR);
 		int month = juc.get(Calendar.MONTH);
 		int day = juc.get(Calendar.DAY_OF_MONTH);
