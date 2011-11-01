@@ -25,8 +25,8 @@ public class UserManager {
 	}
 	
 	public synchronized User createUser(String userName, String password, 
-			Date birthday, boolean showDetailedProfile) {
-		User user = new User(userName, password, birthday, showDetailedProfile);
+			Date birthday, String detailedProfileVisibility) {
+		User user = new User(userName, password, birthday, detailedProfileVisibility);
 		users.put(userName, user);
 		return user;
 	}

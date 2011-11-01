@@ -5,13 +5,20 @@
 <head>
 	<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/calendar.css'}">
 </head>
-#{if user == calendar.owner}
-	<div id=contentLeft>
+
+<div id=contentLeft>
+	#{if user == calendar.owner}
 		<div id=myContacts>
 			#{myContacts myContacts:myContacts, user:user, calendar:calendar /}
 		</div>
-	</div>
-#{/if}
+	#{/if}
+	#{else}
+		<div id=otherUser>
+			<h2>${calendar.owner.name}</h2>
+		</div>
+	#{/else}
+</div>
+
 
 <div id=contentMiddle>
 	<div id=month>

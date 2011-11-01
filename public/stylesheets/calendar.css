@@ -26,6 +26,19 @@
 	list-style: none;
 }
 
+#otherUser {
+	border: thin solid grey;
+	-moz-box-shadow: 3px 11px 10px #303030;
+	-webkit-box-shadow: 3px 11px 10px #303030;
+	box-shadow: 3px 11px 10px #303030;
+	padding-left: 1em;
+	float: left;
+	width: 180px;
+	padding-bottom: 0.5em;
+	min-height: 259px;
+	list-style: none;
+}
+
 #month {
 	border: thin solid grey;
 	-moz-box-shadow: 6px 10px 15px #303030;
