@@ -12,8 +12,6 @@ public interface CalendarEvent {
 	 */
 	public Visibility getVisibility();
 
-	public boolean hasType(String type);
-
 	/**
 	 * 
 	 * @return the end of event
