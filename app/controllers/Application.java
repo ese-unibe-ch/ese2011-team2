@@ -164,7 +164,7 @@ public class Application extends Controller {
 				System.out.println("created event  in " + calendarName);
 		}
 		else {
-			final EventSeries eventseries = calendar.addEventSeries(user, sDate, 
+			calendar.addEventSeries(user, sDate, 
 					eDate, name, visibility, repetition, description);
 		}
 		calendar(calendarName);

@@ -59,7 +59,7 @@ public class EventSeries extends CalendarEntry {
 	}
 	
 	/**
-	 * note that the caller is reposnse to check if the date matches this series
+	 * note that the caller is response to check if the date matches this series
 	 */
 	private SerialEvent getAsSerialEventForDay(Date date) {
 		java.util.Calendar juc = java.util.Calendar.getInstance(new Locale(
