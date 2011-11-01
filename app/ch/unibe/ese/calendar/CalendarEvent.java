@@ -2,7 +2,6 @@ package ch.unibe.ese.calendar;
 
 import java.util.Date;
 
-import ch.unibe.ese.calendar.CalendarEntry.Visibility;
 
 public interface CalendarEvent {
 

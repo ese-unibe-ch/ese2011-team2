@@ -15,7 +15,6 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import ch.unibe.ese.calendar.CalendarEntry.Visibility;
 import ch.unibe.ese.calendar.EventSeries.Repetition;
 import ch.unibe.ese.calendar.exceptions.EventNotFoundException;
 import ch.unibe.ese.calendar.security.Policy;
