@@ -241,7 +241,7 @@ public class EseCalendar {
 			hasNext = false;
 			if (unfilteredEvents.hasNext()) {
 				CalendarEvent ce = unfilteredEvents.next();
-				if (ce.hasType("Private")) {
+				if (ce.getVisibility().equals(Visibility.PRIVATE)) {
 					if (!Policy.getInstance().hasPermission(user, new PrivilegedCalendarAccessPermission(name))) {
 						prepareNext();
 						return;

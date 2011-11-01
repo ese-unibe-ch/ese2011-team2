@@ -2,7 +2,6 @@ package ch.unibe.ese.calendar;
 
 import java.util.Date;
 
-import ch.unibe.ese.calendar.CalendarEntry.Visibility;
 
 public interface CalendarEvent {
 
@@ -11,8 +10,6 @@ public interface CalendarEvent {
 	 * @return true if this is a public event
 	 */
 	public Visibility getVisibility();
-
-	public boolean hasType(String type);
 
 	/**
 	 * 

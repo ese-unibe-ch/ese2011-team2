@@ -12,6 +12,7 @@ import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
+import ch.unibe.ese.calendar.Visibility;
 
 public class CalendarBrowser {
 
@@ -45,7 +46,7 @@ public class CalendarBrowser {
 			SortedSet<CalendarEvent> set1 = calendar.getEventsAt(user, asCalendar().getTime());
 			Iterator<CalendarEvent> iterator = set1.iterator();
 			while (iterator.hasNext()){
-				if (iterator.next().hasType("Public")){
+				if (iterator.next().getVisibility().equals(Visibility.PUBLIC)){
 					return true;
 				}
 			}
@@ -56,7 +57,7 @@ public class CalendarBrowser {
 			SortedSet<CalendarEvent> set1 = calendar.getEventsAt(user, asCalendar().getTime());
 			Iterator<CalendarEvent> iterator = set1.iterator();
 			while (iterator.hasNext()){
-				if (iterator.next().hasType("Private")){
+				if (iterator.next().getVisibility().equals(Visibility.PRIVATE)){
 					return true;
 				}
 			}

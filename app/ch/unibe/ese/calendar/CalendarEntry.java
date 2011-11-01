@@ -5,10 +5,10 @@ import java.util.Date;
 import ch.unibe.ese.calendar.EventSeries.Repetition;
 
 /**
- * Represents a thing contained in a calendar, i.e. an <code>Event</code> or an <code>EventSeries</code> 
+ * Represents a thing contained in a calendar, i.e. a <code>CalendarEvent</code> or an <code>EventSeries</code> 
  *
  */
-public abstract class CalendarEntry {
+abstract class CalendarEntry {
 
 	private Date end;
 	private Date start;
@@ -16,10 +16,6 @@ public abstract class CalendarEntry {
 	private EseCalendar calendar;
 	String description;
 	
-	public enum Visibility {
-		PRIVATE,PUBLIC,BUSY
-	}
-
 	private Visibility visibility;
 	
 	CalendarEntry(Date start, Date end, String name, String visibility, EseCalendar calendar, String description) {

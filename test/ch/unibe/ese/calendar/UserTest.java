@@ -22,7 +22,7 @@ public class UserTest extends UnitTest {
 		birthday = EseDateFormat.getInstance().parse("12.04.1995 00:00");
 		uOne = new User("userOne", "password1", birthday, "private");
 		uTwo = new User("userTwo", "password2", birthday, "public");
-		uNull = new User(null, null, null, null);
+		uNull = new User(null);
 	}
 
 	@Test
@@ -36,7 +36,6 @@ public class UserTest extends UnitTest {
 	public void userGetPassword() {
 		assertEquals(uOne.getPassword(), "password1");
 		assertEquals(uTwo.getPassword(), "password2");
-		assertNull(uNull.getPassword());
 	}
 
 	@Test
