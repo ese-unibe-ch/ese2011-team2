@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import ch.unibe.ese.calendar.CalendarEntry.Visibility;
 import ch.unibe.ese.calendar.EventSeries.Repetition;
 import ch.unibe.ese.calendar.exceptions.EventNotFoundException;
 import ch.unibe.ese.calendar.security.Policy;
@@ -240,7 +241,7 @@ public class EseCalendar {
 			hasNext = false;
 			if (unfilteredEvents.hasNext()) {
 				CalendarEvent ce = unfilteredEvents.next();
-				if (ce.hasType("Private")) {
+				if (ce.getVisibility().equals(Visibility.PRIVATE)) {
 					if (!Policy.getInstance().hasPermission(user, new PrivilegedCalendarAccessPermission(name))) {
 						prepareNext();
 						return;
