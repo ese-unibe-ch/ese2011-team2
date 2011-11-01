@@ -135,11 +135,14 @@ public class Application extends Controller {
 	}
 
 	public static void createEvent(String calendarName, String name, String startDate, 
-			String endDate, String visibility, String repetition, String description)
+			String duration, String visibility, String repetition, String description)
 			throws Throwable {
 		System.out.println("creating event");
 		Date sDate = EseDateFormat.getInstance().parse(startDate);
-		Date eDate = EseDateFormat.getInstance().parse(endDate);
+		int minDur = Integer.parseInt(duration);
+		Date eDate = new Date();
+		eDate.setTime(sDate.getTime()+1000*60*minDur);
+		//Date eDate = EseDateFormat.getInstance().parse(endDate); //old version
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
