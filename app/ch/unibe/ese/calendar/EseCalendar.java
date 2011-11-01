@@ -111,6 +111,11 @@ public class EseCalendar {
 		return e;
 	}
 	
+	public void removeSeries() {
+		// TODO Series need an ID before this can work....
+		
+	}
+	
 	/**
 	 * Only returns an event if the user has privileged access.
 	 * @param hash The hash the event produces by calling hashCode()

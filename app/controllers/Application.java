@@ -211,7 +211,7 @@ public class Application extends Controller {
 	 * @param hash hashCode() of the to be deleted event
 	 */
 	public static void deleteEvent(String calendarName, int hash,
-			String startDate) throws ParseException {
+			String startDate, boolean isASeries) throws ParseException {
 
 		Date sDate = EseDateFormat.getInstance().parse(startDate);
 
@@ -220,14 +220,18 @@ public class Application extends Controller {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		try {
-			CalendarEntry e = calendar.removeEvent(user, hash, sDate);
+			if (isASeries)
+				calendar.removeSeries();
+			else 
+				calendar.removeEvent(user, hash, sDate);
 			calendar(calendarName);
 		} catch (EventNotFoundException exception) {
 			error(exception.getMessage());
 		}
 	}
 
-	public static void editEvent(String calendarName, int hash, String startDate)
+	public static void editEvent(String calendarName, int hash, 
+			String startDate, boolean isASeries)
 			throws ParseException {
 		Date sDate = EseDateFormat.getInstance().parse(startDate);
 
