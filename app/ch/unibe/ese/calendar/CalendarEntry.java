@@ -14,6 +14,7 @@ public abstract class CalendarEntry {
 	private Date start;
 	private String name;
 	private EseCalendar calendar;
+	String description;
 	
 	public enum Visibility {
 		PRIVATE,PUBLIC,BUSY
@@ -21,7 +22,7 @@ public abstract class CalendarEntry {
 
 	private Visibility visibility;
 	
-	CalendarEntry(Date start, Date end, String name, String visibility, EseCalendar calendar) {
+	CalendarEntry(Date start, Date end, String name, String visibility, EseCalendar calendar, String description) {
 		if (name==null || start==null || end==null) {
 			throw new IllegalArgumentException();
 		}
@@ -29,6 +30,7 @@ public abstract class CalendarEntry {
 		this.start = start;
 		this.end = end;
 		this.calendar = calendar;
+		this.description = description;
 		setVisibility(visibility);
 		}
 
@@ -85,7 +87,10 @@ public abstract class CalendarEntry {
 	public EseCalendar getCalendar() {
 		return calendar;
 	}
-
+	
+	public String getDescription(){
+		return description;
+	}
 	@Override
 	public String toString() {
 		return "CalendarEvent [visibility=" + visibility + ", end=" + end

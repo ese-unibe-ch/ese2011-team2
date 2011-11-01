@@ -134,8 +134,8 @@ public class Application extends Controller {
 		calendar(calendarName);
 	}
 
-	public static void createEvent(String calendarName, String name,
-			String startDate, String endDate, String visibility, String repetition)
+	public static void createEvent(String calendarName, String name,String startDate, 
+			String endDate, String visibility, String repetition, String description)
 			throws Throwable {
 		System.out.println("creating event");
 		Date sDate = EseDateFormat.getInstance().parse(startDate);
@@ -148,7 +148,7 @@ public class Application extends Controller {
 		if (repetition.equalsIgnoreCase("never")) {
 				System.out.println("selected repetition: never");
 				final CalendarEvent event = calendar.addEvent(user, sDate, 
-						eDate, name, visibility);
+						eDate, name, visibility, description);
 				System.out.println("pre created size "
 				+ calendar.getEventsAt(user,
 						new Date(event.getStart().getTime() - 2000)).size());
@@ -161,7 +161,7 @@ public class Application extends Controller {
 		}
 		else{
 			final EventSeries eventseries = calendar.addEventSeries(user, sDate, 
-					eDate, name, visibility, repetition);
+					eDate, name, visibility, repetition, description);
 		}
 		calendar(calendarName);
 	}
@@ -240,7 +240,7 @@ public class Application extends Controller {
 	}
 	
 	public static void saveEditedEvent(String calendarName, int hash, String oldStartDate, 
-			String name, String startDate, String endDate, String visibility) 
+			String name, String startDate, String endDate, String visibility, String description) 
 			throws ParseException {
 		
 		Date oldDate = EseDateFormat.getInstance().parse(oldStartDate);
@@ -251,7 +251,7 @@ public class Application extends Controller {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		calendar.removeEvent(user, hash, oldDate);
-		calendar.addEvent(user, sDate, eDate, name, visibility);
+		calendar.addEvent(user, sDate, eDate, name, visibility, description);
 		selectDate(calendarName, sDate);
 	}
 	
