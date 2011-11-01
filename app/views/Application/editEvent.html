@@ -11,14 +11,14 @@
 	#{form @Application.saveEditedEvent()}
 		<input type="hidden" name="calendarName" value="${calendar.name}">
 		<input type="hidden" name="hash" value="${event.hashCode()}">
-		<input type="hidden" name="oldStartDate" value="${event.start.format("dd.MM.yyyy hh:mm")}">
+		<input type="hidden" name="oldStartDate" value="${event.start.format("dd.MM.yyyy HH:mm")}">
 		<p>
 			<label for="name">Event Name: </label> <br/>
 			<input type="text" size="35%" name="name" value="${event.name}"/>
 		</p>
 		<p>
 			<label for="startDate">Start Date: </label> <br/>
-			<input type="text" size="35%" name="startDate" value="${event.start.format("dd.MM.yyyy hh:mm")}"/>
+			<input type="text" size="35%" name="startDate" value="${event.start.format("dd.MM.yyyy HH:mm")}"/>
 		</p>
 		<p>
 			<label for="duration">Duration (in minutes): </label> <br/>

@@ -152,6 +152,7 @@ public class Application extends Controller {
 				System.out.println("selected repetition: never");
 				final CalendarEvent event = calendar.addEvent(user, sDate, 
 						eDate, name, visibility, description);
+				
 				System.out.println("pre created size "
 				+ calendar.getEventsAt(user,
 						new Date(event.getStart().getTime() - 2000)).size());
