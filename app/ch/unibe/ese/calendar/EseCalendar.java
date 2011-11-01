@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -29,8 +31,7 @@ import ch.unibe.ese.calendar.security.PrivilegedCalendarAccessPermission;
 public class EseCalendar {
 	
 	private SortedSet<CalendarEvent> startDateSortedSet = new TreeSet<CalendarEvent>(new StartDateComparator());
-	//what's the point on sorting them by start date, it could be just a set no?
-	private SortedSet<EventSeries> startDateSortedSetOfSeries = new TreeSet<EventSeries>(new StartDateComparator());
+	private Set<EventSeries> series = new HashSet<EventSeries>();
 	/**
 	 * Constructs a calendar. Application typically create and retrieve calendars using the CalendarManager.
 	 * 
@@ -74,8 +75,8 @@ public class EseCalendar {
 	 * this method is used only for tests. I think we should use blackbox tests instead 
 	 */
 	//I think we should use blackbox tests instead (reto)
-	SortedSet<EventSeries> getStartDateSortedSetOfSeries() {
-		return startDateSortedSetOfSeries;
+	Set<EventSeries> getStartDateSortedSetOfSeries() {
+		return series;
 	}
 
 	/**
@@ -85,7 +86,7 @@ public class EseCalendar {
 	 */
 	public CalendarEvent addEvent(User user, Date start, Date end, String eventName, String visibility, String description) {
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
-		CalendarEvent event = new CalendarEvent(start, end, eventName, visibility, this, description);
+		CalendarEvent event = new CalendarEventImpl(start, end, eventName, visibility, this, description);
 		startDateSortedSet.add(event);
 		return event;
 	}
@@ -94,7 +95,7 @@ public class EseCalendar {
 			String sRepetition, String description){
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
 		EventSeries eventSeries = new EventSeries(start, end, eventName, visibility, sRepetition, this, description);
-		startDateSortedSetOfSeries.add(eventSeries);
+		series.add(eventSeries);
 		return eventSeries;
 	}
 	
@@ -104,9 +105,10 @@ public class EseCalendar {
 	 * Needs a startDate so we don't have to go through the whole list for finding the right event.
 	 * @return the event removed
 	 */
-	public CalendarEntry removeEvent(User user, int hash, Date start) {
+	//TODO index events so iterating (and start-date) is no longer needed
+	public CalendarEvent removeEvent(User user, int hash, Date start) {
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
-		CalendarEntry e = getEventByHash(user, hash, start);
+		CalendarEvent e = getEventByHash(user, hash, start);
 		startDateSortedSet.remove(e);
 		return e;
 	}
@@ -117,11 +119,11 @@ public class EseCalendar {
 	 * @return null, if the Event is not found.
 	 */
 	//TODO use a uid instead of hash
-	public CalendarEntry getEventByHash(User user, int hash, Date start) {
+	public CalendarEvent getEventByHash(User user, int hash, Date start) {
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
 		Iterator<CalendarEvent> afterStart = iterate(user, start);
 		//TODO: also check, startDateSortedSet for this hash (or create own method for deleting series)
-		CalendarEntry e;
+		CalendarEvent e;
 		do {
 			e = afterStart.next();
 		} while (e != null && e.hashCode() != hash);
@@ -155,7 +157,7 @@ public class EseCalendar {
 			Iterator<CalendarEvent> unfilteredEvents = startDateSortedSet.iterator();
 			return new ACFilteringEventIterator(user, unfilteredEvents);
 		} else {
-			CalendarEvent compareDummy = new CalendarEvent(start, start, "compare-dummy", "Private", this, "");
+			CalendarEvent compareDummy = new CalendarEventImpl(start, start, "compare-dummy", "Private", this, "");
 			Iterator<CalendarEvent> unfilteredEvents = startDateSortedSet.tailSet(compareDummy).iterator();
 			return new ACFilteringEventIterator(user, unfilteredEvents);
 		}
@@ -191,7 +193,7 @@ public class EseCalendar {
 	 * @return an iterator with all serial events
 	 */
 	Iterator<EventSeries> iterateSeries(User user){
-		Iterator<EventSeries> allEventSeries = startDateSortedSetOfSeries.iterator();
+		Iterator<EventSeries> allEventSeries = series.iterator();
 		return new ACFilteringEventSeriesIterator(user, allEventSeries);
 	}
 	

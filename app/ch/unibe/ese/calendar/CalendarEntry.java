@@ -34,6 +34,9 @@ public abstract class CalendarEntry {
 		setVisibility(visibility);
 		}
 
+		/* (non-Javadoc)
+		 * @see ch.unibe.ese.calendar.TempInt#setVisibility(java.lang.String)
+		 */
 		public void setVisibility(String visibility) {
 			if (visibility.equalsIgnoreCase("PRIVATE"))
 				this.visibility = Visibility.PRIVATE;
@@ -43,60 +46,66 @@ public abstract class CalendarEntry {
 				this.visibility = Visibility.BUSY;
 		}
 
-	/**
-	 * 
-	 * @return true if this is a public event
+	/* (non-Javadoc)
+	 * @see ch.unibe.ese.calendar.TempInt#getVisibility()
 	 */
 	public Visibility getVisibility() {
 		return visibility;
 	}
 	
+	/* (non-Javadoc)
+	 * @see ch.unibe.ese.calendar.TempInt#hasType(java.lang.String)
+	 */
 	public boolean hasType(String type){
 		return visibility.toString().equalsIgnoreCase(type);
 	}
 
-	/**
-	 * 
-	 * @return the end of event
+	/* (non-Javadoc)
+	 * @see ch.unibe.ese.calendar.TempInt#getEnd()
 	 */
 	public Date getEnd() {
 		return end;
 	}
 
-	/**
-	 * 
-	 * @return the start of the event
+	/* (non-Javadoc)
+	 * @see ch.unibe.ese.calendar.TempInt#getStart()
 	 */
 	public Date getStart() {
 		return start;
 	}
 
-	/**
-	 * The name is typically a short description of the event
-	 * 
-	 * @return the name of the event
+	/* (non-Javadoc)
+	 * @see ch.unibe.ese.calendar.TempInt#getName()
 	 */
 	public String getName() {
 		return name;
 	}
 	
-	/**
-	 * Gets the calendar the entry belongs to.
-	 * @return a calendar, which the entry belongs to.
+	/* (non-Javadoc)
+	 * @see ch.unibe.ese.calendar.TempInt#getCalendar()
 	 */
 	public EseCalendar getCalendar() {
 		return calendar;
 	}
 	
+	/* (non-Javadoc)
+	 * @see ch.unibe.ese.calendar.TempInt#getDescription()
+	 */
 	public String getDescription(){
 		return description;
 	}
+	/* (non-Javadoc)
+	 * @see ch.unibe.ese.calendar.TempInt#toString()
+	 */
 	@Override
 	public String toString() {
 		return "CalendarEvent [visibility=" + visibility + ", end=" + end
 				+ ", start=" + start + ", name=" + name + "]";
 	}
 	
+	/* (non-Javadoc)
+	 * @see ch.unibe.ese.calendar.TempInt#isASerie()
+	 */
 	public abstract boolean isASerie();
 
 }

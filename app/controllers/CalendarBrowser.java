@@ -2,22 +2,14 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.SortedSet;
 
-import javax.swing.CellEditor;
-
-import controllers.CalendarBrowser.Day;
-
-import ch.unibe.ese.calendar.CalendarEntry;
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.EseCalendar;
-import ch.unibe.ese.calendar.EseDateFormat;
-import ch.unibe.ese.calendar.EventIteratorMerger;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
 

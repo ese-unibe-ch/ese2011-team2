@@ -1,42 +1,26 @@
 package controllers;
 
-import java.security.PrivilegedAction;
-import java.security.PrivilegedActionException;
-import java.security.PrivilegedExceptionAction;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.regex.PatternSyntaxException;
 
 import javax.activity.InvalidActivityException;
-import javax.security.auth.Subject;
 
-import play.*;
-import play.data.binding.types.CalendarBinder;
-import play.mvc.*;
-import sun.security.action.GetLongAction;
-
-import ch.unibe.ese.calendar.CalendarEntry;
+import play.mvc.Controller;
+import play.mvc.With;
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.EseDateFormat;
 import ch.unibe.ese.calendar.EventIteratorMerger;
-import ch.unibe.ese.calendar.EventSeries;
-import ch.unibe.ese.calendar.SerialEvent;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
-import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
 import ch.unibe.ese.calendar.exceptions.EventNotFoundException;
 
 @With(Secure.class)
@@ -220,7 +204,7 @@ public class Application extends Controller {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		try {
-			CalendarEntry e = calendar.removeEvent(user, hash, sDate);
+			calendar.removeEvent(user, hash, sDate);
 			calendar(calendarName);
 		} catch (EventNotFoundException exception) {
 			error(exception.getMessage());
@@ -236,7 +220,7 @@ public class Application extends Controller {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		try {
-			CalendarEntry event = calendar.getEventByHash(user, hash, sDate);
+			CalendarEvent event = calendar.getEventByHash(user, hash, sDate);
 			render(calendar, event);
 		} catch (EventNotFoundException exception) {
 			error(exception.getMessage());

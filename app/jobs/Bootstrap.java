@@ -5,7 +5,6 @@ import java.util.Date;
 
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
-import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.EseDateFormat;

@@ -1,15 +1,10 @@
 package ch.unibe.ese.calendar;
 
-import static org.junit.Assert.*;
-
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.jaxen.function.StartsWithFunction;
-import org.junit.Before;
 import org.junit.Test;
 
 import play.test.UnitTest;
@@ -22,7 +17,7 @@ public class EventIteratorMergerTest extends UnitTest {
 		Date start = juc.getTime();
 		juc.set(2011, 11, 21, 11, 15);
 		Date end = juc.getTime();
-		calendarEvent1 = new CalendarEvent(start, end,
+		calendarEvent1 = new CalendarEventImpl(start, end,
 				"event 1", "Public", null,"random Kommentar1");
 	}
 	
@@ -32,7 +27,7 @@ public class EventIteratorMergerTest extends UnitTest {
 		Date start = juc.getTime();
 		juc.set(2011, 11, 21, 11, 15);
 		Date end = juc.getTime();
-		calendarEvent1 = new CalendarEvent(start, end,
+		calendarEvent1 = new CalendarEventImpl(start, end,
 				"event 1", "Public", null,"random Kommentar1");
 	}
 	
@@ -42,7 +37,7 @@ public class EventIteratorMergerTest extends UnitTest {
 		Date start = juc.getTime();
 		juc.set(2011, 11, 21, 11, 15);
 		Date end = juc.getTime();
-		calendarEvent1 = new CalendarEvent(start, end,
+		calendarEvent1 = new CalendarEventImpl(start, end,
 				"event 1", "Public", null,"random Kommentar1");
 	}
 	
@@ -52,7 +47,7 @@ public class EventIteratorMergerTest extends UnitTest {
 		Date start = juc.getTime();
 		juc.set(2011, 11, 21, 11, 15);
 		Date end = juc.getTime();
-		calendarEvent1 = new CalendarEvent(start, end,
+		calendarEvent1 = new CalendarEventImpl(start, end,
 				"event 1", "Public", null,"random Kommentar1");
 	}
 	
@@ -62,7 +57,7 @@ public class EventIteratorMergerTest extends UnitTest {
 		Date start = juc.getTime();
 		juc.set(2011, 11, 21, 11, 15);
 		Date end = juc.getTime();
-		calendarEvent1 = new CalendarEvent(start, end,
+		calendarEvent1 = new CalendarEventImpl(start, end,
 				"event 1", "Public", null,"random Kommentar1");
 	}
 	

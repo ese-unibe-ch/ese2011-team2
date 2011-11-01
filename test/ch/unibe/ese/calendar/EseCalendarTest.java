@@ -1,10 +1,6 @@
 package ch.unibe.ese.calendar;
 
-import static org.junit.Assert.*;
-
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import org.junit.Before;
