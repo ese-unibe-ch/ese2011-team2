@@ -6,6 +6,8 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
+import ch.unibe.ese.calendar.EventSeries.Repetition;
+
 import play.test.UnitTest;
 
 public class EseCalendarTest extends UnitTest {
@@ -54,7 +56,7 @@ public class EseCalendarTest extends UnitTest {
 	@Test
 	public void addEventSeries() {
 		assertTrue(calendar.getStartDateSortedSetOfSeries().isEmpty());
-		EventSeries eventSeries = calendar.addEventSeries(user.ADMIN, start, end, eventName, Visibility.PUBLIC, "weekly","random Kommentar1");
+		EventSeries eventSeries = calendar.addEventSeries(user.ADMIN, start, end, eventName, Visibility.PUBLIC, Repetition.WEEKLY,"random Kommentar1");
 		assertFalse(calendar.getStartDateSortedSetOfSeries().isEmpty());
 		assertTrue(calendar.getStartDateSortedSetOfSeries().contains(eventSeries));
 	}

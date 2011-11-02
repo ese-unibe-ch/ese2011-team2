@@ -26,6 +26,11 @@ public class EventSeries extends CalendarEntry {
 		return repetition;
 	}
 
+	/**
+	 * 
+	 * @param start the date from which on instances of the series are to be returned
+	 * @returnan iterator over the evnet instances
+	 */
 	public Iterator<CalendarEvent> iterator(Date start) {
 		Iterator<CalendarEvent> result = new DayMergingIterator(start);
 		return result;
@@ -109,9 +114,6 @@ public class EventSeries extends CalendarEntry {
 		return false;
 	}
 	
-	public boolean isASerie(){
-		return false;
-	}
 
 	private class DayMergingIterator implements Iterator<CalendarEvent> {
 
