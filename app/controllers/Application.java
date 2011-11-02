@@ -204,14 +204,11 @@ public class Application extends Controller {
 	 * An event is identified by its unique hash. For finding it
 	 * easily, we have to know it's startDate.
 	 * 
-	 * TODO: Introduce an ID for identifying an event
-	 * 
 	 * @param calendarName
 	 * @param hash hashCode() of the to be deleted event
 	 */
-	//FIXME should just get event-id as argument
 	public static void deleteEvent(String calendarName, long id,
-			String startDate) throws ParseException {
+			String startDate, boolean isSeries) throws ParseException {
 
 		Date sDate = EseDateFormat.getInstance().parse(startDate);
 
@@ -220,17 +217,13 @@ public class Application extends Controller {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		try {
-			/*if (isASeries)
-				calendar.removeSeries();
-			else*/ 
-			calendar.removeEvent(user, id, sDate);
+			calendar.removeEvent(user, id, sDate, isSeries);
 			calendar(calendarName);
 		} catch (EventNotFoundException exception) {
 			error(exception.getMessage());
 		}
 	}
 
-	//FIXME passing the id of the vent should be enough
 	public static void editEvent(String calendarName, long id, 
 			String startDate)
 			throws ParseException {
@@ -242,14 +235,14 @@ public class Application extends Controller {
 		User user = UserManager.getInstance().getUserByName(userName);
 		Visibility[] visibilities = Visibility.values();
 		try {
-			CalendarEvent event = calendar.getEventById(user, id, sDate);
+			CalendarEvent event = calendar.getEventById(user, id, sDate, false); //fixme
 			render(calendar, event, visibilities);
 		} catch (EventNotFoundException exception) {
 			error(exception.getMessage());
 		}
 	}
 	
-	public static void saveEditedEvent(String calendarName, int hash, String oldStartDate, 
+	public static void saveEditedEvent(String calendarName, long id, String oldStartDate, 
 			String name, String startDate, String duration, String visibility, String description) 
 			throws ParseException {
 		
@@ -263,7 +256,7 @@ public class Application extends Controller {
 				calendarName);
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
-		calendar.removeEvent(user, hash, oldDate);
+		calendar.removeEvent(user, id, oldDate, true); //FIXME
 		calendar.addEvent(user, sDate, eDate, name, Visibility.valueOf(visibility.toUpperCase()), description);
 		selectDate(calendarName, sDate);
 	}

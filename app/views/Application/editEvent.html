@@ -10,7 +10,7 @@
 	<h2>Edit "${event.name}"</h2>
 	#{form @Application.saveEditedEvent()}
 		<input type="hidden" name="calendarName" value="${calendar.name}">
-		<input type="hidden" name="hash" value="${event.hashCode()}">
+		<input type="hidden" name="id" value="${event.getId()}">
 		<input type="hidden" name="oldStartDate" value="${event.start.format("dd.MM.yyyy HH:mm")}">
 		<p>
 			<label for="name">Event Name: </label> <br/>

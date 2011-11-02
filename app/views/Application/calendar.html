@@ -51,7 +51,7 @@
 							<a href=@{Application.editEvent(calendar.name, event.getId(), 
 								event.start.format("dd.MM.yyyy HH:mm"))}>Edit</a> | 
 							<a href=@{Application.deleteEvent(calendar.name, event.getId(), 
-								event.start.format("dd.MM.yyyy HH:mm"))}>Delete</a>
+								event.start.format("dd.MM.yyyy HH:mm"), event.getSeries() != null)}>Delete</a>
 					#{/if}
 			#{/if}
 			#{else}

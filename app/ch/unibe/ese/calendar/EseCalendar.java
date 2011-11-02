@@ -105,16 +105,15 @@ public class EseCalendar {
 	 * Needs a startDate so we don't have to go through the whole list for finding the right event.
 	 * @return the event removed
 	 */
-	public CalendarEvent removeEvent(User user, long id, Date start) {
+	public CalendarEvent removeEvent(User user, long id, Date start, boolean isSeries) {
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
-		CalendarEvent e = getEventById(user, id, start);
-		startDateSortedSet.remove(e);
+		CalendarEvent e = getEventById(user, id, start, isSeries);
+		if (isSeries) {
+			series.remove(e.getSeries());
+		} else {
+			startDateSortedSet.remove(e);
+		}
 		return e;
-	}
-	
-	public void removeSeries() {
-		// TODO Series need an ID before this can work....
-		
 	}
 	
 	/**
@@ -145,7 +144,7 @@ public class EseCalendar {
 	 * @param sDate
 	 * @return
 	 */
-	public CalendarEvent getEventById(User user, long id, Date start) {
+	public CalendarEvent getEventById(User user, long id, Date start, boolean isSeries) {
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
 		Iterator<CalendarEvent> afterStart = iterate(user, start);
 		CalendarEvent e;
