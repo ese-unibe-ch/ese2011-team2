@@ -15,7 +15,7 @@ public class EventSeries extends CalendarEntry {
 
 	private Repetition repetition;
 
-	public EventSeries(Date start, Date end, String name, Visibility visibility, 
+	EventSeries(Date start, Date end, String name, Visibility visibility, 
 			Repetition repetition, EseCalendar calendar, String description) {
 		super(start, end, name, visibility, calendar, description);
 		this.repetition = repetition;
