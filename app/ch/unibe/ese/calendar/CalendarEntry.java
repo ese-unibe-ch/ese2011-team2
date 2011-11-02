@@ -1,5 +1,4 @@
 package ch.unibe.ese.calendar;
-
 import java.util.Date;
 
 import ch.unibe.ese.calendar.EventSeries.Repetition;
@@ -10,6 +9,8 @@ import ch.unibe.ese.calendar.EventSeries.Repetition;
  */
 abstract class CalendarEntry {
 
+	static private long staticID = 1;
+	private long id;
 	private Date end;
 	private Date start;
 	private String name;
@@ -28,6 +29,7 @@ abstract class CalendarEntry {
 		this.calendar = calendar;
 		this.description = description;
 		this.visibility = visibility;
+		this.id = staticID++;
 	}
 
 
@@ -66,6 +68,10 @@ abstract class CalendarEntry {
 	public String toString() {
 		return "CalendarEvent [visibility=" + visibility + ", end=" + end
 				+ ", start=" + start + ", name=" + name + "]";
+	}
+	
+	public long getId(){
+		return this.id;
 	}
 
 

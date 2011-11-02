@@ -105,10 +105,9 @@ public class EseCalendar {
 	 * Needs a startDate so we don't have to go through the whole list for finding the right event.
 	 * @return the event removed
 	 */
-	//TODO index events so iterating (and start-date) is no longer needed
-	public CalendarEvent removeEvent(User user, int hash, Date start) {
+	public CalendarEvent removeEvent(User user, long id, Date start) {
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
-		CalendarEvent e = getEventByHash(user, hash, start);
+		CalendarEvent e = getEventById(user, id, start);
 		startDateSortedSet.remove(e);
 		return e;
 	}
@@ -119,6 +118,8 @@ public class EseCalendar {
 	}
 	
 	/**
+	 * THIS METHOD SHOULDN'T BE USED ANYMORE
+	 * Use getEventById instead.
 	 * Only returns an event if the user has privileged access.
 	 * @param hash The hash the event produces by calling hashCode()
 	 * @return null, if the Event is not found.
@@ -132,6 +133,25 @@ public class EseCalendar {
 		do {
 			e = afterStart.next();
 		} while (e != null && e.hashCode() != hash);
+		if (e == null)
+			throw new EventNotFoundException("Permission denied");
+		return e;
+	}
+	
+	/**
+	 * Only returns an event if the user has privileged access.
+	 * @param user
+	 * @param id The id of the event, called by getId()
+	 * @param sDate
+	 * @return
+	 */
+	public CalendarEvent getEventById(User user, long id, Date start) {
+		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
+		Iterator<CalendarEvent> afterStart = iterate(user, start);
+		CalendarEvent e;
+		do {
+			e = afterStart.next();
+		} while (e != null && e.getId() != id);
 		if (e == null)
 			throw new EventNotFoundException("Permission denied");
 		return e;
@@ -326,7 +346,4 @@ public class EseCalendar {
 		}
 
 	}
-
-	
-
 }

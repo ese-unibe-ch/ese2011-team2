@@ -7,7 +7,6 @@ class CalendarEventImpl extends CalendarEntry implements CalendarEvent {
 	
 	CalendarEventImpl(Date start, Date end, String name, Visibility visibility, EseCalendar calendar, String description) {
 		super(start, end, name, visibility, calendar, description);
-		
 	}
 
 	@Override

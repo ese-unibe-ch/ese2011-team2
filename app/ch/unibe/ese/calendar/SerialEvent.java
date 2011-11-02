@@ -17,6 +17,10 @@ class SerialEvent extends CalendarEventImpl {
 		return eventSeries;
 	}
 	
+	@Override
+	public long getId() {
+		return eventSeries.getId();
+	}
 	
 
 }

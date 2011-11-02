@@ -26,9 +26,9 @@
 		</p>
 		<p>
 			<label for="visibility">Visibility: </label> <br/>
-			<input type="radio" name="visibility" value ="private" #{if event.hasType("private")}checked="checked"#{/if} /> Private <br/>
-			<input type="radio" name="visibility" value ="public" #{if event.hasType("public")}checked="checked"#{/if}/> Public <br/>
-			<input type="radio" name="visibility" value ="busy" #{if event.hasType("busy")}checked="checked"#{/if}/> Show as busy <br/>
+			<input type="radio" name="visibility" value ="private" #{if event.getVisibility() == visibilities[0]}checked="checked"#{/if} /> Private <br/>
+			<input type="radio" name="visibility" value ="public" #{if event.getVisibility() == visibilities[1]}checked="checked"#{/if}/> Public <br/>
+			<input type="radio" name="visibility" value ="busy" #{if event.getVisibility() == visibilities[2]}checked="checked"#{/if}/> Show as busy <br/>
 		</p>
 		<p>
 			<textarea name="description" rows="5" cols="27"> ${event.description}</textarea>
