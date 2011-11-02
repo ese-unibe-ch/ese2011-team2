@@ -15,7 +15,7 @@ public class EventSeries extends CalendarEntry {
 
 	private Repetition repetition;
 
-	public EventSeries(Date start, Date end, String name, Visibility visibility, 
+	EventSeries(Date start, Date end, String name, Visibility visibility, 
 			Repetition repetition, EseCalendar calendar, String description) {
 		super(start, end, name, visibility, calendar, description);
 		this.repetition = repetition;
@@ -37,26 +37,9 @@ public class EventSeries extends CalendarEntry {
 
 	}
 
-	/**
-	 * 
-	 * @param user
-	 *            the user requesting the event
-	 * @param date
-	 *            a point in time that is part of the day for which the vents
-	 *            are requested
-	 * @return a sorted list of SerialEventS for the specified day
-	 */
-	public SortedSet<CalendarEvent> getSerialEventsForDay(User user, Date date) {
-		SortedSet<CalendarEvent> result = new TreeSet<CalendarEvent>(
-				new StartDateComparator());
-		if (dateMatches(date)) {
-			result.add(getAsSerialEventForDay(date));
-		}
-		return result;
-	}
 	
 	/**
-	 * note that the caller is response to check if the date matches this series
+	 * note that the caller is responsible to check if the date matches this series
 	 * 
 	 * @dayStart Start of the day we want to get a SerialEvent of
 	 * @return 	A single instance of this event (of the type SerialEvent) with the 
