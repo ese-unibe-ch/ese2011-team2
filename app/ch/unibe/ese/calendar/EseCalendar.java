@@ -100,7 +100,7 @@ public class EseCalendar {
 	 * @param visibility the visibility of events belonging to this series
 	 * @param repetition how often events shall repeat
 	 * @param description a description of events in this series
-	 * @return
+	 * @return the new EventSeries
 	 */
 	public EventSeries addEventSeries(User user, Date start, Date end, String eventName, Visibility visibility, 
 			Repetition repetition, String description){
@@ -185,7 +185,7 @@ public class EseCalendar {
 	 * @param start the date at which to start iterating events
 	 * @return an iterator with events starting after start
 	 */
-	Iterator<CalendarEvent> iterateIndividualEvents(User user, Date start) {
+	private Iterator<CalendarEvent> iterateIndividualEvents(User user, Date start) {
 		//TODO: refactor, if case may not be needed anymore. Better: overload this method.
 		if (start == null)
 		{
@@ -204,7 +204,7 @@ public class EseCalendar {
 	 * @param start the date at which to start iterating events
 	 * @return an iterator with events starting after start
 	 */
-	Iterator<CalendarEvent> iterateSerialEvents(User user, Date start) {
+	private Iterator<CalendarEvent> iterateSerialEvents(User user, Date start) {
 		List<Iterator<CalendarEvent>> seriesIterators = new ArrayList<Iterator<CalendarEvent>>(); 
 		Iterator<EventSeries> eventSeries = iterateSeries(user);
 		while (eventSeries.hasNext()) {
@@ -227,7 +227,7 @@ public class EseCalendar {
 	 * 
 	 * @return an iterator with all serial events
 	 */
-	Iterator<EventSeries> iterateSeries(User user){
+	private Iterator<EventSeries> iterateSeries(User user){
 		Iterator<EventSeries> allEventSeries = series.iterator();
 		return new ACFilteringEventSeriesIterator(user, allEventSeries);
 	}
