@@ -223,6 +223,7 @@ public class EseCalendar {
 	
 	/**
 	 * Gets a list of all events starting within the 24 hour period starting at date;
+	 * This returns normal as well as serial events for this day.
 	 * 
 	 * @param date the point in time specifying the start of the 24h period for which events are to be returned
 	 * @return a list of the events
