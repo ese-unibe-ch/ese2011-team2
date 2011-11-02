@@ -9,10 +9,27 @@ import java.util.TreeSet;
 
 public class EventSeries extends CalendarEntry {
 
-	CalendarEvent exceptionEvent;
-	
+	private static final Locale locale = new Locale(
+					"de", "CH");
+
+
+	/**
+	 * Expresses the repetition mode
+	 *
+	 */
 	public static enum Repetition {
-		DAILY, WEEKLY, MONTHLY
+		/**
+		 * daily repetition
+		 */
+		DAILY, 
+		/**
+		 * weekly repetition
+		 */
+		WEEKLY, 
+		/**
+		 * monthly repetition
+		 */
+		MONTHLY
 	}
 
 	private Repetition repetition;
@@ -31,7 +48,7 @@ public class EventSeries extends CalendarEntry {
 	/**
 	 * 
 	 * @param start the date from which on instances of the series are to be returned
-	 * @returnan iterator over the evnet instances
+	 * @return an iterator over the event that are instances of this series
 	 */
 	public Iterator<CalendarEvent> iterator(Date start) {
 		Iterator<CalendarEvent> result = new DayMergingIterator(start);
@@ -48,12 +65,9 @@ public class EventSeries extends CalendarEntry {
 	 * 			parameters this series is defined by.
 	 */
 	private SerialEvent getAsSerialEventForDay(Date dayStart) {
-		java.util.Calendar jucDayStart = java.util.Calendar.getInstance(new Locale(
-				"de", "CH"));
-		java.util.Calendar jucEventStart = java.util.Calendar.getInstance(new Locale(
-				"de", "CH"));
-		java.util.Calendar jucEventEnd = java.util.Calendar.getInstance(new Locale(
-				"de", "CH"));
+		java.util.Calendar jucDayStart = java.util.Calendar.getInstance(locale);
+		java.util.Calendar jucEventStart = java.util.Calendar.getInstance(locale);
+		java.util.Calendar jucEventEnd = java.util.Calendar.getInstance(locale);
 		jucEventEnd.setTime(getEnd());
 		jucEventStart.setTime(getStart());
 		jucDayStart.setTime(dayStart);
@@ -85,12 +99,9 @@ public class EventSeries extends CalendarEntry {
 	 */
 	private boolean dateMatches(Date dayStart) {
 		Repetition repetition = getRepetition();
-		java.util.Calendar juc1 = java.util.Calendar.getInstance(new Locale(
-				"de", "CH"));
-		java.util.Calendar juc3 = java.util.Calendar.getInstance(new Locale(
-				"de", "CH"));
-		java.util.Calendar juc2 = java.util.Calendar.getInstance(new Locale(
-				"de", "CH"));
+		java.util.Calendar juc1 = java.util.Calendar.getInstance(locale);
+		java.util.Calendar juc3 = java.util.Calendar.getInstance(locale);
+		java.util.Calendar juc2 = java.util.Calendar.getInstance(locale);
 		juc2.setTime(dayStart);
 		int weekDayOfDate = juc2.get(Calendar.DAY_OF_WEEK);
 		int monthDayOfDate = juc2.get(Calendar.DAY_OF_MONTH);

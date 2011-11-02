@@ -156,7 +156,7 @@ public class CalendaringTest extends UnitTest {
 		java.util.Calendar juc = java.util.Calendar.getInstance();
 		juc.set(2011, 11, 21, 0, 0);
 		Date start = juc.getTime();
-		Iterator<CalendarEvent> iter = cal.iterateIndividualEvents(user, start);
+		Iterator<CalendarEvent> iter = cal.iterate(user, start);
 		assertTrue(iter.hasNext());
 		assertNotNull(iter.next());
 		assertFalse(iter.hasNext());
@@ -170,7 +170,7 @@ public class CalendaringTest extends UnitTest {
 		java.util.Calendar juc = java.util.Calendar.getInstance();
 		juc.set(2011, 11, 21, 0, 0);
 		Date start = juc.getTime();
-		Iterator<CalendarEvent> iter = cal.iterateIndividualEvents(user, start);
+		Iterator<CalendarEvent> iter = cal.iterate(user, start);
 		assertTrue(iter.hasNext());
 		CalendarEvent first = iter.next();
 		assertEquals(SUSANNE_EVENT_1_DESC, first.getName());

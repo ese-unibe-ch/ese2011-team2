@@ -33,7 +33,7 @@ public class User {
 	
 	private DetailedProfileVisibility detailedProfileVisibility;
 	
-	public User(String userName, String password, Date birthday, DetailedProfileVisibility detailedProfileVisibility) {
+	User(String userName, String password, Date birthday, DetailedProfileVisibility detailedProfileVisibility) {
 		this.userName = userName;
 		this.password = password;
 		this.birthday = birthday;
@@ -162,6 +162,11 @@ public class User {
 		return password;
 	}
 	
+	/**
+	 * 
+	 * @return a point in time that belongs to the day of birth of the user in the 
+	 * timezone in which the user was born
+	 */
 	public Date getBirthday() {
 		return birthday;
 	}

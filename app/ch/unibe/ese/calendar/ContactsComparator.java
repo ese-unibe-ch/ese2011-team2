@@ -4,9 +4,9 @@ import java.util.Comparator;
 
 import controllers.Security;
 
-public class ContactsComparator implements Comparator<User> {
+class ContactsComparator implements Comparator<User> {
 	
-	User connectedUser;
+	private User connectedUser;
 	
 	/**
 	 * The ContactsComparator will make sure that the connectedUser is 
