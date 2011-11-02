@@ -9,6 +9,8 @@ import java.util.TreeSet;
 
 public class EventSeries extends CalendarEntry {
 
+	CalendarEvent exceptionEvent;
+	
 	public static enum Repetition {
 		DAILY, WEEKLY, MONTHLY
 	}
