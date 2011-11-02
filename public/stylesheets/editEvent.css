@@ -10,3 +10,12 @@
 	padding: 1em;
 	overflow: auto;
 }
+
+#forms {
+	float: left;
+}
+
+#repetition {
+	float: left;
+	margin-left: 3em;
+}

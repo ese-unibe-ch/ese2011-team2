@@ -8,6 +8,7 @@
 
 <div id=edit>
 	<h2>Edit "${event.name}"</h2>
+	<div id=forms>
 	#{form @Application.saveEditedEvent()}
 		<input type="hidden" name="calendarName" value="${calendar.name}">
 		<input type="hidden" name="id" value="${event.getId()}">
@@ -25,19 +26,30 @@
 			<input type="text" size="35%" name="duration" value="${(event.end.getTime()-event.start.getTime())/(1000*60)}"/>
 		</p>
 		<p>
+			<textarea name="description" rows="5" cols="27"> ${event.description}</textarea>
+		</p>
+	</div>
+	<div id=repetition>
+		<p>
 			<label for="visibility">Visibility: </label> <br/>
 			<input type="radio" name="visibility" value ="private" #{if event.getVisibility() == visibilities[0]}checked="checked"#{/if} /> Private <br/>
 			<input type="radio" name="visibility" value ="public" #{if event.getVisibility() == visibilities[1]}checked="checked"#{/if}/> Public <br/>
 			<input type="radio" name="visibility" value ="busy" #{if event.getVisibility() == visibilities[2]}checked="checked"#{/if}/> Show as busy <br/>
 		</p>
 		<p>
-			<textarea name="description" rows="5" cols="27"> ${event.description}</textarea>
-		</p>
+							<label for="repetition">Repetition: </label> <br/>
+							<input type="radio" name="repetition" value="never" checked="checked" /> Never<br />
+							<input type="radio" name="repetition" value="daily" /> Daily<br />
+							<input type="radio" name="repetition" value="weekly" /> Weekly<br />
+							<input type="radio" name="repetition" value="monthly" /> Monthly <br />	
+					</p>
+	
 		<p>
 			<input type="submit" value="Apply">
 			#{form @Application.calendar(calendar.name)} 
 				<input type="submit" name="add" value="Cancel">
 			#{/form}
 		</p>
+	</div>
 	#{/form}
 </div>
