@@ -209,8 +209,12 @@ public class Application extends Controller {
 		calendar(calendarName);
 	}
 	
-	public static void deleteSingleSerialEvent() throws InvalidActivityException {
-		throw new InvalidActivityException("Not possible");
+	public static void deleteSingleSerialEvent(String calendarName, long id) {
+		try {
+		throw new RuntimeException("Prototype of EventSeries could not be found.");
+		} catch (Exception exception) {
+			error(exception);
+		}
 	}
 
 	public static void editEvent(String calendarName, long id, 

@@ -7,8 +7,15 @@ Do you want do delete all events of this series?
 #{form @Application.deleteWholeSeries()} 
 	<input type="hidden" name="calendarName" value="${calendar.name}">
 	<input type="hidden" name="id" value="${event.id}">
-	<input type="submit" name="all" value="All events">
+	<input type="submit" name="all" value="Yes, all events">
 #{/form}
+
+#{form @Application.deleteSingleSerialEvent()} 
+	<input type="hidden" name="calendarName" value="${calendar.name}">
+	<input type="hidden" name="id" value="${event.id}">
+	<input type="submit" name="all" value="No, just this instance">
+#{/form}
+
 
 
 
