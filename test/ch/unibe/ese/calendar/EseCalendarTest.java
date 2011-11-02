@@ -49,7 +49,7 @@ public class EseCalendarTest extends UnitTest {
 	public void removeEvent() {
 		CalendarEvent event = calendar.addEvent(user.ADMIN, start, end, eventName, Visibility.PUBLIC,"random Kommentar1");
 		assertTrue(calendar.getStartDateSortedSet().contains(event));
-		calendar.removeEvent(user.ADMIN, event.getId(), event.getStart());
+		calendar.removeEvent(user.ADMIN, event.getId(), event.getStart(), event.getSeries() != null);
 		assertTrue(calendar.getStartDateSortedSet().isEmpty());
 	}
 	
