@@ -34,14 +34,17 @@ public interface CalendarEvent {
 	 * @return a calendar, which the entry belongs to.
 	 */
 	public EseCalendar getCalendar();
-
+	
+	/**
+	 * if this event belongs to a series this returns this series
+	 * @return the EventSeries of null if this is an individual event
+	 */
+	public EventSeries getSeries();
 	/**
 	 * 
 	 * @return a description of the event
 	 */
 	public String getDescription();
 
-
-	public boolean isASerie();
 
 }

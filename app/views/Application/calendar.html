@@ -36,7 +36,7 @@
 				if (event.hasType("Busy")) 
 					visibility = "show as busy"
 				rep = "Event"
-				if (event.isASerie)
+				if (event.getSeries() != null)
 					rep = "SerialEvent"
 			}% 
 			<li>
@@ -49,9 +49,9 @@
 					#{if user.name == eventOwner}
 						<br/>
 							<a href=@{Application.editEvent(calendar.name, event.hashCode(), 
-								event.start.format("dd.MM.yyyy HH:mm"), event.isASerie())}>Edit</a> | 
+								event.start.format("dd.MM.yyyy HH:mm"))}>Edit</a> | 
 							<a href=@{Application.deleteEvent(calendar.name, event.hashCode(), 
-								event.start.format("dd.MM.yyyy HH:mm"), event.isASerie())}>Delete</a>
+								event.start.format("dd.MM.yyyy HH:mm"))}>Delete</a>
 					#{/if}
 			#{/if}
 			#{else}

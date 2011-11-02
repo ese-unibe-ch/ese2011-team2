@@ -195,8 +195,9 @@ public class Application extends Controller {
 	 * @param calendarName
 	 * @param hash hashCode() of the to be deleted event
 	 */
+	//FIXME should just get event-id as argument
 	public static void deleteEvent(String calendarName, int hash,
-			String startDate, boolean isASeries) throws ParseException {
+			String startDate) throws ParseException {
 
 		Date sDate = EseDateFormat.getInstance().parse(startDate);
 
@@ -205,18 +206,19 @@ public class Application extends Controller {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		try {
-			if (isASeries)
+			/*if (isASeries)
 				calendar.removeSeries();
-			else 
-				calendar.removeEvent(user, hash, sDate);
+			else*/ 
+			calendar.removeEvent(user, hash, sDate);
 			calendar(calendarName);
 		} catch (EventNotFoundException exception) {
 			error(exception.getMessage());
 		}
 	}
 
+	//FIXME passing the id of the vent should be enough
 	public static void editEvent(String calendarName, int hash, 
-			String startDate, boolean isASeries)
+			String startDate)
 			throws ParseException {
 		Date sDate = EseDateFormat.getInstance().parse(startDate);
 

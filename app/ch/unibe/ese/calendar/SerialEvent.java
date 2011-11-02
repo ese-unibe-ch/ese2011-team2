@@ -2,7 +2,7 @@ package ch.unibe.ese.calendar;
 
 import java.util.Date;
 
-public class SerialEvent extends CalendarEventImpl {
+class SerialEvent extends CalendarEventImpl {
 
 	protected EventSeries eventSeries;
 	
@@ -10,7 +10,13 @@ public class SerialEvent extends CalendarEventImpl {
 			EventSeries eventSeries, EseCalendar calendar, String description) {
 		super(start, end, name, visibility, calendar, description);
 		this.eventSeries = eventSeries;
-		this.isASerie = true;
 	}
+
+	@Override
+	public EventSeries getSeries() {
+		return eventSeries;
+	}
+	
+	
 
 }

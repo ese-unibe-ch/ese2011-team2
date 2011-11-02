@@ -87,10 +87,6 @@ abstract class CalendarEntry {
 		return "CalendarEvent [visibility=" + visibility + ", end=" + end
 				+ ", start=" + start + ", name=" + name + "]";
 	}
-	
-	/* (non-Javadoc)
-	 * @see ch.unibe.ese.calendar.TempInt#isASerie()
-	 */
-	public abstract boolean isASerie();
+
 
 }
