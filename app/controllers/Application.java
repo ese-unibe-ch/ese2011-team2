@@ -189,12 +189,28 @@ public class Application extends Controller {
 				calendarName);
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
+		CalendarEvent event = calendar.getEventById(user, id, sDate, isSeries);
+		if (isSeries) {
+			render(user, calendar, event);
+		}
 		try {
 			calendar.removeEvent(user, id, sDate, isSeries);
 			calendar(calendarName);
 		} catch (EventNotFoundException exception) {
 			error(exception.getMessage());
 		}
+	}
+	
+	public static void deleteWholeSeries(String calendarName, long id) {
+		String userName = Security.connected();
+		User user = UserManager.getInstance().getUserByName(userName);
+		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(calendarName);
+		calendar.removeEvent(user, id, new Date(0), true);
+		calendar(calendarName);
+	}
+	
+	public static void deleteSingleSerialEvent() throws InvalidActivityException {
+		throw new InvalidActivityException("Not possible");
 	}
 
 	public static void editEvent(String calendarName, long id, 

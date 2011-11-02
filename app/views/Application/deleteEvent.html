@@ -1,0 +1,14 @@
+#{extends 'main.html' /}
+#{set title:'Edit Event' /}
+#{set header:'Delete Event' /}
+
+Do you want do delete all events of this series?
+
+#{form @Application.deleteWholeSeries()} 
+	<input type="hidden" name="calendarName" value="${calendar.name}">
+	<input type="hidden" name="id" value="${event.id}">
+	<input type="submit" name="all" value="All events">
+#{/form}
+
+
+
