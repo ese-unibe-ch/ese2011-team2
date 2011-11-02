@@ -12,6 +12,7 @@
 	#{form @Application.saveEditedEvent()}
 		<input type="hidden" name="calendarName" value="${calendar.name}">
 		<input type="hidden" name="id" value="${event.getId()}">
+		<input type="hidden" name="wasSeries" value="${event.getSeries() != null}">
 		<input type="hidden" name="oldStartDate" value="${event.start.format("dd.MM.yyyy HH:mm")}">
 		<p>
 			<label for="name">Event Name: </label> <br/>
@@ -37,12 +38,12 @@
 			<input type="radio" name="visibility" value ="busy" #{if event.getVisibility() == visibilities[2]}checked="checked"#{/if}/> Show as busy <br/>
 		</p>
 		<p>
-							<label for="repetition">Repetition: </label> <br/>
-							<input type="radio" name="repetition" value="never" checked="checked" /> Never<br />
-							<input type="radio" name="repetition" value="daily" /> Daily<br />
-							<input type="radio" name="repetition" value="weekly" /> Weekly<br />
-							<input type="radio" name="repetition" value="monthly" /> Monthly <br />	
-					</p>
+			<label for="repetition">Repetition: </label> <br/>
+			<input type="radio" name="repetition" value="never"  #{if repChecked[0]}checked="checked" #{/if}/> Never<br />
+			<input type="radio" name="repetition" value="daily" #{if repChecked[1]}checked="checked"#{/if}/> Daily<br />
+			<input type="radio" name="repetition" value="weekly" #{if repChecked[2]}checked="checked"#{/if}//> Weekly<br />
+			<input type="radio" name="repetition" value="monthly"#{if repChecked[3]}checked="checked"#{/if}/ /> Monthly <br />	
+		</p>
 	
 		<p>
 			<input type="submit" value="Apply">
