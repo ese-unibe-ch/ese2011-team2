@@ -92,9 +92,9 @@ public class EseCalendar {
 	}
 	
 	public EventSeries addEventSeries(User user, Date start, Date end, String eventName, Visibility visibility, 
-			String sRepetition, String description){
+			Repetition repetition, String description){
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
-		EventSeries eventSeries = new EventSeries(start, end, eventName, visibility, sRepetition, this, description);
+		EventSeries eventSeries = new EventSeries(start, end, eventName, visibility, repetition, this, description);
 		series.add(eventSeries);
 		return eventSeries;
 	}

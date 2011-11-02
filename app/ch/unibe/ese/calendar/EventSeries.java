@@ -9,26 +9,18 @@ import java.util.TreeSet;
 
 public class EventSeries extends CalendarEntry {
 
-	public enum Repetition {
+	public static enum Repetition {
 		DAILY, WEEKLY, MONTHLY
 	}
 
 	private Repetition repetition;
 
 	public EventSeries(Date start, Date end, String name, Visibility visibility, 
-			String sRepetition, EseCalendar calendar, String description) {
+			Repetition repetition, EseCalendar calendar, String description) {
 		super(start, end, name, visibility, calendar, description);
-		setRepetition(sRepetition);
+		this.repetition = repetition;
 	}
 
-	public void setRepetition(String sRepetition) {
-		if (sRepetition.equalsIgnoreCase("daily"))
-			this.repetition = Repetition.DAILY;
-		if (sRepetition.equalsIgnoreCase("weekly"))
-			this.repetition = Repetition.WEEKLY;
-		if (sRepetition.equalsIgnoreCase("monthly"))
-			this.repetition = Repetition.MONTHLY;
-	}
 
 	public Repetition getRepetition() {
 		return repetition;

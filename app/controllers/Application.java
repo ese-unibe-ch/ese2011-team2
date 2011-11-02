@@ -22,6 +22,7 @@ import ch.unibe.ese.calendar.EventIteratorMerger;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
 import ch.unibe.ese.calendar.Visibility;
+import ch.unibe.ese.calendar.EventSeries.Repetition;
 import ch.unibe.ese.calendar.exceptions.EventNotFoundException;
 
 @With(Secure.class)
@@ -122,7 +123,6 @@ public class Application extends Controller {
 	public static void createEvent(String calendarName, String name, String startDate, 
 			String duration, String visibility, String repetition, String description)
 			throws Throwable {
-		System.out.println("creating event");
 		Date sDate = EseDateFormat.getInstance().parse(startDate);
 		int minDur = Integer.parseInt(duration);
 		Date eDate = new Date();
@@ -130,15 +130,24 @@ public class Application extends Controller {
 		//Date eDate = EseDateFormat.getInstance().parse(endDate); //old version
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
+		if (repetition.equalsIgnoreCase("never")) {
+			createEvent(user, calendarName, name, sDate, eDate, Visibility.valueOf(visibility.toUpperCase()), 
+					description);
+		} else {
+			createSeries(user, calendarName, name, sDate, eDate, Visibility.valueOf(visibility.toUpperCase()), 
+					Repetition.valueOf(repetition.toUpperCase()), description);
+		}
+		
+	}
+	private static void createEvent(User user, String calendarName, String name, Date startDate, 
+			Date endDate, Visibility visibility, String description)
+			throws Throwable {		
+		
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
 				calendarName);
-
-		if (repetition.equalsIgnoreCase("never")) {
-				System.out.println("selected repetition: never");
-				final CalendarEvent event = calendar.addEvent(user, sDate, 
-						eDate, name, Visibility.valueOf(visibility.toUpperCase()), description);
-				
-				System.out.println("pre created size "
+		final CalendarEvent event = calendar.addEvent(user, startDate, 
+				endDate, name, visibility, description);
+				/*System.out.println("pre created size "
 				+ calendar.getEventsAt(user,
 						new Date(event.getStart().getTime() - 2000)).size());
 				System.out.println("created event " + event);
@@ -146,12 +155,17 @@ public class Application extends Controller {
 					+ calendar.getEventsAt(user,
 							new Date(event.getStart().getTime() - 2000)).size());
 
-				System.out.println("created event  in " + calendarName);
-		}
-		else {
-			calendar.addEventSeries(user, sDate, 
-					eDate, name,  Visibility.valueOf(visibility.toUpperCase()), repetition, description);
-		}
+				System.out.println("created event  in " + calendarName);*/
+		calendar(calendarName);
+	}
+	private static void createSeries(User user, String calendarName, String name, Date startDate, 
+			Date endDate, Visibility visibility, Repetition repetition, String description)
+			throws Throwable {		
+		
+		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
+				calendarName);
+		calendar.addEventSeries(user, startDate, 
+				endDate, name,  visibility, repetition, description);
 		calendar(calendarName);
 	}
 
