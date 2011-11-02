@@ -116,26 +116,23 @@ public class EventSeries extends CalendarEntry {
 		juc3.setTime(getEnd());
 		int maxDur = juc3.get(Calendar.DAY_OF_YEAR) - juc1.get(Calendar.DAY_OF_YEAR);
 		System.out.println(maxDur);
-		for (int dur = 0; dur <= maxDur+1; dur++) {
+		boolean match = false;
+		for (int dur = 0; dur <= maxDur; dur++) {
 			int weekDayOfEventSerie = juc1.get(Calendar.DAY_OF_WEEK) + dur;
 			int monthDayOfEventSerie = juc1.get(Calendar.DAY_OF_MONTH) + dur;
 			System.out.println ("I'm going to  bc: " + dur);
-			//System.out.println("we were here" + weekDayOfEventSerie);
-			if (dur==1)
-				throw new RuntimeException("weeeha, it works");
-			
 			if (repetition.equals(repetition.DAILY)) {
-				return true;
+				match = true;
 			}
 			if (repetition.equals(repetition.WEEKLY)) {
-				return (weekDayOfEventSerie == weekDayOfDate);
+				if(weekDayOfEventSerie == weekDayOfDate) match = true;
 			}
 			if (repetition.equals(repetition.MONTHLY)) {
-				return (monthDayOfEventSerie == monthDayOfDate);
+				if(monthDayOfEventSerie == monthDayOfDate) match = true;
 			}
 		}
 		System.out.println("returning false");
-		return false;
+		return match;
 	}
 	
 	public boolean isASerie(){
