@@ -34,7 +34,7 @@ public class UserManager {
 		return instance;
 	}
 	/**
-	 * Craetes a new user with the specified properties
+	 * Creates a new user with the specified properties
 	 * 
 	 */
 	public synchronized User createUser(String userName, String password, 
@@ -61,6 +61,13 @@ public class UserManager {
 		return users.get(userName);
 	}
 	
+	/**
+	 * Get users with names matching a specific regex
+	 * 
+	 * @param regex
+	 * @return
+	 */
+	//TODO should just return Set<User>
 	public synchronized Map<String, User> getUserByRegex(String regex) {		
 		Map<String, User> foundUsers = new HashMap<String, User>();
 		for (User u: users.values()) {
