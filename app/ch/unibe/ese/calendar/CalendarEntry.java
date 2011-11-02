@@ -31,57 +31,37 @@ abstract class CalendarEntry {
 	}
 
 
-	/* (non-Javadoc)
-	 * @see ch.unibe.ese.calendar.TempInt#getVisibility()
-	 */
+
 	public Visibility getVisibility() {
 		return visibility;
 	}
 	
-	/* (non-Javadoc)
-	 * @see ch.unibe.ese.calendar.TempInt#hasType(java.lang.String)
-	 */
-	public boolean hasType(String type){
-		return visibility.toString().equalsIgnoreCase(type);
-	}
 
-	/* (non-Javadoc)
-	 * @see ch.unibe.ese.calendar.TempInt#getEnd()
-	 */
+
 	public Date getEnd() {
 		return end;
 	}
 
-	/* (non-Javadoc)
-	 * @see ch.unibe.ese.calendar.TempInt#getStart()
-	 */
+
 	public Date getStart() {
 		return start;
 	}
 
-	/* (non-Javadoc)
-	 * @see ch.unibe.ese.calendar.TempInt#getName()
-	 */
+
 	public String getName() {
 		return name;
 	}
 	
-	/* (non-Javadoc)
-	 * @see ch.unibe.ese.calendar.TempInt#getCalendar()
-	 */
+
 	public EseCalendar getCalendar() {
 		return calendar;
 	}
 	
-	/* (non-Javadoc)
-	 * @see ch.unibe.ese.calendar.TempInt#getDescription()
-	 */
+
 	public String getDescription(){
 		return description;
 	}
-	/* (non-Javadoc)
-	 * @see ch.unibe.ese.calendar.TempInt#toString()
-	 */
+
 	@Override
 	public String toString() {
 		return "CalendarEvent [visibility=" + visibility + ", end=" + end
