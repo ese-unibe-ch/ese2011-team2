@@ -53,5 +53,18 @@ public interface CalendarEvent {
 	 * @return a unique ID for every event.
 	 */
 	public long getId();
+	
+	/**
+	 * 
+	 * @param other
+	 * @return true if this has the same ID as other, false otherwise
+	 */
+	public boolean equals(Object other); 
+	
+	/**
+	 * 
+	 * @return the hash of the id
+	 */
+	public int hashCode();
 
 }
