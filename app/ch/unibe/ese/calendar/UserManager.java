@@ -10,6 +10,10 @@ import java.util.regex.Pattern;
 
 import ch.unibe.ese.calendar.User.DetailedProfileVisibility;
 
+/**
+ * Manages the users in a system
+ *
+ */
 public class UserManager {
 
 	private static UserManager instance;
@@ -18,14 +22,21 @@ public class UserManager {
 	private UserManager() {
 		
 	}
-
+	
+	/**
+	 * 
+	 * @return the singleton instance
+	 */
 	public static UserManager getInstance() {
 		if (instance == null) {
 			instance = new UserManager();
 		}
 		return instance;
 	}
-	
+	/**
+	 * Craetes a new user with the specified properties
+	 * 
+	 */
 	public synchronized User createUser(String userName, String password, 
 			Date birthday, DetailedProfileVisibility detailedProfileVisibility) {
 		User user = new User(userName, password, birthday, detailedProfileVisibility);
