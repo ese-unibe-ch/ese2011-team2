@@ -46,10 +46,13 @@
 	
 		<p>
 			<input type="submit" value="Apply">
-			#{form @Application.calendar(calendar.name)} 
-				<input type="submit" name="add" value="Cancel">
-			#{/form}
 		</p>
-	</div>
 	#{/form}
+	#{form @Application.calendar()} 
+			<input type="hidden" name="calendarName" value="${calendar.name}">
+			<input type="submit" name="add" value="Cancel">
+	#{/form}
+	</div>
+	
+	
 </div>
