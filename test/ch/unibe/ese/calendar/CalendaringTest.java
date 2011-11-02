@@ -84,7 +84,7 @@ public class CalendaringTest extends UnitTest {
 		Date start = juc.getTime();
 		juc.set(2011, 9, 21, 22, 15);
 		Date end = juc.getTime();
-		cal.addEvent(user, start, end, "Meet Bob (dess up!)", "Public","random Kommentar1");
+		cal.addEvent(user, start, end, "Meet Bob (dess up!)", Visibility.PUBLIC,"random Kommentar1");
 
 	}
 
@@ -108,7 +108,7 @@ public class CalendaringTest extends UnitTest {
 			Date start = juc.getTime();
 			juc.set(2011, 11, 23, 21, 15);
 			Date end = juc.getTime();
-			cal.addEvent(user, start, end, "a later event", "Private","random Kommentar1");
+			cal.addEvent(user, start, end, "a later event", Visibility.PRIVATE,"random Kommentar1");
 		}
 		// two events on day 21
 		{
@@ -137,14 +137,14 @@ public class CalendaringTest extends UnitTest {
 			Date start = juc.getTime();
 			juc.set(2011, 11, 21, 11, 15);
 			Date end = juc.getTime();
-			cal.addEvent(user, start, end, SUSANNE_EVENT_1_DESC, "Public","random Kommentar1");
+			cal.addEvent(user, start, end, SUSANNE_EVENT_1_DESC, Visibility.PUBLIC,"random Kommentar1");
 		}
 		{
 			juc.set(2011, 11, 21, 20, 15);
 			Date start = juc.getTime();
 			juc.set(2011, 11, 21, 21, 15);
 			Date end = juc.getTime();
-			cal.addEvent(user, start, end, SUSANNE_EVENT_2_DESC, "Private","random Kommentar1");
+			cal.addEvent(user, start, end, SUSANNE_EVENT_2_DESC, Visibility.PRIVATE,"random Kommentar1");
 		}
 
 	}

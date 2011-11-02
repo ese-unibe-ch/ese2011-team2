@@ -6,7 +6,7 @@ class CalendarEventImpl extends CalendarEntry implements CalendarEvent {
 	
 	protected boolean isASerie;
 	
-	CalendarEventImpl(Date start, Date end, String name, String visibility, EseCalendar calendar, String description) {
+	CalendarEventImpl(Date start, Date end, String name, Visibility visibility, EseCalendar calendar, String description) {
 		super(start, end, name, visibility, calendar, description);
 		isASerie = false;
 		

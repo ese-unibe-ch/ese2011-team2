@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import ch.unibe.ese.calendar.User.DetailedProfileVisibility;
+
 public class UserManager {
 
 	private static UserManager instance;
@@ -24,6 +26,14 @@ public class UserManager {
 		return instance;
 	}
 	
+	public synchronized User createUser(String userName, String password, 
+			Date birthday, DetailedProfileVisibility detailedProfileVisibility) {
+		User user = new User(userName, password, birthday, detailedProfileVisibility);
+		users.put(userName, user);
+		return user;
+	}
+	
+	@Deprecated
 	public synchronized User createUser(String userName, String password, 
 			Date birthday, String detailedProfileVisibility) {
 		User user = new User(userName, password, birthday, detailedProfileVisibility);

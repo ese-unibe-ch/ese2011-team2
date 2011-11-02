@@ -27,17 +27,27 @@ public class User {
 	private Date birthday;
 	private Map<User, Boolean> myContacts = new HashMap<User, Boolean>();
 	
-	public enum DetailedProfileVisibility {
+	public static enum DetailedProfileVisibility {
 		PRIVATE, PUBLIC, CONTACTSONLY
 	}
 	
 	private DetailedProfileVisibility detailedProfileVisibility;
 	
+	public User(String userName, String password, Date birthday, DetailedProfileVisibility detailedProfileVisibility) {
+		this.userName = userName;
+		this.password = password;
+		this.birthday = birthday;
+		this.detailedProfileVisibility = detailedProfileVisibility;
+		this.myContacts.put(this, true);
+	}
+	
 	/**
 	 * creates a user with the specified username and password
 	 * @param userName
 	 * @param password
+	 * @deprecated using string constants were enums should be used
 	 */
+	@Deprecated
 	public User(String userName, String password, Date birthday, String detailedProfileVisibility) {
 		this.userName = userName;
 		this.password = password;

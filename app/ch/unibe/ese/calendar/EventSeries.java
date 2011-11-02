@@ -15,7 +15,7 @@ public class EventSeries extends CalendarEntry {
 
 	private Repetition repetition;
 
-	public EventSeries(Date start, Date end, String name, String visibility, 
+	public EventSeries(Date start, Date end, String name, Visibility visibility, 
 			String sRepetition, EseCalendar calendar, String description) {
 		super(start, end, name, visibility, calendar, description);
 		setRepetition(sRepetition);
@@ -82,7 +82,7 @@ public class EventSeries extends CalendarEntry {
 		int min2 = juc.get(Calendar.MINUTE);
 		juc.set(year, month, day, hour2, min2);
 		Date end = juc.getTime();
-		SerialEvent se = new SerialEvent(start, end, getName(), getVisibility().toString(), 
+		SerialEvent se = new SerialEvent(start, end, getName(), getVisibility(), 
 				this, getCalendar(), getDescription());
 		return se;
 	}

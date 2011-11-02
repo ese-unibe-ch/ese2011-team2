@@ -10,6 +10,8 @@ import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.EseDateFormat;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
+import ch.unibe.ese.calendar.Visibility;
+import ch.unibe.ese.calendar.User.DetailedProfileVisibility;
 import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
 
 @OnApplicationStart
@@ -28,7 +30,7 @@ public class Bootstrap extends Job {
 	private void createSomeCalendars(UserManager um, final CalendarManager cm) throws ParseException {
 		
 		Date aaronBirthday = EseDateFormat.getInstance().parse("13.05.1966 00:00");
-		User aaron = um.createUser("aaron", "ese", aaronBirthday, "public");
+		User aaron = um.createUser("aaron", "ese", aaronBirthday, DetailedProfileVisibility.PUBLIC);
 		
 		EseCalendar aaroncal;
 		try {
@@ -41,22 +43,22 @@ public class Bootstrap extends Job {
 		Date start = juc.getTime();
 		juc.set(2011, 10, 23, 23, 00);
 		Date end = juc.getTime();
-		aaroncal.addEvent(User.ADMIN, start, end, "Toller Film", "Public", "der Film ist wirklich super");
+		aaroncal.addEvent(User.ADMIN, start, end, "Toller Film", Visibility.PUBLIC, "der Film ist wirklich super");
 		
 		juc.set(2011, 11, 23, 20, 15);
 		start = juc.getTime();
 		juc.set(2011, 11, 23, 23, 00);
 		end = juc.getTime();
-		aaroncal.addEvent(User.ADMIN, start, end, "Tolle Party", "Public", "Die Fetzen werden fliegen");
+		aaroncal.addEvent(User.ADMIN, start, end, "Tolle Party", Visibility.PUBLIC, "Die Fetzen werden fliegen");
 		
 		juc.set(2011, 12, 23, 20, 15);
 		start = juc.getTime();
 		juc.set(2011, 12, 24, 04, 00);
 		end = juc.getTime();
-		aaroncal.addEvent(User.ADMIN, start, end, "MOAR PARTY!", "Public","random Kommentar1");
+		aaroncal.addEvent(User.ADMIN, start, end, "MOAR PARTY!", Visibility.PUBLIC,"random Kommentar1");
 		
 		Date judithBirthday = EseDateFormat.getInstance().parse("10.06.1985 00:00");
-		User judith = um.createUser("judith", "ese", judithBirthday, "public");
+		User judith = um.createUser("judith", "ese", judithBirthday, DetailedProfileVisibility.PUBLIC);
 
 		EseCalendar judithcal;
 		try {
@@ -68,10 +70,10 @@ public class Bootstrap extends Job {
 		start = juc.getTime();
 		juc.set(2011, 11, 23, 23, 00);
 		end = juc.getTime();
-		judithcal.addEvent(User.ADMIN, start, end, "Movienight", "Public", "random Kommentar2");
+		judithcal.addEvent(User.ADMIN, start, end, "Movienight", Visibility.PUBLIC, "random Kommentar2");
 
 		Date erwannBirthday = EseDateFormat.getInstance().parse("12.02.1832 00:00");
-		User erwann = um.createUser("erwann", "ese", erwannBirthday, "private");
+		User erwann = um.createUser("erwann", "ese", erwannBirthday, DetailedProfileVisibility.PRIVATE);
 
 		EseCalendar erwanncal;
 		try {
@@ -83,7 +85,7 @@ public class Bootstrap extends Job {
 		start = juc.getTime();
 		juc.set(2011, 11, 21, 23, 00);
 		end = juc.getTime();
-		erwanncal.addEvent(User.ADMIN, start, end, "Standardlager", "Public", "random Kommentar3");
+		erwanncal.addEvent(User.ADMIN, start, end, "Standardlager", Visibility.PUBLIC, "random Kommentar3");
 		
 		erwann.addToMyContacts(judith);
 		erwann.addToMyContacts(aaron);

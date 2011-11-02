@@ -18,7 +18,7 @@ abstract class CalendarEntry {
 	
 	private Visibility visibility;
 	
-	CalendarEntry(Date start, Date end, String name, String visibility, EseCalendar calendar, String description) {
+	CalendarEntry(Date start, Date end, String name, Visibility visibility, EseCalendar calendar, String description) {
 		if (name==null || start==null || end==null) {
 			throw new IllegalArgumentException();
 		}
@@ -27,20 +27,9 @@ abstract class CalendarEntry {
 		this.end = end;
 		this.calendar = calendar;
 		this.description = description;
-		setVisibility(visibility);
-		}
+		this.visibility = visibility;
+	}
 
-		/* (non-Javadoc)
-		 * @see ch.unibe.ese.calendar.TempInt#setVisibility(java.lang.String)
-		 */
-		public void setVisibility(String visibility) {
-			if (visibility.equalsIgnoreCase("PRIVATE"))
-				this.visibility = Visibility.PRIVATE;
-			if (visibility.equalsIgnoreCase("PUBLIC"))
-				this.visibility = Visibility.PUBLIC;
-			if (visibility.equalsIgnoreCase("BUSY"))
-				this.visibility = Visibility.BUSY;
-		}
 
 	/* (non-Javadoc)
 	 * @see ch.unibe.ese.calendar.TempInt#getVisibility()

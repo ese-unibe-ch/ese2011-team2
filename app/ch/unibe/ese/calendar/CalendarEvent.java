@@ -6,7 +6,6 @@ import java.util.Date;
 public interface CalendarEvent {
 
 	/**
-	 * 
 	 * @return true if this is a public event
 	 */
 	public Visibility getVisibility();
@@ -36,9 +35,12 @@ public interface CalendarEvent {
 	 */
 	public EseCalendar getCalendar();
 
+	/**
+	 * 
+	 * @return a description of the event
+	 */
 	public String getDescription();
 
-	public String toString();
 
 	public boolean isASerie();
 

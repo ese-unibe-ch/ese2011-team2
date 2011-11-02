@@ -21,6 +21,7 @@ import ch.unibe.ese.calendar.EseDateFormat;
 import ch.unibe.ese.calendar.EventIteratorMerger;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
+import ch.unibe.ese.calendar.Visibility;
 import ch.unibe.ese.calendar.exceptions.EventNotFoundException;
 
 @With(Secure.class)
@@ -135,7 +136,7 @@ public class Application extends Controller {
 		if (repetition.equalsIgnoreCase("never")) {
 				System.out.println("selected repetition: never");
 				final CalendarEvent event = calendar.addEvent(user, sDate, 
-						eDate, name, visibility, description);
+						eDate, name, Visibility.valueOf(visibility.toUpperCase()), description);
 				
 				System.out.println("pre created size "
 				+ calendar.getEventsAt(user,
@@ -149,7 +150,7 @@ public class Application extends Controller {
 		}
 		else {
 			calendar.addEventSeries(user, sDate, 
-					eDate, name, visibility, repetition, description);
+					eDate, name,  Visibility.valueOf(visibility.toUpperCase()), repetition, description);
 		}
 		calendar(calendarName);
 	}
@@ -246,7 +247,7 @@ public class Application extends Controller {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		calendar.removeEvent(user, hash, oldDate);
-		calendar.addEvent(user, sDate, eDate, name, visibility, description);
+		calendar.addEvent(user, sDate, eDate, name, Visibility.valueOf(visibility.toUpperCase()), description);
 		selectDate(calendarName, sDate);
 	}
 	

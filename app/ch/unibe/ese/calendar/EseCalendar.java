@@ -84,14 +84,14 @@ public class EseCalendar {
 	 * 
 	 * @param calendarEvent
 	 */
-	public CalendarEvent addEvent(User user, Date start, Date end, String eventName, String visibility, String description) {
+	public CalendarEvent addEvent(User user, Date start, Date end, String eventName, Visibility visibility, String description) {
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
 		CalendarEvent event = new CalendarEventImpl(start, end, eventName, visibility, this, description);
 		startDateSortedSet.add(event);
 		return event;
 	}
 	
-	public EventSeries addEventSeries(User user, Date start, Date end, String eventName, String visibility, 
+	public EventSeries addEventSeries(User user, Date start, Date end, String eventName, Visibility visibility, 
 			String sRepetition, String description){
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
 		EventSeries eventSeries = new EventSeries(start, end, eventName, visibility, sRepetition, this, description);
@@ -162,7 +162,7 @@ public class EseCalendar {
 			Iterator<CalendarEvent> unfilteredEvents = startDateSortedSet.iterator();
 			return new ACFilteringEventIterator(user, unfilteredEvents);
 		} else {
-			CalendarEvent compareDummy = new CalendarEventImpl(start, start, "compare-dummy", "Private", this, "");
+			CalendarEvent compareDummy = new CalendarEventImpl(start, start, "compare-dummy", Visibility.PRIVATE, this, "");
 			Iterator<CalendarEvent> unfilteredEvents = startDateSortedSet.tailSet(compareDummy).iterator();
 			return new ACFilteringEventIterator(user, unfilteredEvents);
 		}
