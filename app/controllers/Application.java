@@ -3,6 +3,8 @@ package controllers;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -59,8 +61,7 @@ public class Application extends Controller {
 		Map<User, Boolean> contacts = user.getMyContacts();
 		Iterator<User> iterU = contacts.keySet().iterator();
 		Set<EseCalendar> selectedUsersCal = new HashSet<EseCalendar>();
-		//TODO: Does anybody know how to instantiate this any other way. Googling it right now.
-		Iterator iterator = new ArrayList<CalendarEvent>().iterator();
+		Iterator iterator = Collections.EMPTY_LIST.iterator();
 		while (iterU.hasNext()){
 			User contact = iterU.next();
 			if (contacts.get(contact)){
