@@ -58,63 +58,85 @@ public class EventSeries extends CalendarEntry {
 	/**
 	 * note that the caller is response to check if the date matches this series
 	 * 
-	 * @date Start of the day we want to get a SerialEvent of
+	 * @dayStart Start of the day we want to get a SerialEvent of
 	 * @return 	A single instance of this event (of the type SerialEvent) with the 
 	 * 			parameters this series is defined by.
 	 */
 	private SerialEvent getAsSerialEventForDay(Date dayStart) {
-		java.util.Calendar juc = java.util.Calendar.getInstance(new Locale(
+		java.util.Calendar jucDayStart = java.util.Calendar.getInstance(new Locale(
 				"de", "CH"));
-		juc.setTime(dayStart);
-		int year = juc.get(Calendar.YEAR);
-		int month = juc.get(Calendar.MONTH);
-		int day = juc.get(Calendar.DAY_OF_MONTH);
-		juc.setTime(getStart());
-		int hour = juc.get(Calendar.HOUR_OF_DAY);
-		int min = juc.get(Calendar.MINUTE);
-		juc.set(year, month, day, hour, min);
-		Date start = juc.getTime();
-		juc.setTime(getEnd());
-		int hour2 = juc.get(Calendar.HOUR_OF_DAY);
-		int min2 = juc.get(Calendar.MINUTE);
-		juc.set(year, month, day, hour2, min2);
-		Date end = juc.getTime();
+		java.util.Calendar jucEventStart = java.util.Calendar.getInstance(new Locale(
+				"de", "CH"));
+		java.util.Calendar jucEventEnd = java.util.Calendar.getInstance(new Locale(
+				"de", "CH"));
+		jucEventEnd.setTime(getEnd());
+		jucEventStart.setTime(getStart());
+		jucDayStart.setTime(dayStart);
+		int year = jucDayStart.get(Calendar.YEAR);
+		int month = jucDayStart.get(Calendar.MONTH);
+		int day = jucDayStart.get(Calendar.DAY_OF_MONTH);
+		
+		int hour = jucEventStart.get(Calendar.HOUR_OF_DAY);
+		int min = jucEventStart.get(Calendar.MINUTE);
+		jucDayStart.set(year, month, day, hour, min);
+		Date start = jucDayStart.getTime();
+		
+		int durDay = jucEventEnd.get(Calendar.DAY_OF_YEAR)-jucEventStart.get(Calendar.DAY_OF_YEAR);
+		int durMonth = jucEventEnd.get(Calendar.MONTH)-jucEventStart.get(Calendar.MONTH);
+		int durYear = jucEventEnd.get(Calendar.YEAR)-jucEventStart.get(Calendar.YEAR);
+		int hour2 = jucEventEnd.get(Calendar.HOUR_OF_DAY);
+		int min2 = jucEventEnd.get(Calendar.MINUTE);
+		jucEventEnd.set(year+durYear, month + durMonth, day + durDay, hour2, min2);
+		Date end = jucEventEnd.getTime();
 		SerialEvent se = new SerialEvent(start, end, getName(), getVisibility(), 
 				this, getCalendar(), getDescription());
 		return se;
 	}
 
-	private boolean dateMatches(Date date) {
+	/**
+	 * 
+	 * @dayStart Start of the day we want to get a SerialEvent of
+	 * @return
+	 */
+	private boolean dateMatches(Date dayStart) {
 		Repetition repetition = getRepetition();
 		java.util.Calendar juc1 = java.util.Calendar.getInstance(new Locale(
 				"de", "CH"));
-		juc1.setTime(getStart());
-
-		int weekDayOfEventSerie = juc1.get(Calendar.DAY_OF_WEEK);
-		int monthDayOfEventSerie = juc1.get(Calendar.DAY_OF_MONTH);
+		java.util.Calendar juc3 = java.util.Calendar.getInstance(new Locale(
+				"de", "CH"));
 		java.util.Calendar juc2 = java.util.Calendar.getInstance(new Locale(
 				"de", "CH"));
-		juc2.setTime(date);
+		juc2.setTime(dayStart);
 		int weekDayOfDate = juc2.get(Calendar.DAY_OF_WEEK);
 		int monthDayOfDate = juc2.get(Calendar.DAY_OF_MONTH);
-		if (repetition.equals(repetition.DAILY)) {
-			System.out.println("daily");
-			return true;
+		juc1.setTime(getStart());
+		juc3.setTime(getEnd());
+		int maxDur = juc3.get(Calendar.DAY_OF_YEAR) - juc1.get(Calendar.DAY_OF_YEAR);
+		System.out.println(maxDur);
+		boolean match = false;
+		for (int dur = 0; dur <= maxDur; dur++) {
+			int weekDayOfEventSerie = juc1.get(Calendar.DAY_OF_WEEK) + dur;
+			int monthDayOfEventSerie = juc1.get(Calendar.DAY_OF_MONTH) + dur;
+			System.out.println ("I'm going to  bc: " + dur);
+			if (repetition.equals(repetition.DAILY)) {
+				match = true;
+			}
+			if (repetition.equals(repetition.WEEKLY)) {
+				if(weekDayOfEventSerie == weekDayOfDate) match = true;
+			}
+			if (repetition.equals(repetition.MONTHLY)) {
+				if(monthDayOfEventSerie == monthDayOfDate) match = true;
+			}
 		}
-		if (repetition.equals(repetition.WEEKLY)) {
-			System.out.println("weekly");
-			System.out.println("weekDayOfEventSerie" + weekDayOfEventSerie);
-			System.out.println("weekDayOfDate" + weekDayOfDate);
-			return (weekDayOfEventSerie == weekDayOfDate);
-		}
-		if (repetition.equals(repetition.MONTHLY)) {
-			System.out.println("monthly");
-			return (monthDayOfEventSerie == monthDayOfDate);
-		}
-		return false;
+		System.out.println("returning false");
+		return match;
 	}
 	
 
+	/**
+	 * Help! what does this thing do?
+	 *
+	 */
 	private class DayMergingIterator implements Iterator<CalendarEvent> {
 
 		private Date currentDate;

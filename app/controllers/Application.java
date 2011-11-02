@@ -59,16 +59,16 @@ public class Application extends Controller {
 		Map<User, Boolean> contacts = user.getMyContacts();
 		Iterator<User> iterU = contacts.keySet().iterator();
 		Set<EseCalendar> selectedUsersCal = new HashSet<EseCalendar>();
-		//Does anybody know how to instantiate this any other way. Googling it right now.
+		//TODO: Does anybody know how to instantiate this any other way. Googling it right now.
 		Iterator iterator = new ArrayList<CalendarEvent>().iterator();
 		while (iterU.hasNext()){
 			User contact = iterU.next();
 			if (contacts.get(contact)){
 				Set<EseCalendar> contactCalendars = calendarManager.getCalendarsOf(contact);
 				selectedUsersCal.addAll(contactCalendars);
-				Iterator<EseCalendar> eseCIter = contactCalendars.iterator();
-				while (eseCIter.hasNext()){
-					EseCalendar contactCal = eseCIter.next();
+				Iterator<EseCalendar> eseCalendarIter = contactCalendars.iterator();
+				while (eseCalendarIter.hasNext()){
+					EseCalendar contactCal = eseCalendarIter.next();
 					Iterator<CalendarEvent> iteratorCalEvent =  contactCal.getEventsAt(user, date).iterator();
 					iterator = new EventIteratorMerger(iterator, iteratorCalEvent); 
 				}
