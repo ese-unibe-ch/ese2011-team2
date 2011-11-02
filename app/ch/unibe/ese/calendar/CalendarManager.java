@@ -13,6 +13,11 @@ import ch.unibe.ese.calendar.exceptions.NoSuchCalendarException;
 import ch.unibe.ese.calendar.security.CalendarAdminPermission;
 import ch.unibe.ese.calendar.security.Policy;
 
+/**
+ * 
+ * A CalendarManager manages the calendars in a system
+ *
+ */
 public class CalendarManager {
 	
 	private static CalendarManager instance = new CalendarManager();
@@ -56,10 +61,20 @@ public class CalendarManager {
 		
 	}
 	
+	/**
+	 * 
+	 * @return the singleton instance
+	 */
 	public static CalendarManager getInstance() {
 		return instance ;
 	}
 
+	/**
+	 * Get the calendars own by a user
+	 * 
+	 * @param user the user for which the calendars are requested
+	 * @return the calendars of user
+	 */
 	public synchronized Set<EseCalendar> getCalendarsOf(User user) {
 		Set<EseCalendar> result = new HashSet<EseCalendar>();
 		for (EseCalendar cal : calendars.values()) {
@@ -70,6 +85,11 @@ public class CalendarManager {
 		return result;
 	}
 
+	/**
+	 * Purges all calendars managed by this CalendarManager
+	 * 
+	 * @param user the user requesting the operation
+	 */
 	public void purge(User user) {
 		Policy.getInstance().checkPermission(user, new CalendarAdminPermission());
 		calendars.clear();
