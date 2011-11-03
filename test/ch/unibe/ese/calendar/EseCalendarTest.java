@@ -6,7 +6,7 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-import ch.unibe.ese.calendar.EventSeries.Repetition;
+import ch.unibe.ese.calendar.EventSeriesImpl.Repetition;
 
 import play.test.UnitTest;
 

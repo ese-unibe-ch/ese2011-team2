@@ -1,7 +1,6 @@
 package ch.unibe.ese.calendar;
 import java.util.Date;
 
-import ch.unibe.ese.calendar.EventSeries.Repetition;
 
 /**
  * Represents a thing contained in a calendar, i.e. a <code>CalendarEvent</code> or an <code>EventSeries</code> 

@@ -37,8 +37,8 @@ public class EventTest extends UnitTest {
 		CalendarEvent event3 = calendar.addEvent(user.ADMIN, start, end, eventName, Visibility.PUBLIC,"random Kommentar1");
 		assertEquals(startId++, event2.getId());
 		assertEquals(startId++, event3.getId());
-		EventSeries event4 = calendar.addEventSeries(user.ADMIN, start, end, eventName, Visibility.PUBLIC, Repetition.WEEKLY, "random Kommentar1");
-		EventSeries event5 = calendar.addEventSeries(user.ADMIN, start, end, eventName, Visibility.PUBLIC, Repetition.WEEKLY, "random Kommentar1");
+		EventSeriesImpl event4 = calendar.addEventSeries(user.ADMIN, start, end, eventName, Visibility.PUBLIC, Repetition.WEEKLY, "random Kommentar1");
+		EventSeriesImpl event5 = calendar.addEventSeries(user.ADMIN, start, end, eventName, Visibility.PUBLIC, Repetition.WEEKLY, "random Kommentar1");
 		assertEquals(startId++, event4.getId());
 		assertEquals(startId++, event5.getId());
 	}
