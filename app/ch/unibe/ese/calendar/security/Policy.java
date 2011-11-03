@@ -4,9 +4,10 @@ package ch.unibe.ese.calendar.security;
 import java.util.HashSet;
 import java.util.Set;
 
-import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.CalendarManager;
+import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.User;
+import ch.unibe.ese.calendar.impl.EseCalendarImpl;
 
 /**
  * When this policy is in place a subjects with a CalendarPrincipal (i.e. the Subject returned by 

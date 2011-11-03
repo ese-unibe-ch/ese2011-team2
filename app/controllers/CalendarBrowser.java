@@ -11,8 +11,8 @@ import java.util.SortedSet;
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.User;
-import ch.unibe.ese.calendar.UserManager;
 import ch.unibe.ese.calendar.Visibility;
+import ch.unibe.ese.calendar.UserManager;
 
 public class CalendarBrowser {
 

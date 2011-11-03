@@ -2,15 +2,15 @@ package ch.unibe.ese.calendar;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 import javax.activity.InvalidActivityException;
+
+import ch.unibe.ese.calendar.impl.ContactsComparator;
+
 
 
 /**
@@ -33,26 +33,11 @@ public class User {
 	
 	private DetailedProfileVisibility detailedProfileVisibility;
 	
-	User(String userName, String password, Date birthday, DetailedProfileVisibility detailedProfileVisibility) {
+	public User(String userName, String password, Date birthday, DetailedProfileVisibility detailedProfileVisibility) {
 		this.userName = userName;
 		this.password = password;
 		this.birthday = birthday;
 		this.detailedProfileVisibility = detailedProfileVisibility;
-		this.myContacts.put(this, true);
-	}
-	
-	/**
-	 * creates a user with the specified username and password
-	 * @param userName
-	 * @param password
-	 * @deprecated using string constants were enums should be used
-	 */
-	@Deprecated
-	public User(String userName, String password, Date birthday, String detailedProfileVisibility) {
-		this.userName = userName;
-		this.password = password;
-		this.birthday = birthday;
-		setDetailedProfileVisibility(detailedProfileVisibility);
 		this.myContacts.put(this, true);
 	}
 
@@ -61,7 +46,7 @@ public class User {
 	 * @param userName
 	 */
 	public User(String userName) {
-		this(userName, Integer.toString((int)(Math.random()*1000)), null, "private");
+		this(userName, Integer.toString((int)(Math.random()*1000)), null, DetailedProfileVisibility.PRIVATE);
 	}
 	
 	/**
@@ -173,19 +158,6 @@ public class User {
 	
 	public DetailedProfileVisibility getDetailedProfileVisibility() {
 		return detailedProfileVisibility;
-	}
-	
-	
-	private void setDetailedProfileVisibility(String visibility) {
-		if (visibility.equalsIgnoreCase("private")) {
-			detailedProfileVisibility = DetailedProfileVisibility.PRIVATE;
-		}
-		if (visibility.equalsIgnoreCase("public")) {
-			detailedProfileVisibility = DetailedProfileVisibility.PUBLIC;
-		}
-		if (visibility.equalsIgnoreCase("contactsonly")) {
-			detailedProfileVisibility = DetailedProfileVisibility.CONTACTSONLY;
-		}
 	}
 	
 	/**

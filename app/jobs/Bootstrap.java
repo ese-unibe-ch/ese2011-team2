@@ -7,19 +7,21 @@ import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
-import ch.unibe.ese.calendar.EseDateFormat;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
 import ch.unibe.ese.calendar.Visibility;
 import ch.unibe.ese.calendar.User.DetailedProfileVisibility;
 import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
+import ch.unibe.ese.calendar.impl.CalendarManagerImpl;
+import ch.unibe.ese.calendar.impl.UserManagerImpl;
+import ch.unibe.ese.calendar.util.EseDateFormat;
 
 @OnApplicationStart
 public class Bootstrap extends Job {
 
 	public void doJob() {
-		UserManager um = UserManager.getInstance();
-		final CalendarManager cm = CalendarManager.getInstance();
+		UserManager um = UserManagerImpl.getInstance();
+		final CalendarManager cm = CalendarManagerImpl.getInstance();
 		try {
 			createSomeCalendars(um, cm);
 		} catch (ParseException e) {

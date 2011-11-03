@@ -3,6 +3,7 @@ package ch.unibe.ese.calendar;
 import java.util.Date;
 import java.util.Iterator;
 
+
 /**
  * A series of events
  *

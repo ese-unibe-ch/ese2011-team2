@@ -19,13 +19,13 @@ import play.mvc.With;
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
-import ch.unibe.ese.calendar.EseDateFormat;
-import ch.unibe.ese.calendar.EventIteratorMerger;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
 import ch.unibe.ese.calendar.Visibility;
 import ch.unibe.ese.calendar.EventSeries.Repetition;
 import ch.unibe.ese.calendar.exceptions.EventNotFoundException;
+import ch.unibe.ese.calendar.util.EseDateFormat;
+import ch.unibe.ese.calendar.util.EventIteratorMerger;
 
 @With(Secure.class)
 public class Application extends Controller {
