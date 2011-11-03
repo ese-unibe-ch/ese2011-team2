@@ -15,12 +15,12 @@ public abstract class EseCalendar {
 
 	public abstract Iterator<CalendarEvent> iterate(User user, Date start);
 
-	public abstract CalendarEvent getEventById(User user, long id, Date start,
+	public abstract CalendarEvent getEventById(User user, String id, Date start,
 			boolean isSeries);
 
 	public abstract CalendarEvent getEventByHash(User user, int hash, Date start);
 
-	public abstract CalendarEvent removeEvent(User user, long id, Date start,
+	public abstract CalendarEvent removeEvent(User user, String id, Date start,
 			boolean isSeries);
 
 	public abstract EventSeries addEventSeries(User user, Date start,

@@ -4,14 +4,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.EventSeries;
 import ch.unibe.ese.calendar.Visibility;
-import ch.unibe.ese.calendar.EventSeries.Repetition;
 
 class EventSeriesImpl extends CalendarEntry implements EventSeries {
 
@@ -75,8 +72,9 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 		int min2 = jucEventEnd.get(Calendar.MINUTE);
 		jucEventEnd.set(year+durYear, month + durMonth, day + durDay, hour2, min2);
 		Date end = jucEventEnd.getTime();
+		long consecutiveNumber = getConsecutiveNumber(jucEventStart);
 		SerialEvent se = new SerialEvent(start, end, getName(), getVisibility(), 
-				this, getCalendar(), getDescription());
+				this, getCalendar(), getDescription(), consecutiveNumber);
 		return se;
 	}
 
@@ -87,20 +85,22 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 	 */
 	private boolean dateMatches(Date dayStart) {
 		Repetition repetition = getRepetition();
-		java.util.Calendar juc1 = java.util.Calendar.getInstance(locale);
-		java.util.Calendar juc3 = java.util.Calendar.getInstance(locale);
-		java.util.Calendar juc2 = java.util.Calendar.getInstance(locale);
-		juc2.setTime(dayStart);
-		int weekDayOfDate = juc2.get(Calendar.DAY_OF_WEEK);
-		int monthDayOfDate = juc2.get(Calendar.DAY_OF_MONTH);
-		juc1.setTime(getStart());
-		juc3.setTime(getEnd());
-		int maxDur = juc3.get(Calendar.DAY_OF_YEAR) - juc1.get(Calendar.DAY_OF_YEAR);
+		java.util.Calendar jucProtoEventStart = java.util.Calendar.getInstance(locale);
+		java.util.Calendar jucProtoEventEnd = java.util.Calendar.getInstance(locale);
+		java.util.Calendar jucEvaluatedDay = java.util.Calendar.getInstance(locale);
+		jucEvaluatedDay.setTime(dayStart);
+		int weekDayOfDate = jucEvaluatedDay.get(Calendar.DAY_OF_WEEK);
+		int monthDayOfDate = jucEvaluatedDay.get(Calendar.DAY_OF_MONTH);
+		jucProtoEventStart.setTime(getStart());
+		jucProtoEventEnd.setTime(getEnd());
+		//FIXME change of year could lead to negative maxDur
+		int maxDur = jucProtoEventEnd.get(Calendar.DAY_OF_YEAR) - jucProtoEventStart.get(Calendar.DAY_OF_YEAR);
 		System.out.println(maxDur);
 		boolean match = false;
 		for (int dur = 0; dur <= maxDur; dur++) {
-			int weekDayOfEventSerie = juc1.get(Calendar.DAY_OF_WEEK) + dur;
-			int monthDayOfEventSerie = juc1.get(Calendar.DAY_OF_MONTH) + dur;
+			//FIXME doesn't work for events at end of week of of week (use Calendar.add instead)
+			int weekDayOfEventSerie = jucProtoEventStart.get(Calendar.DAY_OF_WEEK) + dur;
+			int monthDayOfEventSerie = jucProtoEventStart.get(Calendar.DAY_OF_MONTH) + dur;
 			System.out.println ("I'm going to  bc: " + dur);
 			if (repetition.equals(repetition.DAILY)) {
 				match = true;
@@ -114,6 +114,28 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 		}
 		System.out.println("returning false");
 		return match;
+	}
+	
+	private long getConsecutiveNumber(Calendar jucEvaluatedDay) {
+		java.util.Calendar jucProtoEventStart = java.util.Calendar.getInstance(locale);
+		jucProtoEventStart.setTime(getStart());
+		//TODO apply more efficient algorithm
+		long i = 0;
+		if (jucProtoEventStart.equals(jucProtoEventStart)) {
+			return 0;
+		}
+		if (jucProtoEventStart.before(jucEvaluatedDay)) {
+			while (jucProtoEventStart.before(jucEvaluatedDay)) {
+				i++;
+				jucEvaluatedDay.add(Calendar.DAY_OF_MONTH, 1);
+			}
+		} else {
+			while (jucProtoEventStart.before(jucEvaluatedDay)) {
+				i--;
+				jucEvaluatedDay.add(Calendar.DAY_OF_MONTH, -1);
+			}
+		}
+		return i;
 	}
 	
 

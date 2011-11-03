@@ -48,12 +48,9 @@ public interface CalendarEvent {
 	public String getDescription();
 
 	/**
-	 * TODO: Dummy events for comparison get also an ID. This could be harmful.
-	 * A CalendarEntry can not have the same ID as a EventSeries.
-	 * Every SerialEvent has the ID of the EventSeries it was created by.
-	 * @return a unique ID for every event.
+	 * @return the unique ID for this event.
 	 */
-	public long getId();
+	public String getId();
 	
 	/**
 	 * 

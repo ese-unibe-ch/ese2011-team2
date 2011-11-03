@@ -8,12 +8,14 @@ import ch.unibe.ese.calendar.Visibility;
 
 class SerialEvent extends CalendarEventImpl {
 
-	protected EventSeries eventSeries;
+	private EventSeries eventSeries;
+	private long consecutiveNumber;
 	
 	SerialEvent(Date start, Date end, String name, Visibility visibility, 
-			EventSeries eventSeries, EseCalendar calendar, String description) {
+			EventSeries eventSeries, EseCalendar calendar, String description, long consecutiveNumber) {
 		super(start, end, name, visibility, calendar, description);
 		this.eventSeries = eventSeries;
+		this.consecutiveNumber = consecutiveNumber;
 	}
 
 	@Override
@@ -22,8 +24,8 @@ class SerialEvent extends CalendarEventImpl {
 	}
 	
 	@Override
-	public long getId() {
-		return eventSeries.getId();
+	public String getId() {
+		return eventSeries.getId()+"-"+consecutiveNumber;
 	}
 	
 

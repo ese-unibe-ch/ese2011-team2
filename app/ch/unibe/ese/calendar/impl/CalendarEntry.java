@@ -12,7 +12,7 @@ import ch.unibe.ese.calendar.Visibility;
 abstract class CalendarEntry {
 
 	static private long staticID = 1;
-	private long id;
+	private String id;
 	private Date end;
 	private Date start;
 	private String name;
@@ -31,7 +31,7 @@ abstract class CalendarEntry {
 		this.calendar = calendar;
 		this.description = description;
 		this.visibility = visibility;
-		this.id = staticID++;
+		this.id = Long.toString(staticID++);
 	}
 
 
@@ -72,7 +72,7 @@ abstract class CalendarEntry {
 				+ ", start=" + start + ", name=" + name + "]";
 	}
 	
-	public long getId(){
+	public String getId(){
 		return this.id;
 	}
 

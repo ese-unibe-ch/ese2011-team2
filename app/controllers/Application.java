@@ -181,7 +181,7 @@ public class Application extends Controller {
 	 * @param calendarName
 	 * @param hash hashCode() of the to be deleted event
 	 */
-	public static void deleteEvent(String calendarName, long id,
+	public static void deleteEvent(String calendarName, String id,
 			String startDate, boolean isSeries) throws ParseException {
 
 		Date sDate = EseDateFormat.getInstance().parse(startDate);
@@ -202,7 +202,7 @@ public class Application extends Controller {
 		}
 	}
 	
-	public static void deleteWholeSeries(String calendarName, long id) {
+	public static void deleteWholeSeries(String calendarName, String id) {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(calendarName);
@@ -210,7 +210,7 @@ public class Application extends Controller {
 		calendar(calendarName);
 	}
 	
-	public static void deleteSingleSerialEvent(String calendarName, long id) {
+	public static void deleteSingleSerialEvent(String calendarName, String id) {
 		try {
 		throw new RuntimeException("Prototype of EventSeries could not be found.");
 		} catch (Exception exception) {
@@ -218,7 +218,7 @@ public class Application extends Controller {
 		}
 	}
 
-	public static void editEvent(String calendarName, long id, 
+	public static void editEvent(String calendarName, String id, 
 			String startDate, boolean isSeries, String repetition)
 			throws ParseException {
 		Date sDate = EseDateFormat.getInstance().parse(startDate);
@@ -243,7 +243,7 @@ public class Application extends Controller {
 		}
 	}
 	
-	public static void saveEditedEvent(String calendarName, long id, String oldStartDate, 
+	public static void saveEditedEvent(String calendarName, String id, String oldStartDate, 
 			String name, String startDate, String duration, String visibility, 
 			String description, String repetition, boolean wasSeries) 
 			throws ParseException {

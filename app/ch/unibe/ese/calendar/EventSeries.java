@@ -69,7 +69,7 @@ public interface EventSeries {
 	/**
 	 * @return a unique ID for this series.
 	 */
-	public long getId();
+	public String getId();
 	
 	/**
 	 * @return the repetionm of the events of this series

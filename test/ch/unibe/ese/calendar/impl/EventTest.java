@@ -2,6 +2,8 @@ package ch.unibe.ese.calendar.impl;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -35,16 +37,12 @@ public class EventTest extends UnitTest {
 	public void getIDs() {
 		
 		CalendarEvent event = calendar.addEvent(user.ADMIN, start, end, eventName, Visibility.PUBLIC,"random Kommentar1");
-		long startId = event.getId();
-		assertEquals(startId++, event.getId());
+		Set<String> ids = new HashSet<String>();
+		ids.add(event.getId());
 		
 		CalendarEvent event2 = calendar.addEvent(user.ADMIN, start, end, eventName, Visibility.PUBLIC,"random Kommentar1");
+		assertTrue(ids.add(event2.getId()));
 		CalendarEvent event3 = calendar.addEvent(user.ADMIN, start, end, eventName, Visibility.PUBLIC,"random Kommentar1");
-		assertEquals(startId++, event2.getId());
-		assertEquals(startId++, event3.getId());
-		EventSeries event4 = calendar.addEventSeries(user.ADMIN, start, end, eventName, Visibility.PUBLIC, Repetition.WEEKLY, "random Kommentar1");
-		EventSeries event5 = calendar.addEventSeries(user.ADMIN, start, end, eventName, Visibility.PUBLIC, Repetition.WEEKLY, "random Kommentar1");
-		assertEquals(startId++, event4.getId());
-		assertEquals(startId++, event5.getId());
+		assertTrue(ids.add(event3.getId()));
 	}
 }

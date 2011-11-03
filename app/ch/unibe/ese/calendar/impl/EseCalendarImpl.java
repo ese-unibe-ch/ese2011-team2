@@ -124,7 +124,7 @@ public class EseCalendarImpl extends EseCalendar {
 	 * @return the event removed
 	 */
 	@Override
-	public CalendarEvent removeEvent(User user, long id, Date start, boolean isSeries) {
+	public CalendarEvent removeEvent(User user, String id, Date start, boolean isSeries) {
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
 		CalendarEvent e = getEventById(user, id, start, isSeries);
 		if (isSeries) {
@@ -165,7 +165,7 @@ public class EseCalendarImpl extends EseCalendar {
 	 * @return
 	 */
 	@Override
-	public CalendarEvent getEventById(User user, long id, Date start, boolean isSeries) {
+	public CalendarEvent getEventById(User user, String id, Date start, boolean isSeries) {
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
 		Iterator<CalendarEvent> afterStart = iterate(user, start);
 		CalendarEvent e;
