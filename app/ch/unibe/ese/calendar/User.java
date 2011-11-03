@@ -9,7 +9,7 @@ import java.util.TreeSet;
 
 import javax.activity.InvalidActivityException;
 
-import ch.unibe.ese.calendar.impl.ContactsComparator;
+import ch.unibe.ese.calendar.util.ContactsComparator;
 
 
 

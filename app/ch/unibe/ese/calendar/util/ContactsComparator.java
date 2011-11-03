@@ -1,4 +1,4 @@
-package ch.unibe.ese.calendar.impl;
+package ch.unibe.ese.calendar.util;
 
 import java.util.Comparator;
 
