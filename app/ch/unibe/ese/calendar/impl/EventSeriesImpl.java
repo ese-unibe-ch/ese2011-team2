@@ -181,4 +181,19 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 
 	}
 
+
+	@Override
+	public CalendarEvent getEventByConsecutiveNumber(long consecutiveNumber) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("not yet impl");
+	}
+
+
+	@Override
+	public void addExceptionInstance(long consecutiveNumber,
+			CalendarEvent exceptionalEvent) {
+		throw new UnsupportedOperationException("not yet impl");
+		
+	}
+
 }

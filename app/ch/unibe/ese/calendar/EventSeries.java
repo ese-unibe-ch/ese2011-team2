@@ -82,5 +82,25 @@ public interface EventSeries {
 	 * @return an iterator over the event that are instances of this series
 	 */
 	public Iterator<CalendarEvent> iterator(Date start);
+	
+	/**
+	 * Get an event of this series by its consecutive number
+	 * 
+	 * @param consecutiveNumber the consecutive numer of the requested event
+	 * @return
+	 */
+	public CalendarEvent getEventByConsecutiveNumber(long consecutiveNumber);
+	
+	/**
+	 * Add a exceptional instance, i.e. an event which replaces the normal occurence 
+	 * of the event.
+	 * 
+	 * Note that at this occurence it will not be the passed intance for exceptionalEvent
+	 * that is returned but an event with a regular serial-event id
+	 * 
+	 * @param consecutiveNumber
+	 * @param exceptionalEvent how the exceptional event should look like, or null if the instance is deleted from the series
+	 */
+	public void addExceptionInstance(long consecutiveNumber, CalendarEvent exceptionalEvent);
 
 }
