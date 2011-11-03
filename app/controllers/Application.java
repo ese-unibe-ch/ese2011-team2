@@ -1,9 +1,7 @@
 package controllers;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -19,10 +17,10 @@ import play.mvc.With;
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
+import ch.unibe.ese.calendar.EventSeries.Repetition;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
 import ch.unibe.ese.calendar.Visibility;
-import ch.unibe.ese.calendar.EventSeries.Repetition;
 import ch.unibe.ese.calendar.exceptions.EventNotFoundException;
 import ch.unibe.ese.calendar.util.EseDateFormat;
 import ch.unibe.ese.calendar.util.EventIteratorMerger;
@@ -190,12 +188,12 @@ public class Application extends Controller {
 				calendarName);
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
-		CalendarEvent event = calendar.getEventById(user, id, sDate, isSeries);
+		CalendarEvent event = calendar.getEventById(user, id);
 		if (isSeries) {
 			render(user, calendar, event);
 		}
 		try {
-			calendar.removeEvent(user, id, sDate, isSeries);
+			calendar.removeEvent(user, id);
 			calendar(calendarName);
 		} catch (EventNotFoundException exception) {
 			error(exception.getMessage());
@@ -206,7 +204,7 @@ public class Application extends Controller {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(calendarName);
-		calendar.removeEvent(user, id, new Date(0), true);
+		calendar.removeEvent(user, id);
 		calendar(calendarName);
 	}
 	
@@ -229,7 +227,7 @@ public class Application extends Controller {
 		User user = UserManager.getInstance().getUserByName(userName);
 		Visibility[] visibilities = Visibility.values();
 		try {
-			CalendarEvent event = calendar.getEventById(user, id, sDate, isSeries);
+			CalendarEvent event = calendar.getEventById(user, id);
 			//this is quite ugly:
 			boolean[] repChecked = new boolean[4];
 			if (event.getSeries() == null) {
@@ -259,7 +257,7 @@ public class Application extends Controller {
 				calendarName);
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
-		calendar.removeEvent(user, id, oldDate, wasSeries);
+		calendar.removeEvent(user, id);
 		if (repetition.equalsIgnoreCase("never")) {
 			calendar.addEvent(user, sDate, eDate, name, vis, 
 					description);

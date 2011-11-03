@@ -53,7 +53,7 @@ public class EseCalendarTest extends UnitTest {
 	public void removeEvent() {
 		CalendarEvent event = calendar.addEvent(user.ADMIN, start, end, eventName, Visibility.PUBLIC,"random Kommentar1");
 		assertTrue(calendar.getStartDateSortedSet().contains(event));
-		calendar.removeEvent(user.ADMIN, event.getId(), event.getStart(), event.getSeries() != null);
+		calendar.removeEvent(user.ADMIN, event.getId());
 		assertTrue(calendar.getStartDateSortedSet().isEmpty());
 	}
 	
@@ -63,13 +63,6 @@ public class EseCalendarTest extends UnitTest {
 		EventSeries eventSeries = calendar.addEventSeries(user.ADMIN, start, end, eventName, Visibility.PUBLIC, Repetition.WEEKLY,"random Kommentar1");
 		assertFalse(calendar.getStartDateSortedSetOfSeries().isEmpty());
 		assertTrue(calendar.getStartDateSortedSetOfSeries().contains(eventSeries));
-	}
-	
-	//HashCode of an event is not unique. We will need to refactor this sooner of later
-	@Test
-	public void getEventByHash() {
-		CalendarEvent event = calendar.addEvent(user.ADMIN, start, end, eventName, Visibility.PUBLIC,"random Kommentar1");
-		assertEquals(event, calendar.getEventByHash(user.ADMIN, event.hashCode(), event.getStart()));
 	}
 	
 	@Test

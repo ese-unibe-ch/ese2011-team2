@@ -3,9 +3,11 @@ package ch.unibe.ese.calendar.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.SortedSet;
@@ -48,21 +50,15 @@ public class EseCalendarImpl extends EseCalendar {
 
 	private String name;
 	private User owner;
+	private Map<String, CalendarEvent> eventsById = new HashMap<String, CalendarEvent>();
 	
-	/**
-	 * 
-	 * @return the name of this calendar
-	 */
+	
 	@Override
 	public String getName() {
 		return name;
 	}
 	
-	/**
-	 * When <code>ch.unibe.ese.calendar.security.CalendarPolicy</code> is in place the owner can write to this calendar.
-	 * 
-	 * @return the owner of this calendar
-	 */
+	
 	@Override
 	public User getOwner() {
 		return owner;
@@ -84,30 +80,17 @@ public class EseCalendarImpl extends EseCalendar {
 		return series;
 	}
 
-	/**
-	 * Adds the event to the calendar
-	 * 
-	 */
+	
 	@Override
 	public CalendarEvent addEvent(User user, Date start, Date end, String eventName, Visibility visibility, String description) {
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
 		CalendarEvent event = new CalendarEventImpl(start, end, eventName, visibility, this, description);
 		startDateSortedSet.add(event);
+		eventsById.put(event.getId(), event);
 		return event;
 	}
 	
-	/**
-	 * Adds an event series to this calendar
-	 * 
-	 * @param user the user requesting the operation
-	 * @param start the start of the prototype event
-	 * @param end the end of the prototype event
-	 * @param eventName the name of the event
-	 * @param visibility the visibility of events belonging to this series
-	 * @param repetition how often events shall repeat
-	 * @param description a description of events in this series
-	 * @return the new EventSeries
-	 */
+	
 	@Override
 	public EventSeries addEventSeries(User user, Date start, Date end, String eventName, Visibility visibility, 
 			Repetition repetition, String description){
@@ -117,72 +100,38 @@ public class EseCalendarImpl extends EseCalendar {
 		return eventSeries;
 	}
 	
-	/**
-	 * Removes an event from the calendar
-	 * 
-	 * Needs a startDate so we don't have to go through the whole list for finding the right event.
-	 * @return the event removed
-	 */
+	
 	@Override
-	public CalendarEvent removeEvent(User user, String id, Date start, boolean isSeries) {
+	public CalendarEvent removeEvent(User user, String id) {
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
-		CalendarEvent e = getEventById(user, id, start, isSeries);
-		if (isSeries) {
+		CalendarEvent e = getEventById(user, id);
+		//FIXME should remove event not series
+		if (e.getSeries() != null) {
 			series.remove(e.getSeries());
 		} else {
+			eventsById.remove(e.getId());
 			startDateSortedSet.remove(e);
 		}
 		return e;
 	}
 	
-	/**
-	 * THIS METHOD SHOULDN'T BE USED ANYMORE
-	 * Use getEventById instead.
-	 * Only returns an event if the user has privileged access.
-	 * @param hash The hash the event produces by calling hashCode()
-	 * @return null, if the Event is not found.
-	 */
-	//TODO use a uid instead of hash
-	@Override
-	public CalendarEvent getEventByHash(User user, int hash, Date start) {
-		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
-		Iterator<CalendarEvent> afterStart = iterate(user, start);
-		//TODO: also check, startDateSortedSet for this hash (or create own method for deleting series)
-		CalendarEvent e;
-		do {
-			e = afterStart.next();
-		} while (e != null && e.hashCode() != hash);
-		if (e == null)
-			throw new EventNotFoundException("Permission denied");
-		return e;
-	}
 	
-	/**
-	 * Only returns an event if the user has privileged access.
-	 * @param user
-	 * @param id The id of the event, called by getId()
-	 * @param sDate
-	 * @return
-	 */
+	
 	@Override
-	public CalendarEvent getEventById(User user, String id, Date start, boolean isSeries) {
-		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
-		Iterator<CalendarEvent> afterStart = iterate(user, start);
-		CalendarEvent e;
-		do {
-			e = afterStart.next();
-		} while (e != null && e.getId() != id);
-		if (e == null)
-			throw new EventNotFoundException("Permission denied");
-		return e;
+	public CalendarEvent getEventById(User user, String id) {
+		if (id.indexOf('-') > 0) {
+			throw new RuntimeException("getting serial events not yet supported");
+		}
+		if (!eventsById.containsKey(id)) {
+			return null;
+		}
+		CalendarEvent calendarEvent = eventsById.get(id);
+		if (calendarEvent.getVisibility().equals(Visibility.PRIVATE)) {
+			Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
+		}
+		return calendarEvent;
 	}
 
-	/**
-	 * Iterates through all events with a start date after start
-	 * 
-	 * @param start the date at which to start iterating events
-	 * @return an iterator with events starting after start
-	 */
 	@Override
 	public Iterator<CalendarEvent> iterate(User user, Date start) {
 		Iterator<CalendarEvent> iterateIndividual = iterateIndividualEvents(user, null);
@@ -357,5 +306,10 @@ public class EseCalendarImpl extends EseCalendar {
 			throw new UnsupportedOperationException("not supported yet");
 		}
 
+	}
+	@Override
+	public EventSeries removeEventSeries(User user, String id) {
+		// TODO Auto-generated method stub
+		throw new RuntimeException("not yet implemented");
 	}
 }
