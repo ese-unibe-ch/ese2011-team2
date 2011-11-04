@@ -11,5 +11,4 @@ public class Security extends Secure.Security {
         User claimedUser = um.getUserByName(username);
         return (claimedUser != null ) && claimedUser.getPassword().equals(password);
     }
-    
 }
