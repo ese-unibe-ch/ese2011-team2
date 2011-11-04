@@ -10,6 +10,7 @@ import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
 import ch.unibe.ese.calendar.Visibility;
+import ch.unibe.ese.calendar.EventSeries.Repetition;
 import ch.unibe.ese.calendar.User.DetailedProfileVisibility;
 import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
 import ch.unibe.ese.calendar.impl.CalendarManagerImpl;
@@ -37,6 +38,7 @@ public class Bootstrap extends Job {
 		EseCalendar aaroncal;
 		try {
 			aaroncal = cm.createCalendar(aaron, "Aarons Calendar");
+			cm.createCalendar(aaron, "Aarons secondary Calendar");
 		} catch (CalendarAlreadyExistsException e) {
 			aaroncal = cm.getCalendar("Aarons Calendar");
 		}
@@ -59,6 +61,13 @@ public class Bootstrap extends Job {
 		end = juc.getTime();
 		aaroncal.addEvent(User.ADMIN, start, end, "MOAR PARTY!", Visibility.PUBLIC,"random Kommentar1");
 		
+		juc.set(2011, 10, 7, 12, 00);
+		start = juc.getTime();
+		juc.set(2011, 10, 7, 13, 00);
+		end = juc.getTime();
+		aaroncal.addEventSeries(User.ADMIN, start, end, "Mondays lunch meeting", 
+				Visibility.PUBLIC, Repetition.WEEKLY, "with my mates");
+
 		Date judithBirthday = EseDateFormat.getInstance().parse("10.06.1985 00:00");
 		User judith = um.createUser("judith", "ese", judithBirthday, DetailedProfileVisibility.PUBLIC);
 
@@ -89,8 +98,16 @@ public class Bootstrap extends Job {
 		end = juc.getTime();
 		erwanncal.addEvent(User.ADMIN, start, end, "Standardlager", Visibility.PUBLIC, "random Kommentar3");
 		
+		
+		juc.set(2011, 11, 3, 20, 15);
+		start = juc.getTime();
+		juc.set(2011, 11, 4, 5, 00);
+		end = juc.getTime();
+		erwanncal.addEventSeries(User.ADMIN, start, end, "Full moon", 
+				Visibility.PUBLIC, Repetition.MONTHLY, "careful, werewolfs might appear");
+
 		erwann.addToMyContacts(judith);
 		erwann.addToMyContacts(aaron);
-
+		aaron.addToMyContacts(erwann);
 	}
 }

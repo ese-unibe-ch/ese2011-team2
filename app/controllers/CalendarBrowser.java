@@ -75,10 +75,12 @@ public class CalendarBrowser {
 				return false;
 			}
 			for (EseCalendar c: otherUsersCalendar) {
-				Iterator<CalendarEvent> overAllIterator = c.getEventsAt(user, asCalendar().getTime()).iterator();
-				if (overAllIterator.hasNext())
-						return true;
-				}
+				if (c.getOwner() != user) {
+					Iterator<CalendarEvent> overAllIterator = c.getEventsAt(user, asCalendar().getTime()).iterator();
+					if (overAllIterator.hasNext())
+							return true;
+					}
+			}
 			return false;
 		}
 		

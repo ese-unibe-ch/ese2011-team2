@@ -18,13 +18,13 @@ td.selected {
 	background-color: gray;
 }
 
+td.contactEvent {
+	background-color: #E8E8E8;
+}
+
 td.today {
 	background-color: black;
 	color: white;
-}
-
-td.contactEvent {
-	font-weight: bold;
 }
 
 td a {
