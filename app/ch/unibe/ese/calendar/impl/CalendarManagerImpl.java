@@ -46,6 +46,18 @@ public class CalendarManagerImpl extends CalendarManager {
 	}
 	
 	/**
+	 * 
+	 */
+	@Override
+	public synchronized void removeCalendar(String name) throws NoSuchCalendarException {
+		if (calendars.containsKey(name)) {
+			calendars.remove(name);
+		} else {
+			throw new NoSuchCalendarException();
+		}
+	}
+	
+	/**
 	 * Get a calendar with the specified name
 	 * 
 	 * @param name the name of the calendar

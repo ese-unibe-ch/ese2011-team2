@@ -13,10 +13,11 @@
 	<ul>
 		#{list items: userCalendars, as:'calendar'}
 			<li><a href="@{Application.currentCalendar(calendar.name)}">${calendar.name}</a></li>
+			<a href=@{IndexPage.deleteCalendar(calendar.name)}>Delete</a>
 		#{/list}
 	</ul>
 </div>
-	
+
 <div id="search">
 	<h4>Search for other users</h4>
 	#{form @IndexPage.searchUser()}
@@ -30,4 +31,13 @@
 		</li>
 	</ul>
 	#{/list}
+</div>
+
+<div id="addCalendar">
+	<h4>Add a new Calendar</h4>
+	#{form @IndexPage.addCalendar()}
+			<label for="name">Calendar Name </label> <br/>
+			<input type="text" name="calendarName" />
+			<input type="submit" value ="Add">
+	#{/form}
 </div>

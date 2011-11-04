@@ -19,6 +19,9 @@ public abstract class CalendarManager {
 
 	public abstract EseCalendar createCalendar(User user, String name)
 			throws CalendarAlreadyExistsException;
+	
+	public abstract void removeCalendar(String name)
+			throws NoSuchCalendarException;
 
 	/**
 	 * 
