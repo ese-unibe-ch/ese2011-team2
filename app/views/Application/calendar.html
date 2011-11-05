@@ -48,9 +48,9 @@
 				
 					#{if user.name == eventOwner}
 						<br/>
-							<a href=@{Application.editEvent(calendar.name, event.getId(), 
+							<a href=@{ModifyEvent.editEvent(calendar.name, event.getId(), 
 								event.start.format("dd.MM.yyyy HH:mm"), event.getSeries() != null)}>Edit</a> | 
-							<a href=@{Application.deleteEvent(calendar.name, event.getId(), 
+							<a href=@{ModifyEvent.deleteEvent(calendar.name, event.getId(), 
 								event.start.format("dd.MM.yyyy HH:mm"), event.getSeries() != null)}>Delete</a>
 					#{/if}
 			#{/if}
@@ -60,6 +60,7 @@
 
 			</li>
 			#{/list}
+			#{else} none #{/else}
 		</ul>
 	</div>
 	

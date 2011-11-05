@@ -118,28 +118,6 @@ public class Application extends Controller {
 		}
 		calendar(calendarName);
 	}
-
-	public static void createEvent(String calendarName, String name, String startDate, 
-			String duration, String visibility, String repetition, String description)
-			throws Throwable {
-		Date sDate = EseDateFormat.getInstance().parse(startDate);
-		int minDur = Integer.parseInt(duration);
-		Date eDate = new Date();
-		eDate.setTime(sDate.getTime()+1000*60*minDur);
-		Visibility vis = Visibility.valueOf(visibility.toUpperCase());
-		//Date eDate = EseDateFormat.getInstance().parse(endDate); //old version
-		String userName = Security.connected();
-		User user = UserManager.getInstance().getUserByName(userName);
-		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
-				calendarName);
-		if (repetition.equalsIgnoreCase("never")) {
-			calendar.addEvent(user, sDate, eDate, name, vis, description);
-		} else {
-			calendar.addEventSeries(user, sDate, eDate, name, vis, 
-					Repetition.valueOf(repetition.toUpperCase()), description);
-		}
-		calendar(calendarName);
-	}
 	
 	/**
 	 * Shows the calendar with the given date selected.
@@ -170,101 +148,6 @@ public class Application extends Controller {
 		selectDate(calendarName, juc.get(java.util.Calendar.DAY_OF_MONTH),
 				juc.get(java.util.Calendar.MONTH),
 				juc.get(java.util.Calendar.YEAR));
-	}
-	
-	/**
-	 * An event is identified by its unique id. For finding it
-	 * easily, we have to know it's startDate.
-	 * 
-	 * @param calendarName
-	 * @param hash hashCode() of the to be deleted event
-	 */
-	public static void deleteEvent(String calendarName, String id,
-			String startDate, boolean isSeries) throws ParseException {
-		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
-				calendarName);
-		String userName = Security.connected();
-		User user = UserManager.getInstance().getUserByName(userName);
-		CalendarEvent event = calendar.getEventById(user, id);
-		if (isSeries) {
-			render(user, calendar, event);
-		}
-		calendar.removeEvent(user, id);
-		calendar(calendarName);
-	}
-	
-	public static void deleteWholeSeries(String calendarName, String id) {
-		String userName = Security.connected();
-		User user = UserManager.getInstance().getUserByName(userName);
-		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(calendarName);
-		calendar.removeEventSeries(user, id);
-		calendar(calendarName);
-	}
-	
-	/**
-	 * 
-	 * @param calendarName
-	 * @param id The id of a SerialEvent
-	 */
-	public static void deleteSingleSerialEvent(String calendarName, String id) {
-		String userName = Security.connected();
-		User user = UserManager.getInstance().getUserByName(userName);
-		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(calendarName);
-		CalendarEvent event = calendar.getEventById(user, id);
-		event.getSeries().addExceptionalInstance(id, null);
-		calendar(calendarName);
-	}
-
-	public static void editEvent(String calendarName, String id, 
-			String startDate, boolean isSeries, String repetition)
-			throws ParseException {
-		Date sDate = EseDateFormat.getInstance().parse(startDate);
-
-		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
-				calendarName);
-		String userName = Security.connected();
-		User user = UserManager.getInstance().getUserByName(userName);
-		Visibility[] visibilities = Visibility.values();
-		try {
-			CalendarEvent event = calendar.getEventById(user, id);
-			//this is quite ugly:
-			boolean[] repChecked = new boolean[4];
-			if (event.getSeries() == null) {
-				repChecked[0]  = true;
-			} else {
-				repChecked[event.getSeries().getRepetition().ordinal() + 1] = true;
-			}
-			render(calendar, event, visibilities, repChecked);
-		} catch (EventNotFoundException exception) {
-			error(exception.getMessage());
-		}
-	}
-	
-	public static void saveEditedEvent(String calendarName, String id, String oldStartDate, 
-			String name, String startDate, String duration, String visibility, 
-			String description, String repetition, boolean wasSeries) 
-			throws ParseException {
-		
-		Date oldDate = EseDateFormat.getInstance().parse(oldStartDate);
-		Date sDate = EseDateFormat.getInstance().parse(startDate);
-		int minDur = Integer.parseInt(duration);
-		Date eDate = new Date();
-		eDate.setTime(sDate.getTime()+1000*60*minDur);
-		Visibility vis = Visibility.valueOf(visibility.toUpperCase());
-		//Date eDate = EseDateFormat.getInstance().parse(endDate);
-		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
-				calendarName);
-		String userName = Security.connected();
-		User user = UserManager.getInstance().getUserByName(userName);
-		calendar.removeEvent(user, id);
-		if (repetition.equalsIgnoreCase("never")) {
-			calendar.addEvent(user, sDate, eDate, name, vis, 
-					description);
-		} else {
-			calendar.addEventSeries(user, sDate, eDate, name, vis, 
-					Repetition.valueOf(repetition.toUpperCase()), description);
-		}
-		selectDate(calendarName, sDate);
 	}
 	
 	/**
