@@ -104,7 +104,7 @@ public class Bootstrap extends Job {
 		juc.set(2011, 11, 4, 5, 00);
 		end = juc.getTime();
 		erwanncal.addEventSeries(User.ADMIN, start, end, "Full moon", 
-				Visibility.PUBLIC, Repetition.MONTHLY, "careful, werewolfs might appear");
+				Visibility.PUBLIC, Repetition.MONTHLY, "careful, werewolves might appear");
 
 		erwann.addToMyContacts(judith);
 		erwann.addToMyContacts(aaron);
