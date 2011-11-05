@@ -98,9 +98,9 @@ public interface EventSeries {
 	 * Note that at this occurence it will not be the passed intance for exceptionalEvent
 	 * that is returned but an event with a regular serial-event id
 	 * 
-	 * @param consecutiveNumber
+	 * @param id
 	 * @param exceptionalEvent how the exceptional event should look like, or null if the instance is deleted from the series
 	 */
-	public void addExceptionInstance(long consecutiveNumber, CalendarEvent exceptionalEvent);
+	public void addExceptionalInstance(String id, CalendarEvent exceptionalEvent);
 
 }

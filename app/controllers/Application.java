@@ -181,9 +181,6 @@ public class Application extends Controller {
 	 */
 	public static void deleteEvent(String calendarName, String id,
 			String startDate, boolean isSeries) throws ParseException {
-
-		Date sDate = EseDateFormat.getInstance().parse(startDate);
-
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
 				calendarName);
 		String userName = Security.connected();
@@ -192,28 +189,25 @@ public class Application extends Controller {
 		if (isSeries) {
 			render(user, calendar, event);
 		}
-		try {
-			calendar.removeEvent(user, id);
-			calendar(calendarName);
-		} catch (EventNotFoundException exception) {
-			error(exception.getMessage());
-		}
+		calendar.removeEvent(user, id);
+		calendar(calendarName);
 	}
 	
 	public static void deleteWholeSeries(String calendarName, String id) {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(calendarName);
-		calendar.removeEvent(user, id);
+		calendar.removeEventSeries(user, id);
 		calendar(calendarName);
 	}
 	
 	public static void deleteSingleSerialEvent(String calendarName, String id) {
-		try {
-		throw new RuntimeException("Prototype of EventSeries could not be found.");
-		} catch (Exception exception) {
-			error(exception);
-		}
+		String userName = Security.connected();
+		User user = UserManager.getInstance().getUserByName(userName);
+		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(calendarName);
+		CalendarEvent event = calendar.getEventById(user, id);
+		event.getSeries().addExceptionalInstance(id, null);
+		calendar(calendarName);
 	}
 
 	public static void editEvent(String calendarName, String id, 

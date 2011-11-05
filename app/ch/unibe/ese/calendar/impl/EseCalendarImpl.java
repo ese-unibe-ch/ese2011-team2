@@ -36,7 +36,6 @@ import ch.unibe.ese.calendar.util.StartDateComparator;
 public class EseCalendarImpl extends EseCalendar {
 	
 	private SortedSet<CalendarEvent> startDateSortedSet = new TreeSet<CalendarEvent>(new StartDateComparator());
-	private Set<EventSeries> series = new HashSet<EventSeries>();
 	/**
 	 * Constructs a calendar. Application typically create and retrieve calendars using the CalendarManager.
 	 * 
@@ -51,7 +50,7 @@ public class EseCalendarImpl extends EseCalendar {
 	private String name;
 	private User owner;
 	private Map<String, CalendarEvent> eventsById = new HashMap<String, CalendarEvent>();
-	
+	private Map<String, EventSeries> seriesById = new HashMap<String, EventSeries>();
 	
 	@Override
 	public String getName() {
@@ -63,23 +62,6 @@ public class EseCalendarImpl extends EseCalendar {
 	public User getOwner() {
 		return owner;
 	}
-	
-	/**
-	 * this method is used only for tests.  
-	 */
-	//I think we should use blackbox tests instead (reto)
-	SortedSet<CalendarEvent> getStartDateSortedSet() {
-		return startDateSortedSet;
-	}
-	
-	/**
-	 * this method is used only for tests. I think we should use blackbox tests instead 
-	 */
-	//I think we should use blackbox tests instead (reto)
-	Set<EventSeries> getStartDateSortedSetOfSeries() {
-		return series;
-	}
-
 	
 	@Override
 	public CalendarEvent addEvent(User user, Date start, Date end, String eventName, Visibility visibility, String description) {
@@ -96,7 +78,7 @@ public class EseCalendarImpl extends EseCalendar {
 			Repetition repetition, String description){
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
 		EventSeries eventSeries = new EventSeriesImpl(start, end, eventName, visibility, repetition, this, description);
-		series.add(eventSeries);
+		seriesById.put(eventSeries.getId(), eventSeries);
 		return eventSeries;
 	}
 	
@@ -105,31 +87,35 @@ public class EseCalendarImpl extends EseCalendar {
 	public CalendarEvent removeEvent(User user, String id) {
 		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
 		CalendarEvent e = getEventById(user, id);
-		//FIXME should remove event not series
-		if (e.getSeries() != null) {
-			series.remove(e.getSeries());
-		} else {
-			eventsById.remove(e.getId());
-			startDateSortedSet.remove(e);
-		}
+		eventsById.remove(e.getId());
+		startDateSortedSet.remove(e);
 		return e;
 	}
 	
 	
 	
 	@Override
+	public EventSeries removeEventSeries(User user, String id) {
+		Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
+		CalendarEvent e = getEventById(user, id);
+		seriesById.remove(e.getSeries().getId());
+		return e.getSeries();
+	}
+
+
+	@Override
 	public CalendarEvent getEventById(User user, String id) {
+		CalendarEvent ce;
 		if (id.indexOf('-') > 0) {
-			throw new RuntimeException("getting serial events not yet supported");
+			id = id.substring(0, id.indexOf('-'));
+			ce = seriesById.get(id).getEventByConsecutiveNumber(0);
+		} else {
+			ce = eventsById.get(id);
 		}
-		if (!eventsById.containsKey(id)) {
-			return null;
-		}
-		CalendarEvent calendarEvent = eventsById.get(id);
-		if (calendarEvent.getVisibility().equals(Visibility.PRIVATE)) {
+		if (ce != null && ce.getVisibility().equals(Visibility.PRIVATE)) {
 			Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
 		}
-		return calendarEvent;
+		return ce;
 	}
 
 	@Override
@@ -205,7 +191,7 @@ public class EseCalendarImpl extends EseCalendar {
 	 * @return an iterator with all serial events
 	 */
 	private Iterator<EventSeries> iterateSeries(User user){
-		Iterator<EventSeries> allEventSeries = series.iterator();
+		Iterator<EventSeries> allEventSeries = seriesById.values().iterator();
 		return new ACFilteringEventSeriesIterator(user, allEventSeries);
 	}
 	
@@ -306,10 +292,5 @@ public class EseCalendarImpl extends EseCalendar {
 			throw new UnsupportedOperationException("not supported yet");
 		}
 
-	}
-	@Override
-	public EventSeries removeEventSeries(User user, String id) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("not yet implemented");
 	}
 }

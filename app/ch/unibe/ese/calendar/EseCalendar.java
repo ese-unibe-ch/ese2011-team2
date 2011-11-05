@@ -22,6 +22,8 @@ public abstract class EseCalendar {
 	public abstract Iterator<CalendarEvent> iterate(User user, Date start);
 
 	/**
+	 * If the id belongs to a EventSeries, this method returns the prototype.
+	 * Beware, that the prototype could also be an exceptionalInstance.
 	 * 
 	 * @param user the user requesting the operation
 	 * @param id the id of the event

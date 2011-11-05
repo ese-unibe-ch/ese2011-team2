@@ -2,8 +2,10 @@ package ch.unibe.ese.calendar.impl;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.Map;
 
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.EseCalendar;
@@ -16,6 +18,7 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 					"de", "CH");
 
 	
+	private Map<String, CalendarEvent> exceptionalInstance = new HashMap<String, CalendarEvent>();
 	private Repetition repetition;
 
 	EventSeriesImpl(Date start, Date end, String name, Visibility visibility, 
@@ -60,6 +63,8 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 		int month = jucDayStart.get(Calendar.MONTH);
 		int day = jucDayStart.get(Calendar.DAY_OF_MONTH);
 		
+		long consecutiveNumber = getConsecutiveNumber(jucDayStart);
+		
 		int hour = jucEventStart.get(Calendar.HOUR_OF_DAY);
 		int min = jucEventStart.get(Calendar.MINUTE);
 		jucDayStart.set(year, month, day, hour, min);
@@ -72,7 +77,6 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 		int min2 = jucEventEnd.get(Calendar.MINUTE);
 		jucEventEnd.set(year+durYear, month + durMonth, day + durDay, hour2, min2);
 		Date end = jucEventEnd.getTime();
-		long consecutiveNumber = getConsecutiveNumber(jucEventStart);
 		SerialEvent se = new SerialEvent(start, end, getName(), getVisibility(), 
 				this, getCalendar(), getDescription(), consecutiveNumber);
 		return se;
@@ -95,13 +99,11 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 		jucProtoEventEnd.setTime(getEnd());
 		//FIXME change of year could lead to negative maxDur
 		int maxDur = jucProtoEventEnd.get(Calendar.DAY_OF_YEAR) - jucProtoEventStart.get(Calendar.DAY_OF_YEAR);
-		System.out.println(maxDur);
 		boolean match = false;
 		for (int dur = 0; dur <= maxDur; dur++) {
 			//FIXME doesn't work for events at end of week of of week (use Calendar.add instead)
 			int weekDayOfEventSerie = jucProtoEventStart.get(Calendar.DAY_OF_WEEK) + dur;
 			int monthDayOfEventSerie = jucProtoEventStart.get(Calendar.DAY_OF_MONTH) + dur;
-			System.out.println ("I'm going to  bc: " + dur);
 			if (repetition.equals(repetition.DAILY)) {
 				match = true;
 			}
@@ -112,7 +114,6 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 				if(monthDayOfEventSerie == monthDayOfDate) match = true;
 			}
 		}
-		System.out.println("returning false");
 		return match;
 	}
 	
@@ -121,23 +122,38 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 		jucProtoEventStart.setTime(getStart());
 		//TODO apply more efficient algorithm
 		long i = 0;
-		if (jucProtoEventStart.equals(jucProtoEventStart)) {
+		if (jucProtoEventStart.equals(jucEvaluatedDay)) {
 			return 0;
 		}
 		if (jucProtoEventStart.before(jucEvaluatedDay)) {
 			while (jucProtoEventStart.before(jucEvaluatedDay)) {
 				i++;
-				jucEvaluatedDay.add(Calendar.DAY_OF_MONTH, 1);
+				jucEvaluatedDay.add(Calendar.DAY_OF_MONTH, -1);
 			}
 		} else {
-			while (jucProtoEventStart.before(jucEvaluatedDay)) {
+			while (jucProtoEventStart.after(jucEvaluatedDay)) {
 				i--;
-				jucEvaluatedDay.add(Calendar.DAY_OF_MONTH, -1);
+				jucEvaluatedDay.add(Calendar.DAY_OF_MONTH, 1);
 			}
 		}
 		return i;
 	}
 	
+
+	@Override
+	public CalendarEvent getEventByConsecutiveNumber(long consecutiveNumber) {
+		if (consecutiveNumber == 0)
+			return getAsSerialEventForDay(getStart());
+		throw new UnsupportedOperationException("not yet impl");
+	}
+
+
+	@Override
+	public void addExceptionalInstance(String id,
+			CalendarEvent exceptionalEvent) {
+		exceptionalInstance.put(id, exceptionalEvent);
+	}
+
 
 	/**
 	 * Help! what does this thing do?
@@ -165,6 +181,10 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 				currentDate = nextDay();
 			}
 			CalendarEvent result = getAsSerialEventForDay(currentDate);
+			if (exceptionalInstance.containsKey(result.getId())) {
+				result = exceptionalInstance.get(result.getId());
+				System.out.println("Added exception: " + result);
+			}
 			currentDate = nextDay();
 			return result;
 		}
@@ -179,21 +199,6 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 			throw new UnsupportedOperationException();
 		}
 
-	}
-
-
-	@Override
-	public CalendarEvent getEventByConsecutiveNumber(long consecutiveNumber) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("not yet impl");
-	}
-
-
-	@Override
-	public void addExceptionInstance(long consecutiveNumber,
-			CalendarEvent exceptionalEvent) {
-		throw new UnsupportedOperationException("not yet impl");
-		
 	}
 
 }
