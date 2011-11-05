@@ -1,8 +1,8 @@
 package ch.unibe.ese.calendar;
 
 /**
- * Used to indeicate the visibility of an event
- *
+ * Used to indicate the visibility of an event
+ * 
  */
 public enum Visibility {
 	/**

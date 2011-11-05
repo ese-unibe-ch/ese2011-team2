@@ -7,7 +7,8 @@ import java.util.Date;
 public interface CalendarEvent {
 
 	/**
-	 * @return true if this is a public event
+	 * @see Visibility
+	 * @return The visibility of the Event
 	 */
 	public Visibility getVisibility();
 
@@ -26,21 +27,24 @@ public interface CalendarEvent {
 	/**
 	 * The name is typically a short description of the event
 	 * 
-	 * @return the name of the event
+	 * @return The name of the event
 	 */
 	public String getName();
 
 	/**
-	 * Gets the calendar the entry belongs to.
-	 * @return a calendar, which the entry belongs to.
+	 * Every Event has a EseCalendar it belongs to. 
+	 * This may not be null.
+	 * @return The EseCalendar, which the entry belongs to.
 	 */
 	public EseCalendar getCalendar();
 	
 	/**
-	 * if this event belongs to a series this returns this series
-	 * @return the EventSeries of null if this is an individual event
+	 * If this event belongs to a series this returns this series.
+	 * If not, null is returned.
+	 * @return The EventSeries of this Event, null if this is an individual event
 	 */
 	public EventSeries getSeries();
+	
 	/**
 	 * 
 	 * @return a description of the event
@@ -50,7 +54,7 @@ public interface CalendarEvent {
 	/**
 	 * For individual events the id contains no dash ('-') sign, for serial events
 	 * if has exactly one dash so that the part before the dash is the id of the series
-	 * and the part after the dash the consequtive number within the series
+	 * and the part after the dash the consequtive number within the series.
 	 * 
 	 * @return the unique ID for this event.
 	 */
