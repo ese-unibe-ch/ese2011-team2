@@ -112,7 +112,9 @@ public class EseCalendarImpl extends EseCalendar {
 		} else {
 			ce = eventsById.get(id);
 		}
-		if (ce != null && ce.getVisibility().equals(Visibility.PRIVATE)) {
+		if (ce == null)
+			throw new EventNotFoundException("No event with this id: " + id);
+		if (ce.getVisibility().equals(Visibility.PRIVATE)) {
 			Policy.getInstance().checkPermission(user, new PrivilegedCalendarAccessPermission(name));
 		}
 		return ce;

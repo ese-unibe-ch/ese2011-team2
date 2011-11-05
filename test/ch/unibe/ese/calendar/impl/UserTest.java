@@ -104,6 +104,11 @@ public class UserTest extends UnitTest {
 		uOne.addToMyContacts(uTwo);
 		assertTrue(uOne.getMyContacts().keySet().contains(uTwo));
 	}
+	
+	@Test(expected=InvalidActivityException.class)
+	public void removeSelfFromContacts() throws InvalidActivityException {
+		uOne.removeFromMyContacts(uOne);
+	}
 
 	@Test
 	public void trytoAddUserTwiceToContacts() {
@@ -114,15 +119,30 @@ public class UserTest extends UnitTest {
 	}
 
 	@Test
-	public void removeContacts() {
+	public void removeContacts() throws InvalidActivityException {
 		uOne.addToMyContacts(uTwo);
 		assertTrue(uOne.getMyContacts().keySet().contains(uTwo));
-		try {
-			uOne.removeFromMyContacts(uTwo);
-		} catch (InvalidActivityException e) {
-			e.printStackTrace();
-		}
+		uOne.removeFromMyContacts(uTwo);
 		assertFalse(uOne.getMyContacts().keySet().contains(uTwo));
+	}
+	
+	@Test
+	public void testGetSortedContacts() {
+		uOne.addToMyContacts(uTwo);
+		assertTrue(uOne.getSortedContacts().contains(uTwo));
+		//FIXME why does this fail?
+		assertTrue(uOne.getSortedContacts().contains(uOne));
+		assertEquals(uOne, uOne.getSortedContacts().first());
+	}
+	
+	@Test
+	public void deselectContacts() {
+		uOne.addToMyContacts(uTwo);
+		uOne.setContactSelection(uTwo, true);
+		assertTrue(uOne.isContactSelected(uTwo));
+		uOne.unselectAllContacts();
+		assertFalse(uOne.isContactSelected(uTwo));
+		assertFalse(uOne.isContactSelected(uOne));
 	}
 
 }
