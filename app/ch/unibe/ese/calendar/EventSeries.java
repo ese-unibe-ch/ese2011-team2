@@ -72,7 +72,8 @@ public interface EventSeries {
 	public String getId();
 	
 	/**
-	 * @return the repetionm of the events of this series
+	 * @return the repetition of the events of this series
+	 * @see Repetition
 	 */
 	public Repetition getRepetition();
 
