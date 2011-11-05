@@ -135,8 +135,10 @@ public class UserTest extends UnitTest {
 	public void testGetSortedContacts() {
 		uOne.addToMyContacts(uTwo);
 		assertTrue(uOne.getSortedContacts().contains(uTwo));
+		//FIXME why does this fail?
 		assertEquals(uOne, uOne.getSortedContacts().first());
-		assertTrue(uOne.getSortedContacts().contains(uOne));
+		SortedSet<User> sortedContacts = uOne.getSortedContacts();
+		assertTrue(sortedContacts.contains(uOne));
 	}
 	
 	@Test

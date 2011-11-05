@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.text.ParseException;
 import java.util.Date;
-import java.util.SortedSet;
 
 import javax.activity.InvalidActivityException;
 
@@ -20,11 +19,13 @@ import play.test.UnitTest;
 public class UserTest extends UnitTest {
 
 	User uOne, uTwo, uNull;
+	Date birthday;
 
 	@Before
 	public void setUp() throws ParseException {
-		uOne = new User("userOne", "password1", DetailedProfileVisibility.PRIVATE);
-		uTwo = new User("userTwo", "password2", DetailedProfileVisibility.PUBLIC);
+		birthday = EseDateFormat.getInstance().parse("12.04.1995 00:00");
+		uOne = new User("userOne", "password1", birthday, DetailedProfileVisibility.PRIVATE);
+		uTwo = new User("userTwo", "password2", birthday, DetailedProfileVisibility.PUBLIC);
 		uNull = new User(null);
 	}
 
@@ -73,7 +74,7 @@ public class UserTest extends UnitTest {
 		assertFalse(uNull.equals(null));
 		assertFalse(uOne.equals("bla"));
 		assertFalse(uNull.equals(uOne));
-		User uOneSameName = new User("userOne", "paswrd", DetailedProfileVisibility.PRIVATE);
+		User uOneSameName = new User("userOne", "paswrd", birthday, DetailedProfileVisibility.PRIVATE);
 		assertTrue(uOne.equals(uOneSameName));
 	}
 
@@ -125,18 +126,13 @@ public class UserTest extends UnitTest {
 		assertFalse(uOne.getMyContacts().keySet().contains(uTwo));
 	}
 	
-	@Test (expected=InvalidActivityException.class)
-	public void tryToRemoveConnectedUserFromOwnContacts() 
-			throws InvalidActivityException {
-		uOne.removeFromMyContacts(uOne);
-	}
-	
 	@Test
 	public void testGetSortedContacts() {
 		uOne.addToMyContacts(uTwo);
 		assertTrue(uOne.getSortedContacts().contains(uTwo));
-		assertEquals(uOne, uOne.getSortedContacts().first());
+		//FIXME why does this fail?
 		assertTrue(uOne.getSortedContacts().contains(uOne));
+		assertEquals(uOne, uOne.getSortedContacts().first());
 	}
 	
 	@Test
