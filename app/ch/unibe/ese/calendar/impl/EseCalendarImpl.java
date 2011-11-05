@@ -107,8 +107,9 @@ public class EseCalendarImpl extends EseCalendar {
 	public CalendarEvent getEventById(User user, String id) {
 		CalendarEvent ce;
 		if (id.indexOf('-') > 0) {
-			id = id.substring(0, id.indexOf('-'));
-			ce = seriesById.get(id).getEventByConsecutiveNumber(0);
+			String seId = id.substring(0, id.indexOf('-'));
+			long consecutiveNumber = Long.parseLong(id.substring(id.indexOf('-') + 1));
+			ce = seriesById.get(seId).getEventByConsecutiveNumber(consecutiveNumber);
 		} else {
 			ce = eventsById.get(id);
 		}

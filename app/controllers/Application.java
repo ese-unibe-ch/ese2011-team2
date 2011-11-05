@@ -201,6 +201,11 @@ public class Application extends Controller {
 		calendar(calendarName);
 	}
 	
+	/**
+	 * 
+	 * @param calendarName
+	 * @param id The id of a SerialEvent
+	 */
 	public static void deleteSingleSerialEvent(String calendarName, String id) {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);

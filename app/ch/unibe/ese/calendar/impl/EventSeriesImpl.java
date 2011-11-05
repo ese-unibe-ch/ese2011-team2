@@ -142,9 +142,11 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 
 	@Override
 	public CalendarEvent getEventByConsecutiveNumber(long consecutiveNumber) {
-		if (consecutiveNumber == 0)
-			return getAsSerialEventForDay(getStart());
-		throw new UnsupportedOperationException("not yet impl");
+		java.util.Calendar jucProtoEventStart = java.util.Calendar.getInstance(locale);
+		jucProtoEventStart.setTime(getStart());
+		jucProtoEventStart.setTimeInMillis(jucProtoEventStart.getTimeInMillis()+
+				consecutiveNumber*24*60*60*1000);
+		return getAsSerialEventForDay(jucProtoEventStart.getTime());
 	}
 
 
@@ -183,7 +185,6 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 			CalendarEvent result = getAsSerialEventForDay(currentDate);
 			if (exceptionalInstance.containsKey(result.getId())) {
 				result = exceptionalInstance.get(result.getId());
-				System.out.println("Added exception: " + result);
 			}
 			currentDate = nextDay();
 			return result;

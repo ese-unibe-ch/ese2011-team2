@@ -84,4 +84,16 @@ public class EventIdTest extends UnitTest {
 		CalendarEvent e = calendar.getEventById(user.ADMIN, iter.next().getId());
 		assertEquals(es, e.getSeries());
 	}
+	
+	@Test
+	public void deleteSingleInstanceOfSeries() {
+		Iterator<CalendarEvent> iter = es.iterator(start);
+		CalendarEvent e = iter.next();
+		es.addExceptionalInstance(e.getId(), null);
+		iter = es.iterator(start);
+		e = iter.next();
+		assertNull(e);
+		e = iter.next();
+		assertNotNull(e);
+	}
 }
