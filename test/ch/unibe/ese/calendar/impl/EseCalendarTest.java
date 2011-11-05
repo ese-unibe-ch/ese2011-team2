@@ -71,6 +71,7 @@ public class EseCalendarTest extends UnitTest {
 		EventSeries eventSeries = calendar.addEventSeries(user.ADMIN, start, end, eventName, Visibility.PUBLIC, Repetition.WEEKLY,"random Kommentar1");
 		iter = calendar.iterate(user.ADMIN, start);
 		int k = 0;
+		//this would go on forever, because a series doesn't end
 		while (iter.hasNext() && k < 100) {
 			assertEquals(eventSeries, iter.next().getSeries());
 			k++;
