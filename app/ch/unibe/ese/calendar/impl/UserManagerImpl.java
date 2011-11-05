@@ -32,7 +32,7 @@ public class UserManagerImpl extends UserManager {
 	@Override
 	public synchronized User createUser(String userName, String password, 
 			Date birthday, DetailedProfileVisibility detailedProfileVisibility) {
-		User user = new User(userName, password, birthday, detailedProfileVisibility);
+		User user = new User(userName, password, detailedProfileVisibility);
 		users.put(userName, user);
 		return user;
 	}

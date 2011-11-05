@@ -24,7 +24,6 @@ public class User {
 
 	private String userName;
 	private Object password;
-	private Date birthday;
 	private Map<User, Boolean> myContacts = new HashMap<User, Boolean>();
 	
 	public static enum DetailedProfileVisibility {
@@ -33,10 +32,9 @@ public class User {
 	
 	private DetailedProfileVisibility detailedProfileVisibility;
 	
-	public User(String userName, String password, Date birthday, DetailedProfileVisibility detailedProfileVisibility) {
+	public User(String userName, String password, DetailedProfileVisibility detailedProfileVisibility) {
 		this.userName = userName;
 		this.password = password;
-		this.birthday = birthday;
 		this.detailedProfileVisibility = detailedProfileVisibility;
 		this.myContacts.put(this, true);
 	}
@@ -46,7 +44,7 @@ public class User {
 	 * @param userName
 	 */
 	public User(String userName) {
-		this(userName, Integer.toString((int)(Math.random()*1000)), null, DetailedProfileVisibility.PRIVATE);
+		this(userName, Integer.toString((int)(Math.random()*1000)), DetailedProfileVisibility.PRIVATE);
 	}
 	
 	/**
@@ -145,15 +143,6 @@ public class User {
 	 */
 	public Object getPassword() {
 		return password;
-	}
-	
-	/**
-	 * 
-	 * @return a point in time that belongs to the day of birth of the user in the 
-	 * timezone in which the user was born
-	 */
-	public Date getBirthday() {
-		return birthday;
 	}
 	
 	public DetailedProfileVisibility getDetailedProfileVisibility() {

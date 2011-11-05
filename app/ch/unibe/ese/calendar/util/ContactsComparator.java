@@ -21,6 +21,10 @@ public class ContactsComparator implements Comparator<User> {
 
 	@Override
 	public int compare(User user1, User user2) {
+		if (user1.equals(user2)) {
+			return 0;
+		}
+		
 		if (user1.equals(connectedUser)) {
 			return -1;
 		}
