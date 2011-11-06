@@ -73,4 +73,28 @@ public class EseCalendarTest2 extends UnitTest {
 		assertEquals(es, eventsAt.next().getSeries());
 		assertFalse(eventsAt.hasNext());		
 	}
+	
+	/**
+	 * FIXME
+	 * This one still fails bc getAsSerialEventForDay and dateMatches
+	 * don't work as intended
+	 * @throws ParseException
+	 */
+	@Test
+	public void longSerialEventShouldHaveSameAttributesThroughWholeInstance() throws ParseException {
+		Date dayStart = EseDateFormat.getInstance().parse("4.1.10 00:00");
+		CalendarEvent dayFourOfEvent = calendar.getEventsAt(user.ADMIN, dayStart).first();
+		dayStart = EseDateFormat.getInstance().parse("1.1.10 00:00");
+		CalendarEvent dayOneOfEvent = calendar.getEventsAt(user.ADMIN, dayStart).first();
+		assertEquals(dayOneOfEvent.getName(), dayFourOfEvent.getName());
+		//do we want that?
+		//assertEquals(dayOneOfEvent.getId(), dayFourOfEvent.getId()); 
+		assertEquals(dayOneOfEvent.getCalendar(), dayFourOfEvent.getCalendar());
+		assertEquals(dayOneOfEvent.getVisibility(), dayFourOfEvent.getVisibility());
+		assertEquals(dayOneOfEvent.getSeries(), dayFourOfEvent.getSeries());
+		assertEquals(dayOneOfEvent.getDescription(), dayFourOfEvent.getDescription());
+		assertEquals(dayOneOfEvent.getStart(), dayFourOfEvent.getStart());
+		assertEquals(dayOneOfEvent.getEnd(), dayFourOfEvent.getEnd());
+		assertEquals(dayOneOfEvent.toString(), dayFourOfEvent.toString());
+	}
 }
