@@ -1,0 +1,85 @@
+#{selenium 'Test Calendar'}
+
+
+	clearSession()
+
+	// Login Erwann
+	open('/secure/login')
+	waitForPageToLoad(1000)
+	type('username', 'erwann')
+	type('password', 'ese')
+	clickAndWait('css=input[type=submit]')
+	assertTitle('Home')
+	
+	// Check out Erwanns Calendar
+	clickAndWait('link=Erwanns Calendar')
+	assertTitle('Calendar')
+	
+	// Event: Create
+	type('name', 'lunch')
+	type('startDate', '05.10.2011 12:00')
+	type('description', 'eat and die')
+	clickAndWait('css=input[type=submit]')
+	open(http://localhost:9000/application/selectdate?month=9&year=2011&day=5&calendarName=Erwanns+Calendar)
+	waitForPageToLoad(1000)
+	assertTextPresent('lunch')
+	assertTextPresent('private')
+	
+	// Event: Edit
+	clickAndWait('link=Edit')
+	assertTitle('Edit Event')
+	assertTextPresent('Edit "lunch"')
+	type('name', 'big lunch')
+	type('startDate', '05.10.2011 11:30')
+	type('duration', '120')
+	type('description', 'eat and love')
+	click('css=input[value="public"]')
+	clickAndWait('css=input[type=submit]')
+	assertTitle('Calendar')
+	assertTextPresent('big lunch')
+	assertTextPresent('11:30, 05.Oct - 13:30, 05.Oct')
+	assertTextPresent('(public Event created by erwann)')
+	assertTextPresent('Description: eat and love')
+	
+	// Event: Delete
+	clickAndWait('link=Delete')
+	assertTitle('Calendar')
+	assertTextNotPresent('big lunch')
+	
+	// LongEvent: Create
+	type('name', 'trip')
+	type('startDate', '05.10.2011 08:00')
+	type('duration', '2160')
+	type('description', 'trip to paris')
+	clickAndWait('css=input[type=submit]')
+	open(http://localhost:9000/application/selectdate?month=9&year=2011&day=5&calendarName=Erwanns+Calendar)
+	waitForPageToLoad(1000)
+	assertTextPresent('trip')
+	assertTextPresent('private')
+	
+	// LongEvent: Edit
+	clickAndWait('link=Edit')
+	assertTitle('Edit Event')
+	assertTextPresent('Edit "trip"')
+	type('name', 'extended trip')
+	type('duration', '2880')
+	type('description', 'extended trip')
+	click('css=input[value="public"]')
+	clickAndWait('css=input[type=submit]')
+	assertTitle('Calendar')
+	assertTextPresent('extended trip')
+	assertTextPresent('08:00, 05.Oct - 08:00, 07.Oct')
+	assertTextPresent('(public Event created by erwann)')
+	assertTextPresent('Description: extended trip')
+	open(http://localhost:9000/application/selectdate?month=9&year=2011&day=7&calendarName=Erwanns+Calendar)
+	waitForPageToLoad(1000)
+	assertTextPresent('extended trip')
+	
+	// Delete Event
+	clickAndWait('link=Delete')
+	assertTitle('Calendar')
+	assertTextNotPresent('extended trip')
+	
+	
+	
+#{/selenium}

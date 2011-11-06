@@ -1,0 +1,59 @@
+#{selenium 'Test Login'}
+
+	clearSession()
+    // Open the home page, and check that no error occurred
+    open('/')
+    waitForPageToLoad(1000)
+    assertNotTitle('Application error')
+
+	// Log-In Erwann, and check that it worked
+	open('/secure/login')
+	waitForPageToLoad(1000)
+	assertTitle('Login')
+	type('username', 'erwann')
+	type('password', 'ese')
+	clickAndWait('css=input[type=submit]')
+	assertTitle('Home')
+	assertTextPresent('Calendar')
+	assertTextPresent('Erwanns Calendar')
+	assertTextPresent('Search for other users')
+	assertTextPresent('Add a new Calendar')
+	
+	// Add a new Calendar
+	type('calendarName','aCal')
+	clickAndWait('css=#addCalendar > form > input[type="submit"]')
+	assertTitle('Home')
+	assertTextPresent('aCal')
+	clickAndWait('link=aCal')
+	assertTitle('Calendar')
+	assertTextPresent('aCal')
+	
+	
+	// Go Home and Delete test Calendar
+	clickAndWait('link=Home')
+	assertTitle('Home')
+	openAndWait('/indexpage/deletecalendar?calendarName=aCal')
+	assertTextNotPresent('aCal')
+	
+	
+	// Search for other user
+	type('searchRegex', 'judith')
+	clickAndWait('css=input[type=submit]')
+	assertTitle('Home')
+	assertTextPresent('judith')
+	
+	// GoTo judith
+	clickAndWait('link=judith')
+	assertTitle('User')
+	assertTextPresent('judith')
+	
+	// Logout
+	clickAndWait('link=Home')
+	clickAndWait('link=Log out')
+	assertTitle('Login')
+	
+	open(/calendar)
+	assertTitle('Login')
+	
+	
+#{/selenium}
