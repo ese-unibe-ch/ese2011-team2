@@ -75,5 +75,14 @@ public class UserManagerImpl extends UserManager {
 		return Collections.unmodifiableSet(result);
 	}
 	
+	/**
+	 * 
+	 */
+	@Override
+	public synchronized void deleteUser(String username) {
+		users.remove(username);
+		
+	}
+	
 	
 }

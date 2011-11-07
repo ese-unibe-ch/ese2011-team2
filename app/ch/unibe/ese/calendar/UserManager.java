@@ -20,6 +20,8 @@ public abstract class UserManager {
 	public abstract User createUser(String userName, String password,
 			Date birthday, DetailedProfileVisibility detailedProfileVisibility);
 
+	public abstract void deleteUser(String username);
+	
 	/**
 	 * 
 	 * @return the singleton instance
@@ -34,5 +36,5 @@ public abstract class UserManager {
 	public UserManager() {
 		super();
 	}
-
+		
 }
