@@ -38,22 +38,6 @@ public class IndexPage extends Controller {
 		index();
 	}
 
-	public static void addCalendar(String calendarName) {
-		String userName = Security.connected();
-		UserManager um = UserManager.getInstance();
-		User user = um.getUserByName(userName);
-		CalendarManager calendarManager = CalendarManager.getInstance();
-		
-		calendarManager.createCalendar(user, calendarName);
-		index();
-	}
-
-	public static void deleteCalendar(String calendarName) {
-		CalendarManager calendarManager = CalendarManager.getInstance();
-		calendarManager.removeCalendar(calendarName);
-		index();
-	}
-	
 	public static void deleteAccount() throws Throwable{
 		UserManager um = UserManager.getInstance();
 		String userName = Security.connected();

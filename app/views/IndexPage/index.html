@@ -8,24 +8,11 @@
 
 <div id="welcome">
 	<h1>Welcome to the ESE Calendaring app</h1>
-	Your Calendars are: <br/>
-	
-	<ul>
-		#{list items: userCalendars, as:'calendar'}
-			<li><a href="@{Application.currentCalendar(calendar.name)}">${calendar.name}</a></li>
-			<a href=@{IndexPage.deleteCalendar(calendar.name)}>Delete</a>
-		#{/list}
-	</ul>
-	<a href="@{IndexPage.deleteAccount()}">Delete this Account</a>
-</div>
-
-<div id="addCalendar">
-	<h4>Add a new Calendar</h4>
-	#{form @IndexPage.addCalendar()}
-			<label for="name">Calendar Name </label> <br/>
-			<input type="text" name="calendarName" />
-			<input type="submit" value ="Add">
-	#{/form}
+		
+		<a href="@{Application.user(user.name)}">View my Calendars </a> 
+	<p>
+		<a href="@{IndexPage.deleteAccount()}">Delete this Account</a>
+	</p>
 </div>
 
 <div id="search">

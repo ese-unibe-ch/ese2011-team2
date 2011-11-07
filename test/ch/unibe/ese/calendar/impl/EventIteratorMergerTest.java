@@ -8,6 +8,7 @@ import java.util.TreeSet;
 import org.junit.Test;
 
 import ch.unibe.ese.calendar.CalendarEvent;
+import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.Visibility;
 import ch.unibe.ese.calendar.impl.CalendarEventImpl;
 import ch.unibe.ese.calendar.util.EventIteratorMerger;
@@ -17,6 +18,7 @@ import play.test.UnitTest;
 
 public class EventIteratorMergerTest extends UnitTest {
 	java.util.Calendar juc = java.util.Calendar.getInstance();
+	EseCalendarImpl calDummy = new EseCalendarImpl("dummy", new User("dummyUser"));
 	CalendarEvent calendarEvent1;
 	{
 		juc.set(2011, 11, 21, 10, 15);
@@ -24,7 +26,7 @@ public class EventIteratorMergerTest extends UnitTest {
 		juc.set(2011, 11, 21, 11, 15);
 		Date end = juc.getTime();
 		calendarEvent1 = new CalendarEventImpl(start, end,
-				"event 1", Visibility.PUBLIC, null,"random Kommentar1");
+				"event 1", Visibility.PUBLIC, calDummy,"random Kommentar1");
 	}
 	
 	CalendarEvent calendarEvent2;
@@ -34,7 +36,7 @@ public class EventIteratorMergerTest extends UnitTest {
 		juc.set(2011, 11, 21, 11, 15);
 		Date end = juc.getTime();
 		calendarEvent2 = new CalendarEventImpl(start, end,
-				"event 1", Visibility.PUBLIC, null,"random Kommentar1");
+				"event 1", Visibility.PUBLIC, calDummy,"random Kommentar1");
 	}
 	
 	CalendarEvent calendarEvent3;
@@ -44,7 +46,7 @@ public class EventIteratorMergerTest extends UnitTest {
 		juc.set(2011, 11, 21, 11, 15);
 		Date end = juc.getTime();
 		calendarEvent3 = new CalendarEventImpl(start, end,
-				"event 1", Visibility.PUBLIC, null,"random Kommentar1");
+				"event 1", Visibility.PUBLIC, calDummy,"random Kommentar1");
 	}
 	
 	CalendarEvent calendarEvent4;
@@ -54,7 +56,7 @@ public class EventIteratorMergerTest extends UnitTest {
 		juc.set(2011, 11, 21, 11, 15);
 		Date end = juc.getTime();
 		calendarEvent4 = new CalendarEventImpl(start, end,
-				"event 1", Visibility.PUBLIC, null,"random Kommentar1");
+				"event 1", Visibility.PUBLIC, calDummy,"random Kommentar1");
 	}
 	
 	CalendarEvent calendarEvent5;
@@ -64,7 +66,7 @@ public class EventIteratorMergerTest extends UnitTest {
 		juc.set(2011, 11, 21, 11, 15);
 		Date end = juc.getTime();
 		calendarEvent5 = new CalendarEventImpl(start, end,
-				"event 1", Visibility.PUBLIC, null,"random Kommentar1");
+				"event 1", Visibility.PUBLIC, calDummy,"random Kommentar1");
 	}
 	
 	

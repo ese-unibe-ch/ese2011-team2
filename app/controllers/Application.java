@@ -62,8 +62,15 @@ public class Application extends Controller {
 		Iterator iterator = Collections.EMPTY_LIST.iterator();
 		while (iterU.hasNext()){
 			User contact = iterU.next();
+			
 			if (contacts.get(contact)){
-				Set<EseCalendar> contactCalendars = calendarManager.getCalendarsOf(contact);
+				Set<EseCalendar> contactCalendars = new HashSet <EseCalendar>();
+				if (contact.equals(user)){
+					contactCalendars.add(calendarManager.getCalendar(name));
+				}
+				else {
+					 contactCalendars = calendarManager.getCalendarsOf(contact);
+				}
 				selectedUsersCal.addAll(contactCalendars);
 				Iterator<EseCalendar> eseCalendarIter = contactCalendars.iterator();
 				while (eseCalendarIter.hasNext()){
@@ -96,7 +103,8 @@ public class Application extends Controller {
 		User user = UserManager.getInstance().getUserByName(name);
 		Set<EseCalendar> otherCalendars = CalendarManager.getInstance()
 				.getCalendarsOf(user);
-		render(currentUser, user, otherCalendars);
+		Map<User, Boolean > myContacts = user.getMyContacts();
+		render(currentUser, user, otherCalendars, myContacts);
 	}
 	
 	public static void addToContacts(String calendarName, String name) {
@@ -168,6 +176,30 @@ public class Application extends Controller {
 			}
 		}	
 		calendar(calendarName);
+	}
+	/**
+	*
+	*
+	*/
+	public static void deleteCalendar(String calendarName) {
+		CalendarManager calendarManager = CalendarManager.getInstance();
+		calendarManager.removeCalendar(calendarName);
+		String userName = Security.connected();
+		user(userName);
+		
+	}
+	/**
+	*
+	*
+	*/
+	public static void addCalendar(String calendarName) {
+		String userName = Security.connected();
+		UserManager um = UserManager.getInstance();
+		User user = um.getUserByName(userName);
+		CalendarManager calendarManager = CalendarManager.getInstance();
+		
+		calendarManager.createCalendar(user, calendarName);
+		user(userName);
 	}
 
 }

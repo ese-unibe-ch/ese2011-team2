@@ -28,3 +28,9 @@
     padding-bottom: 0.5em;
     min-height: 259px;
 }
+
+#addCalendar {
+	float: right;
+	margin-right: 1em;
+	min-width: 250px;
+}
