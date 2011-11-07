@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -62,5 +63,19 @@ public class UserManagerTest extends UnitTest {
 		Map<String, User> foundUsers = um.getUserByRegex("ni.*");
 		assertFalse(foundUsers.containsValue(gamma));
 		assertFalse(foundUsers.containsValue(gamm));
+	}
+	
+	@Test
+	public void testGetAllUsers() {
+		Set<User> users = um.getAllUsers();
+		assertTrue(users.contains(gamma));
+	}
+	
+	@Test
+	public void testDeleteUser() {
+		um.deleteUser("gamma");
+		Set<User> users = um.getAllUsers();
+		assertFalse(users.contains(gamma));
+		assertTrue(users.contains(gamm));
 	}
 }

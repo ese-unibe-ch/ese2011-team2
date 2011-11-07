@@ -25,6 +25,7 @@ public class CalendarManagerTest extends UnitTest {
 	public void setup() {
 		calManager = CalendarManagerImpl.getInstance();
 		user = new User("dummy");
+		
 	}
 	
 	@After
@@ -78,6 +79,15 @@ public class CalendarManagerTest extends UnitTest {
 		EseCalendar cal1 = calManager.createCalendar(user, "Home");
 		@SuppressWarnings("unused")
 		EseCalendar cal2 = calManager.createCalendar(user, "Home");
+	}
+	
+	@Test (expected=NoSuchCalendarException.class)
+	public void testRemoveCalendar(){
+		EseCalendar myCalendar = calManager.createCalendar(user, "myCalendar");
+		assertTrue(calManager.getCalendarsOf(user).contains(myCalendar));
+		calManager.removeCalendar("myCalendar");
+		assertFalse(calManager.getCalendarsOf(user).contains(myCalendar));
+		calManager.removeCalendar("NonExistentCal");
 	}
 
 }
