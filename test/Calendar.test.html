@@ -1,85 +1,100 @@
-#{selenium 'Test Calendar'}
+#{selenium 'Test other Calendars'}
 
 
 	clearSession()
 
-	// Login Erwann
+	// Setup
+	open('/secure/login')
+	waitForPageToLoad(1000)
+	type('username', 'aaron')
+	type('password', 'ese')
+	clickAndWait('css=input[type=submit]')
+	assertTitle('Home')
+	type('calendarName','AaronCal')
+	clickAndWait('css=#addCalendar > form > input[type="submit"]')
+	clickAndWait('link=AaronCal')
+	assertTitle('Calendar')
+	type('name', 'merge')
+	type('startDate', '05.10.2011 12:00')
+	type('description', 'hui')
+	click('css=input[value="public"]')
+	clickAndWait('css=input[type=submit]')
+	clickAndWait('link=Log out')
+	
+
 	open('/secure/login')
 	waitForPageToLoad(1000)
 	type('username', 'erwann')
 	type('password', 'ese')
 	clickAndWait('css=input[type=submit]')
 	assertTitle('Home')
-	
-	// Check out Erwanns Calendar
-	clickAndWait('link=Erwanns Calendar')
+	type('calendarName','aCal')
+	clickAndWait('css=#addCalendar > form > input[type="submit"]')
+	clickAndWait('link=aCal')
 	assertTitle('Calendar')
 	
-	// Event: Create
-	type('name', 'lunch')
+	// Add aarons public events
+	clickAndWait('css=input[value="aaron"]')
+	open(http://localhost:9000/application/selectdate?month=9&year=2011&day=5&calendarName=aCal)
+	waitForPageToLoad(1000)
+	assertTitle('Calendar')
+	assertTextPresent('merge')
+	assertTextPresent('12:00, 05.Oct - 13:00, 05.Oct')
+	assertTextPresent('(public Event created by aaron)')
+	assertTextPresent('Description: hui')
+	
+	// Deselect aaron
+	clickAndWait('css=input[value="aaron"]')
+	assertTextNotPresent('merge')
+	assertTextNotPresent('12:00, 05.Nov - 13:00, 05.Nov')
+	assertTextNotPresent('(public Event created by aaron)')
+	assertTextNotPresent('Description: hui')
+	
+	
+	// Create busy Event
+	type('name', 'busyThing')
 	type('startDate', '05.10.2011 12:00')
-	type('description', 'eat and die')
+	type('description', 'very important thing')
+	click('css=input[value="busy"]')
 	clickAndWait('css=input[type=submit]')
-	open(http://localhost:9000/application/selectdate?month=9&year=2011&day=5&calendarName=Erwanns+Calendar)
+	open(http://localhost:9000/application/selectdate?month=9&year=2011&day=5&calendarName=aCal)
 	waitForPageToLoad(1000)
-	assertTextPresent('lunch')
-	assertTextPresent('private')
-	
-	// Event: Edit
-	clickAndWait('link=Edit')
-	assertTitle('Edit Event')
-	assertTextPresent('Edit "lunch"')
-	type('name', 'big lunch')
-	type('startDate', '05.10.2011 11:30')
-	type('duration', '120')
-	type('description', 'eat and love')
-	click('css=input[value="public"]')
+	assertTextPresent('busyThing')
+	assertTextPresent('12:00, 05.Oct - 13:00, 05.Oct')
+	assertTextPresent('(show as busy Event created by erwann)')
+	assertTextPresent('Description: very important thing')
+
+	// Logout Erwann, Login Aaron
+	clickAndWait('link=Log out')
+	open('/secure/login')
+	waitForPageToLoad(1000)
+	type('username', 'aaron')
+	type('password', 'ese')
 	clickAndWait('css=input[type=submit]')
-	assertTitle('Calendar')
-	assertTextPresent('big lunch')
-	assertTextPresent('11:30, 05.Oct - 13:30, 05.Oct')
-	assertTextPresent('(public Event created by erwann)')
-	assertTextPresent('Description: eat and love')
+	assertTitle('Home')
 	
-	// Event: Delete
+	// Check busy event from Erwann
+	clickAndWait('link=AaronCal')
+	//click('css=input[value="erwann"]')
+	open(http://localhost:9000/application/selectdate?month=9&year=2011&day=5&calendarName=AaronCal)
+	waitForPageToLoad(1000)
 	clickAndWait('link=Delete')
-	assertTitle('Calendar')
-	assertTextNotPresent('big lunch')
+	assertTextPresent('erwann is busy from 12:00 - 13:00')
+	assertTextNotPresent('busyThing')
+	assertTextNotPresent('12:00, 05.Oct - 13:00, 05.Oct')
+	assertTextNotPresent('(show as busy Event created by erwann)')
+	assertTextNotPresent('Description: very important thing')
 	
-	// LongEvent: Create
-	type('name', 'trip')
-	type('startDate', '05.10.2011 08:00')
-	type('duration', '2160')
-	type('description', 'trip to paris')
-	clickAndWait('css=input[type=submit]')
-	open(http://localhost:9000/application/selectdate?month=9&year=2011&day=5&calendarName=Erwanns+Calendar)
+	// Tear Down
+	clickAndWait('link=Log out')
+	open('/secure/login')
 	waitForPageToLoad(1000)
-	assertTextPresent('trip')
-	assertTextPresent('private')
-	
-	// LongEvent: Edit
-	clickAndWait('link=Edit')
-	assertTitle('Edit Event')
-	assertTextPresent('Edit "trip"')
-	type('name', 'extended trip')
-	type('duration', '2880')
-	type('description', 'extended trip')
-	click('css=input[value="public"]')
+	type('username', 'erwann')
+	type('password', 'ese')
 	clickAndWait('css=input[type=submit]')
-	assertTitle('Calendar')
-	assertTextPresent('extended trip')
-	assertTextPresent('08:00, 05.Oct - 08:00, 07.Oct')
-	assertTextPresent('(public Event created by erwann)')
-	assertTextPresent('Description: extended trip')
-	open(http://localhost:9000/application/selectdate?month=9&year=2011&day=7&calendarName=Erwanns+Calendar)
-	waitForPageToLoad(1000)
-	assertTextPresent('extended trip')
-	
-	// Delete Event
-	clickAndWait('link=Delete')
-	assertTitle('Calendar')
-	assertTextNotPresent('extended trip')
-	
-	
+	openAndWait('/indexpage/deletecalendar?calendarName=aCal')
+	assertTextNotPresent('aCal')
+	clickAndWait('link=Log out')
+	assertTitle('Login')
 	
 #{/selenium}

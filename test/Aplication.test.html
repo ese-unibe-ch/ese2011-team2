@@ -15,7 +15,6 @@
 	clickAndWait('css=input[type=submit]')
 	assertTitle('Home')
 	assertTextPresent('Calendar')
-	assertTextPresent('Erwanns Calendar')
 	assertTextPresent('Search for other users')
 	assertTextPresent('Add a new Calendar')
 	
@@ -50,9 +49,6 @@
 	// Logout
 	clickAndWait('link=Home')
 	clickAndWait('link=Log out')
-	assertTitle('Login')
-	
-	open(/calendar)
 	assertTitle('Login')
 	
 	
