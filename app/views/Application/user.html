@@ -29,8 +29,9 @@
 			<h2>Calendars of your Contacts</h3> 
 			#{list items: myContactsIterator, as:'contact'}
 				#{ifnot contact == currentUser}
-					<h2>Calendars of ${contact.userName}</h3> 
-					- link to ${contact.userName}'s first calendar?
+					<p>
+						<a href="@{Application.user(contact.name)}">${contact.name}</a>
+					</p>
 				#{/ifnot}
 			#{/list}
 		#{/if}
