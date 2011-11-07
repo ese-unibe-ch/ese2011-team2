@@ -42,6 +42,10 @@ public class CalendarBrowser {
 			return juc.get(Calendar.YEAR);
 		}
 
+		/**
+		 * 
+		 * @return true, if the user has an event with the visibility set to public on this day.
+		 */
 		public boolean getHasPublicEvents() {
 			SortedSet<CalendarEvent> set1 = calendar.getEventsAt(user, asCalendar().getTime());
 			Iterator<CalendarEvent> iterator = set1.iterator();
@@ -53,11 +57,16 @@ public class CalendarBrowser {
 			return false;
 		}
 
-		public boolean getHasPrivateEvents() {
+		/**
+		 * 
+		 * @return true, if the user has an event with an other visibility than public 
+		 * 		in his calendar on this day.
+		 */
+		public boolean getHasNonPublicEvents() {
 			SortedSet<CalendarEvent> set1 = calendar.getEventsAt(user, asCalendar().getTime());
 			Iterator<CalendarEvent> iterator = set1.iterator();
 			while (iterator.hasNext()){
-				if (iterator.next().getVisibility().equals(Visibility.PRIVATE)){
+				if (!iterator.next().getVisibility().equals(Visibility.PUBLIC)){
 					return true;
 				}
 			}
@@ -173,7 +182,7 @@ public class CalendarBrowser {
 	
 	/**
 	 * Get a week relatively to this instances month,
-	 * week 0 being the first week with 1 or more days withi the month
+	 * week 0 being the first week with 1 or more days within the month
 	 * 
 	 * @return an array of 7 days representing the week
 	 */

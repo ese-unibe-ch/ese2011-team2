@@ -23,8 +23,8 @@ _arg.selectedDay, _arg.nextMonth, _arg.nextMonthYear)}">></a></td>
 			if (day.hasPublicEvents) { 
 				classValue = "public"
 			}
-			if (day.hasPrivateEvents) { 
-				classValue = classValue+" private"
+			if (day.hasNonPublicEvents) { 
+				classValue = classValue+" nonPublic"
 			}
 			if (day.today) { 
 				classValue = classValue+" today"

@@ -10,7 +10,7 @@ td.public {
 	text-decoration: underline;
 }
 
-td.private {
+td.nonPublic {
 	font-weight: bold;
 }
 
