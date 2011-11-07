@@ -45,4 +45,10 @@ public class EventTest extends UnitTest {
 		CalendarEvent event3 = calendar.addEvent(user.ADMIN, start, end, eventName, Visibility.PUBLIC,"random Kommentar1");
 		assertTrue(ids.add(event3.getId()));
 	}
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void testIllegalArgumentsWhenCreatingEvent() {
+		@SuppressWarnings("unused")
+		CalendarEvent event = calendar.addEvent(user.ADMIN, null, null, null, null, "I'm an illeagl immigrant");
+	}
 }

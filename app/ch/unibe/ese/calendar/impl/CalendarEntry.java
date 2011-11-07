@@ -22,7 +22,7 @@ abstract class CalendarEntry {
 	private Visibility visibility;
 	
 	CalendarEntry(Date start, Date end, String name, Visibility visibility, EseCalendar calendar, String description) {
-		if (name==null || start==null || end==null) {
+		if (name==null || start==null || end==null || visibility==null || calendar==null) {
 			throw new IllegalArgumentException();
 		}
 		this.name = name;
