@@ -3,18 +3,18 @@ html, body {
     font-family: 'Lucida grande', verdana, sans-serif;
 }
 
-#login {
+#login, #addUser {
     width: 500px;
     margin: 50px auto;
     text-align: center;
 }
 
-#login h1 {
+#login, #addUser h1 {
     font-weight: bold;
     color: #111;
 }
 
-#login form {
+#login, #addUser form {
     border: 10px solid #ccc;
     background: #fff;
     padding: 10px;
@@ -82,21 +82,4 @@ html, body {
 
 #login .success {
     background: #008800 !important;
-}
-
-#addUser {
-    width: 500px;
-    margin: 50px auto;
-    text-align: center;
-}
-#addUser form {
-    border: 10px solid #ccc;
-    background: #fff;
-    padding: 10px;
-    text-align: left;
-}
-
-#addUser h1 {
-    font-weight: bold;
-    color: #111;
 }
