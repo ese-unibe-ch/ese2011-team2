@@ -29,7 +29,7 @@ html, body {
     margin-top: 10px !important;
 }
 
-#username-field label, #password-field label {
+#username-field label, #password-field label, #birthday-field label {
     display: block;
     width: 150px;
     float: left;
@@ -45,6 +45,11 @@ html, body {
 }
 
 #password-field input {
+    width: 150px;
+    font-size: 13px;
+}
+
+#birthday-field input {
     width: 150px;
     font-size: 13px;
 }
@@ -77,4 +82,21 @@ html, body {
 
 #login .success {
     background: #008800 !important;
+}
+
+#addUser {
+    width: 500px;
+    margin: 50px auto;
+    text-align: center;
+}
+#addUser form {
+    border: 10px solid #ccc;
+    background: #fff;
+    padding: 10px;
+    text-align: left;
+}
+
+#addUser h1 {
+    font-weight: bold;
+    color: #111;
 }
