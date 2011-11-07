@@ -8,8 +8,10 @@ public class ApplicationTest extends FunctionalTest {
     @Test
     public void testThatIndexPageWorks() {
         Response response = GET("/");
-        Assert.assertEquals("expecting a redirect to login page", (Integer)302, response.status);
-        /*assertIsROk(response);
+        assertStatus(302, response);
+        assertHeaderEquals("Location", "/secure/login", response);
+        
+        /*assertIsOk(response);
         assertContentType("text/html", response);
         assertCharset(play.Play.defaultWebEncoding, response);*/
     }

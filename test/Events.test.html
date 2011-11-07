@@ -1,0 +1,166 @@
+#{selenium 'Test Calendar'}
+
+
+	clearSession()
+
+	// Setup
+	open('/secure/login')
+	waitForPageToLoad(1000)
+	type('username', 'erwann')
+	type('password', 'ese')
+	clickAndWait('css=input[type=submit]')
+	assertTitle('Home')
+	type('calendarName','aCal')
+	clickAndWait('css=#addCalendar > form > input[type="submit"]')
+	clickAndWait('link=aCal')
+	assertTitle('Calendar')
+	
+	
+	// Event: Create
+	type('name', 'lunch')
+	type('startDate', '05.10.2011 12:00')
+	type('description', 'eat and die')
+	clickAndWait('css=input[type=submit]')
+	open(http://localhost:9000/application/selectdate?month=9&year=2011&day=5&calendarName=aCal)
+	waitForPageToLoad(1000)
+	assertTextPresent('lunch')
+	//assertTextPresent('private')
+	
+	// Event: Edit
+	clickAndWait('link=Edit')
+	assertTitle('Edit Event')
+	assertTextPresent('Edit "lunch"')
+	type('name', 'big lunch')
+	type('startDate', '05.10.2011 11:30')
+	type('duration', '120')
+	type('description', 'eat and love')
+	click('css=input[value="public"]')
+	clickAndWait('css=input[type=submit]')
+	assertTitle('Calendar')
+	assertTextPresent('big lunch')
+	assertTextPresent('11:30, 05.Oct - 13:30, 05.Oct')
+	assertTextPresent('(public Event created by erwann)')
+	assertTextPresent('Description: eat and love')
+	
+	// Event: Delete
+	clickAndWait('link=Delete')
+	assertTitle('Calendar')
+	assertTextNotPresent('big lunch')
+	
+	
+	// LongEvent: Create
+	type('name', 'trip')
+	type('startDate', '05.10.2011 08:00')
+	type('duration', '2160')
+	type('description', 'trip to paris')
+	clickAndWait('css=input[type=submit]')
+	open(http://localhost:9000/application/selectdate?month=9&year=2011&day=5&calendarName=aCal)
+	waitForPageToLoad(1000)
+	assertTextPresent('trip')
+	// assertTextPresent('private')
+	
+	// LongEvent: Edit
+	clickAndWait('link=Edit')
+	assertTitle('Edit Event')
+	assertTextPresent('Edit "trip"')
+	type('name', 'extended trip')
+	type('duration', '2880')
+	type('description', 'extended trip')
+	click('css=input[value="public"]')
+	clickAndWait('css=input[type=submit]')
+	assertTitle('Calendar')
+	assertTextPresent('extended trip')
+	assertTextPresent('08:00, 05.Oct - 08:00, 07.Oct')
+	assertTextPresent('(public Event created by erwann)')
+	assertTextPresent('Description: extended trip')
+	open(http://localhost:9000/application/selectdate?month=9&year=2011&day=7&calendarName=aCal)
+	waitForPageToLoad(1000)
+	assertTextPresent('extended trip')
+	
+	// LongEvent: Delete
+	clickAndWait('link=Delete')
+	assertTitle('Calendar')
+	assertTextNotPresent('extended trip')
+	
+	
+	// EventSeries: Create
+	type('name', 'ese with oscar')
+	type('startDate', '09.10.2011 13:00')
+	click('css=input[value="weekly"]')
+	clickAndWait('css=input[type=submit]')
+	open(http://localhost:9000/application/selectdate?month=9&year=2011&day=16&calendarName=aCal)
+	waitForPageToLoad(1000)
+	assertTextPresent('ese with oscar')
+	// assertTextPresent('(private SerialEvent created by erwann)')
+	
+	// EventSeries: Edit
+	clickAndWait('link=Edit')
+	assertTitle('Edit Event')
+	assertTextPresent('Edit "ese with oscar"')
+	type('name', 'ise')
+	type('startDate', '05.10.2011 11:30')
+	type('duration', '90')
+	type('description', 'in english')
+	click('css=input[value="public"]')
+	click('css=input[value="daily"]')
+	clickAndWait('css=input[type=submit]')
+	assertTitle('Calendar')
+	open(http://localhost:9000/application/selectdate?month=9&year=2011&day=11&calendarName=aCal)
+	waitForPageToLoad(1000)
+	assertTextPresent('ise')
+	assertTextPresent('11:30, 11.Oct - 13:00, 11.Oct')
+	assertTextPresent('(public SerialEvent created by erwann)')
+	assertTextPresent('Description: in english')
+	
+	// EventSeries: Delete
+	clickAndWait('link=Delete')
+	clickAndWait('css=input[value="Yes, all events"]')
+	assertTitle('Calendar')
+	assertTextNotPresent('ise')
+	
+	
+	// LongEventSeries: Create
+	type('name', 'longSeries')
+	type('startDate', '09.12.2011 13:00')
+	type('duration', '1440')
+	click('css=input[value="weekly"]')
+	clickAndWait('css=input[type=submit]')
+	open(http://localhost:9000/application/selectdate?month=11&year=2011&day=16&calendarName=aCal)
+	waitForPageToLoad(1000)
+	assertTextPresent('longSeries')
+	open(http://localhost:9000/application/selectdate?month=11&year=2011&day=18&calendarName=aCal)
+	waitForPageToLoad(1000)
+	assertTextNotPresent('longSeries')
+	open(http://localhost:9000/application/selectdate?month=11&year=2011&day=17&calendarName=aCal)
+	waitForPageToLoad(1000)
+	assertTextPresent('longSeries')
+	// assertTextPresent('(private SerialEvent created by erwann)')
+	
+	// LongEventSeries: Edit
+	clickAndWait('link=Edit')
+	assertTitle('Edit Event')
+	assertTextPresent('Edit "longSeries"')
+	type('startDate', '08.12.2011 11:30')
+	click('css=input[value="public"]')
+	click('css=input[value="monthly"]')
+	clickAndWait('css=input[type=submit]')
+	assertTitle('Calendar')
+	open(http://localhost:9000/application/selectdate?month=11&year=2011&day=8&calendarName=aCal)
+	waitForPageToLoad(1000)
+	assertTextPresent('longSeries')
+	assertTextPresent('11:30, 08.Dec - 11:30, 09.Dec')
+	assertTextPresent('(public SerialEvent created by erwann)')
+	
+	// LongEventSeries: Delete
+	clickAndWait('link=Delete')
+	clickAndWait('css=input[value="Yes, all events"]')
+	assertTitle('Calendar')
+	assertTextNotPresent('ise')
+	
+	// Tear down
+	clickAndWait('link=Home')
+	openAndWait('/indexpage/deletecalendar?calendarName=aCal')
+	assertTextNotPresent('aCal')
+	clickAndWait('link=Log out')
+	assertTitle('Login')
+#{/selenium}
