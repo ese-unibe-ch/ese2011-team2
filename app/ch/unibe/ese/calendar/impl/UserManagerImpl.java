@@ -76,11 +76,11 @@ public class UserManagerImpl extends UserManager {
 	}
 	
 	/**
-	 * 
+	 * Deletes an User with the specified userName 
 	 */
 	@Override
-	public synchronized void deleteUser(String username) {
-		users.remove(username);
+	public synchronized void deleteUser(String userName) {
+		users.remove(userName);
 		
 	}
 	
