@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
 
 import javax.activity.InvalidActivityException;
 
@@ -103,8 +104,8 @@ public class Application extends Controller {
 		User user = UserManager.getInstance().getUserByName(name);
 		Set<EseCalendar> otherCalendars = CalendarManager.getInstance()
 				.getCalendarsOf(user);
-		Map<User, Boolean > myContacts = user.getMyContacts();
-		render(currentUser, user, otherCalendars, myContacts);
+		Iterator<User> myContactsIterator = user.getSortedContacts().iterator();
+		render(currentUser, user, otherCalendars, myContactsIterator);
 	}
 	
 	public static void addToContacts(String calendarName, String name) {
