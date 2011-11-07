@@ -74,3 +74,13 @@ tmp
 test-result
 eclipse
 server.pid
+
+conf/dependencies.yml
+
+conf/dependencies.yml
+
+cobertura.ser
+
+conf/application.conf
+
+conf/dependencies.yml

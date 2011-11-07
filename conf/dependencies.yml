@@ -4,3 +4,4 @@ require:
     - play
     - play -> secure
     - play -> crud
+    - play -> corbertura-2.4
