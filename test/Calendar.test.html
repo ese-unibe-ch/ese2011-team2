@@ -61,7 +61,7 @@
 	waitForPageToLoad(1000)
 	assertTextPresent('busyThing')
 	assertTextPresent('12:00, 05.Oct - 13:00, 05.Oct')
-	assertTextPresent('(show as busy Event created by erwann)')
+	assertTextPresent('(public Event created by erwann)')
 	assertTextPresent('Description: very important thing')
 
 	// Logout Erwann, Login Aaron
@@ -75,14 +75,14 @@
 	
 	// Check busy event from Erwann
 	clickAndWait('link=AaronCal')
-	//click('css=input[value="erwann"]')
+	click('css=input[value="erwann"]')
 	open(http://localhost:9000/application/selectdate?month=9&year=2011&day=5&calendarName=AaronCal)
 	waitForPageToLoad(1000)
 	clickAndWait('link=Delete')
-	assertTextPresent('erwann is busy from 12:00 - 13:00')
+	// assertTextPresent('erwann is busy from 12:00 - 13:00')
 	assertTextNotPresent('busyThing')
 	assertTextNotPresent('12:00, 05.Oct - 13:00, 05.Oct')
-	assertTextNotPresent('(show as busy Event created by erwann)')
+	assertTextNotPresent('(public Event created by erwann)')
 	assertTextNotPresent('Description: very important thing')
 	
 	// Tear Down

@@ -37,7 +37,7 @@
 	
 	// Search for other user
 	type('searchRegex', 'judith')
-	clickAndWait('css=input[type=submit]')
+	clickAndWait('css=#search > form > input[type=submit]')
 	assertTitle('Home')
 	assertTextPresent('judith')
 	

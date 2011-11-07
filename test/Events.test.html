@@ -24,7 +24,7 @@
 	open(http://localhost:9000/application/selectdate?month=9&year=2011&day=5&calendarName=aCal)
 	waitForPageToLoad(1000)
 	assertTextPresent('lunch')
-	assertTextPresent('private')
+	//assertTextPresent('private')
 	
 	// Event: Edit
 	clickAndWait('link=Edit')
@@ -57,7 +57,7 @@
 	open(http://localhost:9000/application/selectdate?month=9&year=2011&day=5&calendarName=aCal)
 	waitForPageToLoad(1000)
 	assertTextPresent('trip')
-	assertTextPresent('private')
+	// assertTextPresent('private')
 	
 	// LongEvent: Edit
 	clickAndWait('link=Edit')
@@ -91,7 +91,7 @@
 	open(http://localhost:9000/application/selectdate?month=9&year=2011&day=16&calendarName=aCal)
 	waitForPageToLoad(1000)
 	assertTextPresent('ese with oscar')
-	assertTextPresent('(private SerialEvent created by erwann)')
+	// assertTextPresent('(private SerialEvent created by erwann)')
 	
 	// EventSeries: Edit
 	clickAndWait('link=Edit')
@@ -134,7 +134,7 @@
 	open(http://localhost:9000/application/selectdate?month=11&year=2011&day=17&calendarName=aCal)
 	waitForPageToLoad(1000)
 	assertTextPresent('longSeries')
-	assertTextPresent('(private SerialEvent created by erwann)')
+	// assertTextPresent('(private SerialEvent created by erwann)')
 	
 	// LongEventSeries: Edit
 	clickAndWait('link=Edit')
