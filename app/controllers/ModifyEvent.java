@@ -17,6 +17,7 @@ import play.mvc.With;
 
 @With(Secure.class)
 public class ModifyEvent extends Controller {
+	
 	public static void createEvent(String calendarName, String name, String startDate, 
 			String duration, String visibility, String repetition, String description)
 			throws Throwable {
