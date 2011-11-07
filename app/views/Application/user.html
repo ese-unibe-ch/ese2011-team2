@@ -19,18 +19,22 @@
 			#{list items: otherCalendars, as:'calendar'}
 				<p>
 					<i><a href="@{Application.currentCalendar(calendar.name)}">${calendar.name}</a></i>
+					#{if user == currentUser}
 					<a href="@{Application.deleteCalendar(calendar.name)}">Delete</a>
+					#{/if}
 				</p>
 			#{/list}
 		</ul>  
 	</div>
 </div>
 
-<div id="addCalendar">
-	<h4>Add a new Calendar</h4>
-	#{form @Application.addCalendar()}
-			<label for="name">Calendar Name </label> <br/>
-			<input type="text" name="calendarName" />
-			<input type="submit" value ="Add">
-	#{/form}
-</div>
+#{if user == currentUser}
+	<div id="addCalendar">
+		<h4>Add a new Calendar</h4>
+		#{form @Application.addCalendar()}
+				<label for="name">Calendar Name </label> <br/>
+				<input type="text" name="calendarName" />
+				<input type="submit" value ="Add">
+		#{/form}
+	</div>
+#{/if}
