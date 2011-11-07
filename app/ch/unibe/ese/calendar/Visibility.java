@@ -17,5 +17,9 @@ public enum Visibility {
 	 * Without privileged calendar access one can only seen the time span of an event 
 	 * to be busy but no other event details
 	 */
-	BUSY
+	BUSY,
+	/**
+	 * The event is visible for contacts only
+	 */
+	CONTACTSONLY
 }

@@ -16,6 +16,16 @@
 			<a href=@{IndexPage.deleteCalendar(calendar.name)}>Delete</a>
 		#{/list}
 	</ul>
+	<a href="@{IndexPage.deleteAccount()}">Delete this Account</a>
+</div>
+
+<div id="addCalendar">
+	<h4>Add a new Calendar</h4>
+	#{form @IndexPage.addCalendar()}
+			<label for="name">Calendar Name </label> <br/>
+			<input type="text" name="calendarName" />
+			<input type="submit" value ="Add">
+	#{/form}
 </div>
 
 <div id="search">
@@ -33,11 +43,3 @@
 	#{/list}
 </div>
 
-<div id="addCalendar">
-	<h4>Add a new Calendar</h4>
-	#{form @IndexPage.addCalendar()}
-			<label for="name">Calendar Name </label> <br/>
-			<input type="text" name="calendarName" />
-			<input type="submit" value ="Add">
-	#{/form}
-</div>
