@@ -3,26 +3,22 @@ html, body {
     font-family: 'Lucida grande', verdana, sans-serif;
 }
 
-#login{
+#addUser {
     width: 500px;
     margin: 50px auto;
+    text-align: left;
+}
+#addUser h1 {
+    font-weight: bold;
+    color: #111;
     text-align: center;
 }
 
-#login{
-    font-weight: bold;
-    color: #111;
-}
-
-#login {
+#addUser form {
     border: 10px solid #ccc;
     background: #fff;
     padding: 10px;
     text-align: left;
-}
-
-#login form p {
-    margin: 3px;
 }
 
 #username-field {
@@ -49,37 +45,7 @@ html, body {
     font-size: 13px;
 }
 
-#remember-field input {
-    margin-left: 155px;
-}
-
-#remember-field {
-    font-size: 12px;
-    color: #666;
-}
-
 #signin-field input {
     margin-left: 155px;
     margin-top: 10px;
-}
-
-#login .error, #login .success  {
-    color: #fff;
-    font-size: 12px;
-    text-align: center;
-    margin-bottom: 10px;
-    padding: 5px;
-}
-
-#login .error {
-    background: #c00 !important;
-}
-
-#login .success {
-    background: #008800 !important;
-}
-
-#register {
-	 margin-top: 20px;
-	text-align: center;
 }

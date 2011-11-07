@@ -33,27 +33,8 @@
 			<input type="submit" id="signin" value="&{'secure.signin'}" />
 		</p>
 	#{/form}
+	<div id="register">
+		<a href="@{Security.register()}">Register a new User</a>
+	<div>
 </div>
-<div id="addUser">
-	<--TODO: Register user link -->
-	<h1>Register</h1>
-		
-	#{form @Security.addUser()}
-		
-		<p id="username-field">
-			<label for="username">Username</label>
-			<input type="text" name="username" id="username" value="${flash.username}" />
-		</p>
-		<p id="password-field">
-			<label for="password">Password</label>
-			<input type="password" name="password" id="password" value="" />
-		</p>
-		<p id="birthday-field">
-			<label for="birthday">Birthday</label>
-			<input type="birthday" name="birthday" id="birthday" value="" />
-		</p>
-		<p id="signin-field">
-			<input type="submit" id="register" value="register" />
-		</p>
-	#{/form}
-</div>
+

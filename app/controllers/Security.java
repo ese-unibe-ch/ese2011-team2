@@ -16,12 +16,16 @@ public class Security extends Secure.Security {
         return (claimedUser != null ) && claimedUser.getPassword().equals(password);
     }
     
-    public static void addUser(String username, String password, String birthday) throws Throwable{
+    public static void addUser(String username, String password) throws Throwable{
     	System.out.println(username + "-" + password);
     	
     	UserManager um = UserManagerImpl.getInstance();
-    	Date newUsersBirthday = EseDateFormat.getInstance().parse(birthday);
+    	Date newUsersBirthday = EseDateFormat.getInstance().parse("11.11.2011 23:11");
     	um.createUser(username, password, newUsersBirthday, DetailedProfileVisibility.PUBLIC);
     	Secure.login();
     }
+
+	public static void register() {
+		render();
+	}
 }
