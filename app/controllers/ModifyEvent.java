@@ -91,9 +91,10 @@ public class ModifyEvent extends Controller {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		Visibility[] visibilities = Visibility.values();
+		Repetition[] repetitions = Repetition.values();
 		try {
 			CalendarEvent event = calendar.getEventById(user, id);
-			render(calendar, event, visibilities);
+			render(calendar, event, visibilities, repetitions);
 		} catch (EventNotFoundException exception) {
 			error(exception.getMessage());
 		}

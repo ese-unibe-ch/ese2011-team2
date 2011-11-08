@@ -31,21 +31,21 @@
 		</p>
 	</div>
 	<div id=repetition>
+		Visibility:<br/>
 		#{list items:visibilities, as:'vis'}
-		<ul>
-			<li> 
-				<input type="radio" name="visibility" value="${vis.name}"/> ${vis.name}<br />
-			</li>
-		</ul>
+			<input type="radio" name="visibility" value="${vis.name}" 
+			#{if event.visibility == vis}checked="checked"#{/if}/> 
+			${vis.name}<br />
+		#{/list}<br/>
+		Repetition:<br/>
+		<input type="radio" name="repetition" value="never"
+		#{if (event.getSeries() == null)}checked="checked"#{/if}>
+		never<br/>
+		#{list items:repetitions, as:'rep'}
+			<input type="radio" name="repetition" value="${rep.name}"
+			#{if ((event.getSeries() != null) && (event.getSeries().repetition == rep))}checked="checked"#{/if}/>
+			${rep.name}<br/>
 		#{/list}
-		<p>
-			<label for="repetition">Repetition: </label> <br/>
-			<input type="radio" name="repetition" value="never"  #{if repChecked[0]}checked="checked" #{/if}/> Never<br />
-			<input type="radio" name="repetition" value="daily" #{if repChecked[1]}checked="checked"#{/if}/> Daily<br />
-			<input type="radio" name="repetition" value="weekly" #{if repChecked[2]}checked="checked"#{/if}//> Weekly<br />
-			<input type="radio" name="repetition" value="monthly"#{if repChecked[3]}checked="checked"#{/if}/ /> Monthly <br />	
-		</p>
-	
 		<p>
 			<input type="submit" value="Apply">
 		</p>

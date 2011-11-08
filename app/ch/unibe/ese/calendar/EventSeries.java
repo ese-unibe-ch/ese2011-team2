@@ -18,15 +18,25 @@ public interface EventSeries {
 		/**
 		 * daily repetition
 		 */
-		DAILY, 
+		DAILY("daily"), 
 		/**
 		 * weekly repetition
 		 */
-		WEEKLY, 
+		WEEKLY("weekly"), 
 		/**
 		 * monthly repetition
 		 */
-		MONTHLY
+		MONTHLY("monthly");
+		
+		private String name;
+
+		private Repetition(String name) {
+			this.name = name;
+		}
+		
+		public String getName() {
+			return name;
+		}
 	}
 	
 	//TODO instead of having so many event properties it could have an event prototype
