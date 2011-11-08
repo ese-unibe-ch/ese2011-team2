@@ -272,11 +272,24 @@ public class EseCalendarImpl extends EseCalendar {
 			hasNext = false;
 			if (eventSeries.hasNext()) {
 				EventSeries es = eventSeries.next();
-				if (es.getVisibility().equals(Visibility.PRIVATE)) {
-					if (!Policy.getInstance().hasPermission(user, new PrivilegedCalendarAccessPermission(name))) {
+				switch (es.getVisibility()) {
+				case PRIVATE:
+					if (!Policy.getInstance().hasPermission(user, 
+							new PrivilegedCalendarAccessPermission(name))) {
 						prepareNext();
 						return;
 					}
+					break;
+				case CONTACTSONLY:
+					if (!Policy.getInstance().hasPermission(user, 
+							new MyContactAccessPermission(name))) {
+						prepareNext();
+						return;
+					}
+					break;
+				default:
+					//nothing special
+					break;
 				}
 				next = es;
 				hasNext = true;

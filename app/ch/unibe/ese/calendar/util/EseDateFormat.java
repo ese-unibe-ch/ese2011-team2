@@ -22,6 +22,7 @@ public class EseDateFormat {
 	}
 	
 	/**
+	 * Careful: MM ranges from 0 to 11!
 	 * @param dateString String with format "dd.MM.yyyy HH:mm"
 	 * @return A Date object with the given arguments
 	 * @throws ParseException 
