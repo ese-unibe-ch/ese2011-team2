@@ -123,7 +123,7 @@ public class EseCalendarImpl extends EseCalendar {
 
 	@Override
 	public Iterator<CalendarEvent> iterate(User user, Date start) {
-		Iterator<CalendarEvent> iterateIndividual = iterateIndividualEvents(user, null);
+		Iterator<CalendarEvent> iterateIndividual = iterateIndividualEvents(user, start);
 		Iterator<CalendarEvent> iterateSeries = iterateSerialEvents(user, start);
 		return new EventIteratorMerger(iterateIndividual, iterateSeries);
 	}
@@ -131,16 +131,16 @@ public class EseCalendarImpl extends EseCalendar {
 	@Override
 	public SortedSet<CalendarEvent> getEventsAt(User user, Date dayStart) {
 		Date dayEnd = new Date(dayStart.getTime()+24*60*60*1000);
+		//TODO it seems quite pointless to re-sort the events that are allready sorted in the iterator
 		SortedSet<CalendarEvent> result = new TreeSet<CalendarEvent>(new StartDateComparator());
 		Iterator<CalendarEvent> iter = iterate(user, dayStart);
 		while (iter.hasNext()) {
-			CalendarEvent ce = iter.next();
-			if ((ce.getEnd().after(dayStart) && ce.getStart().before(dayEnd)) || 
-					(ce.getStart().after(dayStart) && ce.getEnd().before(dayEnd))) {
-				result.add(ce);
-			}
-			if (ce.getStart().after(dayEnd))
+			CalendarEvent ce = iter.next();		
+			if (ce.getStart().after(dayEnd)) {
 				break;
+			}
+			result.add(ce);
+				
 		}
 		return result;
 	}
@@ -152,16 +152,10 @@ public class EseCalendarImpl extends EseCalendar {
 	 * @return an iterator with events starting after start
 	 */
 	private Iterator<CalendarEvent> iterateIndividualEvents(User user, Date start) {
-		//TODO: refactor, if case may not be needed anymore. Better: overload this method.
-		if (start == null)
-		{
-			Iterator<CalendarEvent> unfilteredEvents = startDateSortedSet.iterator();
-			return new ACFilteringEventIterator(user, unfilteredEvents);
-		} else {
-			CalendarEvent compareDummy = new CalendarEventImpl(start, start, "compare-dummy", Visibility.PRIVATE, this, "");
-			Iterator<CalendarEvent> unfilteredEvents = startDateSortedSet.tailSet(compareDummy).iterator();
-			return new ACFilteringEventIterator(user, unfilteredEvents);
-		}
+		CalendarEvent compareDummy = new CalendarEventImpl(start, start, "compare-dummy", Visibility.PRIVATE, this, "");
+		Iterator<CalendarEvent> unfilteredEvents = startDateSortedSet.tailSet(compareDummy).iterator();
+		return new ACFilteringEventIterator(user, unfilteredEvents);
+
 	}
 	
 	/**

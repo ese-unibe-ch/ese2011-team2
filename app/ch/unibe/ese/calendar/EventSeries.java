@@ -79,15 +79,18 @@ public interface EventSeries {
 
 	/**
 	 * 
+	 * This method allows iterating over the events that are instances of this series 
+	 * sorted by date and including all instance ending at or after the time specified by the start argument
+	 * 
 	 * @param start the date from which on instances of the series are to be returned
-	 * @return an iterator over the event that are instances of this series
+	 * @return the iterator over the matchingCalendarEvents
 	 */
 	public Iterator<CalendarEvent> iterator(Date start);
 	
 	/**
 	 * Get an event of this series by its consecutive number
 	 * 
-	 * @param consecutiveNumber the consecutive numer of the requested event
+	 * @param consecutiveNumber the consecutive number of the requested event
 	 * @return
 	 */
 	public CalendarEvent getEventByConsecutiveNumber(long consecutiveNumber);
@@ -96,7 +99,7 @@ public interface EventSeries {
 	 * Add a exceptional instance, i.e. an event which replaces the normal occurence 
 	 * of the event.
 	 * 
-	 * Note that at this occurence it will not be the passed intance for exceptionalEvent
+	 * Note that at this occurence it will not be the passed instance for exceptionalEvent
 	 * that is returned but an event with a regular serial-event id
 	 * 
 	 * @param id
