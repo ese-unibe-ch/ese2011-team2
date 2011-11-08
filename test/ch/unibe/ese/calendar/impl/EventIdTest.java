@@ -30,21 +30,21 @@ public class EventIdTest extends UnitTest {
 	public void setup() throws ParseException {
 		user = new User("dummy");
 		calendar = new EseCalendarImpl("TestCalendar", user);
-		start = EseDateFormat.getInstance().parse("12.11.11 20:00");
-		Date end = EseDateFormat.getInstance().parse("12.11.11 22:00");
+		start = EseDateFormat.getInstance().parse("12.11.2011 20:00");
+		Date end = EseDateFormat.getInstance().parse("12.11.2011 22:00");
 		String eventName = "test1";
 		event1 = calendar.addEvent(user.ADMIN, start, end, eventName, Visibility.PRIVATE, "");
-		start = EseDateFormat.getInstance().parse("12.1.10 20:00");
-		end = EseDateFormat.getInstance().parse("12.1.10 22:00");
+		start = EseDateFormat.getInstance().parse("12.1.2010 20:00");
+		end = EseDateFormat.getInstance().parse("12.1.2010 22:00");
 		eventName = "test2";
 		event2 = calendar.addEvent(user.ADMIN, start, end, eventName, Visibility.BUSY, "");
-		start = EseDateFormat.getInstance().parse("25.12.11 18:00");
-		end = EseDateFormat.getInstance().parse("25.12.11 22:00");
+		start = EseDateFormat.getInstance().parse("25.12.2011 18:00");
+		end = EseDateFormat.getInstance().parse("25.12.2011 22:00");
 		eventName = "test3 (xmas)";
 		event3 = calendar.addEvent(user.ADMIN, start, end, eventName, Visibility.PUBLIC, "");
 		
-		start = EseDateFormat.getInstance().parse("1.1.11 6:00");
-		end = EseDateFormat.getInstance().parse("1.1.11 7:00");
+		start = EseDateFormat.getInstance().parse("1.1.2011 6:00");
+		end = EseDateFormat.getInstance().parse("1.1.2011 7:00");
 		eventName = "First sunrise of month";
 		es = calendar.addEventSeries(user.ADMIN, start, end, eventName, 
 				Visibility.BUSY, Repetition.MONTHLY, "gotta see that!");
@@ -68,7 +68,7 @@ public class EventIdTest extends UnitTest {
 			CalendarEvent ce = iter.next();
 			assertTrue(ce.getId().contains("-"));
 			assertFalse(createdIds.contains(ce.getId()));
-			createdIds.add(ce.getId());
+			createdIds.add(ce.getId());	
 		}		
 	}
 	

@@ -32,10 +32,12 @@ public class EseCalendarTest2 extends UnitTest {
 		Date end = EseDateFormat.getInstance().parse("12.11.2011 22:00");
 		String eventName = "test1";
 		event1 = calendar.addEvent(user.ADMIN, start, end, eventName, Visibility.PRIVATE, "");
+		
 		start = EseDateFormat.getInstance().parse("12.1.2010 20:00");
 		end = EseDateFormat.getInstance().parse("12.1.2010 22:00");
 		eventName = "test2";
 		event2 = calendar.addEvent(user.ADMIN, start, end, eventName, Visibility.BUSY, "");
+		
 		start = EseDateFormat.getInstance().parse("5.1.2010 18:00");
 		end = EseDateFormat.getInstance().parse("12.3.2010 22:00");
 		eventName = "test3: very long Event";

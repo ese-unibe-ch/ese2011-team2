@@ -49,9 +49,9 @@ public class Bootstrap extends Job {
 		Date end = juc.getTime();
 		aaroncal.addEvent(User.ADMIN, start, end, "Toller Film", Visibility.PUBLIC, "der Film ist wirklich super");
 		
-		juc.set(2011, 10, 23, 20, 15);
+		juc.set(2011, 10, 25, 20, 15);
 		start = juc.getTime();
-		juc.set(2011, 10, 23, 23, 00);
+		juc.set(2011, 10, 25, 23, 00);
 		end = juc.getTime();
 		aaroncal.addEvent(User.ADMIN, start, end, "Tolle Party", Visibility.CONTACTSONLY, "Friends only!");
 		
