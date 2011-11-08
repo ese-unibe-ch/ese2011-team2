@@ -57,7 +57,9 @@ public class EseCalendarTest2 extends UnitTest {
 		Iterator<CalendarEvent> eventsAt = calendar.getEventsAt(user.ADMIN, dayStart).iterator();
 		assertTrue(eventsAt.hasNext());
 		assertEquals(event1, eventsAt.next());
-		assertFalse(eventsAt.hasNext());		
+		assertFalse(eventsAt.hasNext());
+		dayStart = EseDateFormat.getInstance().parse("13.11.2011 00:00");
+		assertTrue(calendar.getEventsAt(user.ADMIN, dayStart).isEmpty());
 	}
 	
 	@Test
@@ -84,8 +86,7 @@ public class EseCalendarTest2 extends UnitTest {
 		dayStart = EseDateFormat.getInstance().parse("1.1.2010 00:00");
 		CalendarEvent dayOneOfEvent = calendar.getEventsAt(user.ADMIN, dayStart).first();
 		assertEquals(dayOneOfEvent.getName(), dayFourOfEvent.getName());
-		//do we want that?
-		//assertEquals(dayOneOfEvent.getId(), dayFourOfEvent.getId()); 
+		assertEquals(dayOneOfEvent.getId(), dayFourOfEvent.getId()); 
 		assertEquals(dayOneOfEvent.getCalendar(), dayFourOfEvent.getCalendar());
 		assertEquals(dayOneOfEvent.getVisibility(), dayFourOfEvent.getVisibility());
 		assertEquals(dayOneOfEvent.getSeries(), dayFourOfEvent.getSeries());

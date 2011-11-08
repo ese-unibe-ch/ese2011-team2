@@ -19,11 +19,11 @@ public enum Visibility {
 	 * Without privileged calendar access one can only seen the time span of an event 
 	 * to be busy but no other event details
 	 */
-	BUSY("busy"),
+	BUSY("show as busy"),
 	/**
 	 * The event is visible for contacts only
 	 */
-	CONTACTSONLY("contactsonly");
+	CONTACTSONLY("contacts only");
 	
 	private String name;
 	
