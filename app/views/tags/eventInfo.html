@@ -14,7 +14,7 @@
 	${event.name}<br/>
 	${event.start.format("HH:mm"+", "+"dd.MMM")} - ${event.end.format("HH:mm"+", "+"dd.MMM")}<br/>
 	<!-- TODO: Radi fixes this toString statement -->
-	(${event.getVisibility().toString()} ${rep} created by ${eventOwner})<br/>
+	(${event.visibility.name} ${rep} created by ${eventOwner})<br/>
 	Description: ${event.description}
 	#{if _user.name == eventOwner}
 		<br/>

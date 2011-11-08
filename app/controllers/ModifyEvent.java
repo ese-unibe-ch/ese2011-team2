@@ -93,14 +93,7 @@ public class ModifyEvent extends Controller {
 		Visibility[] visibilities = Visibility.values();
 		try {
 			CalendarEvent event = calendar.getEventById(user, id);
-			//this is quite ugly:
-			boolean[] repChecked = new boolean[4];
-			if (event.getSeries() == null) {
-				repChecked[0]  = true;
-			} else {
-				repChecked[event.getSeries().getRepetition().ordinal() + 1] = true;
-			}
-			render(calendar, event, visibilities, repChecked);
+			render(calendar, event, visibilities);
 		} catch (EventNotFoundException exception) {
 			error(exception.getMessage());
 		}

@@ -31,13 +31,13 @@
 		</p>
 	</div>
 	<div id=repetition>
-		<p>
-			<label for="visibility">Visibility: </label> <br/>
-			<input type="radio" name="visibility" value ="private" #{if event.getVisibility() == visibilities[0]}checked="checked"#{/if} /> Private <br/>
-			<input type="radio" name="visibility" value ="public" #{if event.getVisibility() == visibilities[1]}checked="checked"#{/if}/> Public <br/>
-			<input type="radio" name="visibility" value ="busy" #{if event.getVisibility() == visibilities[2]}checked="checked"#{/if}/> Show as busy <br/>
-			<input type="radio" name="visibility" value ="contactsonly" #{if event.getVisibility() == visibilities[3]}checked="checked"#{/if}/> Contacts only <br/>
-		</p>
+		#{list items:visibilities, as:'vis'}
+		<ul>
+			<li> 
+				<input type="radio" name="visibility" value="${vis.name}"/> ${vis.name}<br />
+			</li>
+		</ul>
+		#{/list}
 		<p>
 			<label for="repetition">Repetition: </label> <br/>
 			<input type="radio" name="repetition" value="never"  #{if repChecked[0]}checked="checked" #{/if}/> Never<br />
