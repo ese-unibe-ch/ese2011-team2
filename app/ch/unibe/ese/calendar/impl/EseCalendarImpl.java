@@ -20,6 +20,7 @@ import ch.unibe.ese.calendar.EventSeries.Repetition;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.Visibility;
 import ch.unibe.ese.calendar.exceptions.EventNotFoundException;
+import ch.unibe.ese.calendar.security.MyContactAccessPermission;
 import ch.unibe.ese.calendar.security.Policy;
 import ch.unibe.ese.calendar.security.PrivilegedCalendarAccessPermission;
 import ch.unibe.ese.calendar.util.EventIteratorMerger;
@@ -209,12 +210,25 @@ public class EseCalendarImpl extends EseCalendar {
 			hasNext = false;
 			if (unfilteredEvents.hasNext()) {
 				CalendarEvent ce = unfilteredEvents.next();
-				if (ce.getVisibility().equals(Visibility.PRIVATE)) {
-					if (!Policy.getInstance().hasPermission(user, new PrivilegedCalendarAccessPermission(name))) {
-						prepareNext();
-						return;
+				switch (ce.getVisibility()) {
+					case PRIVATE:
+						if (!Policy.getInstance().hasPermission(user, 
+								new PrivilegedCalendarAccessPermission(name))) {
+							prepareNext();
+							return;
+						}
+						break;
+					case CONTACTSONLY:
+						if (!Policy.getInstance().hasPermission(user, 
+								new MyContactAccessPermission(name))) {
+							prepareNext();
+							return;
+						}
+						break;
+					default:
+						//nothing special
+						break;
 					}
-				}
 				next = ce;
 				hasNext = true;
 			}

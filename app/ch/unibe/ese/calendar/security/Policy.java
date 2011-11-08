@@ -7,6 +7,7 @@ import java.util.Set;
 import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.User;
+import ch.unibe.ese.calendar.UserManager;
 import ch.unibe.ese.calendar.impl.EseCalendarImpl;
 
 /**
@@ -33,6 +34,13 @@ public class Policy {
 		Set<EseCalendar> userCalendars = CalendarManager.getInstance().getCalendarsOf(user);
 		for (EseCalendar cal : userCalendars) {
 			result.add(new PrivilegedCalendarAccessPermission(cal.getName()));
+		}
+		for(User u : UserManager.getInstance().getAllUsers()) {
+			if (u.getSortedContacts().contains(user)) {
+				for (EseCalendar cal : CalendarManager.getInstance().getCalendarsOf(u)) {
+					result.add(new MyContactAccessPermission(cal.getName()));
+				}
+			}
 		}
 		return result;
 	}

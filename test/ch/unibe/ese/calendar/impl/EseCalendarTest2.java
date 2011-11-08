@@ -55,6 +55,7 @@ public class EseCalendarTest2 extends UnitTest {
 	public void simpleCheck() throws ParseException {
 		Date dayStart = EseDateFormat.getInstance().parse("12.11.2011 00:00");
 		Iterator<CalendarEvent> eventsAt = calendar.getEventsAt(user.ADMIN, dayStart).iterator();
+		assertTrue(eventsAt.hasNext());
 		assertEquals(event1, eventsAt.next());
 		assertFalse(eventsAt.hasNext());		
 	}
