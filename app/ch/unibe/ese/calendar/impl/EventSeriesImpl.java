@@ -60,7 +60,6 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 		long firstConsecutiveNumber = getConsecutiveNumber(jucStart.getTime());
 		Iterator<CalendarEvent> result = new EventsIterator(firstConsecutiveNumber);
 		return result;
-
 	}
 
 	
@@ -179,6 +178,8 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 
 	@Override
 	public CalendarEvent getEventByConsecutiveNumber(long consecutiveNumber) {
+		if (exceptionalInstance.containsKey(this.getId()+"-" + consecutiveNumber))
+			return exceptionalInstance.get(this.getId()+"-" + consecutiveNumber);
 		java.util.Calendar jucEventStart = java.util.Calendar.getInstance(locale);
 		jucEventStart.setTime(getStart());
 		java.util.Calendar jucEventEnd = java.util.Calendar.getInstance(locale);

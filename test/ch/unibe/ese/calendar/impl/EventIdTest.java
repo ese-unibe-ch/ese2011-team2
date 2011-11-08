@@ -22,7 +22,7 @@ public class EventIdTest extends UnitTest {
 	private EseCalendarImpl calendar;
 	private User user;
 	private CalendarEvent event1, event2, event3;
-	private EventSeries es;
+	private EventSeries esMonthly;
 	private Date start;
 	
 	
@@ -46,7 +46,7 @@ public class EventIdTest extends UnitTest {
 		start = EseDateFormat.getInstance().parse("1.1.2011 6:00");
 		end = EseDateFormat.getInstance().parse("1.1.2011 7:00");
 		eventName = "First sunrise of month";
-		es = calendar.addEventSeries(user.ADMIN, start, end, eventName, 
+		esMonthly = calendar.addEventSeries(user.ADMIN, start, end, eventName, 
 				Visibility.BUSY, Repetition.MONTHLY, "gotta see that!");
 		
 	}
@@ -57,12 +57,12 @@ public class EventIdTest extends UnitTest {
 		assertTrue(event2.getId() != event3.getId());
 		assertTrue(event3.getId() != event1.getId());
 		
-		assertTrue(es.getId() != event3.getId());
+		assertTrue(esMonthly.getId() != event3.getId());
 	}
 	
 	@Test
 	public void createdSerialEventsShouldHaveUniqueIds() {
-		Iterator<CalendarEvent> iter = es.iterator(start);
+		Iterator<CalendarEvent> iter = esMonthly.iterator(start);
 		ArrayList<String> createdIds = new ArrayList<String>();
 		for (int i = 0; i < 100; i++) {
 			CalendarEvent ce = iter.next();
@@ -80,21 +80,45 @@ public class EventIdTest extends UnitTest {
 	
 	@Test
 	public void testGetEventByIdSeries() {
-		Iterator<CalendarEvent> iter = es.iterator(start);
+		Iterator<CalendarEvent> iter = esMonthly.iterator(start);
 		CalendarEvent e = calendar.getEventById(user.ADMIN, iter.next().getId());
-		assertEquals(es, e.getSeries());
+		assertEquals(esMonthly, e.getSeries());
 	}
 	
 	@Test
 	public void deleteSingleInstanceOfSeries() {
-		Iterator<CalendarEvent> iter = es.iterator(start);
+		Iterator<CalendarEvent> iter = esMonthly.iterator(start);
 		CalendarEvent e = iter.next();
-		es.addExceptionalInstance(e.getId(), null);
-		iter = es.iterator(start);
+		String oldId = e.getId();
+		esMonthly.addExceptionalInstance(e.getId(), null);
+		iter = esMonthly.iterator(start);
 		e = iter.next();
+		//assertEquals(oldId, e.getId());
 		assertNull(e);
 		e = iter.next();
 		assertNotNull(e);
+	}
+	
+	@Test
+	public void deleteSingleInstanceOfDailySeries() throws ParseException {
+		Date start = EseDateFormat.getInstance().parse("1.1.2011 13:00");
+		Date end = EseDateFormat.getInstance().parse("1.1.2011 14:00");
+		String eventName = "Shuffling";
+		EventSeries esDaily = calendar.addEventSeries(user.ADMIN, start, end, eventName, 
+				Visibility.BUSY, Repetition.DAILY, "every day I'm shuffling!");
+		//except this time:
+		Date exception = EseDateFormat.getInstance().parse("20.2.2011 13:00");
+		Iterator<CalendarEvent> iter = esDaily.iterator(exception);
+		CalendarEvent exceptionalEvent = iter.next();
+		esDaily.addExceptionalInstance(exceptionalEvent.getId(), null);
+		Date oneDayBeforeException = EseDateFormat.getInstance().parse("19.2.2011 12:00");
+		iter = esDaily.iterator(oneDayBeforeException);
+		CalendarEvent e = iter.next();
+		assertNotNull(e);
+		assertFalse("They are not the same instance, so the Ids should be different"
+				, exceptionalEvent.getId().equals(e.getId()));
+		assertNull(iter.next());
+		assertNotNull(iter.next());
 	}
 	
 }
