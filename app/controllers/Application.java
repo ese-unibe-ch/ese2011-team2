@@ -57,14 +57,13 @@ public class Application extends Controller {
 		juc.set(selectedYear, selectedMonth, selectedDay, 0, 0, 0);
 		final Date date = juc.getTime();
 		
-		Map<User, Boolean> contacts = user.getMyContacts();
-		Iterator<User> iterU = contacts.keySet().iterator();
+		Map<User, Boolean> myContactsMap = user.getMyContacts();
+		Iterator<User> iterMyContacts = myContactsMap.keySet().iterator();
 		Set<EseCalendar> selectedUsersCal = new HashSet<EseCalendar>();
 		Iterator iterator = Collections.EMPTY_LIST.iterator();
-		while (iterU.hasNext()){
-			User contact = iterU.next();
-			
-			if (contacts.get(contact)){
+		while (iterMyContacts.hasNext()){
+			User contact = iterMyContacts.next();
+			if (myContactsMap.get(contact)){
 				Set<EseCalendar> contactCalendars = new HashSet <EseCalendar>();
 				if (contact.equals(user)){
 					contactCalendars.add(calendarManager.getCalendar(name));

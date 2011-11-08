@@ -47,6 +47,8 @@ public class CalendarBrowser {
 		 * @return true, if the user has an event with the visibility set to public on this day.
 		 */
 		public boolean getHasPublicEvents() {
+			if (!user.isContactSelected(user))
+				return false;
 			SortedSet<CalendarEvent> set1 = calendar.getEventsAt(user, asCalendar().getTime());
 			Iterator<CalendarEvent> iterator = set1.iterator();
 			while (iterator.hasNext()){
@@ -63,6 +65,8 @@ public class CalendarBrowser {
 		 * 		in his calendar on this day.
 		 */
 		public boolean getHasNonPublicEvents() {
+			if (!user.isContactSelected(user))
+				return false;
 			SortedSet<CalendarEvent> set1 = calendar.getEventsAt(user, asCalendar().getTime());
 			Iterator<CalendarEvent> iterator = set1.iterator();
 			while (iterator.hasNext()){
