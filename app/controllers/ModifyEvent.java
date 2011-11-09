@@ -42,7 +42,8 @@ public class ModifyEvent extends Controller {
 	
 	private static int calculateDur(String dayDuration, String hourDuration,
 			String minDuration) {
-		if (dayDuration==null || hourDuration==null || minDuration==null) {
+		if (dayDuration.equals("") || hourDuration.equals("") || minDuration.equals("")) {
+			//TODO: Instead of throwing an exception, assume 0 as value if null
 			throw new IllegalArgumentException();
 		}
 		int minDur = Integer.parseInt(minDuration);
