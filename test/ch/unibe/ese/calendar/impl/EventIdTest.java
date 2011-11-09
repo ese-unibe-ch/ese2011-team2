@@ -2,8 +2,10 @@ package ch.unibe.ese.calendar.impl;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.SortedSet;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +16,7 @@ import ch.unibe.ese.calendar.EventSeries;
 import ch.unibe.ese.calendar.EventSeries.Repetition;
 import ch.unibe.ese.calendar.exceptions.EventNotFoundException;
 import ch.unibe.ese.calendar.util.EseDateFormat;
+import ch.unibe.ese.calendar.util.EventIteratorMerger;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.Visibility;
 
@@ -119,6 +122,49 @@ public class EventIdTest extends UnitTest {
 				, exceptionalEvent.getId().equals(e.getId()));
 		assertNull(iter.next());
 		assertNotNull(iter.next());
+	}
+	
+	@Test
+	public void deleteSingleInstanceOfWeeklySeries() throws ParseException {
+		Date start = EseDateFormat.getInstance().parse("1.1.2011 13:00");
+		Date end = EseDateFormat.getInstance().parse("1.1.2011 14:00");
+		String eventName = "Archery class";
+		EventSeries esDaily = calendar.addEventSeries(user.ADMIN, start, end, eventName, 
+				Visibility.BUSY, Repetition.WEEKLY, "Don't forget bow and arrows!");
+		//except this time:
+		Date exception = EseDateFormat.getInstance().parse("8.1.2011 13:00");
+		Iterator<CalendarEvent> iter = esDaily.iterator(exception);
+		CalendarEvent exceptionalEvent = iter.next();
+		esDaily.addExceptionalInstance(exceptionalEvent.getId(), null);
+		Date oneWeekBeforeException = EseDateFormat.getInstance().parse("1.1.2011 12:00");
+		iter = esDaily.iterator(oneWeekBeforeException);
+		EventIteratorMerger mergedIter = new EventIteratorMerger(iter, Collections.EMPTY_LIST.iterator());
+		iter = esDaily.iterator(oneWeekBeforeException);
+		CalendarEvent e = iter.next();
+		CalendarEvent eMerged = mergedIter.next();
+		assertNotNull(e);
+		assertNotNull(eMerged);
+		assertFalse("They are not the same instance, so the Ids should be different"
+				, exceptionalEvent.getId().equals(e.getId()));
+		assertFalse("They are not the same instance, so the Ids should be different"
+				, exceptionalEvent.getId().equals(eMerged.getId()));
+		assertNull(iter.next());
+		assertNull(mergedIter.next());
+		assertNotNull(iter.next());
+		//FIXME: what happens here?
+		//the null-value gets somehow doubled!
+		assertNotNull(e);
+		assertNotNull(iter.next());
+		assertNotNull(mergedIter.next());
+		assertNotNull(iter.next());
+		
+		
+		//test other iterators:
+		/*
+		iter = calendar.getEventsAt(user.ADMIN, oneWeekBeforeException).iterator();
+		assertEquals(e, iter.next());
+		assertFalse(iter.hasNext());
+		*/
 	}
 	
 }
