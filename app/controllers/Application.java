@@ -103,7 +103,7 @@ public class Application extends Controller {
 		User user = UserManager.getInstance().getUserByName(name);
 		Set<EseCalendar> otherCalendars = CalendarManager.getInstance()
 				.getCalendarsOf(user);
-		Iterator<User> myContactsIterator = user.getSortedContacts().iterator();
+		Iterator<User> myContactsIterator = currentUser.getSortedContacts().iterator();
 		render(currentUser, user, otherCalendars, myContactsIterator);
 	}
 	

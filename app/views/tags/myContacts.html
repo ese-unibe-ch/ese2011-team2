@@ -1,7 +1,3 @@
-<head>
-	<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/myContacts.css'}">
-</head>
-
 <h2>My Contacts</h2>
 #{form @Application.includeContacts(_calendar.name)}
 	#{list items:_myContacts, as:'contact'}
