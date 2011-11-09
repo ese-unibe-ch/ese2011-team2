@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
@@ -12,6 +13,7 @@ import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
 import ch.unibe.ese.calendar.exceptions.NoSuchCalendarException;
 import ch.unibe.ese.calendar.security.CalendarAdminPermission;
 import ch.unibe.ese.calendar.security.Policy;
+import ch.unibe.ese.calendar.util.EseCalendarComparator;
 
 /**
  * 
@@ -78,14 +80,14 @@ public class CalendarManagerImpl extends CalendarManager {
 	}
 	
 	/**
-	 * Get the calendars own by a user
+	 * Get the calendars own by a user. They are sorted by their name.
 	 * 
 	 * @param user the user for which the calendars are requested
 	 * @return the calendars of user
 	 */
 	@Override
 	public synchronized Set<EseCalendar> getCalendarsOf(User user) {
-		Set<EseCalendar> result = new HashSet<EseCalendar>();
+		Set<EseCalendar> result = new TreeSet<EseCalendar>(new EseCalendarComparator());
 		for (EseCalendarImpl cal : calendars.values()) {
 			if (cal.getOwner().equals(user)) {
 				result.add(cal);
