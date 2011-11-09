@@ -19,10 +19,10 @@ import play.mvc.With;
 public class ModifyEvent extends Controller {
 	
 	public static void createEvent(String calendarName, String name, String startDate, 
-			String duration, String visibility, String repetition, String description)
-			throws Throwable {
+			String dayDuration, String hourDuration, String minDuration, String visibility, 
+			String repetition, String description) throws Throwable {
 		Date sDate = EseDateFormat.getInstance().parse(startDate);
-		int minDur = Integer.parseInt(duration);
+		int minDur = calculateMinDur(dayDuration, hourDuration, minDuration);
 		Date eDate = new Date();
 		eDate.setTime(sDate.getTime()+1000*60*minDur);
 		Visibility vis = Visibility.valueOf(visibility.toUpperCase());
@@ -40,6 +40,18 @@ public class ModifyEvent extends Controller {
 		Application.calendar(calendarName);
 	}
 	
+	private static int calculateMinDur(String dayDuration, String hourDuration,
+			String minDuration) {
+		if (dayDuration==null || hourDuration==null || minDuration==null) {
+			throw new IllegalArgumentException();
+		}
+		int minDur = Integer.parseInt(minDuration);
+		int hourDur = Integer.parseInt(hourDuration);
+		int dayDur = Integer.parseInt(dayDuration);
+		minDur = minDur + 60*hourDur + 1440*dayDur;
+		return minDur;
+	}
+
 	/**
 	 * An event is identified by its unique id. For finding it
 	 * easily, we have to know it's startDate.
