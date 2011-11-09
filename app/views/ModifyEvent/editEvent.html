@@ -23,8 +23,13 @@
 			<input type="text" size="35%" name="startDate" value="${event.start.format("dd.MM.yyyy HH:mm")}"/>
 		</p>
 		<p>
-			<label for="duration">Duration (in minutes): </label> <br/>
-			<input type="text" size="35%" name="duration" value="${(event.end.getTime()-event.start.getTime())/(1000*60)}"/>
+			Duration:<br/>
+					<input type="text" size="2%" name="dayDuration" placeholder="${durations[0]}" value ="${durations[0]}"/>
+					<label for="duration">days</label>
+					<input type="text" size="2%" name="hourDuration" placeholder="${durations[1]}" value ="${durations[1]}"/>
+					<label for="duration">hours</label>
+					<input type="text" size="2%" name="minDuration" placeholder="${durations[2]}" value ="${durations[2]}"/>
+					<label for="duration">min</label>
 		</p>
 		<p>
 			<textarea name="description" rows="5" cols="27">${event.description}</textarea>

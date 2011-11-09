@@ -107,21 +107,54 @@ public class ModifyEvent extends Controller {
 		Repetition[] repetitions = Repetition.values();
 		try {
 			CalendarEvent event = calendar.getEventById(user, id);
-			render(calendar, event, visibilities, repetitions);
+			int duration = (int) (event.getEnd().getTime() - event.getStart().getTime());
+			String[] durations = getDurations(duration);
+			render(calendar, event, durations, visibilities, repetitions);
 		} catch (EventNotFoundException exception) {
 			error(exception.getMessage());
 		}
 	}
 	
+	/**
+	 * Gets an <code>Array</code> of <code>Strings</code>. 
+	 * First Entry has the number of days as a <code>String</code>.
+	 * Second Entry has the number of hours as a <code>String</code>.
+	 * Third Entry has the number of minutes as a <code>String</code>.
+	 * @param duration in milliseconds
+	 * @return an <code>Array</code> of <code>Strings</code>. 
+	 */
+	private static String[] getDurations(int duration) {
+		String[] durations = new String[3];
+		int minDur = duration / (1000*60);
+		if (minDur % 1440 == 0) {
+			durations[0] = minDur/1440+"";
+			durations[1] = "0";
+			durations[2] = "0";
+		} else {
+			if ((minDur % 1440) % 60 == 0) {
+				durations[0] = minDur/1440+"";
+				durations[1] = (minDur%1440)/60+"";
+				durations[2] = "0";
+			} else {
+				if ((minDur % 1440) % 60 < 60) {
+					durations[0] = minDur/1440+"";
+					durations[1] = (minDur%1440)/60+"";
+					durations[2] = (minDur % 1440) % 60 +"";
+				}
+			}
+		}
+		return durations;
+	}
+
 	public static void saveEditedEvent(String calendarName, String id, String oldStartDate, 
-			String name, String startDate, String duration, String visibility, 
-			String description, String repetition, boolean wasSeries) 
-			throws ParseException {
+			String name, String startDate, String dayDuration, String hourDuration, 
+			String minDuration, String visibility, String description, String repetition, 
+			boolean wasSeries) throws ParseException {
 		
 		Date sDate = EseDateFormat.getInstance().parse(startDate);
-		int minDur = Integer.parseInt(duration);
+		int duration = calculateDur(dayDuration, hourDuration, minDuration);
 		Date eDate = new Date();
-		eDate.setTime(sDate.getTime()+1000*60*minDur);
+		eDate.setTime(sDate.getTime()+duration);
 		Visibility vis = Visibility.valueOf(visibility.toUpperCase());
 		//Date eDate = EseDateFormat.getInstance().parse(endDate);
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
