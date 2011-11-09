@@ -1,7 +1,9 @@
 package ch.unibe.ese.calendar.impl;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
@@ -15,6 +17,7 @@ import ch.unibe.ese.calendar.exceptions.NoSuchCalendarException;
 import ch.unibe.ese.calendar.security.CalendarAdminPermission;
 import ch.unibe.ese.calendar.security.Policy;
 import ch.unibe.ese.calendar.util.EseCalendarComparator;
+import ch.unibe.ese.calendar.util.UnionCalendar;
 
 /**
  * 
@@ -29,14 +32,7 @@ public class CalendarManagerImpl extends CalendarManager {
 		
 	}
 	
-	/**
-	 * Create a calendar with the specified name. This method must be invoked as a Subject with exactly
-	 * one CalendarPriciple, i.e. as the Subject returned by <code>User.getSubject</code>.
-	 * 
-	 * @param name the name of the calendar
-	 * @return the newly created calendar
-	 * @throws CalendarAlreadyExistsException if a calendar with that name already exists
-	 */
+	
 	@Override
 	public synchronized EseCalendar createCalendar(User user, String name) throws CalendarAlreadyExistsException {
 		if (calendars.containsKey(name)) {
@@ -48,12 +44,7 @@ public class CalendarManagerImpl extends CalendarManager {
 		}	
 	}
 	
-	/**
-	 * Remove a calendar with the specified name.
-	 * 
-	 * @param name the name of the calendar
-	 * @throws NoSuchCalendarException if there is no calendar with that name
-	 */
+	
 	@Override
 	public synchronized void removeCalendar(String name) throws NoSuchCalendarException {
 		if (calendars.containsKey(name)) {
@@ -63,13 +54,7 @@ public class CalendarManagerImpl extends CalendarManager {
 		}
 	}
 	
-	/**
-	 * Get a calendar with the specified name
-	 * 
-	 * @param name the name of the calendar
-	 * @return the existing calendar
-	 * @throws NoSuchCalendarException if no calendar with that name exists
-	 */
+	
 	@Override
 	public synchronized EseCalendar getCalendar(String name) throws NoSuchCalendarException {
 		if (calendars.containsKey(name)) {
@@ -80,12 +65,7 @@ public class CalendarManagerImpl extends CalendarManager {
 		
 	}
 	
-	/**
-	 * Get the calendars own by a user. They are sorted by their name.
-	 * 
-	 * @param user the user for which the calendars are requested
-	 * @return the calendars of user
-	 */
+	
 	@Override
 	public synchronized SortedSet<EseCalendar> getCalendarsOf(User user) {
 		SortedSet<EseCalendar> result = new TreeSet<EseCalendar>(new EseCalendarComparator());
@@ -107,6 +87,19 @@ public class CalendarManagerImpl extends CalendarManager {
 		Policy.getInstance().checkPermission(user, new CalendarAdminPermission());
 		calendars.clear();
 		
+	}
+
+
+	@Override
+	public EseCalendar getUnionCalendarOf(User user) {
+		Collection<EseCalendar> userCalendars = getCalendarsOf(user);
+		Iterator<EseCalendar> iter = userCalendars.iterator();
+		EseCalendar mainCalendar = iter.next();;
+		EseCalendar[] otherCalendars = new EseCalendar[userCalendars.size()-1];
+		for (int i = 0; i < userCalendars.size()-1; i++) {
+			otherCalendars[i] = iter.next();
+		}
+		return new UnionCalendar(mainCalendar, otherCalendars);
 	}
 
 }

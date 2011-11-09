@@ -3,9 +3,10 @@ package ch.unibe.ese.calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.SortedSet;
-import java.util.TreeSet;
 
 import ch.unibe.ese.calendar.EventSeries.Repetition;
+import ch.unibe.ese.calendar.exceptions.EventNotFoundException;
+import ch.unibe.ese.calendar.security.PermissionDeniedException;
 
 public abstract class EseCalendar {
 
