@@ -22,9 +22,9 @@ public class ModifyEvent extends Controller {
 			String dayDuration, String hourDuration, String minDuration, String visibility, 
 			String repetition, String description) throws Throwable {
 		Date sDate = EseDateFormat.getInstance().parse(startDate);
-		int minDur = calculateMinDur(dayDuration, hourDuration, minDuration);
+		int duration = calculateDur(dayDuration, hourDuration, minDuration);
 		Date eDate = new Date();
-		eDate.setTime(sDate.getTime()+1000*60*minDur);
+		eDate.setTime(sDate.getTime()+duration);
 		Visibility vis = Visibility.valueOf(visibility.toUpperCase());
 		//Date eDate = EseDateFormat.getInstance().parse(endDate); //old version
 		String userName = Security.connected();
@@ -40,7 +40,7 @@ public class ModifyEvent extends Controller {
 		Application.calendar(calendarName);
 	}
 	
-	private static int calculateMinDur(String dayDuration, String hourDuration,
+	private static int calculateDur(String dayDuration, String hourDuration,
 			String minDuration) {
 		if (dayDuration==null || hourDuration==null || minDuration==null) {
 			throw new IllegalArgumentException();
@@ -48,8 +48,8 @@ public class ModifyEvent extends Controller {
 		int minDur = Integer.parseInt(minDuration);
 		int hourDur = Integer.parseInt(hourDuration);
 		int dayDur = Integer.parseInt(dayDuration);
-		minDur = minDur + 60*hourDur + 1440*dayDur;
-		return minDur;
+		int duration = 1000*60*(minDur + 60*hourDur + 1440*dayDur);
+		return duration;
 	}
 
 	/**
