@@ -40,6 +40,13 @@ public class ModifyEvent extends Controller {
 		Application.calendar(calendarName);
 	}
 	
+	/**
+	 * Calculates the duration in milliseconds.
+	 * @param dayDuration
+	 * @param hourDuration
+	 * @param minDuration
+	 * @return the amount of milliseconds as an <code>Integer</code>.
+	 */
 	private static int calculateDur(String dayDuration, String hourDuration,
 			String minDuration) {
 		if (dayDuration.equals("") || hourDuration.equals("") || minDuration.equals("")) {
