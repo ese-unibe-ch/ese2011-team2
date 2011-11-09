@@ -3,6 +3,7 @@ package ch.unibe.ese.calendar.security;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.SortedSet;
 
 import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
@@ -31,7 +32,7 @@ public class Policy {
 
 	private Set<Permission> getUserPermissions(User user) {
 		Set<Permission> result = new HashSet<Permission>();
-		Set<EseCalendar> userCalendars = CalendarManager.getInstance().getCalendarsOf(user);
+		SortedSet<EseCalendar> userCalendars = CalendarManager.getInstance().getCalendarsOf(user);
 		for (EseCalendar cal : userCalendars) {
 			result.add(new PrivilegedCalendarAccessPermission(cal.getName()));
 		}

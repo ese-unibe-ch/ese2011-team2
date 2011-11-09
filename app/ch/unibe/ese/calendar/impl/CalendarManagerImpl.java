@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 import ch.unibe.ese.calendar.CalendarManager;
@@ -86,8 +87,8 @@ public class CalendarManagerImpl extends CalendarManager {
 	 * @return the calendars of user
 	 */
 	@Override
-	public synchronized Set<EseCalendar> getCalendarsOf(User user) {
-		Set<EseCalendar> result = new TreeSet<EseCalendar>(new EseCalendarComparator());
+	public synchronized SortedSet<EseCalendar> getCalendarsOf(User user) {
+		SortedSet<EseCalendar> result = new TreeSet<EseCalendar>(new EseCalendarComparator());
 		for (EseCalendarImpl cal : calendars.values()) {
 			if (cal.getOwner().equals(user)) {
 				result.add(cal);

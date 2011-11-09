@@ -1,6 +1,7 @@
 package ch.unibe.ese.calendar;
 
 import java.util.Set;
+import java.util.SortedSet;
 
 import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
 import ch.unibe.ese.calendar.exceptions.NoSuchCalendarException;
@@ -12,7 +13,7 @@ public abstract class CalendarManager {
 
 	public abstract void purge(User user);
 
-	public abstract Set<EseCalendar> getCalendarsOf(User user);
+	public abstract SortedSet<EseCalendar> getCalendarsOf(User user);
 
 	public abstract EseCalendar getCalendar(String name)
 			throws NoSuchCalendarException;

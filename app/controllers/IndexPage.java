@@ -1,5 +1,6 @@
 package controllers;
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.regex.PatternSyntaxException;
 
 import play.mvc.Controller;
@@ -19,7 +20,7 @@ public class IndexPage extends Controller {
 		UserManager um = UserManager.getInstance();
 		User user = um.getUserByName(userName);
 		CalendarManager calendarManager = CalendarManager.getInstance();
-		Set<EseCalendar> userCalendars = calendarManager.getCalendarsOf(user);
+		SortedSet<EseCalendar> userCalendars = calendarManager.getCalendarsOf(user);
 
 		final String token = "You (" + user + ") own: " + userCalendars.size()
 				+ " calendars";

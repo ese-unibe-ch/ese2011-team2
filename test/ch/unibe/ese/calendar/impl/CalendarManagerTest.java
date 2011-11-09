@@ -59,6 +59,17 @@ public class CalendarManagerTest extends UnitTest {
 		assertTrue(calManager.getCalendarsOf(user).isEmpty());
 	}
 	
+	@Test
+	public void retrieveACorrectlySortedSetOfCalendars() {
+		EseCalendar calC = calManager.createCalendar(user, "c");
+		@SuppressWarnings("unused")
+		EseCalendar calB = calManager.createCalendar(user, "b");
+		EseCalendar calA = calManager.createCalendar(user, "a");
+		assertEquals(calA, calManager.getCalendarsOf(user).first());
+		assertEquals(calC, calManager.getCalendarsOf(user).last());
+		
+	}
+	
 	@Test (expected=PermissionDeniedException.class)
 	public void tryToPurgeAGivenUsersCalendarsWithoutPermission() {
 		EseCalendar cal = calManager.createCalendar(user, "NotToBePurgedCal");
