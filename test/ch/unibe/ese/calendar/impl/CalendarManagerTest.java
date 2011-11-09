@@ -67,7 +67,19 @@ public class CalendarManagerTest extends UnitTest {
 		EseCalendar calA = calManager.createCalendar(user, "a");
 		assertEquals(calA, calManager.getCalendarsOf(user).first());
 		assertEquals(calC, calManager.getCalendarsOf(user).last());
-		
+	}
+	
+	@Test
+	public void removeACalendar() {
+		EseCalendar cal = calManager.createCalendar(user, "calToRemove");
+		assertTrue(calManager.getCalendarsOf(user).contains(cal));
+		calManager.removeCalendar("calToRemove");
+		assertFalse(calManager.getCalendarsOf(user).contains(cal));
+	}
+	
+	@Test (expected=NoSuchCalendarException.class)
+	public void tryToRemoveNonExistentCalendar() {
+		calManager.removeCalendar("NonExistentCalendar");
 	}
 	
 	@Test (expected=PermissionDeniedException.class)
