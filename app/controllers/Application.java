@@ -61,30 +61,26 @@ public class Application extends Controller {
 		Calendar juc = Calendar.getInstance(getLocale());
 		juc.set(selectedYear, selectedMonth, selectedDay, 0, 0, 0);
 		final Date date = juc.getTime();
-		Map<User, Boolean> myContactsMap = connectedUser.getMyContacts();
+		Map<User, Boolean> myContactsMap = user.getMyContacts();
 		Iterator<User> iterMyContacts = myContactsMap.keySet().iterator();
 		Set<EseCalendar> selectedUsersCal = new HashSet<EseCalendar>();
 		Iterator iterator = Collections.EMPTY_LIST.iterator();
-		if (!user.equals(connectedUser)) {
-			iterator = calendar.getEventsAt(user, date).iterator();
-		} else {
-			while (iterMyContacts.hasNext()){
-				User contact = iterMyContacts.next();
-				if (myContactsMap.get(contact)){
-					Set<EseCalendar> contactCalendars = new HashSet <EseCalendar>();
-					if (contact.equals(user)){
-						contactCalendars.add(calendar);
-					}
-					else {
-						 contactCalendars = calendarManager.getCalendarsOf(contact);
-					}
-					selectedUsersCal.addAll(contactCalendars);
-					Iterator<EseCalendar> eseCalendarIter = contactCalendars.iterator();
-					while (eseCalendarIter.hasNext()){
-						EseCalendar contactCal = eseCalendarIter.next();
-						Iterator<CalendarEvent> iteratorCalEvent =  contactCal.getEventsAt(user, date).iterator();
-						iterator = new EventIteratorMerger(iterator, iteratorCalEvent); 
-					}
+		while (iterMyContacts.hasNext()){
+			User contact = iterMyContacts.next();
+			if (myContactsMap.get(contact)){
+				Set<EseCalendar> contactCalendars = new HashSet <EseCalendar>();
+				if (contact.equals(user)){
+					contactCalendars.add(calendar);
+				}
+				else {
+					 contactCalendars = calendarManager.getCalendarsOf(contact);
+				}
+				selectedUsersCal.addAll(contactCalendars);
+				Iterator<EseCalendar> eseCalendarIter = contactCalendars.iterator();
+				while (eseCalendarIter.hasNext()){
+					EseCalendar contactCal = eseCalendarIter.next();
+					Iterator<CalendarEvent> iteratorCalEvent =  contactCal.getEventsAt(user, date).iterator();
+					iterator = new EventIteratorMerger(iterator, iteratorCalEvent); 
 				}
 			}
 		}
