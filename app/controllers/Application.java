@@ -52,7 +52,6 @@ public class Application extends Controller {
 	 * @param userName The name of the user whose calendar will be displayed.
 	 */
 	public static void calendar(String userName) {
-		System.out.println("name: " + userName);
 		String connectedUserName = Security.connected();
 		User connectedUser = UserManager.getInstance().getUserByName(connectedUserName);
 		User user = UserManager.getInstance().getUserByName(userName);

@@ -198,9 +198,7 @@ public class CalendarBrowser {
 		juc.set(Calendar.YEAR, year);
 		juc.set(Calendar.DAY_OF_MONTH, relativeWeekNumber*7+1);
 		int dayOfWeek = juc.get(Calendar.DAY_OF_WEEK);
-		System.out.println(juc.get(Calendar.DAY_OF_WEEK));
 		juc.add(Calendar.DAY_OF_MONTH, 1 - dayOfWeek);
-		System.out.println(juc.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, locale));
 		for (int i = 0; i < 7; i++) {
 			result[i] = new Day((Calendar) juc.clone());
 			juc.add(Calendar.DAY_OF_MONTH, 1);

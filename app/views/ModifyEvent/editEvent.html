@@ -43,7 +43,7 @@
 	<div id=repetition>
 		Visibility:<br/>
 		#{list items:visibilities, as:'vis'}
-			<input type="radio" name="visibility" value="${vis.name}" 
+			<input type="radio" name="visibility" value="${vis}" 
 			#{if event.visibility == vis}checked="checked"#{/if}/> 
 			${vis.name}<br />
 		#{/list}<br/>
@@ -52,7 +52,7 @@
 		#{if (event.getSeries() == null)}checked="checked"#{/if}>
 		never<br/>
 		#{list items:repetitions, as:'rep'}
-			<input type="radio" name="repetition" value="${rep.name}"
+			<input type="radio" name="repetition" value="${rep}"
 			#{if ((event.getSeries() != null) && (event.getSeries().repetition == rep))}checked="checked"#{/if}/>
 			${rep.name}<br/>
 		#{/list}
@@ -61,7 +61,7 @@
 		</p>
 	#{/form}
 	#{form @Application.calendar()} 
-			<input type="hidden" name="name" value="${calendar.name}">
+			<input type="hidden" name="userName" value="${calendar.owner.getName()}">
 			<input type="submit" name="add" value="Cancel">
 	#{/form}
 	</div>
