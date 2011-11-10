@@ -146,6 +146,13 @@ public class EventIdTest extends UnitTest {
 				, exceptionalEvent.getId().equals(e.getId()));
 		assertFalse("They are not the same instance, so the Ids should be different"
 				, exceptionalEvent.getId().equals(eMerged.getId()));
+		assertEquals(e.getId(), eMerged.getId());
+		//The following would work if equals and hashcode were implemented as per the interface difintion
+		//TODO fix
+		//assertEquals(e, eMerged);
+		
+		//we shouldn't expect a null value back, setting an exceptional event to null 
+		//should not cause a null value to be returned but the instance to be removed from the series
 		assertNull(oneweekBeforeIter2.next());
 		assertNull(oneweekBeforeIterMerged.next());
 		assertNotNull(oneweekBeforeIter2.next());
