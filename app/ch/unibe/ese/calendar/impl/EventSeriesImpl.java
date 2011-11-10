@@ -228,7 +228,10 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 
 		@Override
 		public CalendarEvent next() {
-			return getEventByConsecutiveNumber(currentConsecutiveNumber++);
+			CalendarEvent nextEvent = getEventByConsecutiveNumber(currentConsecutiveNumber++);
+			if(nextEvent != null) 
+				return nextEvent;
+			else return next();
 		}
 
 
