@@ -1,7 +1,9 @@
 package controllers;
 
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.CalendarManager;
@@ -114,7 +116,7 @@ public class ModifyEvent extends Controller {
 		Repetition[] repetitions = Repetition.values();
 		try {
 			CalendarEvent event = calendar.getEventById(user, id);
-			int duration = (int) (event.getEnd().getTime() - event.getStart().getTime());
+			long duration = event.getEnd().getTime() - event.getStart().getTime();
 			String[] durations = getDurations(duration);
 			render(calendar, event, durations, visibilities, repetitions);
 		} catch (EventNotFoundException exception) {
@@ -130,9 +132,9 @@ public class ModifyEvent extends Controller {
 	 * @param duration in milliseconds
 	 * @return an <code>Array</code> of <code>Strings</code>. 
 	 */
-	private static String[] getDurations(int duration) {
+	private static String[] getDurations(long duration) {
 		String[] durations = new String[3];
-		int minDur = duration / (1000*60);
+		int minDur = (int) (duration / (1000*60));
 		if (minDur % 1440 == 0) {
 			durations[0] = minDur/1440+"";
 			durations[1] = "0";

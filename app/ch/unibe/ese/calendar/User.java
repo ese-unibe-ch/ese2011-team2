@@ -9,7 +9,7 @@ import java.util.TreeSet;
 
 import javax.activity.InvalidActivityException;
 
-import ch.unibe.ese.calendar.util.ContactsComparator;
+import ch.unibe.ese.calendar.util.UserComparator;
 
 
 
@@ -93,7 +93,7 @@ public class User {
 	 * the connected User. The other users are sorted alphabetically.
 	 */
 	public SortedSet<User> getSortedContacts() {
-		SortedSet sortedContacts = new TreeSet<User>(new ContactsComparator(this));
+		SortedSet sortedContacts = new TreeSet<User>(new UserComparator(this));
 		sortedContacts.addAll(myContacts.keySet());
 		return sortedContacts;
 	}

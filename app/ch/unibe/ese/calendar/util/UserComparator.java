@@ -7,7 +7,7 @@ import ch.unibe.ese.calendar.User;
 
 import controllers.Security;
 
-public class ContactsComparator implements Comparator<User> {
+public class UserComparator implements Comparator<User> {
 	
 	private User connectedUser;
 	
@@ -15,7 +15,7 @@ public class ContactsComparator implements Comparator<User> {
 	 * The ContactsComparator will make sure that the connectedUser is 
 	 * listed first and the other contacts sorted alphabetically.
 	 */
-	public ContactsComparator(User connectedUser) {
+	public UserComparator(User connectedUser) {
 		this.connectedUser = connectedUser;
 	}
 

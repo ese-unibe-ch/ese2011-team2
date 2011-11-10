@@ -1,8 +1,8 @@
 <h2>My Contacts</h2>
-#{form @Application.includeContacts(_calendar.name)}
+#{form @Application.includeContacts()}
 	#{list items:_myContacts, as:'contact'}
 		%{
-			if (contact.name.equals(_user.name))
+			if (contact.name.equals(_connectedUser.name))
 				con = "me"
 			else
 				con = contact.name
@@ -11,7 +11,7 @@
 			<input type="checkbox" 
 			name="checkedContacts[]" 
 			value=${contact.name} 
-			#{if _user.isContactSelected(contact)}checked="checked"#{/if}
+			#{if _connectedUser.isContactSelected(contact)}checked="checked"#{/if}
 			onClick="this.form.submit()">&nbsp;${con}
 			<br>
 		</li>

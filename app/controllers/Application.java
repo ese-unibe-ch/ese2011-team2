@@ -31,61 +31,90 @@ public class Application extends Controller {
 	
 	public static int selectedDay, selectedMonth, selectedYear;
 	
-	public static void currentCalendar(String name) {
+	/**
+	 * Will display the current calendar of a specified user.
+	 * @param userName
+	 */
+	public static void currentCalendar(String userName) {
 		java.util.Calendar juc = java.util.Calendar.getInstance(getLocale());
 		juc.setTime(new Date());
 		selectedDay = juc.get(java.util.Calendar.DAY_OF_MONTH);
 		selectedMonth = juc.get(java.util.Calendar.MONTH);
 		selectedYear = juc.get(java.util.Calendar.YEAR);
-		calendar(name);
+		calendar(userName);
 	}
 
 	/**
-	 * This method shows the calendar page. 
+	 * This method shows the calendar page of a specified user. 
 	 * The selected day is read from instance variables.
 	 * 
 	 * @param name The name of the calendar
 	 */
-	public static void calendar(String name) {
-		
-		System.out.println("name: " + name);
-		String userName = Security.connected();
+	public static void calendar(String userName) {
+		System.out.println("name: " + userName);
+		String connectedUserName = Security.connected();
+		User connectedUser = UserManager.getInstance().getUserByName(connectedUserName);
 		User user = UserManager.getInstance().getUserByName(userName);
 		CalendarManager calendarManager = CalendarManager.getInstance();
-		final EseCalendar calendar = calendarManager.getCalendar(name);
+		//done this way to display a calendar directly. triedo will probably change this later
+		EseCalendar calendar = selectCalendarToDisplay(user, connectedUser);
 		Calendar juc = Calendar.getInstance(getLocale());
 		juc.set(selectedYear, selectedMonth, selectedDay, 0, 0, 0);
 		final Date date = juc.getTime();
-		
-		Map<User, Boolean> myContactsMap = user.getMyContacts();
+		Map<User, Boolean> myContactsMap = connectedUser.getMyContacts();
 		Iterator<User> iterMyContacts = myContactsMap.keySet().iterator();
 		Set<EseCalendar> selectedUsersCal = new HashSet<EseCalendar>();
 		Iterator iterator = Collections.EMPTY_LIST.iterator();
-		while (iterMyContacts.hasNext()){
-			User contact = iterMyContacts.next();
-			if (myContactsMap.get(contact)){
-				Set<EseCalendar> contactCalendars = new HashSet <EseCalendar>();
-				if (contact.equals(user)){
-					contactCalendars.add(calendarManager.getCalendar(name));
-				}
-				else {
-					 contactCalendars = calendarManager.getCalendarsOf(contact);
-				}
-				selectedUsersCal.addAll(contactCalendars);
-				Iterator<EseCalendar> eseCalendarIter = contactCalendars.iterator();
-				while (eseCalendarIter.hasNext()){
-					EseCalendar contactCal = eseCalendarIter.next();
-					Iterator<CalendarEvent> iteratorCalEvent =  contactCal.getEventsAt(user, date).iterator();
-					iterator = new EventIteratorMerger(iterator, iteratorCalEvent); 
+		if (!user.equals(connectedUser)) {
+			iterator = calendar.getEventsAt(user, date).iterator();
+		} else {
+			while (iterMyContacts.hasNext()){
+				User contact = iterMyContacts.next();
+				if (myContactsMap.get(contact)){
+					Set<EseCalendar> contactCalendars = new HashSet <EseCalendar>();
+					if (contact.equals(user)){
+						contactCalendars.add(calendar);
+					}
+					else {
+						 contactCalendars = calendarManager.getCalendarsOf(contact);
+					}
+					selectedUsersCal.addAll(contactCalendars);
+					Iterator<EseCalendar> eseCalendarIter = contactCalendars.iterator();
+					while (eseCalendarIter.hasNext()){
+						EseCalendar contactCal = eseCalendarIter.next();
+						Iterator<CalendarEvent> iteratorCalEvent =  contactCal.getEventsAt(user, date).iterator();
+						iterator = new EventIteratorMerger(iterator, iteratorCalEvent); 
+					}
 				}
 			}
 		}
-		
 		CalendarBrowser calendarBrowser = new CalendarBrowser(user, calendar,
 				selectedUsersCal, selectedDay, selectedMonth, selectedYear, getLocale());
 		
-		Set<User> myContacts = user.getSortedContacts();
-		render(iterator, calendar, calendarBrowser, myContacts, user);
+		Set<User> myContacts = connectedUser.getSortedContacts();
+		render(iterator, calendar, calendarBrowser, myContacts, connectedUser);
+	}
+	
+	/**
+	 * Selects the calendar to display according to the user.
+	 * @param user
+	 * @param connectedUser
+	 * @return
+	 */
+	private static EseCalendar selectCalendarToDisplay(User user,
+			User connectedUser) {
+		CalendarManager calendarManager = CalendarManager.getInstance();
+		SortedSet<EseCalendar> connectedUserCalendars = calendarManager.getCalendarsOf(connectedUser);
+		EseCalendar calendar = connectedUserCalendars.iterator().next();
+		if (!user.equals(connectedUser)) {
+			SortedSet calendars = calendarManager.getCalendarsOf(user);
+			if (calendars.size()<2) {
+				calendar = (EseCalendar) calendars.iterator().next();
+			} else {
+				calendar = calendarManager.getUnionCalendarOf(user);
+			}
+		}
+		return calendar;
 	}
 
 	/**
@@ -107,15 +136,19 @@ public class Application extends Controller {
 		render(currentUser, user, otherCalendars, myContactsIterator);
 	}
 	
-	public static void addToContacts(String calendarName, String name) {
+	public static void addToContacts(String name) {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		User userToAdd = UserManager.getInstance().getUserByName(name);
 		user.addToMyContacts(userToAdd);
-		calendar(calendarName);
+		calendar(name);
 	}
 	
-	public static void removeFromContacts(String calendarName, String name) {
+	/**
+	 * Remove the user with the specified name from myContacts.
+	 * @param name of the user to remove
+	 */
+	public static void removeFromContacts(String name) {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		User userToRemove = UserManager.getInstance().getUserByName(name);
@@ -124,7 +157,7 @@ public class Application extends Controller {
 		} catch (InvalidActivityException e) {
 			e.printStackTrace();
 		}
-		calendar(calendarName);
+		calendar(name);
 	}
 	
 	/**
@@ -134,11 +167,11 @@ public class Application extends Controller {
 	 * @param month
 	 * @param year
 	 */
-	public static void selectDate(String calendarName, int day, int month, int year) {
+	public static void selectDate(String userName, int day, int month, int year) {
 		selectedDay = day;
 		selectedMonth = month;
 		selectedYear = year;
-		calendar(calendarName);
+		calendar(userName);
 	}
 	
 	/**
@@ -162,10 +195,9 @@ public class Application extends Controller {
 	 * First sets all Contacts to unselected then sets all Contacts that have 
 	 * their name in checkedContacts[] to selected
 	 * 
-	 * @param calendarName
 	 * @param checkedContacts: all Contacts who's checkbox is selected
 	 */
-	public static void includeContacts(String calendarName, String[] checkedContacts) {
+	public static void includeContacts(String[] checkedContacts) {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		user.unselectAllContacts();
@@ -175,8 +207,9 @@ public class Application extends Controller {
 				user.setContactSelection(u, true);
 			}
 		}	
-		calendar(calendarName);
+		calendar(userName);
 	}
+	
 	/**
 	*
 	*
@@ -188,6 +221,7 @@ public class Application extends Controller {
 		user(userName);
 		
 	}
+	
 	/**
 	*
 	*

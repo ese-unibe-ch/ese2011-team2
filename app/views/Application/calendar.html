@@ -7,9 +7,9 @@
 </head>
 
 <div id=contentLeft>
-	#{if user == calendar.owner}
+	#{if connectedUser == calendar.owner}
 		<div id=myContacts>
-			#{myContacts myContacts:myContacts, user:user, calendar:calendar /}
+			#{myContacts myContacts:myContacts, connectedUser:connectedUser, calendar:calendar /}
 		</div>
 	#{/if}
 	#{else}
@@ -25,10 +25,9 @@
 	</div>
 	<div id=selectedDay>
 	<h2>Events on ${calendarBrowser.dayLabel}:</h2>
-			#{eventInfo iterator:iterator, calendar:calendar, user:user/}
+			#{eventInfo iterator:iterator, calendar:calendar, connectedUser:connectedUser/}
 	</div>
-	
-	#{if user.name == calendar.owner.name}
+	#{if connectedUser.name == calendar.owner.name}
 	<div id=createEvent>
 		#{addEvent calendar:calendar /}
 	</div>
@@ -36,15 +35,15 @@
 </div>
 
 <div id=contentRight>
-	#{if user.name != calendar.owner.name}
+	#{if connectedUser.name != calendar.owner.name}
 		<div id=addToContacts>
-		#{if user.myContacts.containsKey(calendar.owner)}
-			#{form @Application.removeFromContacts(calendar.name, calendar.owner.name)} 
+		#{if connectedUser.myContacts.containsKey(calendar.owner)}
+			#{form @Application.removeFromContacts(calendar.owner.name)} 
 				<input type="submit" name="add" value="remove from myContacts">
 			#{/form}
 		#{/if}
 		#{else}
-			#{form @Application.addToContacts(calendar.name, calendar.owner.name)} 
+			#{form @Application.addToContacts(calendar.owner.name)} 
 				<input type="submit" name="add" value="add to myContacts">
 			#{/form}
 		#{/else}

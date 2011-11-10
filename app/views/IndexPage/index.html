@@ -9,7 +9,7 @@
 <div id="welcome">
 	<h1>Welcome to the ESE Calendaring app</h1>
 		
-		<a href="@{Application.user(user.name)}">View my Calendars </a> 
+		<a href="@{Application.currentCalendar(connectedUser.name)}">View my Calendars </a> 
 	<p>
 		<a href="@{IndexPage.deleteAccount()}">Delete this Account</a>
 	</p>
@@ -21,10 +21,10 @@
 		<input type="text" name="searchRegex" placeholder="takes a java regex"/>
 		<input type="submit" value ="search">
 	#{/form}
-	#{list items:foundUsers, as:'User'}
+	#{list items:foundUsers, as:'user'}
 	<ul>
 		<li> 
-			<a href="@{Application.user(User)}">${User}</a>
+			<a href="@{Application.currentCalendar(user.name)}">${user.name}</a>
 		</li>
 	</ul>
 	#{/list}

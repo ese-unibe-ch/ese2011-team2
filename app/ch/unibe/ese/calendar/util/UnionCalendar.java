@@ -90,9 +90,14 @@ public class UnionCalendar extends AbstractCalendar {
 	public User getOwner() {
 		return mainCalendar.getOwner();
 	}
-
+	
 	@Override
 	public String getName() {
+		return mainCalendar.getName();
+	}
+
+	@Override
+	public String toString() {
 		Set<String> baseNames = new HashSet<String>();
 		baseNames.add(mainCalendar.getName());
 		for(EseCalendar other: otherCalendars) {

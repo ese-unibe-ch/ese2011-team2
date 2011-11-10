@@ -1,6 +1,7 @@
 package controllers;
 import java.util.Set;
 import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.regex.PatternSyntaxException;
 
 import play.mvc.Controller;
@@ -9,28 +10,34 @@ import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
+import ch.unibe.ese.calendar.util.UserComparator;
 
 @With(Secure.class)
 public class IndexPage extends Controller {
 	
-	public static Set<String> foundUsers;
+	public static SortedSet<User> foundUsers;
 	
 	public static void index() {
 		String userName = Security.connected();
 		UserManager um = UserManager.getInstance();
-		User user = um.getUserByName(userName);
+		User connectedUser = um.getUserByName(userName);
 		CalendarManager calendarManager = CalendarManager.getInstance();
-		SortedSet<EseCalendar> userCalendars = calendarManager.getCalendarsOf(user);
-
-		final String token = "You (" + user + ") own: " + userCalendars.size()
+		SortedSet<EseCalendar> connectedUserCalendars = calendarManager.getCalendarsOf(connectedUser);
+		//done this way to display a calendar directly. triedo will probably change this later
+		EseCalendar mainCal = connectedUserCalendars.iterator().next();
+		final String token = "You (" + connectedUser + ") own: " + connectedUserCalendars.size()
 				+ " calendars";
-		Set<String> foundUsers = IndexPage.foundUsers; //no idea why this is necessary
-		render(token, user, userCalendars, foundUsers);
+		Set<User> foundUsers = IndexPage.foundUsers; //no idea why this is necessary
+		render(token, connectedUser, mainCal, calendarManager, foundUsers);
 	}
 	
 	public static void searchUser(String searchRegex) {
+		String userName = Security.connected();
+		UserManager um = UserManager.getInstance();
+		User user = um.getUserByName(userName);
 		try {
-			foundUsers = UserManager.getInstance().getUserByRegex(searchRegex).keySet();
+			foundUsers = new TreeSet<User>(new UserComparator(user));
+			foundUsers.addAll(UserManager.getInstance().getUserByRegex(searchRegex).values());
 		} catch (PatternSyntaxException e) {
 			//TODO error handling
 			error(e.getMessage());
