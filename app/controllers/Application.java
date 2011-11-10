@@ -56,8 +56,6 @@ public class Application extends Controller {
 		User connectedUser = UserManager.getInstance().getUserByName(connectedUserName);
 		User user = UserManager.getInstance().getUserByName(userName);
 		CalendarManager calendarManager = CalendarManager.getInstance();
-		//done this way to display a calendar directly. 
-		//triedo will probably change this later
 		EseCalendar calendar = selectCalendarToDisplay(user, connectedUser);
 		Calendar juc = Calendar.getInstance(getLocale());
 		juc.set(selectedYear, selectedMonth, selectedDay, 0, 0, 0);
@@ -72,8 +70,7 @@ public class Application extends Controller {
 				Set<EseCalendar> contactCalendars = new HashSet <EseCalendar>();
 				if (contact.equals(user)){
 					contactCalendars.add(calendar);
-				}
-				else {
+				} else {
 					 contactCalendars = calendarManager.getCalendarsOf(contact);
 				}
 				selectedUsersCal.addAll(contactCalendars);
@@ -95,10 +92,11 @@ public class Application extends Controller {
 	/**
 	 * Selects the calendar(s) to display according to the user.
 	 * If the user is the connected one, the calendar page will
-	 * display his first calendar (TODO: display ALL of his Calendars)
+	 * display his first calendar when the checkbox 'me' is selected. 
+	 * (TODO: distinguish ALL of his Calendars)
 	 * and the unionCalendars of his contacts.
 	 * If the user is not the connected one, the calendar page
-	 * will simply display the unionCalendars of the user.
+	 * will simply display the unionCalendar of the user.
 	 * @param user
 	 * @param connectedUser
 	 * @return
@@ -108,6 +106,8 @@ public class Application extends Controller {
 		CalendarManager calendarManager = CalendarManager.getInstance();
 		SortedSet<EseCalendar> connectedUserCalendars = calendarManager.
 				getCalendarsOf(connectedUser);
+		//done this way to display a calendar directly. 
+		//triedo will probably change this later
 		EseCalendar calendar = connectedUserCalendars.iterator().next();
 		if (!user.equals(connectedUser)) {
 			SortedSet calendars = calendarManager.getCalendarsOf(user);

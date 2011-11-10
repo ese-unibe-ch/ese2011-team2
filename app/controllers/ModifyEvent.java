@@ -24,7 +24,7 @@ public class ModifyEvent extends Controller {
 			String dayDuration, String hourDuration, String minDuration, String visibility, 
 			String repetition, String description) throws Throwable {
 		Date sDate = EseDateFormat.getInstance().parse(startDate);
-		int duration = calculateDur(dayDuration, hourDuration, minDuration);
+		long duration = calculateDuration(dayDuration, hourDuration, minDuration);
 		Date eDate = new Date();
 		eDate.setTime(sDate.getTime()+duration);
 		Visibility vis = Visibility.valueOf(visibility.toUpperCase());
@@ -47,18 +47,18 @@ public class ModifyEvent extends Controller {
 	 * @param dayDuration
 	 * @param hourDuration
 	 * @param minDuration
-	 * @return the amount of milliseconds as an <code>Integer</code>.
+	 * @return the amount of milliseconds as a <code>Long</code>.
 	 */
-	private static int calculateDur(String dayDuration, String hourDuration,
+	private static long calculateDuration(String dayDuration, String hourDuration,
 			String minDuration) {
 		if (dayDuration.equals("") || hourDuration.equals("") || minDuration.equals("")) {
 			//TODO: Instead of throwing an exception, assume 0 as value if null
 			throw new IllegalArgumentException();
 		}
-		int minDur = Integer.parseInt(minDuration);
-		int hourDur = Integer.parseInt(hourDuration);
-		int dayDur = Integer.parseInt(dayDuration);
-		int duration = 1000*60*(minDur + 60*hourDur + 1440*dayDur);
+		long minDur = Long.parseLong(minDuration);
+		long hourDur = Long.parseLong(hourDuration);
+		long dayDur = Long.parseLong(dayDuration);
+		long duration = 1000*60*(minDur + 60*hourDur + 1440*dayDur);
 		return duration;
 	}
 
@@ -134,7 +134,7 @@ public class ModifyEvent extends Controller {
 	 */
 	private static String[] getDurations(long duration) {
 		String[] durations = new String[3];
-		int minDur = (int) (duration / (1000*60));
+		long minDur = duration / (1000*60);
 		if (minDur % 1440 == 0) {
 			durations[0] = minDur/1440+"";
 			durations[1] = "0";
@@ -159,7 +159,7 @@ public class ModifyEvent extends Controller {
 			boolean wasSeries) throws ParseException {
 		
 		Date sDate = EseDateFormat.getInstance().parse(startDate);
-		int duration = calculateDur(dayDuration, hourDuration, minDuration);
+		long duration = calculateDuration(dayDuration, hourDuration, minDuration);
 		Date eDate = new Date();
 		eDate.setTime(sDate.getTime()+duration);
 		Visibility vis = Visibility.valueOf(visibility.toUpperCase());
