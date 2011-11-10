@@ -69,7 +69,7 @@ abstract class CalendarEntry {
 	@Override
 	public String toString() {
 		return "CalendarEvent [visibility=" + visibility +", start=" + start + 
-				 ", end=" + end + ", name=" + name + ", id=" + id + "]";
+				 ", end=" + end + ", name=" + name + ", id=" + getId() + "]";
 	}
 	
 	public String getId(){
