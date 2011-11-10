@@ -8,8 +8,12 @@
 
 <div id="welcome">
 	<h1>Welcome to the ESE Calendaring app</h1>
-		
-		<a href="@{Application.currentCalendar(connectedUser.name)}">View my Calendars </a> 
+	<p>
+		<a href="@{Application.currentCalendar(connectedUser.name)}">View my Calendars</a> 
+	</p>
+	<p>
+		<a href="@{Application.user(connectedUser.name)}">Manage my Calendars and Contacts</a> 
+	</p>
 	<p>
 		<a href="@{IndexPage.deleteAccount()}">Delete this Account</a>
 	</p>

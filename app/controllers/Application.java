@@ -32,8 +32,9 @@ public class Application extends Controller {
 	public static int selectedDay, selectedMonth, selectedYear;
 	
 	/**
-	 * Will display the current calendar of a specified user.
-	 * @param userName
+	 * This method will display the current calendar of a specified user.
+	 * It will automatically select the current day.
+	 * @param userName The name of the user whose calendar will be displayed.
 	 */
 	public static void currentCalendar(String userName) {
 		java.util.Calendar juc = java.util.Calendar.getInstance(getLocale());
@@ -48,7 +49,7 @@ public class Application extends Controller {
 	 * This method shows the calendar page of a specified user. 
 	 * The selected day is read from instance variables.
 	 * 
-	 * @param name The name of the calendar
+	 * @param userName The name of the user whose calendar will be displayed.
 	 */
 	public static void calendar(String userName) {
 		System.out.println("name: " + userName);
@@ -56,7 +57,8 @@ public class Application extends Controller {
 		User connectedUser = UserManager.getInstance().getUserByName(connectedUserName);
 		User user = UserManager.getInstance().getUserByName(userName);
 		CalendarManager calendarManager = CalendarManager.getInstance();
-		//done this way to display a calendar directly. triedo will probably change this later
+		//done this way to display a calendar directly. 
+		//triedo will probably change this later
 		EseCalendar calendar = selectCalendarToDisplay(user, connectedUser);
 		Calendar juc = Calendar.getInstance(getLocale());
 		juc.set(selectedYear, selectedMonth, selectedDay, 0, 0, 0);
@@ -79,20 +81,25 @@ public class Application extends Controller {
 				Iterator<EseCalendar> eseCalendarIter = contactCalendars.iterator();
 				while (eseCalendarIter.hasNext()){
 					EseCalendar contactCal = eseCalendarIter.next();
-					Iterator<CalendarEvent> iteratorCalEvent =  contactCal.getEventsAt(user, date).iterator();
+					Iterator<CalendarEvent> iteratorCalEvent =  contactCal.
+							getEventsAt(user, date).iterator();
 					iterator = new EventIteratorMerger(iterator, iteratorCalEvent); 
 				}
 			}
 		}
 		CalendarBrowser calendarBrowser = new CalendarBrowser(user, calendar,
 				selectedUsersCal, selectedDay, selectedMonth, selectedYear, getLocale());
-		
 		Set<User> myContacts = connectedUser.getSortedContacts();
 		render(iterator, calendar, calendarBrowser, myContacts, connectedUser);
 	}
 	
 	/**
-	 * Selects the calendar to display according to the user.
+	 * Selects the calendar(s) to display according to the user.
+	 * If the user is the connected one, the calendar page will
+	 * display his first calendar (TODO: display ALL of his Calendars)
+	 * and the unionCalendars of his contacts.
+	 * If the user is not the connected one, the calendar page
+	 * will simply display the unionCalendars of the user.
 	 * @param user
 	 * @param connectedUser
 	 * @return
@@ -100,7 +107,8 @@ public class Application extends Controller {
 	private static EseCalendar selectCalendarToDisplay(User user,
 			User connectedUser) {
 		CalendarManager calendarManager = CalendarManager.getInstance();
-		SortedSet<EseCalendar> connectedUserCalendars = calendarManager.getCalendarsOf(connectedUser);
+		SortedSet<EseCalendar> connectedUserCalendars = calendarManager.
+				getCalendarsOf(connectedUser);
 		EseCalendar calendar = connectedUserCalendars.iterator().next();
 		if (!user.equals(connectedUser)) {
 			SortedSet calendars = calendarManager.getCalendarsOf(user);
@@ -206,10 +214,6 @@ public class Application extends Controller {
 		calendar(userName);
 	}
 	
-	/**
-	*
-	*
-	*/
 	public static void deleteCalendar(String calendarName) {
 		CalendarManager calendarManager = CalendarManager.getInstance();
 		calendarManager.removeCalendar(calendarName);
@@ -218,10 +222,6 @@ public class Application extends Controller {
 		
 	}
 	
-	/**
-	*
-	*
-	*/
 	public static void addCalendar(String calendarName) {
 		String userName = Security.connected();
 		UserManager um = UserManager.getInstance();
