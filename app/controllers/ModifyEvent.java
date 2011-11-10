@@ -143,11 +143,9 @@ public class ModifyEvent extends Controller {
 				durations[1] = (minDur%1440)/60+"";
 				durations[2] = "0";
 			} else {
-				if ((minDur % 1440) % 60 < 60) {
-					durations[0] = minDur/1440+"";
-					durations[1] = (minDur%1440)/60+"";
-					durations[2] = (minDur % 1440) % 60 +"";
-				}
+				durations[0] = minDur/1440+"";
+				durations[1] = (minDur%1440)/60+"";
+				durations[2] = (minDur % 1440) % 60 +"";
 			}
 		}
 		return durations;

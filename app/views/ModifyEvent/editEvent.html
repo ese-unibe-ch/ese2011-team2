@@ -20,15 +20,20 @@
 		</p>
 		<p>
 			<label for="startDate">Start Date: </label> <br/>
-			<input type="text" size="35%" name="startDate" value="${event.start.format("dd.MM.yyyy HH:mm")}"/>
+			<input type="text" size="35%" name="startDate" 
+			placeholder="${event.start.format("dd.MM.yyyy HH:mm")}"
+			value="${event.start.format("dd.MM.yyyy HH:mm")}"/>
 		</p>
 		<p>
 			Duration:<br/>
-					<input type="text" size="2%" name="dayDuration" placeholder="${durations[0]}" value ="${durations[0]}"/>
+					<input type="text" size="2%" name="dayDuration" 
+					placeholder="${durations[0]}" value ="${durations[0]}"/>
 					<label for="dayDuration">days</label>
-					<input type="text" size="2%" name="hourDuration" placeholder="${durations[1]}" value ="${durations[1]}"/>
+					<input type="text" size="2%" name="hourDuration" 
+					placeholder="${durations[1]}" value ="${durations[1]}"/>
 					<label for="hourDuration">hours</label>
-					<input type="text" size="2%" name="minDuration" placeholder="${durations[2]}" value ="${durations[2]}"/>
+					<input type="text" size="2%" name="minDuration" 
+					placeholder="${durations[2]}" value ="${durations[2]}"/>
 					<label for="minDuration">min</label>
 		</p>
 		<p>
