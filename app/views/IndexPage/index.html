@@ -8,9 +8,14 @@
 
 <div id="welcome">
 	<h1>Welcome to the ESE Calendaring app</h1>
-	<p>
-		<a href="@{Application.currentCalendar(connectedUser.name)}">View my Calendars</a> 
-	</p>
+	#{if mainCal != null}
+		<p>
+			<a href="@{Application.currentCalendar(connectedUser.name)}">View my Calendars</a> 
+		</p>
+	#{/if}
+	#{else}
+		You don't have any calendars at the moment
+	#{/else}
 	<p>
 		<a href="@{Application.user(connectedUser.name)}">Manage my Calendars and Contacts</a> 
 	</p>
@@ -27,9 +32,11 @@
 	#{/form}
 	#{list items:foundUsers, as:'user'}
 	<ul>
-		<li> 
-			<a href="@{Application.currentCalendar(user.name)}">${user.name}</a>
-		</li>
+		#{if user != connectedUser}
+			<li> 
+				<a href="@{Application.currentCalendar(user.name)}">${user.name}</a>
+			</li>
+		#{/if}
 	</ul>
 	#{/list}
 </div>

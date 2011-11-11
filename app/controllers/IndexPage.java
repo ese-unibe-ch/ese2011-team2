@@ -23,12 +23,19 @@ public class IndexPage extends Controller {
 		User connectedUser = um.getUserByName(userName);
 		CalendarManager calendarManager = CalendarManager.getInstance();
 		SortedSet<EseCalendar> connectedUserCalendars = calendarManager.getCalendarsOf(connectedUser);
-		//done this way to display a calendar directly. triedo will probably change this later
-		EseCalendar mainCal = connectedUserCalendars.iterator().next();
-		final String token = "You (" + connectedUser + ") own: " + connectedUserCalendars.size()
-				+ " calendars";
 		Set<User> foundUsers = IndexPage.foundUsers; //no idea why this is necessary
-		render(token, connectedUser, mainCal, calendarManager, foundUsers);
+		EseCalendar mainCal = null;
+		String token = "";
+		//done this way to display a calendar directly. triedo will probably change this later
+		if (connectedUserCalendars.iterator().hasNext()){
+			 mainCal = connectedUserCalendars.iterator().next();
+			token = "You (" + connectedUser + ") own: " + connectedUserCalendars.size()
+				+ " calendars";
+			render(token, connectedUser, mainCal, calendarManager, foundUsers);
+		}
+		else{
+			render(token, connectedUser, mainCal, calendarManager, foundUsers);
+		}
 	}
 	
 	public static void searchUser(String searchRegex) {
