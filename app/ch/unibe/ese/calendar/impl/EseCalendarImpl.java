@@ -46,10 +46,12 @@ public class EseCalendarImpl extends AbstractCalendar {
 	protected EseCalendarImpl(String name, User owner) {
 		this.name = name;
 		this.owner = owner;
+		this.isSelected = true;
 	}
 
 	private String name;
 	private User owner;
+	private boolean isSelected;
 	private Map<String, CalendarEvent> eventsById = new HashMap<String, CalendarEvent>();
 	private Map<String, EventSeries> seriesById = new HashMap<String, EventSeries>();
 	
@@ -174,6 +176,16 @@ public class EseCalendarImpl extends AbstractCalendar {
 	private Iterator<EventSeries> iterateSeries(User user){
 		Iterator<EventSeries> allEventSeries = seriesById.values().iterator();
 		return new ACFilteringEventSeriesIterator(user, allEventSeries);
+	}
+	
+	@Override
+	public boolean isSelected(){
+		return isSelected;
+	}
+	
+	@Override
+	public void select(boolean select){
+		this.isSelected = select;
 	}
 	
 	private class ACFilteringEventIterator implements Iterator<CalendarEvent> {

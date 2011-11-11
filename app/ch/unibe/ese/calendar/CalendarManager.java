@@ -72,5 +72,11 @@ public abstract class CalendarManager {
 	public static CalendarManager getInstance() {
 		return instance ;
 	}
+	
+	/**
+	 * Sets isSeleced(EseCalendar eseCalendar) to false for every calendar the user have
+	 * @param user the user who's calendars should be unselected
+	 */
+	public abstract void unSelectAllCalendars(User user);
 
 }

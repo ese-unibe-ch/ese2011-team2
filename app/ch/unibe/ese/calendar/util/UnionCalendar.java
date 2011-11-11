@@ -106,4 +106,14 @@ public class UnionCalendar extends AbstractCalendar {
 		return "Union of "+baseNames.toString();
 	}
 
+	@Override
+	public void select(boolean select) {
+		
+	}
+
+	@Override
+	public boolean isSelected() {
+		return true;
+	}
+
 }

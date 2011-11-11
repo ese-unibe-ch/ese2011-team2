@@ -8,6 +8,9 @@
 
 <div id=contentLeft>
 	#{if connectedUser == calendar.owner}
+		<div id=myCalendars>
+			#{myCalendars myCalendars:myCalendars, calendar:calendar/}
+		</div>
 		<div id=myContacts>
 			#{myContacts myContacts:myContacts, connectedUser:connectedUser, calendar:calendar /}
 		</div>

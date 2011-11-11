@@ -1,0 +1,15 @@
+<h2>My Calendars</h2>
+#{form @Application.includeCalendars()}
+	<input type="hidden" name="calendarName" value="${_calendar.name}">
+	#{list items:_myCalendars, as:'calendar'}
+		
+		<li> 
+			<input type="checkbox" 
+			name="checkedCalendars[]" 
+			value=${calendar.name} 
+			#{if calendar.isSelected}checked="checked"#{/if}
+			onClick="this.form.submit()">&nbsp;${calendar.name}
+			<br>
+		</li>
+	#{/list}
+#{/form}

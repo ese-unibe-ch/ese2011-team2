@@ -47,13 +47,14 @@ public class CalendarBrowser {
 		 * @return true, if the user has an event with the visibility set to public on this day.
 		 */
 		public boolean getHasPublicEvents() {
-			if (!user.isContactSelected(user))
-				return false;
-			SortedSet<CalendarEvent> set1 = calendar.getEventsAt(user, asCalendar().getTime());
-			Iterator<CalendarEvent> iterator = set1.iterator();
-			while (iterator.hasNext()){
-				if (iterator.next().getVisibility().equals(Visibility.PUBLIC)){
-					return true;
+			Iterator<EseCalendar> CalendarIterator = selectedOwnCalendars.iterator();
+			while (CalendarIterator.hasNext()){
+				SortedSet<CalendarEvent> set1 = CalendarIterator.next().getEventsAt(user, asCalendar().getTime());
+				Iterator<CalendarEvent> iterator = set1.iterator();
+				while (iterator.hasNext()){
+					if (iterator.next().getVisibility().equals(Visibility.PUBLIC)){
+						return true;
+					}
 				}
 			}
 			return false;
@@ -62,16 +63,17 @@ public class CalendarBrowser {
 		/**
 		 * 
 		 * @return true, if the user has an event with an other visibility than public 
-		 * 		in his calendar on this day.
+		 * 		in his calendars on this day.
 		 */
 		public boolean getHasNonPublicEvents() {
-			if (!user.isContactSelected(user))
-				return false;
-			SortedSet<CalendarEvent> set1 = calendar.getEventsAt(user, asCalendar().getTime());
-			Iterator<CalendarEvent> iterator = set1.iterator();
-			while (iterator.hasNext()){
-				if (!iterator.next().getVisibility().equals(Visibility.PUBLIC)){
-					return true;
+			Iterator<EseCalendar> CalendarIterator = selectedOwnCalendars.iterator();
+			while (CalendarIterator.hasNext()){
+				SortedSet<CalendarEvent> set1 = CalendarIterator.next().getEventsAt(user, asCalendar().getTime());
+				Iterator<CalendarEvent> iterator = set1.iterator();
+				while (iterator.hasNext()){
+					if (!iterator.next().getVisibility().equals(Visibility.PUBLIC)){
+						return true;
+					}
 				}
 			}
 			return false;
@@ -113,7 +115,7 @@ public class CalendarBrowser {
 		
 	}
 
-	private EseCalendar calendar;
+	private Set<EseCalendar> selectedOwnCalendars;
 	private int month;
 	private int year;
 	private int selectedDay;
@@ -123,17 +125,17 @@ public class CalendarBrowser {
 	/**
 	 * TODO: javadoc
 	 * @param user
-	 * @param calendar
+	 * @param selectedOwnCalendars
 	 * @param otherUsersCalendar
 	 * @param selectedDay
 	 * @param month
 	 * @param year
 	 * @param locale
 	 */
-	public CalendarBrowser(User user, EseCalendar calendar, Set<EseCalendar> otherUsersCalendar,
+	public CalendarBrowser(User user, Set<EseCalendar> selectedOwnCalendars, Set<EseCalendar> otherUsersCalendar,
 			int selectedDay, int month, int year, Locale locale) {
 		this.user = user;
-		this.calendar = calendar;
+		this.selectedOwnCalendars = selectedOwnCalendars;
 		this.month = month;
 		this.year = year;
 		this.locale = locale;
@@ -207,9 +209,7 @@ public class CalendarBrowser {
 	}
 
 
-	public EseCalendar getCalendar() {
-		return calendar;
-	}
+	
 	
 	public int getMonth() {
 		return month;

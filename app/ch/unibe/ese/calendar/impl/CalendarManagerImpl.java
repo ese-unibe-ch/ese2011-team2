@@ -102,4 +102,14 @@ public class CalendarManagerImpl extends CalendarManager {
 		return new UnionCalendar(mainCalendar, otherCalendars);
 	}
 
+
+	@Override
+	public void unSelectAllCalendars(User user) {
+		Iterator<EseCalendar> calendarIterator = getCalendarsOf(user).iterator();
+		while (calendarIterator.hasNext()){
+			EseCalendar eseCalendar = calendarIterator.next();
+			eseCalendar.select(false);
+		}
+	}
+
 }

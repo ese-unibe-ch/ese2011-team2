@@ -121,5 +121,19 @@ public abstract class EseCalendar {
 	 * @return a list of the events
 	 */
 	public abstract SortedSet<CalendarEvent> getEventsAt(User user, Date dayStart);
+	
+	/** 
+	 * sets the argument isSelected to select
+	 * 
+	 * @param select: true if this calendar should be displayed in the view
+	 * @param select: false if not
+	 */
+	public abstract void select(boolean select);
+	/** 
+	 * Indicates whether this calendar should be displayed in the view
+	 * 
+	 */
+	public abstract boolean isSelected();
+	
 
 }

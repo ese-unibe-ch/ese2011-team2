@@ -36,7 +36,7 @@ public class User {
 		this.userName = userName;
 		this.password = password;
 		this.detailedProfileVisibility = detailedProfileVisibility;
-		this.myContacts.put(this, true);
+		myContacts = new HashMap<User, Boolean>();
 	}
 
 	/**

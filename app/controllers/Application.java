@@ -35,14 +35,36 @@ public class Application extends Controller {
 	 * This method will display the current calendar of a specified user.
 	 * It will automatically select the current day.
 	 * @param userName The name of the user whose calendar will be displayed.
+	 * @param calendarName the name of the calendar which will be displayed.
 	 */
-	public static void currentCalendar(String userName) {
+	public static void currentCalendar(String userName, String calendarName) {
 		java.util.Calendar juc = java.util.Calendar.getInstance(getLocale());
 		juc.setTime(new Date());
 		selectedDay = juc.get(java.util.Calendar.DAY_OF_MONTH);
 		selectedMonth = juc.get(java.util.Calendar.MONTH);
 		selectedYear = juc.get(java.util.Calendar.YEAR);
-		calendar(userName);
+		calendar(userName, calendarName);
+	}
+	/**
+	 * This method shows the calendar page of a specified user. 
+	 * The selected day is read from instance variables.
+	 * It will automatically select the first calendar
+	 * 
+	 * @param userName The name of the user whose calendar will be displayed.
+	 */
+	public static void calendar(String userName){
+		calendar(userName, null);
+	}
+	
+	/**
+	* This method will display the current calendar of a specified user.
+	 * It will automatically select the current day.
+	 * It will automatically select the first calendar
+	 * 
+	 * @param userName The name of the user whose calendar will be displayed.
+	 */
+	public static void currentCalendar(String userName){
+		currentCalendar(userName, null);
 	}
 
 	/**
@@ -50,13 +72,24 @@ public class Application extends Controller {
 	 * The selected day is read from instance variables.
 	 * 
 	 * @param userName The name of the user whose calendar will be displayed.
+	 * @param calendarName calendarName the name of the calendar which will be displayed
 	 */
-	public static void calendar(String userName) {
+	public static void calendar(String userName,String calendarName) {
 		String connectedUserName = Security.connected();
 		User connectedUser = UserManager.getInstance().getUserByName(connectedUserName);
 		User user = UserManager.getInstance().getUserByName(userName);
 		CalendarManager calendarManager = CalendarManager.getInstance();
-		EseCalendar calendar = selectCalendarToDisplay(user, connectedUser);
+		EseCalendar calendar;
+		Set<EseCalendar> SelectedOwnCalendars = new HashSet<EseCalendar>();
+		if (calendarName != null){
+			calendar = calendarManager.getCalendar(calendarName);
+		}
+		else {
+			 calendar = selectCalendarToDisplay(user, connectedUser);
+		}
+		if (calendar.isSelected()){
+			SelectedOwnCalendars.add(calendar);
+		}
 		Calendar juc = Calendar.getInstance(getLocale());
 		juc.set(selectedYear, selectedMonth, selectedDay, 0, 0, 0);
 		final Date date = juc.getTime();
@@ -64,13 +97,22 @@ public class Application extends Controller {
 		Iterator<User> iterMyContacts = myContactsMap.keySet().iterator();
 		Set<EseCalendar> selectedUsersCal = new HashSet<EseCalendar>();
 		Iterator iterator = Collections.EMPTY_LIST.iterator();
+		Iterator<EseCalendar> ownCalendarsIter = calendarManager.getCalendarsOf(connectedUser).iterator();
+		while (ownCalendarsIter.hasNext()){
+			EseCalendar ownCalendar = ownCalendarsIter.next();
+			if (ownCalendar.isSelected()){
+				SelectedOwnCalendars.add(ownCalendar);
+				Iterator<CalendarEvent> iteratorCalEvent =  ownCalendar.
+						getEventsAt(user, date).iterator();
+				iterator = new EventIteratorMerger(iterator, iteratorCalEvent);
+			}
+		}
+		
 		while (iterMyContacts.hasNext()){
 			User contact = iterMyContacts.next();
 			if (myContactsMap.get(contact)){
 				Set<EseCalendar> contactCalendars = new HashSet <EseCalendar>();
-				if (contact.equals(user)){
-					contactCalendars.add(calendar);
-				} else {
+				if (!contact.equals(user)){
 					 contactCalendars = calendarManager.getCalendarsOf(contact);
 				}
 				selectedUsersCal.addAll(contactCalendars);
@@ -83,10 +125,11 @@ public class Application extends Controller {
 				}
 			}
 		}
-		CalendarBrowser calendarBrowser = new CalendarBrowser(user, calendar,
+		CalendarBrowser calendarBrowser = new CalendarBrowser(user, SelectedOwnCalendars ,
 				selectedUsersCal, selectedDay, selectedMonth, selectedYear, getLocale());
 		Set<User> myContacts = connectedUser.getSortedContacts();
-		render(iterator, calendar, calendarBrowser, myContacts, connectedUser);
+		SortedSet<EseCalendar> myCalendars = calendarManager.getCalendarsOf(connectedUser);
+		render(iterator, calendar, calendarBrowser, myContacts, connectedUser, myCalendars);
 	}
 	
 	/**
@@ -169,12 +212,13 @@ public class Application extends Controller {
 	 * @param day
 	 * @param month
 	 * @param year
+	 * @param calendarName
 	 */
-	public static void selectDate(String userName, int day, int month, int year) {
+	public static void selectDate(String userName, int day, int month, int year, String calendarName) {
 		selectedDay = day;
 		selectedMonth = month;
 		selectedYear = year;
-		calendar(userName);
+		calendar(userName, calendarName);
 	}
 	
 	/**
@@ -191,7 +235,7 @@ public class Application extends Controller {
 		juc.setTime(date);
 		selectDate(calendarName, juc.get(java.util.Calendar.DAY_OF_MONTH),
 				juc.get(java.util.Calendar.MONTH),
-				juc.get(java.util.Calendar.YEAR));
+				juc.get(java.util.Calendar.YEAR), calendarName);
 	}
 	
 	/**
@@ -200,7 +244,7 @@ public class Application extends Controller {
 	 * 
 	 * @param checkedContacts: all Contacts who's checkbox is selected
 	 */
-	public static void includeContacts(String[] checkedContacts) {
+	public static void includeContacts(String[] checkedContacts, String calendarName) {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		user.unselectAllContacts();
@@ -210,7 +254,7 @@ public class Application extends Controller {
 				user.setContactSelection(u, true);
 			}
 		}	
-		calendar(userName);
+		calendar(userName, calendarName);
 	}
 	
 	public static void deleteCalendar(String calendarName) {
@@ -229,6 +273,27 @@ public class Application extends Controller {
 		
 		calendarManager.createCalendar(user, calendarName);
 		user(userName);
+	}
+	/**
+	 * First sets all Calendars to unselected then sets all Calendars that have 
+	 * their name in checkedCalendars[] to selected
+	 * 
+	 * @param checkedCalendars: all Calendars who's checkbox is selected
+	 */
+	public static void includeCalendars(String[] checkedCalendars, String calendarName) {
+		String userName = Security.connected();
+		CalendarManager calendarManager = CalendarManager.getInstance();
+		UserManager um = UserManager.getInstance();
+		User user = um.getUserByName(userName);
+		calendarManager.unSelectAllCalendars(user);
+		if (checkedCalendars != null) {
+			for (String calendar: checkedCalendars) {
+				System.out.println(calendar);
+				EseCalendar eseCalendar = calendarManager.getCalendar(calendar);
+				eseCalendar.select(true);
+			}
+		}	
+		calendar(userName, calendarName);
 	}
 
 }

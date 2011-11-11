@@ -38,11 +38,11 @@ public class Bootstrap extends Job {
 		EseCalendar aaroncal;
 		EseCalendar aaroncal2;
 		try {
-			aaroncal = cm.createCalendar(aaron, "Aarons Calendar");
-			aaroncal2 = cm.createCalendar(aaron, "Aarons secondary Calendar");
+			aaroncal = cm.createCalendar(aaron, "AaronsCalendar");
+			aaroncal2 = cm.createCalendar(aaron, "AaronsSecondaryCSalendar");
 		} catch (CalendarAlreadyExistsException e) {
-			aaroncal = cm.getCalendar("Aarons Calendar");
-			aaroncal2 = cm.createCalendar(aaron, "Aarons secondary Calendar");
+			aaroncal = cm.getCalendar("AaronsCalendar");
+			aaroncal2 = cm.createCalendar(aaron, "AaronsSecondaryCSalendar");
 		}
 		java.util.Calendar juc = java.util.Calendar.getInstance();
 		juc.set(2011, 10, 23, 20, 15);
