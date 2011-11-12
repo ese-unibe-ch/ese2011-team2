@@ -199,6 +199,8 @@ public class EseCalendarImpl extends AbstractCalendar {
 								new PrivilegedCalendarAccessPermission(name))) {
 							prepareNext();
 							return;
+						} else {
+							next = ce;
 						}
 						break;
 					case CONTACTSONLY:
@@ -206,13 +208,24 @@ public class EseCalendarImpl extends AbstractCalendar {
 								new MyContactAccessPermission(name))) {
 							prepareNext();
 							return;
+						} else {
+							next = ce;
+						}
+						break;
+					case BUSY:
+						if (!Policy.getInstance().hasPermission(user, 
+								new PrivilegedCalendarAccessPermission(name))) {
+							next = new CalendarEventImpl(ce.getStart(), ce.getEnd(), 
+									"Busy", ce.getVisibility(), ce.getCalendar(), "");
+						} else {
+							next = ce;
 						}
 						break;
 					default:
 						//nothing special
+						next = ce;
 						break;
 					}
-				next = ce;
 				hasNext = true;
 			}
 		}
@@ -261,6 +274,8 @@ public class EseCalendarImpl extends AbstractCalendar {
 							new PrivilegedCalendarAccessPermission(name))) {
 						prepareNext();
 						return;
+					} else {
+						next = es;
 					}
 					break;
 				case CONTACTSONLY:
@@ -268,13 +283,24 @@ public class EseCalendarImpl extends AbstractCalendar {
 							new MyContactAccessPermission(name))) {
 						prepareNext();
 						return;
+					} else {
+						next = es;
+					}
+					break;
+				case BUSY:
+					if (!Policy.getInstance().hasPermission(user, 
+							new PrivilegedCalendarAccessPermission(name))) {
+						next = new EventSeriesImpl(es.getStart(), es.getEnd(), 
+								"Busy", es.getVisibility(), es.getRepetition(), es.getCalendar(), "None");
+					} else {
+						next = es;
 					}
 					break;
 				default:
 					//nothing special
+					next = es;
 					break;
 				}
-				next = es;
 				hasNext = true;
 			}
 		}
