@@ -23,8 +23,9 @@ public abstract class AbstractCalendar extends EseCalendar {
 	@Override
 	public SortedSet<CalendarEvent> getEventsAt(User user, Date dayStart) {
 		Date dayEnd = new Date(dayStart.getTime()+24*60*60*1000);
-		//An Event has now a maximal length of 7 days:
-		Date dayStartMaxLength = new Date(dayStart.getTime()-24*60*60*1000*7);
+		//An Event has now a maximal length of 6 Months:
+		long sixMonthInMs = 1000L*3600*24*30*6;
+		Date dayStartMaxLength = new Date(dayStart.getTime()-sixMonthInMs);
 		//TODO it seems quite pointless to re-sort the events that are already sorted in the iterator
 		SortedSet<CalendarEvent> result = new TreeSet<CalendarEvent>(new StartDateComparator());
 		Iterator<CalendarEvent> iter = iterate(user, dayStartMaxLength);
