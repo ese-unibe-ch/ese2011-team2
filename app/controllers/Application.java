@@ -59,7 +59,7 @@ public class Application extends Controller {
 		EseCalendar calendar = selectCalendarToDisplay(user, connectedUser);
 		Calendar juc = Calendar.getInstance(getLocale());
 		juc.set(selectedYear, selectedMonth, selectedDay, 0, 0, 0);
-		final Date date = juc.getTime();
+		final Date selectedDate = juc.getTime();
 		Map<User, Boolean> myContactsMap = user.getMyContacts();
 		Iterator<User> iterMyContacts = myContactsMap.keySet().iterator();
 		Set<EseCalendar> selectedUsersCal = new HashSet<EseCalendar>();
@@ -78,7 +78,7 @@ public class Application extends Controller {
 				while (eseCalendarIter.hasNext()){
 					EseCalendar contactCal = eseCalendarIter.next();
 					Iterator<CalendarEvent> iteratorCalEvent =  contactCal.
-							getEventsAt(user, date).iterator();
+							getEventsAt(user, selectedDate).iterator();
 					iterator = new EventIteratorMerger(iterator, iteratorCalEvent); 
 				}
 			}
@@ -86,7 +86,10 @@ public class Application extends Controller {
 		CalendarBrowser calendarBrowser = new CalendarBrowser(user, calendar,
 				selectedUsersCal, selectedDay, selectedMonth, selectedYear, getLocale());
 		Set<User> myContacts = connectedUser.getSortedContacts();
-		render(iterator, calendar, calendarBrowser, myContacts, connectedUser);
+		String selectedDateString = EseDateFormat.getInstance().format(
+				new Date(selectedDate.getTime() + 1000*60*60*12));
+		render(iterator, calendar, calendarBrowser, myContacts, 
+				connectedUser, selectedDateString);
 	}
 	
 	/**
@@ -230,5 +233,4 @@ public class Application extends Controller {
 		calendarManager.createCalendar(user, calendarName);
 		user(userName);
 	}
-
 }
