@@ -95,4 +95,15 @@ public class EseCalendarTest2 extends UnitTest {
 		assertEquals(dayOneOfEvent.getEnd(), dayFourOfEvent.getEnd());
 		assertEquals(dayOneOfEvent.toString(), dayFourOfEvent.toString());
 	}
+	
+	@Test
+	public void makeVeryLongEvent() throws ParseException {
+		Date start = EseDateFormat.getInstance().parse("1.6.2011 20:00");
+		Date end = EseDateFormat.getInstance().parse("12.11.2011 22:00");
+		String eventName = "Very long Test";
+		CalendarEvent veryLongEvent = calendar.addEvent(user.ADMIN, start, end, eventName, Visibility.PRIVATE, "");
+		Date dayStart = EseDateFormat.getInstance().parse("9.11.2011 00:00");
+		CalendarEvent firstEventOnNinth = calendar.getEventsAt(user.ADMIN, dayStart).first();
+		assertEquals(veryLongEvent, firstEventOnNinth);		
+	}
 }
