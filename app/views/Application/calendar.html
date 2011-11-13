@@ -26,7 +26,8 @@
 	</div>
 	<div id=selectedDay>
 	<h2>Events on ${calendarBrowser.dayLabel}:</h2>
-			#{eventInfo iterator:iterator, calendar:calendar, connectedUser:connectedUser/}
+			#{eventInfo myContacts:myContacts, iterator:iterator, 
+				calendar:calendar, connectedUser:connectedUser/}
 	</div>
 	#{if connectedUser.name == calendar.owner.name}
 	<div id=createEvent>

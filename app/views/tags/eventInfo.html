@@ -10,7 +10,8 @@
 <li>
 ${event.name}<br/>
 ${event.start.format("HH:mm"+", "+"dd.MMM")} - ${event.end.format("HH:mm"+", "+"dd.MMM")}<br/>
-(${event.visibility.name} ${rep} created by ${eventOwner.name})<br/>
+(${event.visibility.name} ${rep} created by 
+<span id="user${_myContacts.headSet(eventOwner).size()%6}">${eventOwner.name}</span>)<br/>
 Description: ${event.description}
 #{if _connectedUser == eventOwner}
 	<br/>

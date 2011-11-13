@@ -1,8 +1,5 @@
 <h2>My Contacts</h2>
 #{form @Application.includeContacts()}
-    %{
-    	counter = 1
-    }%
 	#{list items:_myContacts, as:'contact'}
 		%{
 			if (contact.name.equals(_connectedUser.name))
@@ -11,7 +8,7 @@
 				con = contact.name
 		}%
 		
-		<li id="user${counter++}"> 
+		<li id="user${_myContacts.headSet(contact).size()%6}"> 
 			<input type="checkbox" 
 			name="checkedContacts[]" 
 			value=${contact.name} 
