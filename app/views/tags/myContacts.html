@@ -2,13 +2,17 @@
 #{form @Application.includeContacts()}
 	#{list items:_myContacts, as:'contact'}
 		%{
+			userNb = _myContacts.headSet(contact).size()%6
+			imgSrc='/public/images/user' + userNb + '.png'
 			if (contact.name.equals(_connectedUser.name))
 				con = "me"
 			else
 				con = contact.name
 		}%
 		
-		<li id="user${_myContacts.headSet(contact).size()%6}"> 
+		<li> 
+		<img src="${imgSrc}"
+			width="15" height="15" alt="${userNb}" />
 			<input type="checkbox" 
 			name="checkedContacts[]" 
 			value=${contact.name} 

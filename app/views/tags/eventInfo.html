@@ -1,17 +1,19 @@
-<ul>
 #{list items: _iterator, as:'event'}
 <!--  TODO: handle timezone correctly -->
 %{
 	eventOwner =  event.getCalendar().getOwner()
+	userNb = _myContacts.headSet(eventOwner).size()%6
+	imgSrc = '/public/images/user' + userNb + '.png'
 	rep = "Event"
 	if (event.getSeries() != null)
 		rep = "SerialEvent"
 }% 
+<ul style="list-style-image: url(${imgSrc});">
 <li>
 ${event.name}<br/>
 ${event.start.format("HH:mm"+", "+"dd.MMM")} - ${event.end.format("HH:mm"+", "+"dd.MMM")}<br/>
 (${event.visibility.name} ${rep} created by 
-<span id="user${_myContacts.headSet(eventOwner).size()%6}">${eventOwner.name}</span>)<br/>
+${eventOwner.name})<br/>
 Description: ${event.description}
 #{if _connectedUser == eventOwner}
 	<br/>
@@ -21,6 +23,6 @@ Description: ${event.description}
 		event.start.format("dd.MM.yyyy HH:mm"), event.getSeries() != null)}>Delete</a>
 #{/if}
 </li>
+</ul>
 #{/list}
 #{else} none #{/else}
-</ul>
