@@ -2,6 +2,16 @@
 #{set title:'Delete Account' /}
 #{set header:'Delete Account' /}
 	Are You sure?
-	<p>
-		<a href="@{IndexPage.deleteAccount()}">Delete this Account</a>
-	</p>
+	
+	</br>
+
+	#{form @IndexPage.deleteAccount()} 
+	<input type="submit" name="delete" value="Delete this Account">
+	#{/form}
+	
+	</br>
+	</br>
+	#{form @IndexPage.index()} 
+	<input type="submit" name="cancel" value="Cancel">
+	#{/form}
+	
