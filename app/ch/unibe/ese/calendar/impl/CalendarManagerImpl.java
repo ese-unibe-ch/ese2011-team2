@@ -2,10 +2,8 @@ package ch.unibe.ese.calendar.impl;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -47,6 +45,10 @@ public class CalendarManagerImpl extends CalendarManager {
 	
 	@Override
 	public synchronized void removeCalendar(String name) throws NoSuchCalendarException {
+		EseCalendar calendar = getCalendar(name);
+		if (getCalendarsOf(calendar.getOwner()).size() < 2) {
+			throw new RuntimeException("you may not delete the last calendar of "+calendar.getOwner());
+		}
 		if (calendars.containsKey(name)) {
 			calendars.remove(name);
 		} else {
