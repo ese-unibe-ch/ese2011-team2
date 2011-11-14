@@ -24,7 +24,7 @@ import ch.unibe.ese.calendar.security.Policy;
 import ch.unibe.ese.calendar.security.PrivilegedCalendarAccessPermission;
 import ch.unibe.ese.calendar.util.AbstractCalendar;
 import ch.unibe.ese.calendar.util.DateUtils;
-import ch.unibe.ese.calendar.util.EventIteratorMerger;
+import ch.unibe.ese.calendar.util.EventIteratorUtils;
 import ch.unibe.ese.calendar.util.StartDateComparator;
 
 /**
@@ -129,7 +129,7 @@ public class EseCalendarImpl extends AbstractCalendar {
 	public Iterator<CalendarEvent> iterate(User user, Date start) {
 		Iterator<CalendarEvent> iterateIndividual = iterateIndividualEvents(user, start);
 		Iterator<CalendarEvent> iterateSeries = iterateSerialEvents(user, start);
-		Iterator<CalendarEvent> unfilteredEvents = new EventIteratorMerger(iterateIndividual, iterateSeries);
+		Iterator<CalendarEvent> unfilteredEvents = EventIteratorUtils.merge(iterateIndividual, iterateSeries);
 		return new ACFilteringEventIterator(user, unfilteredEvents, name);
 	}
 	
@@ -158,7 +158,7 @@ public class EseCalendarImpl extends AbstractCalendar {
 			seriesIterators.add(series.iterator(start));
 		}
 		if (seriesIterators.size() > 1) {
-			return new EventIteratorMerger(seriesIterators);
+			return EventIteratorUtils.merge(seriesIterators);
 		}
 		if (seriesIterators.size() == 1) {
 			return seriesIterators.get(0);

@@ -1,6 +1,5 @@
 package controllers;
 
-import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -18,13 +17,10 @@ import play.mvc.With;
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
-import ch.unibe.ese.calendar.EventSeries.Repetition;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
-import ch.unibe.ese.calendar.Visibility;
-import ch.unibe.ese.calendar.exceptions.EventNotFoundException;
 import ch.unibe.ese.calendar.util.EseDateFormat;
-import ch.unibe.ese.calendar.util.EventIteratorMerger;
+import ch.unibe.ese.calendar.util.EventIteratorUtils;
 
 @With(Secure.class)
 public class Application extends Controller {
@@ -83,7 +79,7 @@ public class Application extends Controller {
 				SelectedOwnCalendars.add(ownCalendar);
 				Iterator<CalendarEvent> iteratorCalEvent =  ownCalendar.
 						getEventsAt(connectedUser, selectedDate).iterator();
-				iterator = new EventIteratorMerger(iterator, iteratorCalEvent);
+				iterator = EventIteratorUtils.merge(iterator, iteratorCalEvent);
 			}
 		}
 		
@@ -100,7 +96,7 @@ public class Application extends Controller {
 					EseCalendar contactCal = eseCalendarIter.next();
 					Iterator<CalendarEvent> iteratorCalEvent =  contactCal.
 							getEventsAt(user, selectedDate).iterator();
-					iterator = new EventIteratorMerger(iterator, iteratorCalEvent); 
+					iterator = EventIteratorUtils.merge(iterator, iteratorCalEvent); 
 				}
 			}
 		}
