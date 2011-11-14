@@ -1,0 +1,17 @@
+#{extends 'main.html' /}
+#{set title:'Delete Account' /}
+#{set header:'Delete Account' /}
+	Are You sure?
+	
+	</br>
+
+	#{form @IndexPage.deleteAccount()} 
+	<input type="submit" name="delete" value="Delete this Account">
+	#{/form}
+	
+	</br>
+	</br>
+	#{form @IndexPage.index()} 
+	<input type="submit" name="cancel" value="Cancel">
+	#{/form}
+	
