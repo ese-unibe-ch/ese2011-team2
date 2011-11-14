@@ -1,6 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'User' /}
-#{set header: user.name /}
+#{set header: 'Manage my account' /}
 
 <head>
 	<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/user.css'}">
@@ -28,14 +28,12 @@
 </div>
 
 <div id=contentRight>
-	#{if user == currentUser}
-		<div id="addCalendar">
-			<h2>Add a new Calendar</h2>
-			#{form @Application.addCalendar()}
-					<label for="name">Calendar Name </label> <br/>
-					<input type="text" name="calendarName" />
-					<input type="submit" value ="Add">
-			#{/form}
-		</div>
-	#{/if}
+	<div id="addCalendar">
+		<h2>Add a new Calendar</h2>
+		#{form @Application.addCalendar()}
+				<label for="name">Calendar Name </label> <br/>
+				<input type="text" name="calendarName" />
+				<input type="submit" value ="Add">
+		#{/form}
+	</div>
 </div>

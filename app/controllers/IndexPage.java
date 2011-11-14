@@ -50,11 +50,15 @@ public class IndexPage extends Controller {
 		}
 	}
 	
-	public static void deleteAccount() throws Throwable{
+	public static void deleteAccount() throws Throwable {
 		UserManager um = UserManager.getInstance();
 		String userName = Security.connected();
 		um.deleteUser(userName);
 		Secure.logout();
+	}
+
+	public static void prepareDeleteAccount() {
+		render();
 	}
 	
 }

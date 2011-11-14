@@ -47,9 +47,9 @@ public class CalendarBrowser {
 		 * @return true, if the user has an event with the visibility set to public on this day.
 		 */
 		public boolean getHasPublicEvents() {
-			Iterator<EseCalendar> CalendarIterator = selectedOwnCalendars.iterator();
-			while (CalendarIterator.hasNext()){
-				SortedSet<CalendarEvent> set1 = CalendarIterator.next().getEventsAt(user, asCalendar().getTime());
+			Iterator<EseCalendar> calendarIterator = selectedOwnCalendars.iterator();
+			while (calendarIterator.hasNext()){
+				SortedSet<CalendarEvent> set1 = calendarIterator.next().getEventsAt(user, asCalendar().getTime());
 				Iterator<CalendarEvent> iterator = set1.iterator();
 				while (iterator.hasNext()){
 					if (iterator.next().getVisibility().equals(Visibility.PUBLIC)){
@@ -86,7 +86,8 @@ public class CalendarBrowser {
 		 * @return true, if there is a visible event on any given users calendar.
 		 */
 		public boolean getHasContactEvents() {
-			if (!user.equals(UserManager.getInstance().getUserByName(Security.connected()))) {
+			User connectedUser = UserManager.getInstance().getUserByName(Security.connected());
+			if (!user.equals(connectedUser)) {
 				return false;
 			}
 			for (EseCalendar c: otherUsersCalendar) {
@@ -162,7 +163,7 @@ public class CalendarBrowser {
 		Calendar juc = Calendar.getInstance(locale);
 		juc.set(Calendar.DAY_OF_WEEK, 1);
 		for (int i = 0; i < 7; i++) {
-			result[i] = juc.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, locale);
+			result[i] = juc.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, locale);
 			juc.add(Calendar.DAY_OF_MONTH, 1);
 		}
 		return result;

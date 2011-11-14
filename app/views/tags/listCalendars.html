@@ -7,7 +7,7 @@
 <ul>
 	#{list items: _otherCalendars, as:'calendar'}
 		<li>
-			<a href="@{Application.currentCalendar(_user.name,calendar.name)}">${calendar.name}</a>
+			${calendar.name}
 			#{if _user == _currentUser}
 			<br/>
 			#{form @Application.deleteCalendar(calendar.name)} 

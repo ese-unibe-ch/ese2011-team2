@@ -7,49 +7,42 @@
 </head>
 
 <div id=contentLeft>
+	<div id=month>
+	#{month calendarBrowser /}
+	</div>
+	<div id=selectedDay>
+	<h2>Events on ${calendarBrowser.dayLabel}:</h2>
+			#{eventInfo myContacts:myContacts, iterator:iterator, calendar:calendar, connectedUser:connectedUser /}
+	</div>
+	#{if connectedUser.name == calendar.owner.name}
+	<div id=createEvent>
+		#{addEvent calendar:calendar, selectedDateString:selectedDateString /}
+	</div>
+	#{/if}
+</div>
+
+<div id=contentRight>
 	#{if connectedUser == calendar.owner}
 		<div id=myCalendars>
-			#{myCalendars myCalendars:myCalendars, calendar:calendar/}
-		</div>
-		<div id=myContacts>
+			#{myCalendars myCalendars:myCalendars, calendar:calendar /}
 			#{myContacts myContacts:myContacts, connectedUser:connectedUser, calendar:calendar /}
 		</div>
 	#{/if}
 	#{else}
 		<div id=otherUser>
 			<h2>${calendar.owner.name}</h2>
+			#{if connectedUser.name != calendar.owner.name}
+				#{if connectedUser.myContacts.containsKey(calendar.owner)}
+					#{form @Application.removeFromContacts(calendar.owner.name)} 
+						<input type="submit" name="add" value="remove from myContacts">
+					#{/form}
+				#{/if}
+				#{else}
+					#{form @Application.addToContacts(calendar.owner.name)} 
+						<input type="submit" name="add" value="add to myContacts">
+					#{/form}
+				#{/else}
+			#{/if}
 		</div>
 	#{/else}
-</div>
-
-<div id=contentMiddle>
-	<div id=month>
-	#{month calendarBrowser /}
-	</div>
-	<div id=selectedDay>
-	<h2>Events on ${calendarBrowser.dayLabel}:</h2>
-			#{eventInfo iterator:iterator, calendar:calendar, connectedUser:connectedUser/}
-	</div>
-	#{if connectedUser.name == calendar.owner.name}
-	<div id=createEvent>
-		#{addEvent calendar:calendar /}
-	</div>
-	#{/if}
-</div>
-
-<div id=contentRight>
-	#{if connectedUser.name != calendar.owner.name}
-		<div id=addToContacts>
-		#{if connectedUser.myContacts.containsKey(calendar.owner)}
-			#{form @Application.removeFromContacts(calendar.owner.name)} 
-				<input type="submit" name="add" value="remove from myContacts">
-			#{/form}
-		#{/if}
-		#{else}
-			#{form @Application.addToContacts(calendar.owner.name)} 
-				<input type="submit" name="add" value="add to myContacts">
-			#{/form}
-		#{/else}
-		</div>
-	#{/if}
 </div>

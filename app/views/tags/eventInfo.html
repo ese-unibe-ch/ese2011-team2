@@ -1,22 +1,20 @@
-<ul>
 #{list items: _iterator, as:'event'}
 <!--  TODO: handle timezone correctly -->
 %{
 	eventOwner =  event.getCalendar().getOwner()
+	userNb = _myContacts.headSet(eventOwner).size()%6
+	imgSrc = '/public/images/user' + userNb + '.png'
+
 	rep = "Event"
 	if (event.getSeries() != null)
 		rep = "SerialEvent"
 }% 
+<ul #{ifnot eventOwner==_connectedUser}style="list-style-image: url(${imgSrc});"#{/ifnot}>
 <li>
-<!-- TODO: this should rather be resolved in controller -->
-#{if (event.getVisibility().equals(ch.unibe.ese.calendar.Visibility.BUSY) && 
-		(_connectedUser != eventOwner))}
-	${eventOwner} is busy from ${event.start.format("HH:mm")} - ${event.end.format("HH:mm")}
-#{/if}
-#{else}
 	${event.name}<br/>
 	${event.start.format("HH:mm"+", "+"dd.MMM")} - ${event.end.format("HH:mm"+", "+"dd.MMM")}<br/>
-	(${event.visibility.name} ${rep} created by ${eventOwner.name})<br/>
+	(${event.visibility.name} ${rep} created by 
+	${eventOwner.name})<br/>
 	Description: ${event.description}
 	#{if _connectedUser == eventOwner}
 		<br/>
@@ -25,8 +23,7 @@
 		<a href=@{ModifyEvent.deleteEvent(_calendar.name, event.getId(), 
 			event.start.format("dd.MM.yyyy HH:mm"), event.getSeries() != null)}>Delete</a>
 	#{/if}
-#{/else}
 </li>
-#{/list}
-#{else} none #{/else}
 </ul>
+#{/list}
+#{else} <p> none </p> #{/else}

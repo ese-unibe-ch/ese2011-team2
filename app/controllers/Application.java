@@ -45,27 +45,6 @@ public class Application extends Controller {
 		selectedYear = juc.get(java.util.Calendar.YEAR);
 		calendar(userName, calendarName);
 	}
-	/**
-	 * This method shows the calendar page of a specified user. 
-	 * The selected day is read from instance variables.
-	 * It will automatically select the first calendar
-	 * 
-	 * @param userName The name of the user whose calendar will be displayed.
-	 */
-	public static void calendar(String userName){
-		calendar(userName, null);
-	}
-	
-	/**
-	* This method will display the current calendar of a specified user.
-	 * It will automatically select the current day.
-	 * It will automatically select the first calendar
-	 * 
-	 * @param userName The name of the user whose calendar will be displayed.
-	 */
-	public static void currentCalendar(String userName){
-		currentCalendar(userName, null);
-	}
 
 	/**
 	 * This method shows the calendar page of a specified user. 
@@ -74,7 +53,7 @@ public class Application extends Controller {
 	 * @param userName The name of the user whose calendar will be displayed.
 	 * @param calendarName calendarName the name of the calendar which will be displayed
 	 */
-	public static void calendar(String userName,String calendarName) {
+	public static void calendar(String userName, String calendarName) {
 		String connectedUserName = Security.connected();
 		User connectedUser = UserManager.getInstance().getUserByName(connectedUserName);
 		User user = UserManager.getInstance().getUserByName(userName);
@@ -92,18 +71,18 @@ public class Application extends Controller {
 		}
 		Calendar juc = Calendar.getInstance(getLocale());
 		juc.set(selectedYear, selectedMonth, selectedDay, 0, 0, 0);
-		final Date date = juc.getTime();
+		final Date selectedDate = juc.getTime();
 		Map<User, Boolean> myContactsMap = user.getMyContacts();
 		Iterator<User> iterMyContacts = myContactsMap.keySet().iterator();
 		Set<EseCalendar> selectedUsersCal = new HashSet<EseCalendar>();
 		Iterator iterator = Collections.EMPTY_LIST.iterator();
-		Iterator<EseCalendar> ownCalendarsIter = calendarManager.getCalendarsOf(connectedUser).iterator();
+		Iterator<EseCalendar> ownCalendarsIter = calendarManager.getCalendarsOf(user).iterator();
 		while (ownCalendarsIter.hasNext()){
 			EseCalendar ownCalendar = ownCalendarsIter.next();
-			if (ownCalendar.isSelected()){
+			if (ownCalendar.isSelected() || !user.equals(connectedUser)){
 				SelectedOwnCalendars.add(ownCalendar);
 				Iterator<CalendarEvent> iteratorCalEvent =  ownCalendar.
-						getEventsAt(user, date).iterator();
+						getEventsAt(connectedUser, selectedDate).iterator();
 				iterator = new EventIteratorMerger(iterator, iteratorCalEvent);
 			}
 		}
@@ -120,7 +99,7 @@ public class Application extends Controller {
 				while (eseCalendarIter.hasNext()){
 					EseCalendar contactCal = eseCalendarIter.next();
 					Iterator<CalendarEvent> iteratorCalEvent =  contactCal.
-							getEventsAt(user, date).iterator();
+							getEventsAt(user, selectedDate).iterator();
 					iterator = new EventIteratorMerger(iterator, iteratorCalEvent); 
 				}
 			}
@@ -129,7 +108,10 @@ public class Application extends Controller {
 				selectedUsersCal, selectedDay, selectedMonth, selectedYear, getLocale());
 		Set<User> myContacts = connectedUser.getSortedContacts();
 		SortedSet<EseCalendar> myCalendars = calendarManager.getCalendarsOf(connectedUser);
-		render(iterator, calendar, calendarBrowser, myContacts, connectedUser, myCalendars);
+		String selectedDateString = EseDateFormat.getInstance().format(
+				new Date(selectedDate.getTime() + 1000*60*60*12));
+		render(iterator, calendar, calendarBrowser, myContacts, 
+				connectedUser, selectedDateString, myCalendars);
 	}
 	
 	/**
@@ -187,7 +169,7 @@ public class Application extends Controller {
 		User user = UserManager.getInstance().getUserByName(userName);
 		User userToAdd = UserManager.getInstance().getUserByName(name);
 		user.addToMyContacts(userToAdd);
-		calendar(name);
+		calendar(name, null);
 	}
 	
 	/**
@@ -203,7 +185,7 @@ public class Application extends Controller {
 		} catch (InvalidActivityException e) {
 			e.printStackTrace();
 		}
-		calendar(name);
+		calendar(name, null);
 	}
 	
 	/**
@@ -274,6 +256,7 @@ public class Application extends Controller {
 		calendarManager.createCalendar(user, calendarName);
 		user(userName);
 	}
+
 	/**
 	 * First sets all Calendars to unselected then sets all Calendars that have 
 	 * their name in checkedCalendars[] to selected
@@ -295,5 +278,4 @@ public class Application extends Controller {
 		}	
 		calendar(userName, calendarName);
 	}
-
 }

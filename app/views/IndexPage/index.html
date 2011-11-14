@@ -7,20 +7,20 @@
 </head>
 
 <div id="welcome">
-	<h1>Welcome to the ESE Calendaring app</h1>
+	<h2>Currently logged in as ${connectedUser.name}</h2>
 	#{if mainCal != null}
 		<p>
-			<a href="@{Application.currentCalendar(connectedUser.name)}">View my Calendars</a> 
+			<a href="@{Application.currentCalendar(connectedUser.name)}">View my calendars</a> 
 		</p>
 	#{/if}
 	#{else}
 		You don't have any calendars at the moment
 	#{/else}
 	<p>
-		<a href="@{Application.user(connectedUser.name)}">Manage my Calendars and Contacts</a> 
+		<a href="@{Application.user(connectedUser.name)}">Manage my account</a> 
 	</p>
 	<p>
-		<a href="@{IndexPage.deleteAccount()}">Delete this Account</a>
+		<a href="@{IndexPage.PrepareDeleteAccount()}">Delete my account</a>
 	</p>
 </div>
 

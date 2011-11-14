@@ -5,26 +5,28 @@ import java.util.Iterator;
 
 
 /**
- * A series of events
+ * A series of events. Additionally to a CalendarEvent, an EventSeries has also an attribute 
+ * called repetition, that defines in which interval it is repeated.
  *
  */
 public interface EventSeries {
 	
 	/**
-	 * Expresses the repetition mode
+	 * Expresses the interval between two instances of a EventSeries.
 	 *
 	 */
 	public static enum Repetition {
 		/**
-		 * daily repetition
+		 * Daily repetition, meaning every 1 day
 		 */
 		DAILY("daily"), 
 		/**
-		 * weekly repetition
+		 * Weekly repetition, meaning every 7 day
 		 */
 		WEEKLY("weekly"), 
 		/**
-		 * monthly repetition
+		 * Monthly repetition, meaning every n'th day of the month.
+		 * NOT every 30 days or something of the like.
 		 */
 		MONTHLY("monthly");
 		
@@ -41,48 +43,50 @@ public interface EventSeries {
 	
 	//TODO instead of having so many event properties it could have an event prototype
 	/**
-	 * @return the visibility of events of this series
+	 * @see Visibility
+	 * @return The visibility of this EventSeries.
 	 */
 	public Visibility getVisibility();
 
 	/**
 	 * 
-	 * @return the end of evvent starting this series
+	 * @return The end of the prototype defining this EventSeries.
 	 */
 	public Date getEnd();
 
 	/**
 	 * 
-	 * @return the start of the event starting this series
+	 * @return The start of prototype defining this EventSeries.
 	 */
 	public Date getStart();
 
 	/**
-	 * The name is typically a short description of the event
+	 * The name is typically a short description of the EventSeries
 	 * 
-	 * @return the name of the event
+	 * @return The name of the EventSeries
 	 */
 	public String getName();
 
 	/**
-	 * Gets the calendar the series belongs to.
-	 * @return a calendar, which the series belongs to.
+	 * @return The EseCalendar the EventSeries belongs to.
 	 */
 	public EseCalendar getCalendar();
 	
 	/**
+	 * Everything that is too large for being a name, should be a
+	 * description.
 	 * 
-	 * @return a description of the event
+	 * @return A description (String) of the EventSeries.
 	 */
 	public String getDescription();
 
 	/**
-	 * @return a unique ID for this series.
+	 * @return A unique ID for this EventSeries.
 	 */
 	public String getId();
 	
 	/**
-	 * @return the repetition of the events of this series
+	 * @return the repetition interval of this EventSeries
 	 * @see Repetition
 	 */
 	public Repetition getRepetition();
@@ -98,22 +102,22 @@ public interface EventSeries {
 	public Iterator<CalendarEvent> iterator(Date start);
 	
 	/**
-	 * Get an event of this series by its consecutive number
+	 * Get an CalendarEvent of this series by its consecutive number. The prototype
+	 * of the EventSeries has the consecutiveNumber 0. CalendarEvents in after the prototype
+	 * have positive, before the prototype negative values.
 	 * 
 	 * @param consecutiveNumber the consecutive number of the requested event
-	 * @return
+	 * @return The CalendarEvent with the given consecutive number.
 	 */
 	public CalendarEvent getEventByConsecutiveNumber(long consecutiveNumber);
 	
 	/**
-	 * Add a exceptional instance, i.e. an event which replaces the normal occurence 
-	 * of the event.
+	 * Add a exceptional instance, i.e. an event which replaces the normal occurrence 
+	 * of the EventSeries.
 	 * 
-	 * Note that at this occurence it will not be the passed instance for exceptionalEvent
-	 * that is returned but an event with a regular serial-event id
-	 * 
-	 * @param id
-	 * @param exceptionalEvent how the exceptional event should look like, or null if the instance is deleted from the series
+	 * @param id The id of the occurrence that is to be replaced.
+	 * @param exceptionalEvent A CalendarEvent with other attributes than a normal instance of the series
+	 *    or null if the instance is to be deleted from the series
 	 */
 	public void addExceptionalInstance(String id, CalendarEvent exceptionalEvent);
 
