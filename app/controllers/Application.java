@@ -45,27 +45,6 @@ public class Application extends Controller {
 		selectedYear = juc.get(java.util.Calendar.YEAR);
 		calendar(userName, calendarName);
 	}
-	/**
-	 * This method shows the calendar page of a specified user. 
-	 * The selected day is read from instance variables.
-	 * It will automatically select the first calendar
-	 * 
-	 * @param userName The name of the user whose calendar will be displayed.
-	 */
-	public static void calendar(String userName){
-		calendar(userName, null);
-	}
-	
-	/**
-	* This method will display the current calendar of a specified user.
-	 * It will automatically select the current day.
-	 * It will automatically select the first calendar
-	 * 
-	 * @param userName The name of the user whose calendar will be displayed.
-	 */
-	public static void currentCalendar(String userName){
-		currentCalendar(userName, null);
-	}
 
 	/**
 	 * This method shows the calendar page of a specified user. 
@@ -187,7 +166,7 @@ public class Application extends Controller {
 		User user = UserManager.getInstance().getUserByName(userName);
 		User userToAdd = UserManager.getInstance().getUserByName(name);
 		user.addToMyContacts(userToAdd);
-		calendar(name);
+		calendar(name, null);
 	}
 	
 	/**
@@ -203,7 +182,7 @@ public class Application extends Controller {
 		} catch (InvalidActivityException e) {
 			e.printStackTrace();
 		}
-		calendar(name);
+		calendar(name, null);
 	}
 	
 	/**
