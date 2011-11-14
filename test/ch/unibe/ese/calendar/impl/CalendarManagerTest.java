@@ -13,6 +13,7 @@ import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
 import ch.unibe.ese.calendar.exceptions.NoSuchCalendarException;
+import ch.unibe.ese.calendar.exceptions.OnlyCalendarException;
 import ch.unibe.ese.calendar.impl.CalendarManagerImpl;
 import ch.unibe.ese.calendar.security.PermissionDeniedException;
 
@@ -69,12 +70,11 @@ public class CalendarManagerTest extends UnitTest {
 		assertEquals(calC, calManager.getCalendarsOf(user).last());
 	}
 	
-	@Test
-	public void removeACalendar() {
+	@Test(expected=OnlyCalendarException.class)
+	public void removingOnlyCalendarThrowsException() {
 		EseCalendar cal = calManager.createCalendar(user, "calToRemove");
 		assertTrue(calManager.getCalendarsOf(user).contains(cal));
 		calManager.removeCalendar("calToRemove");
-		assertFalse(calManager.getCalendarsOf(user).contains(cal));
 	}
 	
 	@Test (expected=NoSuchCalendarException.class)
@@ -105,11 +105,9 @@ public class CalendarManagerTest extends UnitTest {
 	}
 	
 	@Test (expected=NoSuchCalendarException.class)
-	public void testRemoveCalendar(){
+	public void testRemoveInexistantCalendar(){
 		EseCalendar myCalendar = calManager.createCalendar(user, "myCalendar");
 		assertTrue(calManager.getCalendarsOf(user).contains(myCalendar));
-		calManager.removeCalendar("myCalendar");
-		assertFalse(calManager.getCalendarsOf(user).contains(myCalendar));
 		calManager.removeCalendar("NonExistentCal");
 	}
 	
