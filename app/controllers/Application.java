@@ -74,7 +74,7 @@ public class Application extends Controller {
 	 * @param userName The name of the user whose calendar will be displayed.
 	 * @param calendarName calendarName the name of the calendar which will be displayed
 	 */
-	public static void calendar(String userName,String calendarName) {
+	public static void calendar(String userName, String calendarName) {
 		String connectedUserName = Security.connected();
 		User connectedUser = UserManager.getInstance().getUserByName(connectedUserName);
 		User user = UserManager.getInstance().getUserByName(userName);
@@ -97,10 +97,10 @@ public class Application extends Controller {
 		Iterator<User> iterMyContacts = myContactsMap.keySet().iterator();
 		Set<EseCalendar> selectedUsersCal = new HashSet<EseCalendar>();
 		Iterator iterator = Collections.EMPTY_LIST.iterator();
-		Iterator<EseCalendar> ownCalendarsIter = calendarManager.getCalendarsOf(connectedUser).iterator();
+		Iterator<EseCalendar> ownCalendarsIter = calendarManager.getCalendarsOf(user).iterator();
 		while (ownCalendarsIter.hasNext()){
 			EseCalendar ownCalendar = ownCalendarsIter.next();
-			if (ownCalendar.isSelected()){
+			if (ownCalendar.isSelected() || !user.equals(connectedUser)){
 				SelectedOwnCalendars.add(ownCalendar);
 				Iterator<CalendarEvent> iteratorCalEvent =  ownCalendar.
 						getEventsAt(user, date).iterator();

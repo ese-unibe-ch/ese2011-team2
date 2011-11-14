@@ -36,8 +36,8 @@ public class Policy {
 		for (EseCalendar cal : userCalendars) {
 			result.add(new PrivilegedCalendarAccessPermission(cal.getName()));
 		}
-		for(User u : UserManager.getInstance().getAllUsers()) {
-			if (u.getSortedContacts().contains(user)) {
+		for (User u : UserManager.getInstance().getAllUsers()) {
+			if (u.getSortedContacts().contains(user) || u.equals(user)) {
 				for (EseCalendar cal : CalendarManager.getInstance().getCalendarsOf(u)) {
 					result.add(new MyContactAccessPermission(cal.getName()));
 				}
