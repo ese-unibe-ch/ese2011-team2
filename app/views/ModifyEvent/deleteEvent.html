@@ -13,7 +13,12 @@ Do you want do delete all events of this series?
 #{form @ModifyEvent.deleteSingleSerialEvent()} 
 	<input type="hidden" name="calendarName" value="${calendar.name}">
 	<input type="hidden" name="id" value="${event.id}">
-	<input type="submit" name="all" value="No, just this instance">
+	<input type="submit" name="single" value="No, just this instance">
+#{/form}
+
+#{form @Application.currentCalendar()} 
+	<input type="hidden" name="userName" value="${calendar.owner.name}">
+	<input type="submit" name="cancel" value="Cancel">
 #{/form}
 
 
