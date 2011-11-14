@@ -56,5 +56,9 @@ public class IndexPage extends Controller {
 		um.deleteUser(userName);
 		Secure.logout();
 	}
+
+	public static void PrepareDeleteAccount() {
+		render();
+	}
 	
 }
