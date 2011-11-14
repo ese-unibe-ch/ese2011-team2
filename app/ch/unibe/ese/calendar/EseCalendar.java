@@ -8,11 +8,13 @@ import ch.unibe.ese.calendar.EventSeries.Repetition;
 import ch.unibe.ese.calendar.exceptions.EventNotFoundException;
 import ch.unibe.ese.calendar.security.PermissionDeniedException;
 
+/**
+ * Represents a calendar, a calendar is collection of (individual) events
+ * and series of events.
+ *
+ */
 public abstract class EseCalendar {
 
-	public EseCalendar() {
-		super();
-	}
 
 	/**
 	 * Iterates through all events with a start date after start
@@ -129,6 +131,7 @@ public abstract class EseCalendar {
 	 * @param select: false if not
 	 */
 	public abstract void select(boolean select);
+	
 	/** 
 	 * Indicates whether this calendar should be displayed in the view
 	 * 

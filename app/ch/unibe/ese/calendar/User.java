@@ -15,7 +15,8 @@ import ch.unibe.ese.calendar.util.UserComparator;
 
 /**
  * Represents a User. Users have a unique names identifying them and
- * a Map myContacts, to which a user connected to a boolean can be added.
+ * a Map myContacts, containing the contacts as keys and a Boolean as value
+ * indicating if the contact is selected or not.
  *
  */
 public class User {

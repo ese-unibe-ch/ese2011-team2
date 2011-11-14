@@ -16,9 +16,6 @@ import ch.unibe.ese.calendar.User;
  */
 public abstract class AbstractCalendar extends EseCalendar {
 
-	public AbstractCalendar() {
-		super();
-	}
 
 	@Override
 	public SortedSet<CalendarEvent> getEventsAt(User user, Date dayStart) {
