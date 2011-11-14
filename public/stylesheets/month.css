@@ -1,16 +1,17 @@
 table {
+	
 }
 
 th {
 	text-align: center;
 	background-color: black;
-	color: white;	
+	color: white;
 }
 
 td {
 	text-align: center;
 	width: 80px;
-	height:30px;
+	height: 30px;
 }
 
 td.public {
@@ -38,4 +39,6 @@ td.today {
 td a {
 	text-decoration: inherit;
 	color: inherit;
+	display: block;
+	width: 100%;
 }
