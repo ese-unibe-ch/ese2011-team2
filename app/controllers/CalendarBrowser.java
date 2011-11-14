@@ -163,7 +163,7 @@ public class CalendarBrowser {
 		Calendar juc = Calendar.getInstance(locale);
 		juc.set(Calendar.DAY_OF_WEEK, 1);
 		for (int i = 0; i < 7; i++) {
-			result[i] = juc.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, locale);
+			result[i] = juc.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, locale);
 			juc.add(Calendar.DAY_OF_MONTH, 1);
 		}
 		return result;

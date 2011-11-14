@@ -13,20 +13,6 @@
 	margin-top: 1em;
 }
 
-#myContacts {
-	border: thin solid grey;
-	-moz-box-shadow: 3px 11px 10px #303030;
-	-webkit-box-shadow: 3px 11px 10px #303030;
-	box-shadow: 3px 11px 10px #303030;
-	padding-left: 1em;
-	float: left;
-	width: 250px;
-	padding-bottom: 0.5em;
-	min-height: 85px;
-	list-style: none;
-	margin-top: 1em;
-}
-
 #myCalendars{
 	border: thin solid grey;
 	-moz-box-shadow: 3px 11px 10px #303030;
@@ -34,7 +20,7 @@
 	box-shadow: 3px 11px 10px #303030;
 	padding-left: 1em;
 	float: left;
-	width: 250px;
+	width: 320px;
 	padding-bottom: 0.5em;
 	min-height: 258px;
 	list-style: none;
@@ -47,7 +33,7 @@
 	box-shadow: 3px 11px 10px #303030;
 	padding-left: 1em;
 	float: left;
-	width: 180px;
+	width: 320px;
 	padding-bottom: 0.5em;
 	min-height: 259px;
 	list-style: none;
@@ -97,9 +83,4 @@
 #visibility {
 	float: left;
 	margin-left: 3em;
-}
-
-
-#addToContacts {
-	margin-left: 2em;
 }

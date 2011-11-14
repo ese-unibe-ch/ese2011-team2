@@ -1,8 +1,16 @@
 table {
 }
 
+th {
+	text-align: center;
+	background-color: black;
+	color: white;	
+}
+
 td {
 	text-align: center;
+	width: 80px;
+	height:30px;
 }
 
 td.public {

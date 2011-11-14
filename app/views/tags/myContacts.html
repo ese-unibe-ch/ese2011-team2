@@ -6,15 +6,16 @@
 			userNb = _myContacts.headSet(contact).size()%6
 			imgSrc='/public/images/user' + userNb + '.png'
 		}%
-		<li> 
-		<img src="${imgSrc}"
-			width="15" height="15" alt="${userNb}" />
+		<p> 
 			<input type="checkbox" 
 			name="checkedContacts[]" 
 			value=${contact.name} 
 			#{if _connectedUser.isContactSelected(contact)}checked="checked"#{/if}
-			onClick="this.form.submit()">&nbsp;${contact.name}
+			onClick="this.form.submit()">
+			&nbsp;${contact.name}
+			<img src="${imgSrc}"
+			width="15" height="15" alt="${userNb}" />
 			<br>
-		</li>
+		</p>
 	#{/list}
 #{/form}

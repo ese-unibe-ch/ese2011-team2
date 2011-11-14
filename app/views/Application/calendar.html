@@ -7,23 +7,6 @@
 </head>
 
 <div id=contentLeft>
-	#{if connectedUser == calendar.owner}
-		<div id=myCalendars>
-			#{myCalendars myCalendars:myCalendars, calendar:calendar /}
-		</div>
-		</br>
-		<div id=myContacts>
-			#{myContacts myContacts:myContacts, connectedUser:connectedUser, calendar:calendar /}
-		</div>
-	#{/if}
-	#{else}
-		<div id=otherUser>
-			<h2>${calendar.owner.name}</h2>
-		</div>
-	#{/else}
-</div>
-
-<div id=contentMiddle>
 	<div id=month>
 	#{month calendarBrowser /}
 	</div>
@@ -39,18 +22,27 @@
 </div>
 
 <div id=contentRight>
-	#{if connectedUser.name != calendar.owner.name}
-		<div id=addToContacts>
-		#{if connectedUser.myContacts.containsKey(calendar.owner)}
-			#{form @Application.removeFromContacts(calendar.owner.name)} 
-				<input type="submit" name="add" value="remove from myContacts">
-			#{/form}
-		#{/if}
-		#{else}
-			#{form @Application.addToContacts(calendar.owner.name)} 
-				<input type="submit" name="add" value="add to myContacts">
-			#{/form}
-		#{/else}
+	#{if connectedUser == calendar.owner}
+		<div id=myCalendars>
+			#{myCalendars myCalendars:myCalendars, calendar:calendar /}
+			#{myContacts myContacts:myContacts, connectedUser:connectedUser, calendar:calendar /}
 		</div>
 	#{/if}
+	#{else}
+		<div id=otherUser>
+			<h2>${calendar.owner.name}</h2>
+			#{if connectedUser.name != calendar.owner.name}
+				#{if connectedUser.myContacts.containsKey(calendar.owner)}
+					#{form @Application.removeFromContacts(calendar.owner.name)} 
+						<input type="submit" name="add" value="remove from myContacts">
+					#{/form}
+				#{/if}
+				#{else}
+					#{form @Application.addToContacts(calendar.owner.name)} 
+						<input type="submit" name="add" value="add to myContacts">
+					#{/form}
+				#{/else}
+			#{/if}
+		</div>
+	#{/else}
 </div>
