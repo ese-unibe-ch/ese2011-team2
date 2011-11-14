@@ -94,12 +94,16 @@ public class CalendarManagerImpl extends CalendarManager {
 	public EseCalendar getUnionCalendarOf(User user) {
 		Collection<EseCalendar> userCalendars = getCalendarsOf(user);
 		Iterator<EseCalendar> iter = userCalendars.iterator();
-		EseCalendar mainCalendar = iter.next();;
+		EseCalendar mainCalendar = iter.next();
 		EseCalendar[] otherCalendars = new EseCalendar[userCalendars.size()-1];
 		for (int i = 0; i < userCalendars.size()-1; i++) {
 			otherCalendars[i] = iter.next();
 		}
-		return new UnionCalendar(mainCalendar, otherCalendars);
+		if (otherCalendars.length > 0) {
+			return new UnionCalendar(mainCalendar, otherCalendars);
+		} else {
+			return mainCalendar;
+		}
 	}
 
 
