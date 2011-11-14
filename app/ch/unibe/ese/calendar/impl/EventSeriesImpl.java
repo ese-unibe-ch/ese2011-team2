@@ -54,43 +54,7 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 		return result;
 	}
 
-	
-	/**
-	 * note that the caller is responsible to check if the date matches this series
-	 * 
-	 * @dayStart Start of the day we want to get a SerialEvent of
-	 * @return 	A single instance of this event (of the type SerialEvent) with the 
-	 * 			parameters this series is defined by.
-	 */
-	private SerialEvent getAsSerialEventForDay(Date dayStart) {
-		java.util.Calendar jucDayStart = java.util.Calendar.getInstance(locale);
-		java.util.Calendar jucEventStart = java.util.Calendar.getInstance(locale);
-		java.util.Calendar jucEventEnd = java.util.Calendar.getInstance(locale);
-		jucEventEnd.setTime(getEnd());
-		jucEventStart.setTime(getStart());
-		jucDayStart.setTime(dayStart);
-		int year = jucDayStart.get(Calendar.YEAR);
-		int month = jucDayStart.get(Calendar.MONTH);
-		int day = jucDayStart.get(Calendar.DAY_OF_MONTH);
-		
-		long consecutiveNumber = getConsecutiveNumber(jucDayStart.getTime());
-		
-		int hour = jucEventStart.get(Calendar.HOUR_OF_DAY);
-		int min = jucEventStart.get(Calendar.MINUTE);
-		jucDayStart.set(year, month, day, hour, min);
-		Date start = jucDayStart.getTime();
-		
-		int durDay = jucEventEnd.get(Calendar.DAY_OF_YEAR)-jucEventStart.get(Calendar.DAY_OF_YEAR);
-		int durMonth = jucEventEnd.get(Calendar.MONTH)-jucEventStart.get(Calendar.MONTH);
-		int durYear = jucEventEnd.get(Calendar.YEAR)-jucEventStart.get(Calendar.YEAR);
-		int hour2 = jucEventEnd.get(Calendar.HOUR_OF_DAY);
-		int min2 = jucEventEnd.get(Calendar.MINUTE);
-		jucEventEnd.set(year+durYear, month + durMonth, day + durDay, hour2, min2);
-		Date end = jucEventEnd.getTime();
-		SerialEvent se = new SerialEvent(start, end, getName(), getVisibility(), 
-				this, getCalendar(), getDescription(), consecutiveNumber);
-		return se;
-	}
+
 
 	/**
 	 * 
