@@ -47,8 +47,7 @@ class ACFilteringEventIterator implements Iterator<CalendarEvent> {
 				case CONTACTSONLY:
 					if (!Policy.getInstance().hasPermission(user, 
 							new MyContactAccessPermission(calendarName))) {
-						next = new CalendarEventImpl(ce.getStart(), ce.getEnd(), 
-								"Busy", Visibility.BUSY, ce.getCalendar(), "None");
+						next = new JustBusyEvent(ce);
 					} else {
 						next = ce;
 					}
@@ -56,8 +55,7 @@ class ACFilteringEventIterator implements Iterator<CalendarEvent> {
 				case BUSY:
 					if (!Policy.getInstance().hasPermission(user, 
 							new PrivilegedCalendarAccessPermission(calendarName))) {
-						next = new CalendarEventImpl(ce.getStart(), ce.getEnd(), 
-								"Busy", ce.getVisibility(), ce.getCalendar(), "None");
+						next = new JustBusyEvent(ce);
 					} else {
 						next = ce;
 					}
