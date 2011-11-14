@@ -2,7 +2,13 @@
 #{form @Application.includeContacts()}
 <input type="hidden" name="calendarName" value="${_calendar.name}">
 	#{list items:_myContacts, as:'contact'}
+		%{
+			userNb = _myContacts.headSet(contact).size()%6
+			imgSrc='/public/images/user' + userNb + '.png'
+		}%
 		<li> 
+		<img src="${imgSrc}"
+			width="15" height="15" alt="${userNb}" />
 			<input type="checkbox" 
 			name="checkedContacts[]" 
 			value=${contact.name} 

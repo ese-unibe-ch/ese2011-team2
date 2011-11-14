@@ -81,8 +81,8 @@ public class EseCalendarTest extends UnitTest {
 	@Test
 	public void getEventsAtGivenDate() throws ParseException {
 		CalendarEvent event = calendar.addEvent(user.ADMIN, start, end, eventName, Visibility.PUBLIC,"random Kommentar1");
-		Date dayOnWichEventIsHappening = EseDateFormat.getInstance().parse("12.11.11 20:00");
-		assertTrue(calendar.getEventsAt(user.ADMIN, dayOnWichEventIsHappening).contains(event));
+		Date dayOnWhichEventIsHappening = EseDateFormat.getInstance().parse("12.11.11 20:00");
+		assertTrue(calendar.getEventsAt(user.ADMIN, dayOnWhichEventIsHappening).contains(event));
 	}
 
 }

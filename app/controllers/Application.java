@@ -71,7 +71,7 @@ public class Application extends Controller {
 		}
 		Calendar juc = Calendar.getInstance(getLocale());
 		juc.set(selectedYear, selectedMonth, selectedDay, 0, 0, 0);
-		final Date date = juc.getTime();
+		final Date selectedDate = juc.getTime();
 		Map<User, Boolean> myContactsMap = user.getMyContacts();
 		Iterator<User> iterMyContacts = myContactsMap.keySet().iterator();
 		Set<EseCalendar> selectedUsersCal = new HashSet<EseCalendar>();
@@ -82,7 +82,7 @@ public class Application extends Controller {
 			if (ownCalendar.isSelected() || !user.equals(connectedUser)){
 				SelectedOwnCalendars.add(ownCalendar);
 				Iterator<CalendarEvent> iteratorCalEvent =  ownCalendar.
-						getEventsAt(connectedUser, date).iterator();
+						getEventsAt(connectedUser, selectedDate).iterator();
 				iterator = new EventIteratorMerger(iterator, iteratorCalEvent);
 			}
 		}
@@ -99,7 +99,7 @@ public class Application extends Controller {
 				while (eseCalendarIter.hasNext()){
 					EseCalendar contactCal = eseCalendarIter.next();
 					Iterator<CalendarEvent> iteratorCalEvent =  contactCal.
-							getEventsAt(user, date).iterator();
+							getEventsAt(user, selectedDate).iterator();
 					iterator = new EventIteratorMerger(iterator, iteratorCalEvent); 
 				}
 			}
@@ -108,7 +108,10 @@ public class Application extends Controller {
 				selectedUsersCal, selectedDay, selectedMonth, selectedYear, getLocale());
 		Set<User> myContacts = connectedUser.getSortedContacts();
 		SortedSet<EseCalendar> myCalendars = calendarManager.getCalendarsOf(connectedUser);
-		render(iterator, calendar, calendarBrowser, myContacts, connectedUser, myCalendars);
+		String selectedDateString = EseDateFormat.getInstance().format(
+				new Date(selectedDate.getTime() + 1000*60*60*12));
+		render(iterator, calendar, calendarBrowser, myContacts, 
+				connectedUser, selectedDateString, myCalendars);
 	}
 	
 	/**
@@ -253,6 +256,7 @@ public class Application extends Controller {
 		calendarManager.createCalendar(user, calendarName);
 		user(userName);
 	}
+
 	/**
 	 * First sets all Calendars to unselected then sets all Calendars that have 
 	 * their name in checkedCalendars[] to selected
@@ -274,5 +278,4 @@ public class Application extends Controller {
 		}	
 		calendar(userName, calendarName);
 	}
-
 }
