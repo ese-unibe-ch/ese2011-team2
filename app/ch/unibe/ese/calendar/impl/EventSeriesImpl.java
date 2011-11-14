@@ -11,6 +11,7 @@ import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.EventSeries;
 import ch.unibe.ese.calendar.Visibility;
+import ch.unibe.ese.calendar.util.DateUtils;
 
 class EventSeriesImpl extends CalendarEntry implements EventSeries {
 
@@ -31,15 +32,6 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 	}
 
 
-	private void setToStartOfDay(Calendar calendar) {
-		calendar.set(Calendar.HOUR_OF_DAY,0);
-		calendar.set(Calendar.MINUTE,0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
-		
-	}
-
-
 	public Repetition getRepetition() {
 		return repetition;
 	}
@@ -53,7 +45,7 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 	private Iterator<CalendarEvent> startingEventIterator(Date start) {
 		Calendar jucStart = java.util.Calendar.getInstance(locale);
 		jucStart.setTime(start);
-		setToStartOfDay(jucStart);
+		DateUtils.setToStartOfDay(jucStart);
 		while (!dateMatches(jucStart.getTime())) {
 				jucStart.add(Calendar.DAY_OF_MONTH, 1);
 		}
@@ -138,10 +130,10 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 	private long getConsecutiveNumber(Date date) {
 		Calendar startOfEvaluatedDay = java.util.Calendar.getInstance(locale);
 		startOfEvaluatedDay.setTime(date);
-		setToStartOfDay(startOfEvaluatedDay);
+		DateUtils.setToStartOfDay(startOfEvaluatedDay);
 		java.util.Calendar jucProtoEventStart = java.util.Calendar.getInstance(locale);
 		jucProtoEventStart.setTime(getStart());
-		setToStartOfDay(jucProtoEventStart);
+		DateUtils.setToStartOfDay(jucProtoEventStart);
 		//TODO apply more efficient algorithm
 		long i = 0;
 		if (jucProtoEventStart.equals(startOfEvaluatedDay)) {
