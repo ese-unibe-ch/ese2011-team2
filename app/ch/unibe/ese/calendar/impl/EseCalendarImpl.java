@@ -126,23 +126,26 @@ public class EseCalendarImpl extends AbstractCalendar {
 	}
 
 	@Override
-	public Iterator<CalendarEvent> iterate(User user, Date start) {
-		Iterator<CalendarEvent> iterateIndividual = iterateIndividualEvents(user, start);
-		Iterator<CalendarEvent> iterateSeries = iterateSerialEvents(user, start);
+	public Iterator<CalendarEvent> iterate(User user, Date earliestEndDate) {
+		Iterator<CalendarEvent> iterateIndividual = iterateIndividualEvents(user, earliestEndDate);
+		Iterator<CalendarEvent> iterateSeries = iterateSerialEvents(user, earliestEndDate);
 		Iterator<CalendarEvent> unfilteredEvents = EventIteratorUtils.merge(iterateIndividual, iterateSeries);
 		return new ACFilteringEventIterator(user, unfilteredEvents, name);
 	}
 	
 	/**
-	 * Iterates through the non-serial events with a start date after start
+	 * Iterates through the non-serial events with an end date after earliestEndDate
 	 * 
-	 * @param start the date at which to start iterating events
+	 * @param earliestEndDate the date at which to start iterating events
 	 * @return an iterator with events starting after start
 	 */
-	private Iterator<CalendarEvent> iterateIndividualEvents(User user, Date start) {
-		CalendarEvent compareDummy = new CalendarEventImpl(start, 
-				start, "compare-dummy", Visibility.PRIVATE, this, "");
-		return startDateSortedSet.tailSet(compareDummy).iterator();
+	private Iterator<CalendarEvent> iterateIndividualEvents(User user, Date earliestEndDate) {
+		//An Event has now a maximal length of 6 Months:
+		long sixMonthInMs = 1000L*3600*24*30*6;
+		Date sixMonthEarlier = new Date(earliestEndDate.getTime()-sixMonthInMs);
+		CalendarEvent compareDummy = new CalendarEventImpl(sixMonthEarlier, 
+				sixMonthEarlier, "compare-dummy", Visibility.PRIVATE, this, "");
+		return EventIteratorUtils.filterByEndDate(startDateSortedSet.tailSet(compareDummy).iterator(), earliestEndDate);
 
 	}
 	
@@ -152,10 +155,10 @@ public class EseCalendarImpl extends AbstractCalendar {
 	 * @param start the date at which to start iterating events
 	 * @return an iterator with events starting after start
 	 */
-	private Iterator<CalendarEvent> iterateSerialEvents(User user, Date start) {
+	private Iterator<CalendarEvent> iterateSerialEvents(User user, Date earliestEndDate) {
 		List<Iterator<CalendarEvent>> seriesIterators = new ArrayList<Iterator<CalendarEvent>>(); 
 		for (EventSeries series : seriesById.values()) {
-			seriesIterators.add(series.iterator(start));
+			seriesIterators.add(series.iterator(earliestEndDate));
 		}
 		if (seriesIterators.size() > 1) {
 			return EventIteratorUtils.merge(seriesIterators);

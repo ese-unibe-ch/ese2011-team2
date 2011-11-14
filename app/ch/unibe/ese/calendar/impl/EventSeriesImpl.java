@@ -38,7 +38,7 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 
 
 	public Iterator<CalendarEvent> iterator(Date start) {
-		return startingEventIterator(new Date(start.getTime()));
+		return startingEventIterator(new Date(start.getTime()-duration));
 
 	}
 	

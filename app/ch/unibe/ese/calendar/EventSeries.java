@@ -94,12 +94,12 @@ public interface EventSeries {
 	/**
 	 * 
 	 * This method allows iterating over the events that are instances of this series 
-	 * sorted by date and including all instance ending at or after the time specified by the start argument
+	 * sorted by date and including all instance ending at or after the time specified by the earliestEndDate argument
 	 * 
-	 * @param start the date from which on instances of the series are to be returned
+	 * @param earliestEndDate the date from which on instances of the series are to be returned
 	 * @return the iterator over the matchingCalendarEvents
 	 */
-	public Iterator<CalendarEvent> iterator(Date start);
+	public Iterator<CalendarEvent> iterator(Date earliestEndDate);
 	
 	/**
 	 * Get an CalendarEvent of this series by its consecutive number. The prototype

@@ -2,12 +2,15 @@ package ch.unibe.ese.calendar.util;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import ch.unibe.ese.calendar.CalendarEvent;
 
 public class EventIteratorUtils {
+	
+	
 
 	/**
 	 * Merges multiple Iterator<CalendarEvent> into one, assuming these iterators
@@ -26,6 +29,24 @@ public class EventIteratorUtils {
 			return iteratorList.get(0);
 		}
 		return new EventIteratorMerger(iteratorList);
+		
+	}
+	/**
+	 * The filtered iterator only contains events ending after the specified endDate
+	 * 
+	 * @param base the iterator to be filtered
+	 * @parem earliestEndDate the date after which events must end
+	 * @return the filtered iterator
+	 */
+	public static Iterator<CalendarEvent> filterByEndDate(Iterator<CalendarEvent> base, final Date earliestEndDate) {
+		return new FilteringIterator(base, new IteratorFilter() {
+
+			@Override
+			public boolean accept(CalendarEvent event) {
+				return (event != null) && event.getEnd().after(earliestEndDate);
+			}
+			
+		});
 		
 	}
 
@@ -98,6 +119,57 @@ public class EventIteratorUtils {
 		@Override
 		public void remove() {
 			throw new UnsupportedOperationException("not implemented");
+		}
+
+	}
+	
+	private static interface IteratorFilter {
+		boolean accept(CalendarEvent event);
+	}
+
+	private static class FilteringIterator implements Iterator<CalendarEvent> {
+
+		private Iterator<CalendarEvent> base;
+		private IteratorFilter iteratorFilter;
+		private CalendarEvent next;
+		private boolean hasMoreElements;
+		
+		public FilteringIterator(Iterator<CalendarEvent> base,
+				IteratorFilter iteratorFilter) {
+			this.base = base;
+			this.iteratorFilter = iteratorFilter;
+			prepareNext();
+		}
+
+		private void prepareNext() {
+			hasMoreElements = false;
+			next = null;
+			while (base.hasNext()) {
+				CalendarEvent tentativeNext = base.next();
+				if (iteratorFilter.accept(tentativeNext)) {
+					hasMoreElements = true;
+					next = tentativeNext;
+					return;
+				}
+			}
+		}
+
+		@Override
+		public boolean hasNext() {
+			return hasMoreElements;
+		}
+
+		@Override
+		public CalendarEvent next() {
+			CalendarEvent result = next;
+			prepareNext();
+			return result;
+		}
+
+		@Override
+		public void remove() {
+			throw new UnsupportedOperationException();
+
 		}
 
 	}

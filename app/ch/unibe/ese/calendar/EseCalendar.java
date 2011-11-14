@@ -17,12 +17,12 @@ public abstract class EseCalendar {
 
 
 	/**
-	 * Iterates through all events with a start date after start
+	 * Iterates through all events with an end date after a specified date
 	 * 
-	 * @param start the date at which to start iterating events
-	 * @return an iterator with events starting after start
+	 * @param earliestEndDate the date at which to start iterating events
+	 * @return an iterator with events starting after earliestEndDate
 	 */
-	public abstract Iterator<CalendarEvent> iterate(User user, Date start);
+	public abstract Iterator<CalendarEvent> iterate(User user, Date earliestEndDate);
 
 	/**
 	 * Returns the Event to the given id.
