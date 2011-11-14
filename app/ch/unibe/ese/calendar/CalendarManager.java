@@ -7,12 +7,18 @@ import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
 import ch.unibe.ese.calendar.exceptions.NoSuchCalendarException;
 import ch.unibe.ese.calendar.impl.CalendarManagerImpl;
 
+/**
+ * Manages and provides access to the calendars of an instance
+ * of the team2 calendaring application.
+ *
+ */
 public abstract class CalendarManager {
 
 	private static CalendarManager instance = new CalendarManagerImpl();
 
 	/**
 	 * permanently deletes all calendars managed my this CalendarManager
+	 * 
 	 * @param user the user requesting the operation
 	 */
 	public abstract void purge(User user);
@@ -74,8 +80,9 @@ public abstract class CalendarManager {
 	}
 	
 	/**
-	 * Sets isSeleced(EseCalendar eseCalendar) to false for every calendar the user have
-	 * @param user the user who's calendars should be unselected
+	 * Sets invokes isSelected(false) for each calendar the user owns.
+	 * 
+	 * @param user the user whose calendars should be unselected
 	 */
 	public abstract void unSelectAllCalendars(User user);
 
