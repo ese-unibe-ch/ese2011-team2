@@ -23,6 +23,7 @@ import ch.unibe.ese.calendar.security.MyContactAccessPermission;
 import ch.unibe.ese.calendar.security.Policy;
 import ch.unibe.ese.calendar.security.PrivilegedCalendarAccessPermission;
 import ch.unibe.ese.calendar.util.AbstractCalendar;
+import ch.unibe.ese.calendar.util.DateUtils;
 import ch.unibe.ese.calendar.util.EventIteratorMerger;
 import ch.unibe.ese.calendar.util.StartDateComparator;
 
@@ -139,7 +140,8 @@ public class EseCalendarImpl extends AbstractCalendar {
 	 * @return an iterator with events starting after start
 	 */
 	private Iterator<CalendarEvent> iterateIndividualEvents(User user, Date start) {
-		CalendarEvent compareDummy = new CalendarEventImpl(start, start, "compare-dummy", Visibility.PRIVATE, this, "");
+		CalendarEvent compareDummy = new CalendarEventImpl(start, 
+				start, "compare-dummy", Visibility.PRIVATE, this, "");
 		return startDateSortedSet.tailSet(compareDummy).iterator();
 
 	}

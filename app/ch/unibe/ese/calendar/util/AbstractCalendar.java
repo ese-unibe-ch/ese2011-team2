@@ -18,7 +18,8 @@ public abstract class AbstractCalendar extends EseCalendar {
 
 
 	@Override
-	public SortedSet<CalendarEvent> getEventsAt(User user, Date dayStart) {
+	public SortedSet<CalendarEvent> getEventsAt(User user, Date day) {
+		Date dayStart = DateUtils.getStartOfDay(day);
 		Date dayEnd = new Date(dayStart.getTime()+24*60*60*1000);
 		//An Event has now a maximal length of 6 Months:
 		long sixMonthInMs = 1000L*3600*24*30*6;
