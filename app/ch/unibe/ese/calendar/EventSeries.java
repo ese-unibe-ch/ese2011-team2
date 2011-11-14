@@ -5,7 +5,8 @@ import java.util.Iterator;
 
 
 /**
- * A series of events
+ * A series of events. Additionally to a CalendarEvent, an EventSeries has also an attribute 
+ * called repetition, that defines in which interval it is repeated.
  *
  */
 public interface EventSeries {

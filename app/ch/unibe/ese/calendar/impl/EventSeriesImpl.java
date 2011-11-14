@@ -11,6 +11,7 @@ import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.EventSeries;
 import ch.unibe.ese.calendar.Visibility;
+import ch.unibe.ese.calendar.util.DateUtils;
 
 class EventSeriesImpl extends CalendarEntry implements EventSeries {
 
@@ -31,15 +32,6 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 	}
 
 
-	private void setToStartOfDay(Calendar calendar) {
-		calendar.set(Calendar.HOUR_OF_DAY,0);
-		calendar.set(Calendar.MINUTE,0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
-		
-	}
-
-
 	public Repetition getRepetition() {
 		return repetition;
 	}
@@ -53,7 +45,7 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 	private Iterator<CalendarEvent> startingEventIterator(Date start) {
 		Calendar jucStart = java.util.Calendar.getInstance(locale);
 		jucStart.setTime(start);
-		setToStartOfDay(jucStart);
+		DateUtils.setToStartOfDay(jucStart);
 		while (!dateMatches(jucStart.getTime())) {
 				jucStart.add(Calendar.DAY_OF_MONTH, 1);
 		}
@@ -62,43 +54,7 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 		return result;
 	}
 
-	
-	/**
-	 * note that the caller is responsible to check if the date matches this series
-	 * 
-	 * @dayStart Start of the day we want to get a SerialEvent of
-	 * @return 	A single instance of this event (of the type SerialEvent) with the 
-	 * 			parameters this series is defined by.
-	 */
-	private SerialEvent getAsSerialEventForDay(Date dayStart) {
-		java.util.Calendar jucDayStart = java.util.Calendar.getInstance(locale);
-		java.util.Calendar jucEventStart = java.util.Calendar.getInstance(locale);
-		java.util.Calendar jucEventEnd = java.util.Calendar.getInstance(locale);
-		jucEventEnd.setTime(getEnd());
-		jucEventStart.setTime(getStart());
-		jucDayStart.setTime(dayStart);
-		int year = jucDayStart.get(Calendar.YEAR);
-		int month = jucDayStart.get(Calendar.MONTH);
-		int day = jucDayStart.get(Calendar.DAY_OF_MONTH);
-		
-		long consecutiveNumber = getConsecutiveNumber(jucDayStart.getTime());
-		
-		int hour = jucEventStart.get(Calendar.HOUR_OF_DAY);
-		int min = jucEventStart.get(Calendar.MINUTE);
-		jucDayStart.set(year, month, day, hour, min);
-		Date start = jucDayStart.getTime();
-		
-		int durDay = jucEventEnd.get(Calendar.DAY_OF_YEAR)-jucEventStart.get(Calendar.DAY_OF_YEAR);
-		int durMonth = jucEventEnd.get(Calendar.MONTH)-jucEventStart.get(Calendar.MONTH);
-		int durYear = jucEventEnd.get(Calendar.YEAR)-jucEventStart.get(Calendar.YEAR);
-		int hour2 = jucEventEnd.get(Calendar.HOUR_OF_DAY);
-		int min2 = jucEventEnd.get(Calendar.MINUTE);
-		jucEventEnd.set(year+durYear, month + durMonth, day + durDay, hour2, min2);
-		Date end = jucEventEnd.getTime();
-		SerialEvent se = new SerialEvent(start, end, getName(), getVisibility(), 
-				this, getCalendar(), getDescription(), consecutiveNumber);
-		return se;
-	}
+
 
 	/**
 	 * 
@@ -138,10 +94,10 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 	private long getConsecutiveNumber(Date date) {
 		Calendar startOfEvaluatedDay = java.util.Calendar.getInstance(locale);
 		startOfEvaluatedDay.setTime(date);
-		setToStartOfDay(startOfEvaluatedDay);
+		DateUtils.setToStartOfDay(startOfEvaluatedDay);
 		java.util.Calendar jucProtoEventStart = java.util.Calendar.getInstance(locale);
 		jucProtoEventStart.setTime(getStart());
-		setToStartOfDay(jucProtoEventStart);
+		DateUtils.setToStartOfDay(jucProtoEventStart);
 		//TODO apply more efficient algorithm
 		long i = 0;
 		if (jucProtoEventStart.equals(startOfEvaluatedDay)) {
@@ -161,18 +117,22 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 		return i;
 	}
 	
+	private int getCalendarFieldForRepetition() {
+		if (repetition.equals(Repetition.DAILY)) {
+			return Calendar.DAY_OF_MONTH;
+		}
+		if (repetition.equals(Repetition.WEEKLY)) {
+			return Calendar.WEEK_OF_YEAR;
+		}
+		if (repetition.equals(Repetition.MONTHLY)) {
+			return Calendar.MONTH;
+		}
+		throw new RuntimeException();
+	}
 
 	private void increaseCalendarByIterations(Calendar calendar,
 			int amount) {
-		if (repetition.equals(Repetition.DAILY)) {
-			calendar.add(Calendar.DAY_OF_MONTH, amount);
-		}
-		if (repetition.equals(Repetition.WEEKLY)) {
-			calendar.add(Calendar.WEEK_OF_YEAR, amount);
-		}
-		if (repetition.equals(Repetition.MONTHLY)) {
-			calendar.add(Calendar.MONTH, amount);
-		}
+		calendar.add(getCalendarFieldForRepetition(), amount);
 	}
 
 
@@ -184,19 +144,8 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 		jucEventStart.setTime(getStart());
 		java.util.Calendar jucEventEnd = java.util.Calendar.getInstance(locale);
 		jucEventEnd.setTime(getEnd());
-		if (repetition.equals(Repetition.DAILY)) {
-			jucEventStart.add(Calendar.DAY_OF_MONTH, (int) consecutiveNumber);
-			jucEventEnd.add(Calendar.DAY_OF_MONTH, (int) consecutiveNumber);
-		}
-		if (repetition.equals(Repetition.WEEKLY)) {
-			jucEventStart.add(Calendar.WEEK_OF_YEAR, (int) consecutiveNumber);
-			jucEventEnd.add(Calendar.WEEK_OF_YEAR, (int) consecutiveNumber);
-		}
-		if (repetition.equals(Repetition.MONTHLY)) {
-			jucEventStart.add(Calendar.MONTH, (int) consecutiveNumber);
-			jucEventEnd.add(Calendar.MONTH, (int) consecutiveNumber);
-		}
-		
+		jucEventStart.add(getCalendarFieldForRepetition(), (int) consecutiveNumber);
+		jucEventEnd.add(getCalendarFieldForRepetition(), (int) consecutiveNumber);		
 		SerialEvent se = new SerialEvent(jucEventStart.getTime(), jucEventEnd.getTime(), getName(), getVisibility(), 
 				this, getCalendar(), getDescription(), consecutiveNumber);
 		return se;

@@ -76,8 +76,16 @@ public class EseCalendarTest2 extends UnitTest {
 		Date dayStart = EseDateFormat.getInstance().parse("4.1.2010 00:00");
 		Iterator<CalendarEvent> eventsAt = calendar.getEventsAt(user.ADMIN, dayStart).iterator();
 		assertEquals(es, eventsAt.next().getSeries());
-		assertFalse(eventsAt.hasNext());		
+		assertFalse(eventsAt.hasNext());
 	}
+	
+	@Test
+	public void tryToRemoveEventSeries() throws ParseException {
+		Date dayStart = EseDateFormat.getInstance().parse("4.1.2010 00:00");
+		SortedSet<CalendarEvent> eventsAt = calendar.getEventsAt(user.ADMIN, dayStart);
+		calendar.removeEventSeries(user.ADMIN, eventsAt.first().getId());
+		assertTrue(calendar.getEventsAt(user.ADMIN, dayStart).isEmpty());
+		}
 	
 	@Test
 	public void longSerialEventShouldHaveSameAttributesThroughWholeInstance() throws ParseException {

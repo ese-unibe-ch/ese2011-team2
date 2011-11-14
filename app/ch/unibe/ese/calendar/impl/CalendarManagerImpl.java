@@ -12,6 +12,7 @@ import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
 import ch.unibe.ese.calendar.exceptions.NoSuchCalendarException;
+import ch.unibe.ese.calendar.exceptions.OnlyCalendarException;
 import ch.unibe.ese.calendar.security.CalendarAdminPermission;
 import ch.unibe.ese.calendar.security.Policy;
 import ch.unibe.ese.calendar.util.EseCalendarComparator;
@@ -47,7 +48,7 @@ public class CalendarManagerImpl extends CalendarManager {
 	public synchronized void removeCalendar(String name) throws NoSuchCalendarException {
 		EseCalendar calendar = getCalendar(name);
 		if (getCalendarsOf(calendar.getOwner()).size() < 2) {
-			throw new RuntimeException("you may not delete the last calendar of "+calendar.getOwner());
+			throw new OnlyCalendarException("You may not delete the last calendar of "+calendar.getOwner());
 		}
 		if (calendars.containsKey(name)) {
 			calendars.remove(name);
@@ -96,12 +97,16 @@ public class CalendarManagerImpl extends CalendarManager {
 	public EseCalendar getUnionCalendarOf(User user) {
 		Collection<EseCalendar> userCalendars = getCalendarsOf(user);
 		Iterator<EseCalendar> iter = userCalendars.iterator();
-		EseCalendar mainCalendar = iter.next();;
+		EseCalendar mainCalendar = iter.next();
 		EseCalendar[] otherCalendars = new EseCalendar[userCalendars.size()-1];
 		for (int i = 0; i < userCalendars.size()-1; i++) {
 			otherCalendars[i] = iter.next();
 		}
-		return new UnionCalendar(mainCalendar, otherCalendars);
+		if (otherCalendars.length > 0) {
+			return new UnionCalendar(mainCalendar, otherCalendars);
+		} else {
+			return mainCalendar;
+		}
 	}
 
 
