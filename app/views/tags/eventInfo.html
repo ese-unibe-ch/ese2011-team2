@@ -11,7 +11,7 @@
 <!-- TODO: this should rather be resolved in controller -->
 #{if (event.getVisibility().equals(ch.unibe.ese.calendar.Visibility.BUSY) && 
 		(_connectedUser != eventOwner))}
-	${eventOwner} is busy from ${event.start.format("HH:mm")} - ${event.end.format("HH:mm")}
+	${eventOwner.name} is busy from ${event.start.format("HH:mm")} - ${event.end.format("HH:mm")}
 #{/if}
 #{else}
 	${event.name}<br/>

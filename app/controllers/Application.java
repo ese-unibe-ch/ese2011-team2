@@ -103,7 +103,7 @@ public class Application extends Controller {
 			if (ownCalendar.isSelected() || !user.equals(connectedUser)){
 				SelectedOwnCalendars.add(ownCalendar);
 				Iterator<CalendarEvent> iteratorCalEvent =  ownCalendar.
-						getEventsAt(user, date).iterator();
+						getEventsAt(connectedUser, date).iterator();
 				iterator = new EventIteratorMerger(iterator, iteratorCalEvent);
 			}
 		}
