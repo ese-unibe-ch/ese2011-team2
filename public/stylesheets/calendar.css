@@ -13,17 +13,18 @@
 	margin-top: 1em;
 }
 
-#myContacts, #myCalendars{
+#myContacts {
 	border: thin solid grey;
 	-moz-box-shadow: 3px 11px 10px #303030;
 	-webkit-box-shadow: 3px 11px 10px #303030;
 	box-shadow: 3px 11px 10px #303030;
 	padding-left: 1em;
 	float: left;
-	width: 180px;
+	width: 250px;
 	padding-bottom: 0.5em;
-	min-height: 259px;
+	min-height: 85px;
 	list-style: none;
+	margin-top: 1em;
 }
 
 #myCalendars{
@@ -33,9 +34,9 @@
 	box-shadow: 3px 11px 10px #303030;
 	padding-left: 1em;
 	float: left;
-	width: 180px;
+	width: 250px;
 	padding-bottom: 0.5em;
-	min-height: 259px;
+	min-height: 258px;
 	list-style: none;
 }
 
