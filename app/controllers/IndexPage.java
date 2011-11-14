@@ -17,10 +17,22 @@ public class IndexPage extends Controller {
 	
 	public static SortedSet<User> foundUsers;
 	
-	public static void index() {
+	public static void index(String searchRegex) {
 		String userName = Security.connected();
 		UserManager um = UserManager.getInstance();
 		User connectedUser = um.getUserByName(userName);
+		if(foundUsers != null) {
+			foundUsers.clear();
+		}
+		if (searchRegex != null) {
+			try {
+				foundUsers = new TreeSet<User>(new UserComparator(connectedUser));
+				foundUsers.addAll(UserManager.getInstance().getUserByRegex(searchRegex).values());
+			} catch (PatternSyntaxException e) {
+				//TODO error handling
+				error(e.getMessage());
+			}
+		}
 		CalendarManager calendarManager = CalendarManager.getInstance();
 		SortedSet<EseCalendar> connectedUserCalendars = calendarManager.getCalendarsOf(connectedUser);
 		Set<User> foundUsers = IndexPage.foundUsers; //no idea why this is necessary
@@ -38,21 +50,6 @@ public class IndexPage extends Controller {
 		}
 	}
 	
-	public static void searchUser(String searchRegex) {
-		String userName = Security.connected();
-		UserManager um = UserManager.getInstance();
-		User user = um.getUserByName(userName);
-		try {
-			foundUsers = new TreeSet<User>(new UserComparator(user));
-			foundUsers.addAll(UserManager.getInstance().getUserByRegex(searchRegex).values());
-		} catch (PatternSyntaxException e) {
-			//TODO error handling
-			error(e.getMessage());
-		}
-		System.out.println(foundUsers);
-		index();
-	}
-
 	public static void deleteAccount() throws Throwable{
 		UserManager um = UserManager.getInstance();
 		String userName = Security.connected();
