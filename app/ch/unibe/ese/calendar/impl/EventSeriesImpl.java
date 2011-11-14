@@ -117,18 +117,22 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 		return i;
 	}
 	
+	private int getCalendarFieldForRepetition() {
+		if (repetition.equals(Repetition.DAILY)) {
+			return Calendar.DAY_OF_MONTH;
+		}
+		if (repetition.equals(Repetition.WEEKLY)) {
+			return Calendar.WEEK_OF_YEAR;
+		}
+		if (repetition.equals(Repetition.MONTHLY)) {
+			return Calendar.MONTH;
+		}
+		throw new RuntimeException();
+	}
 
 	private void increaseCalendarByIterations(Calendar calendar,
 			int amount) {
-		if (repetition.equals(Repetition.DAILY)) {
-			calendar.add(Calendar.DAY_OF_MONTH, amount);
-		}
-		if (repetition.equals(Repetition.WEEKLY)) {
-			calendar.add(Calendar.WEEK_OF_YEAR, amount);
-		}
-		if (repetition.equals(Repetition.MONTHLY)) {
-			calendar.add(Calendar.MONTH, amount);
-		}
+		calendar.add(getCalendarFieldForRepetition(), amount);
 	}
 
 
@@ -140,19 +144,8 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 		jucEventStart.setTime(getStart());
 		java.util.Calendar jucEventEnd = java.util.Calendar.getInstance(locale);
 		jucEventEnd.setTime(getEnd());
-		if (repetition.equals(Repetition.DAILY)) {
-			jucEventStart.add(Calendar.DAY_OF_MONTH, (int) consecutiveNumber);
-			jucEventEnd.add(Calendar.DAY_OF_MONTH, (int) consecutiveNumber);
-		}
-		if (repetition.equals(Repetition.WEEKLY)) {
-			jucEventStart.add(Calendar.WEEK_OF_YEAR, (int) consecutiveNumber);
-			jucEventEnd.add(Calendar.WEEK_OF_YEAR, (int) consecutiveNumber);
-		}
-		if (repetition.equals(Repetition.MONTHLY)) {
-			jucEventStart.add(Calendar.MONTH, (int) consecutiveNumber);
-			jucEventEnd.add(Calendar.MONTH, (int) consecutiveNumber);
-		}
-		
+		jucEventStart.add(getCalendarFieldForRepetition(), (int) consecutiveNumber);
+		jucEventEnd.add(getCalendarFieldForRepetition(), (int) consecutiveNumber);		
 		SerialEvent se = new SerialEvent(jucEventStart.getTime(), jucEventEnd.getTime(), getName(), getVisibility(), 
 				this, getCalendar(), getDescription(), consecutiveNumber);
 		return se;
