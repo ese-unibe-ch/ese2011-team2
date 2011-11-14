@@ -13,6 +13,10 @@ h2 {
 	font-size: 1.1em;
 }
 
+A:LINK, A:VISITED {
+	text-decoration: none;
+}
+
 #content {
 	border: medium solid #424242;
 	background-color: white;
@@ -41,4 +45,5 @@ h2 {
 #tools {
 	width: 80px;
 	float: right;
+	list-style: none;
 }

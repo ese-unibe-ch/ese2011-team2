@@ -11,7 +11,7 @@ th {
 td {
 	text-align: center;
 	width: 80px;
-	height: 30px;
+	height:30px;
 }
 
 td.public {
@@ -24,7 +24,7 @@ td.nonPublic {
 }
 
 td.selected {
-	background-color: gray;
+	background-color: grey;
 }
 
 td.contactEvent {
@@ -36,9 +36,13 @@ td.today {
 	color: white;
 }
 
-td a {
+td A {
 	text-decoration: inherit;
 	color: inherit;
 	display: block;
 	width: 100%;
+}
+
+td A:HOVER {
+	font-size: 1.3em;
 }
