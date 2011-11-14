@@ -3,7 +3,11 @@ package ch.unibe.ese.calendar;
 import java.util.Date;
 
 
-
+/**
+ * Represent an event in a calendar. An event is a dedication  
+ * of a single finite and continuous period of time.
+ *
+ */
 public interface CalendarEvent {
 
 	/**
@@ -54,7 +58,7 @@ public interface CalendarEvent {
 	/**
 	 * For individual events the id contains no dash ('-') sign, for serial events
 	 * if has exactly one dash so that the part before the dash is the id of the series
-	 * and the part after the dash the consequtive number within the series.
+	 * and the part after the dash the consecutive number within the series.
 	 * 
 	 * @return the unique ID for this event.
 	 */
