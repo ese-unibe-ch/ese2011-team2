@@ -112,5 +112,16 @@ public class CalendarManagerTest extends UnitTest {
 		assertFalse(calManager.getCalendarsOf(user).contains(myCalendar));
 		calManager.removeCalendar("NonExistentCal");
 	}
+	
+	@Test 
+	public void testUnselectAllCalendars(){
+		EseCalendar myCalendar = calManager.createCalendar(user, "myCalendar");
+		assertTrue(myCalendar.isSelected());
+		calManager.unSelectAllCalendars(user);
+		assertFalse(myCalendar.isSelected());
+		myCalendar.select(true);
+		assertTrue(myCalendar.isSelected());
+		
+	}
 
 }

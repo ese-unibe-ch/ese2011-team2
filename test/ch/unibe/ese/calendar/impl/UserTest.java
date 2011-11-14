@@ -93,12 +93,6 @@ public class UserTest extends UnitTest {
 	}
 
 	@Test
-	public void connectedUserShouldAlreadyBeInContacts() {
-		assertEquals(1, uOne.getMyContacts().size());
-		assertTrue(uOne.getMyContacts().keySet().contains(uOne));
-	}
-
-	@Test
 	public void addUserToContacts() {
 		uOne.addToMyContacts(uTwo);
 		assertTrue(uOne.getMyContacts().keySet().contains(uTwo));
@@ -113,7 +107,7 @@ public class UserTest extends UnitTest {
 	public void trytoAddUserTwiceToContacts() {
 		uOne.addToMyContacts(uTwo);
 		uOne.addToMyContacts(uTwo);
-		assertEquals(2, uOne.getMyContacts().size());
+		assertEquals(1, uOne.getMyContacts().size());
 		assertTrue(uOne.getMyContacts().keySet().contains(uTwo));
 	}
 
@@ -135,8 +129,8 @@ public class UserTest extends UnitTest {
 	public void testGetSortedContacts() {
 		uOne.addToMyContacts(uTwo);
 		assertTrue(uOne.getSortedContacts().contains(uTwo));
-		assertEquals(uOne, uOne.getSortedContacts().first());
-		assertTrue(uOne.getSortedContacts().contains(uOne));
+		assertEquals(uTwo, uOne.getSortedContacts().first());
+		assertTrue(uOne.getSortedContacts().contains(uTwo));
 	}
 	
 	@Test
@@ -146,7 +140,6 @@ public class UserTest extends UnitTest {
 		assertTrue(uOne.isContactSelected(uTwo));
 		uOne.unselectAllContacts();
 		assertFalse(uOne.isContactSelected(uTwo));
-		assertFalse(uOne.isContactSelected(uOne));
 	}
 
 }
