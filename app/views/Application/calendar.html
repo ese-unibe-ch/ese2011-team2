@@ -1,6 +1,10 @@
 #{extends 'main.html' /}
 #{set title:'Calendar' /}
-#{set header:calendar.name /}
+%{
+	calendarOwner =  calendar.getOwner().getName() + "'s" + " " + "calendars";
+
+}%
+#{set header: calendarOwner/}
 
 <head>
 	<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/calendar.css'}">
@@ -16,7 +20,7 @@
 	</div>
 	#{if connectedUser.name == calendar.owner.name}
 	<div id=createEvent>
-		#{addEvent calendar:calendar, selectedDateString:selectedDateString /}
+		#{addEvent calendar:calendar, selectedDateString:selectedDateString, calendarIter:calendarIter /}
 	</div>
 	#{/if}
 </div>

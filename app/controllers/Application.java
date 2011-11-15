@@ -106,8 +106,9 @@ public class Application extends Controller {
 		SortedSet<EseCalendar> myCalendars = calendarManager.getCalendarsOf(connectedUser);
 		String selectedDateString = EseDateFormat.getInstance().format(
 				new Date(selectedDate.getTime() + 1000*60*60*12));
+		Iterator<EseCalendar> calendarIter = calendarManager.getCalendarsOf(user).iterator();
 		render(iterator, calendar, calendarBrowser, myContacts, 
-				connectedUser, selectedDateString, myCalendars);
+				connectedUser, selectedDateString, myCalendars, calendarIter);
 	}
 	
 	/**
