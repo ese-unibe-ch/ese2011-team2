@@ -18,10 +18,10 @@
 	Description: ${event.description}
 	#{if _connectedUser == eventOwner}
 		<br/>
-		<a href=@{ModifyEvent.editEvent(_calendar.name, event.getId(), 
-			event.start.format("dd.MM.yyyy HH:mm"), event.getSeries() != null)}>Edit</a> | 
-		<a href=@{ModifyEvent.deleteEvent(_calendar.name, event.getId(), 
-			event.start.format("dd.MM.yyyy HH:mm"), event.getSeries() != null)}>Delete</a>
+		<a href="@{ModifyEvent.editEvent(event.getCalendar().getName(), event.getId(), 
+			event.start.format("dd.MM.yyyy HH:mm"), event.getSeries() != null)}">Edit</a> | 
+		<a href="@{ModifyEvent.deleteEvent(event.getCalendar().getName(), event.getId(), 
+			event.start.format("dd.MM.yyyy HH:mm"), event.getSeries() != null)}">Delete</a>
 	#{/if}
 </li>
 </ul>
