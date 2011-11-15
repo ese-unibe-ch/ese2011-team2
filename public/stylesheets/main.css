@@ -18,7 +18,6 @@ A:LINK, A:VISITED {
 }
 
 #content {
-	border: medium solid #424242;
 	background-color: white;
 	width: 1000px;
 	height: auto !important;

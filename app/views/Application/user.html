@@ -7,21 +7,6 @@
 </head>
 
 <div id=contentLeft>
-	<div id=contactsList>
-		<h2>My Contacts</h3> 
-		<ul>
-			#{list items: myContactsIterator, as:'contact'}
-				#{ifnot contact == currentUser}
-					<li>
-						<a href="@{Application.user(contact.name)}">${contact.name}</a>
-					</li>						
-				#{/ifnot}
-			#{/list}
-		</ul>
-	</div>
-</div>
-
-<div id=contentMiddle>
 	<div id=calendars>
 		#{listCalendars otherCalendars:otherCalendars, user:user, currentUser:currentUser/}
 	</div>
@@ -31,9 +16,13 @@
 	<div id="addCalendar">
 		<h2>Add a new Calendar</h2>
 		#{form @Application.addCalendar()}
-				<label for="name">Calendar Name </label> <br/>
-				<input type="text" name="calendarName" />
-				<input type="submit" value ="Add">
+			<label for="name">Calendar Name </label> <br/>
+			<input type="text" name="calendarName" />
+			<input type="submit" value ="Add">
 		#{/form}
+	</div>
+	<div id="links">
+		<p><a href="@{Application.currentCalendar(user.name)}">View my calendars</a></p>
+		<p><a href="@{IndexPage.PrepareDeleteAccount()}">Delete my account</a></p>
 	</div>
 </div>

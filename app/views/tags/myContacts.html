@@ -1,21 +1,21 @@
 <h2>My Contacts</h2>
 #{form @Application.includeContacts()}
 <input type="hidden" name="calendarName" value="${_calendar.name}">
+#{if _myContacts.isEmpty()}You have no contacts.#{/if}
 	#{list items:_myContacts, as:'contact'}
 		%{
 			userNb = _myContacts.headSet(contact).size()%6
 			imgSrc='/public/images/user' + userNb + '.png'
 		}%
-		<p> 
-			<input type="checkbox" 
-			name="checkedContacts[]" 
-			value=${contact.name} 
-			#{if _connectedUser.isContactSelected(contact)}checked="checked"#{/if}
-			onClick="this.form.submit()">
-			&nbsp;${contact.name}
-			<img src="${imgSrc}"
-			width="15" height="15" alt="${userNb}" />
-			<br>
-		</p>
+		<input type="checkbox" 
+		name="checkedContacts[]" 
+		value=${contact.name} 
+		#{if _connectedUser.isContactSelected(contact)}checked="checked"#{/if}
+		onClick="this.form.submit()">
+		&nbsp;
+		<a href="@{Application.currentCalendar(contact.name)}">${contact.name}</a>
+		<img src="${imgSrc}"
+		width="15" height="15" alt="${userNb}" />
+		<br>
 	#{/list}
 #{/form}

@@ -13,13 +13,12 @@
 	margin-top: 1em;
 }
 
-#myCalendars{
+#myCalendars {
 	border: thin solid grey;
 	-moz-box-shadow: 3px 11px 10px #303030;
 	-webkit-box-shadow: 3px 11px 10px #303030;
 	box-shadow: 3px 11px 10px #303030;
 	padding-left: 1em;
-	float: left;
 	width: 320px;
 	padding-bottom: 0.5em;
 	min-height: 258px;
@@ -32,11 +31,21 @@
 	-webkit-box-shadow: 3px 11px 10px #303030;
 	box-shadow: 3px 11px 10px #303030;
 	padding-left: 1em;
-	float: left;
 	width: 320px;
 	padding-bottom: 0.5em;
-	min-height: 259px;
 	list-style: none;
+}
+
+#links {
+	border: thin solid grey;
+	-moz-box-shadow: 6px 10px 15px #303030;
+	-webkit-box-shadow: 6px 10px 15px #303030;
+	box-shadow: 6px 10px 15px #303030;
+	padding-left: 1em;
+	padding-bottom: 0.5em;
+	margin-top: 1em;
+	min-width: 320px;
+	min-height: 92px;
 }
 
 #month {
@@ -58,6 +67,7 @@
 	margin-top: 1em;
 	padding-left: 1em;
 	width: auto;
+	min-height: 100px;
 }
 
 #createEvent {

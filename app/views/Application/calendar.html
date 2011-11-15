@@ -31,7 +31,7 @@
 	#{else}
 		<div id=otherUser>
 			<h2>${calendar.owner.name}</h2>
-			#{if connectedUser.name != calendar.owner.name}
+			#{ifnot connectedUser.name == calendar.owner.name}
 				#{if connectedUser.myContacts.containsKey(calendar.owner)}
 					#{form @Application.removeFromContacts(calendar.owner.name)} 
 						<input type="submit" name="add" value="remove from myContacts">
@@ -42,7 +42,13 @@
 						<input type="submit" name="add" value="add to myContacts">
 					#{/form}
 				#{/else}
-			#{/if}
+			#{/ifnot}
 		</div>
 	#{/else}
+	<div id=links>
+		#{ifnot connectedUser.name == calendar.owner.name}
+			<p><a href="@{Application.currentCalendar(connectedUser.name)}">View my calendars</a></p>
+		#{/ifnot}
+		<p><a href="@{Application.user(connectedUser.name)}">Manage my account</a></p>
+	</div>
 </div>

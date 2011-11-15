@@ -9,7 +9,6 @@
 		<li>
 			${calendar.name}
 			#{if _user == _currentUser}
-			<br/>
 			#{form @Application.deleteCalendar(calendar.name)} 
 			<input type="submit" name="delete" value="Delete">
 			#{/form}
@@ -19,6 +18,3 @@
 	#{/list}
 </ul>
 <br/>
-#{ifnot _user == _currentUser}
-<a href="@{Application.user(_currentUser.name)}">View my Calendars</a>
-#{/ifnot} 
