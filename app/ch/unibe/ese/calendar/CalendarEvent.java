@@ -64,6 +64,8 @@ public interface CalendarEvent {
 	 */
 	public String getId();
 	
+	//TODO change this class to an abstract class to provide this methods, or provide utility abstract class
+	
 	/**
 	 * 
 	 * @param other

@@ -23,7 +23,8 @@ import ch.unibe.ese.calendar.security.MyContactAccessPermission;
 import ch.unibe.ese.calendar.security.Policy;
 import ch.unibe.ese.calendar.security.PrivilegedCalendarAccessPermission;
 import ch.unibe.ese.calendar.util.AbstractCalendar;
-import ch.unibe.ese.calendar.util.EventIteratorMerger;
+import ch.unibe.ese.calendar.util.DateUtils;
+import ch.unibe.ese.calendar.util.EventIteratorUtils;
 import ch.unibe.ese.calendar.util.StartDateComparator;
 
 /**
@@ -125,22 +126,26 @@ public class EseCalendarImpl extends AbstractCalendar {
 	}
 
 	@Override
-	public Iterator<CalendarEvent> iterate(User user, Date start) {
-		Iterator<CalendarEvent> iterateIndividual = iterateIndividualEvents(user, start);
-		Iterator<CalendarEvent> iterateSeries = iterateSerialEvents(user, start);
-		return new EventIteratorMerger(iterateIndividual, iterateSeries);
+	public Iterator<CalendarEvent> iterate(User user, Date earliestEndDate) {
+		Iterator<CalendarEvent> iterateIndividual = iterateIndividualEvents(user, earliestEndDate);
+		Iterator<CalendarEvent> iterateSeries = iterateSerialEvents(user, earliestEndDate);
+		Iterator<CalendarEvent> unfilteredEvents = EventIteratorUtils.merge(iterateIndividual, iterateSeries);
+		return new ACFilteringEventIterator(user, unfilteredEvents, name);
 	}
 	
 	/**
-	 * Iterates through the non-serial events with a start date after start
+	 * Iterates through the non-serial events with an end date after earliestEndDate
 	 * 
-	 * @param start the date at which to start iterating events
+	 * @param earliestEndDate the date at which to start iterating events
 	 * @return an iterator with events starting after start
 	 */
-	private Iterator<CalendarEvent> iterateIndividualEvents(User user, Date start) {
-		CalendarEvent compareDummy = new CalendarEventImpl(start, start, "compare-dummy", Visibility.PRIVATE, this, "");
-		Iterator<CalendarEvent> unfilteredEvents = startDateSortedSet.tailSet(compareDummy).iterator();
-		return new ACFilteringEventIterator(user, unfilteredEvents);
+	private Iterator<CalendarEvent> iterateIndividualEvents(User user, Date earliestEndDate) {
+		//An Event has now a maximal length of 6 Months:
+		long sixMonthInMs = 1000L*3600*24*30*6;
+		Date sixMonthEarlier = new Date(earliestEndDate.getTime()-sixMonthInMs);
+		CalendarEvent compareDummy = new CalendarEventImpl(sixMonthEarlier, 
+				sixMonthEarlier, "compare-dummy", Visibility.PRIVATE, this, "");
+		return EventIteratorUtils.filterByEndDate(startDateSortedSet.tailSet(compareDummy).iterator(), earliestEndDate);
 
 	}
 	
@@ -150,32 +155,19 @@ public class EseCalendarImpl extends AbstractCalendar {
 	 * @param start the date at which to start iterating events
 	 * @return an iterator with events starting after start
 	 */
-	private Iterator<CalendarEvent> iterateSerialEvents(User user, Date start) {
+	private Iterator<CalendarEvent> iterateSerialEvents(User user, Date earliestEndDate) {
 		List<Iterator<CalendarEvent>> seriesIterators = new ArrayList<Iterator<CalendarEvent>>(); 
-		Iterator<EventSeries> eventSeries = iterateSeries(user);
-		while (eventSeries.hasNext()) {
-			EventSeries series = eventSeries.next();
-			seriesIterators.add(series.iterator(start));
+		for (EventSeries series : seriesById.values()) {
+			seriesIterators.add(series.iterator(earliestEndDate));
 		}
 		if (seriesIterators.size() > 1) {
-			return new EventIteratorMerger(seriesIterators);
+			return EventIteratorUtils.merge(seriesIterators);
 		}
 		if (seriesIterators.size() == 1) {
 			return seriesIterators.get(0);
 		}
 		//empty iterator
 		return Collections.EMPTY_LIST.iterator();
-	}
-	
-	
-	/**
-	 * Iterates through all serial events
-	 * 
-	 * @return an iterator with all serial events
-	 */
-	private Iterator<EventSeries> iterateSeries(User user){
-		Iterator<EventSeries> allEventSeries = seriesById.values().iterator();
-		return new ACFilteringEventSeriesIterator(user, allEventSeries);
 	}
 	
 	@Override
@@ -188,154 +180,4 @@ public class EseCalendarImpl extends AbstractCalendar {
 		this.isSelected = select;
 	}
 	
-	private class ACFilteringEventIterator implements Iterator<CalendarEvent> {
-
-		private boolean hasNext;
-		private CalendarEvent next;
-		private Iterator<CalendarEvent> unfilteredEvents;
-		private User user;
-		
-		public ACFilteringEventIterator(User user, Iterator<CalendarEvent> unfilteredEvents) {
-			this.unfilteredEvents = unfilteredEvents;
-			this.user = user;
-			prepareNext();
-		}
-
-		private void prepareNext() {
-			hasNext = false;
-			if (unfilteredEvents.hasNext()) {
-				CalendarEvent ce = unfilteredEvents.next();
-				switch (ce.getVisibility()) {
-					case PRIVATE:
-						if (!Policy.getInstance().hasPermission(user, 
-								new PrivilegedCalendarAccessPermission(name))) {
-							prepareNext();
-							return;
-						} else {
-							next = ce;
-						}
-						break;
-					case CONTACTSONLY:
-						if (!Policy.getInstance().hasPermission(user, 
-								new MyContactAccessPermission(name))) {
-							next = new CalendarEventImpl(ce.getStart(), ce.getEnd(), 
-									"Busy", Visibility.BUSY, ce.getCalendar(), "None");
-						} else {
-							next = ce;
-						}
-						break;
-					case BUSY:
-						if (!Policy.getInstance().hasPermission(user, 
-								new PrivilegedCalendarAccessPermission(name))) {
-							next = new CalendarEventImpl(ce.getStart(), ce.getEnd(), 
-									"Busy", ce.getVisibility(), ce.getCalendar(), "None");
-						} else {
-							next = ce;
-						}
-						break;
-					default:
-						//nothing special
-						next = ce;
-						break;
-					}
-				hasNext = true;
-			}
-		}
-
-		@Override
-		public boolean hasNext() {
-			return hasNext;
-		}
-
-		@Override
-		public CalendarEvent next() {
-			if (!hasNext) {
-				throw new NoSuchElementException();
-			}
-			CalendarEvent result = next;
-			prepareNext();
-			return result;
-		}
-
-		@Override
-		public void remove() {
-			throw new UnsupportedOperationException("not supported yet");
-		}
-
-	}
-	private class ACFilteringEventSeriesIterator implements Iterator<EventSeries> {
-
-		private boolean hasNext;
-		private EventSeries next;
-		private Iterator<EventSeries> eventSeries;
-		private User user;
-		
-		public ACFilteringEventSeriesIterator(User user, Iterator<EventSeries> eventSeries) {
-			this.eventSeries = eventSeries;
-			this.user = user;
-			prepareNext();
-		}
-
-		private void prepareNext() {
-			hasNext = false;
-			if (eventSeries.hasNext()) {
-				EventSeries es = eventSeries.next();
-				switch (es.getVisibility()) {
-				case PRIVATE:
-					if (!Policy.getInstance().hasPermission(user, 
-							new PrivilegedCalendarAccessPermission(name))) {
-						prepareNext();
-						return;
-					} else {
-						next = es;
-					}
-					break;
-				case CONTACTSONLY:
-					if (!Policy.getInstance().hasPermission(user, 
-							new MyContactAccessPermission(name))) {
-						next = new EventSeriesImpl(es.getStart(), es.getEnd(), 
-								"Busy", Visibility.BUSY, es.getRepetition(), es.getCalendar(), "None");
-					} else {
-						next = es;
-					}
-					break;
-				case BUSY:
-					if (!Policy.getInstance().hasPermission(user, 
-							new PrivilegedCalendarAccessPermission(name))) {
-						next = new EventSeriesImpl(es.getStart(), es.getEnd(), 
-								"Busy", es.getVisibility(), es.getRepetition(), es.getCalendar(), "None");
-					} else {
-						next = es;
-					}
-					break;
-				default:
-					//nothing special
-					next = es;
-					break;
-				}
-				hasNext = true;
-			}
-		}
-
-		@Override
-		public boolean hasNext() {
-			return hasNext;
-		}
-
-		@Override
-		public EventSeries next() {
-			if (!hasNext) {
-				throw new NoSuchElementException();
-			}
-			EventSeries result = next;
-			prepareNext();
-			return result;
-		}
-
-		@Override
-		public void remove() {
-			throw new UnsupportedOperationException("not supported yet");
-		}
-
-	}
 }

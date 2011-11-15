@@ -45,7 +45,7 @@ public class UnionCalendar extends AbstractCalendar {
 		for(EseCalendar other: otherCalendars) {
 			baseIterators.add(other.iterate(user, start));
 		}
-		return new EventIteratorMerger(baseIterators);
+		return EventIteratorUtils.merge(baseIterators);
 	}
 
 	@Override

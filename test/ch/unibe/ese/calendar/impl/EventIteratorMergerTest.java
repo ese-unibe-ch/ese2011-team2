@@ -7,14 +7,12 @@ import java.util.TreeSet;
 
 import org.junit.Test;
 
+import play.test.UnitTest;
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.Visibility;
-import ch.unibe.ese.calendar.impl.CalendarEventImpl;
-import ch.unibe.ese.calendar.util.EventIteratorMerger;
+import ch.unibe.ese.calendar.util.EventIteratorUtils;
 import ch.unibe.ese.calendar.util.StartDateComparator;
-
-import play.test.UnitTest;
 
 public class EventIteratorMergerTest extends UnitTest {
 	java.util.Calendar juc = java.util.Calendar.getInstance();
@@ -82,7 +80,7 @@ public class EventIteratorMergerTest extends UnitTest {
 		Set<CalendarEvent> set2 = new TreeSet<CalendarEvent>(new StartDateComparator());
 		set2.add(calendarEvent2);
 		set2.add(calendarEvent5);
-		Iterator<CalendarEvent> merged = new EventIteratorMerger(set3.iterator(), set2.iterator());
+		Iterator<CalendarEvent> merged = EventIteratorUtils.merge(set3.iterator(), set2.iterator());
 		assertTrue(merged.hasNext());
 		assertEquals(calendarEvent1, merged.next());
 		assertTrue(merged.hasNext());

@@ -17,12 +17,12 @@ public abstract class EseCalendar {
 
 
 	/**
-	 * Iterates through all events with a start date after start
+	 * Iterates through all events with an end date after a specified date
 	 * 
-	 * @param start the date at which to start iterating events
-	 * @return an iterator with events starting after start
+	 * @param earliestEndDate the date at which to start iterating events
+	 * @return an iterator with events starting after earliestEndDate
 	 */
-	public abstract Iterator<CalendarEvent> iterate(User user, Date start);
+	public abstract Iterator<CalendarEvent> iterate(User user, Date earliestEndDate);
 
 	/**
 	 * Returns the Event to the given id.
@@ -116,13 +116,13 @@ public abstract class EseCalendar {
 	public abstract String getName();
 
 	/**
-	 * Gets a unmodifiable SortedSet of all events starting within the 24 hour period starting at date;
+	 * Gets a unmodifiable SortedSet of all events starting at the the specified day;
 	 * This returns normal as well as serial events for this day.
 	 * 
-	 * @param date the point in time specifying the start of the 24h period for which events are to be returned
+	 * @param day a point in time belonging to the day for which the events are requested
 	 * @return a list of the events
 	 */
-	public abstract SortedSet<CalendarEvent> getEventsAt(User user, Date dayStart);
+	public abstract SortedSet<CalendarEvent> getEventsAt(User user, Date day);
 	
 	/** 
 	 * sets the argument isSelected to select

@@ -16,7 +16,7 @@ import ch.unibe.ese.calendar.EventSeries.Repetition;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.Visibility;
 import ch.unibe.ese.calendar.util.EseDateFormat;
-import ch.unibe.ese.calendar.util.EventIteratorMerger;
+import ch.unibe.ese.calendar.util.EventIteratorUtils;
 
 public class EventIdTest extends UnitTest {
 	
@@ -133,7 +133,7 @@ public class EventIdTest extends UnitTest {
 		esDaily.addExceptionalInstance(exceptionalEvent.getId(), null);
 		final Date oneWeekBeforeException = EseDateFormat.getInstance().parse("1.1.2011 12:00");
 		final Iterator<CalendarEvent> oneweekBeforeIter = esDaily.iterator(oneWeekBeforeException);
-		final EventIteratorMerger oneweekBeforeIterMerged = new EventIteratorMerger(oneweekBeforeIter, Collections.EMPTY_LIST.iterator());
+		final Iterator<CalendarEvent> oneweekBeforeIterMerged = EventIteratorUtils.merge(oneweekBeforeIter, Collections.EMPTY_LIST.iterator());
 		final Iterator<CalendarEvent> oneweekBeforeIter2 = esDaily.iterator(oneWeekBeforeException);
 		final CalendarEvent e = oneweekBeforeIter2.next();
 		final CalendarEvent eMerged = oneweekBeforeIterMerged.next();
