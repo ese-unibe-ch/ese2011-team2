@@ -1,7 +1,6 @@
 <h2>Create a new Event</h2>
 	<div id=forms>
 			#{form @ModifyEvent.createEvent()}
-				<input type="hidden" name="calendarName" value="${_calendar.name}">
 				<p>
 					<label for="name">Event Name: </label> <br/>
 					<input type="text" size="35%" name="name" placeholder="Date with secretary (for example)"/>
@@ -43,8 +42,16 @@
 						<input type="radio" name="repetition" value="monthly" /> Monthly <br />	
 				</p>
 				<p>
+					<label for="choseCalendar">Calendar: </label> <br/>
+					<select type="text" name="calendarName" size="1">
+						#{list items: _calendarIter, as:'cal'}
+							<option>${cal.name}</option>
+      					#{/list}
+    				</select>
+  				</p>
+				<p>
 					<input type="submit" value ="create Event">
 				</p>
-	</div>				
+	</div>	
 
 			#{/form}
