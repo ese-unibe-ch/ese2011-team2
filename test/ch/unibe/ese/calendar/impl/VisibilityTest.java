@@ -112,6 +112,12 @@ public class VisibilityTest extends UnitTest {
 		//assertEquals(new JustBusyEvent(eventContactsOnly), eventsAt.first());
 		assertEquals("Busy", eventStalkerSees.getName());
 		assertEquals("None", eventStalkerSees.getDescription());
+		assertEquals(eventContactsOnly.getId()+"-BUSY", eventStalkerSees.getId());
+		assertEquals(eventContactsOnly.getCalendar(), eventStalkerSees.getCalendar());
+		assertEquals(eventContactsOnly.getStart(), eventStalkerSees.getStart());
+		assertEquals(eventContactsOnly.getEnd(), eventStalkerSees.getEnd());
+		assertEquals(Visibility.BUSY, eventStalkerSees.getVisibility());
+		assertEquals(eventContactsOnly.getSeries(), eventStalkerSees.getSeries());
 		
 		owner.addToMyContacts(friend);
 		eventsAt = calendar.getEventsAt(friend, dayStart);

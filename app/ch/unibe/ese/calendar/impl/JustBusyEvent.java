@@ -15,7 +15,8 @@ class JustBusyEvent implements CalendarEvent {
 	private CalendarEvent base;
 
 	/**
-	 * create a JustBusy-Version of an event, that is an Event instance with hidden details
+	 * Create a JustBusy-Version of an event, that is an Event instance with hidden details.
+	 * The JustBusy-Version has always the visibility busy.
 	 * @param base
 	 */
 	public JustBusyEvent(CalendarEvent base) {
@@ -24,7 +25,7 @@ class JustBusyEvent implements CalendarEvent {
 
 	@Override
 	public Visibility getVisibility() {
-		return base.getVisibility();
+		return Visibility.BUSY;
 	}
 
 	@Override
