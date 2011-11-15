@@ -14,6 +14,7 @@ import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.EventSeries;
 import ch.unibe.ese.calendar.EventSeries.Repetition;
+import ch.unibe.ese.calendar.User.DetailedProfileVisibility;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
 import ch.unibe.ese.calendar.Visibility;
@@ -21,15 +22,21 @@ import ch.unibe.ese.calendar.util.EseDateFormat;
 
 public class VisibilityTest extends UnitTest {
 	
-	private User owner = new User("Owner");
-	private User stalker = new User("Stalker");
+	private User owner, stalker, friend;
 	private EseCalendar calendar;
 	private CalendarEvent eventPrivate, eventBusy, eventPublic, eventContactsOnly;
 	private Date start;
 
 	@Before
 	public void setup() throws ParseException {
-		CalendarManager.getInstance().purge(owner.ADMIN);
+		CalendarManager.getInstance().purge(User.ADMIN);
+		UserManager.getInstance().purge(User.ADMIN);
+		owner = UserManager.getInstance().createUser("owner", 
+				"blub", null, DetailedProfileVisibility.PRIVATE);
+		stalker = UserManager.getInstance().createUser("stalker", 
+				"blub1", null, DetailedProfileVisibility.PRIVATE);
+		friend = UserManager.getInstance().createUser("friend", 
+				"blub2", null, DetailedProfileVisibility.PRIVATE);
 		calendar = CalendarManager.getInstance().createCalendar(owner, "testCal");
 		start = EseDateFormat.getInstance().parse("12.11.2011 20:00");
 		Date end = EseDateFormat.getInstance().parse("12.11.2011 22:00");
@@ -80,12 +87,37 @@ public class VisibilityTest extends UnitTest {
 	
 	@Test
 	public void testPublicVisibility() throws ParseException {
-		//TODO
+		Date dayStart = EseDateFormat.getInstance().parse("14.11.2011 00:00");
+		SortedSet<CalendarEvent> eventsAt = calendar.getEventsAt(owner, dayStart);
+		CalendarEvent eventOwnerSees = eventsAt.first();
+		assertEquals(eventPublic, eventOwnerSees);
+		
+		eventsAt = calendar.getEventsAt(stalker, dayStart);
+		CalendarEvent eventStalkerSees = eventsAt.first();
+		assertEquals(eventPublic, eventStalkerSees);
 	}
 	
 	@Test
 	public void testContactsOnlyVisibility() throws ParseException {
-		//TODO
+		Date dayStart = EseDateFormat.getInstance().parse("15.11.2011 00:00");
+		SortedSet<CalendarEvent> eventsAt = calendar.getEventsAt(owner, dayStart);
+		CalendarEvent eventOwnerSees = eventsAt.first();
+		assertEquals(eventContactsOnly, eventOwnerSees);
+		assertEquals(eventContactsOnly.getName(), eventOwnerSees.getName());
+		
+		eventsAt = calendar.getEventsAt(stalker, dayStart);
+		CalendarEvent eventStalkerSees = eventsAt.first();
+		assertNotSame(eventContactsOnly, eventStalkerSees);
+		//Not implemented yet:
+		//assertEquals(new JustBusyEvent(eventContactsOnly), eventsAt.first());
+		assertEquals("Busy", eventStalkerSees.getName());
+		assertEquals("None", eventStalkerSees.getDescription());
+		
+		owner.addToMyContacts(friend);
+		eventsAt = calendar.getEventsAt(friend, dayStart);
+		CalendarEvent eventFriendSees = eventsAt.first();
+		assertEquals(eventContactsOnly, eventFriendSees);
+		assertEquals(eventContactsOnly.getName(), eventFriendSees.getName());
 	}
 }
 	

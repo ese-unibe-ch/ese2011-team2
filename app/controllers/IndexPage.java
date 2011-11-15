@@ -27,7 +27,7 @@ public class IndexPage extends Controller {
 		if (searchRegex != null) {
 			try {
 				foundUsers = new TreeSet<User>(new UserComparator(connectedUser));
-				foundUsers.addAll(UserManager.getInstance().getUserByRegex(searchRegex).values());
+				foundUsers.addAll(UserManager.getInstance().getUserByRegex(searchRegex));
 			} catch (PatternSyntaxException e) {
 				//TODO error handling
 				error(e.getMessage());

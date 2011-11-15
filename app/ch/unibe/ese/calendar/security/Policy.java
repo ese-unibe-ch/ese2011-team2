@@ -35,6 +35,7 @@ public class Policy {
 		SortedSet<EseCalendar> userCalendars = CalendarManager.getInstance().getCalendarsOf(user);
 		for (EseCalendar cal : userCalendars) {
 			result.add(new PrivilegedCalendarAccessPermission(cal.getName()));
+			result.add(new MyContactAccessPermission(cal.getName()));
 		}
 		for (User u : UserManager.getInstance().getAllUsers()) {
 			if (u.getSortedContacts().contains(user) || u.equals(user)) {
