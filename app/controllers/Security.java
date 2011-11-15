@@ -5,6 +5,7 @@ import java.util.Date;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
 import ch.unibe.ese.calendar.User.DetailedProfileVisibility;
+import ch.unibe.ese.calendar.exceptions.UserAlreadyExistsException;
 import ch.unibe.ese.calendar.impl.UserManagerImpl;
 import ch.unibe.ese.calendar.util.EseDateFormat;
  
@@ -20,9 +21,12 @@ public class Security extends Secure.Security {
     	System.out.println(username + "-" + password);
     	
     	UserManager um = UserManagerImpl.getInstance();
-    	Date newUsersBirthday = EseDateFormat.getInstance().parse("11.11.2011 23:11");
-    	um.createUser(username, password, newUsersBirthday, DetailedProfileVisibility.PUBLIC);
-    	Secure.login();
+    	try {
+    		um.createUser(username, password, null, DetailedProfileVisibility.PUBLIC);
+    	} catch (UserAlreadyExistsException e) {
+    		error(e.getMessage());
+    	}
+    		Secure.login();
     }
 
 	public static void register() {
