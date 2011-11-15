@@ -12,7 +12,7 @@ import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
 import ch.unibe.ese.calendar.exceptions.NoSuchCalendarException;
-import ch.unibe.ese.calendar.exceptions.OnlyCalendarException;
+import ch.unibe.ese.calendar.exceptions.CanNotRemoveLastCalendarException;
 import ch.unibe.ese.calendar.security.CalendarAdminPermission;
 import ch.unibe.ese.calendar.security.Policy;
 import ch.unibe.ese.calendar.util.EseCalendarComparator;
@@ -48,7 +48,7 @@ public class CalendarManagerImpl extends CalendarManager {
 	public synchronized void removeCalendar(String name) throws NoSuchCalendarException {
 		EseCalendar calendar = getCalendar(name);
 		if (getCalendarsOf(calendar.getOwner()).size() < 2) {
-			throw new OnlyCalendarException("You may not delete the last calendar of "+calendar.getOwner());
+			throw new CanNotRemoveLastCalendarException(calendar.getOwner());
 		}
 		if (calendars.containsKey(name)) {
 			calendars.remove(name);
@@ -89,7 +89,6 @@ public class CalendarManagerImpl extends CalendarManager {
 	public void purge(User user) {
 		Policy.getInstance().checkPermission(user, new CalendarAdminPermission());
 		calendars.clear();
-		
 	}
 
 

@@ -13,7 +13,7 @@ import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.exceptions.CalendarAlreadyExistsException;
 import ch.unibe.ese.calendar.exceptions.NoSuchCalendarException;
-import ch.unibe.ese.calendar.exceptions.OnlyCalendarException;
+import ch.unibe.ese.calendar.exceptions.CanNotRemoveLastCalendarException;
 import ch.unibe.ese.calendar.impl.CalendarManagerImpl;
 import ch.unibe.ese.calendar.security.PermissionDeniedException;
 
@@ -70,7 +70,7 @@ public class CalendarManagerTest extends UnitTest {
 		assertEquals(calC, calManager.getCalendarsOf(user).last());
 	}
 	
-	@Test(expected=OnlyCalendarException.class)
+	@Test(expected=CanNotRemoveLastCalendarException.class)
 	public void removingOnlyCalendarThrowsException() {
 		EseCalendar cal = calManager.createCalendar(user, "calToRemove");
 		assertTrue(calManager.getCalendarsOf(user).contains(cal));
