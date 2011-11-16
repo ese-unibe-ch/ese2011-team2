@@ -8,18 +8,7 @@
 
 <div id=contentLeft>
 	<div id="links">
-		<p>
-			#{form @Application.currentCalendar(connectedUser.name)} 
-				<input type="image" src="/public/images/calendar.png" 
-				alt="View my calendars" title="View my calendars">
-			#{/form}
-		</p>
-		<p>
-			#{form @Application.user()} 
-				<input type="image" src="/public/images/settings.png" 
-				alt="Manage my account" title="Manage my account">
-			#{/form}
-		</p>
+		#{navigation connectedUser:connectedUser /}
 	</div>
 </div>
 
