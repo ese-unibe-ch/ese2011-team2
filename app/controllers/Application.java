@@ -156,8 +156,7 @@ public class Application extends Controller {
 				currentUserName);
 		SortedSet<EseCalendar> calendars = CalendarManager.getInstance()
 				.getCalendarsOf(connectedUser);
-		Iterator<User> myContactsIterator = connectedUser.getSortedContacts().iterator();
-		render(connectedUser, calendars, myContactsIterator);
+		render(connectedUser, calendars);
 	}
 	
 	public static void addToContacts(String name) {
