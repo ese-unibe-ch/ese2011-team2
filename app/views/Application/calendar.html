@@ -51,8 +51,20 @@
 	#{/else}
 	<div id=links>
 		#{ifnot connectedUser.name == calendar.owner.name}
-			<p><a href="@{Application.currentCalendar(connectedUser.name)}">View my calendars</a></p>
+			<p>
+				#{form @Application.currentCalendar(connectedUser.name)} 
+					<input type="image" src="/public/images/calendar.png" 
+					alt="View my calendars" title="View my calendars">
+					&nbsp;&nbsp;View my calendars
+				#{/form}
+			</p>
 		#{/ifnot}
-		<p><a href="@{Application.user(connectedUser.name)}">Manage my account</a></p>
+		<p>
+			#{form @Application.user()} 
+				<input type="image" src="/public/images/settings.png" 
+				alt="Manage my account" title="Manage my account">
+				&nbsp;Manage my account
+			#{/form}
+		</p>
 	</div>
 </div>

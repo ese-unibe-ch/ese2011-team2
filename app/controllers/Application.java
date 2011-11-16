@@ -150,15 +150,14 @@ public class Application extends Controller {
 		return new Locale("en", "CH");
 	}
 
-	public static void user(String name) {
+	public static void user() {
 		String currentUserName = Security.connected();
-		User currentUser = UserManager.getInstance().getUserByName(
+		User connectedUser = UserManager.getInstance().getUserByName(
 				currentUserName);
-		User user = UserManager.getInstance().getUserByName(name);
-		SortedSet<EseCalendar> otherCalendars = CalendarManager.getInstance()
-				.getCalendarsOf(user);
-		Iterator<User> myContactsIterator = currentUser.getSortedContacts().iterator();
-		render(currentUser, user, otherCalendars, myContactsIterator);
+		SortedSet<EseCalendar> calendars = CalendarManager.getInstance()
+				.getCalendarsOf(connectedUser);
+		Iterator<User> myContactsIterator = connectedUser.getSortedContacts().iterator();
+		render(connectedUser, calendars, myContactsIterator);
 	}
 	
 	public static void addToContacts(String name) {
@@ -239,19 +238,17 @@ public class Application extends Controller {
 	public static void deleteCalendar(String calendarName) {
 		CalendarManager calendarManager = CalendarManager.getInstance();
 		calendarManager.removeCalendar(calendarName);
-		String userName = Security.connected();
-		user(userName);
+		user();
 		
 	}
 	
 	public static void addCalendar(String calendarName) {
 		String userName = Security.connected();
 		UserManager um = UserManager.getInstance();
-		User user = um.getUserByName(userName);
+		User connectedUser = um.getUserByName(userName);
 		CalendarManager calendarManager = CalendarManager.getInstance();
-		
-		calendarManager.createCalendar(user, calendarName);
-		user(userName);
+		calendarManager.createCalendar(connectedUser, calendarName);
+		user();
 	}
 
 	/**

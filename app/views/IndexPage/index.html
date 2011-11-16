@@ -10,14 +10,22 @@
 	<h2>Currently logged in as ${connectedUser.name}</h2>
 	#{if mainCal != null}
 		<p>
-			<a href="@{Application.currentCalendar(connectedUser.name)}">View my calendars</a> 
+			#{form @Application.currentCalendar(connectedUser.name)} 
+				<input type="image" src="/public/images/calendar.png" 
+				alt="View my calendars" title="View my calendars">
+				&nbsp;&nbsp;View my calendars
+			#{/form}
 		</p>
 	#{/if}
 	#{else}
-		You don't have any calendars at the moment
+		There are no calendars at the moment
 	#{/else}
 	<p>
-		<a href="@{Application.user(connectedUser.name)}">Manage my account</a> 
+		#{form @Application.user()} 
+			<input type="image" src="/public/images/settings.png" 
+			alt="Manage my account" title="Manage my account">
+			&nbsp;Manage my account
+		#{/form} 
 	</p>
 </div>
 

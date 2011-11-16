@@ -1,18 +1,11 @@
-#{if _user == _currentUser}
-	<h2>My Calendars</h2>
-#{/if}   
-#{else}
-	<h2>${_user.name}'s Calendars</h2>
-#{/else}
+<h2>My Calendars</h2>
 <ul>
-	#{list items: _otherCalendars, as:'calendar'}
+	#{list items: _calendars, as:'calendar'}
 		<li>
 			${calendar.name}
-			#{if _user == _currentUser}
 			#{form @Application.deleteCalendar(calendar.name)} 
 			<input type="submit" name="delete" value="Delete">
 			#{/form}
-			#{/if}
 			<br/>
 		</li>
 	#{/list}

@@ -8,7 +8,7 @@
 
 <div id=contentLeft>
 	<div id=calendars>
-		#{listCalendars otherCalendars:otherCalendars, user:user, currentUser:currentUser/}
+		#{listCalendars calendars:calendars, user:user, connectedUser:connectedUser/}
 	</div>
 </div>
 
@@ -22,7 +22,19 @@
 		#{/form}
 	</div>
 	<div id="links">
-		<p><a href="@{Application.currentCalendar(user.name)}">View my calendars</a></p>
-		<p><a href="@{IndexPage.PrepareDeleteAccount()}">Delete my account</a></p>
+		<p>
+			#{form @Application.currentCalendar(connectedUser.name)} 
+				<input type="image" src="/public/images/calendar.png" 
+				alt="View my calendars" title="View my calendars">
+				&nbsp;&nbsp;View my calendars
+			#{/form}
+		</p>
+		<p>
+			#{form @IndexPage.prepareDeleteAccount()} 
+				<input type="image" src="/public/images/delete.png" 
+				alt="Delete my account" title="Delete my account">
+				&nbsp;Delete my account
+			#{/form}
+		</p>
 	</div>
 </div>
