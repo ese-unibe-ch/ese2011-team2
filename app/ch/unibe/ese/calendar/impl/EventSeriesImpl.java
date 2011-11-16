@@ -22,13 +22,14 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 	private Map<String, CalendarEvent> exceptionalInstance = new HashMap<String, CalendarEvent>();
 	private Repetition repetition;
 	//private int instanceDurationInDays;
-	private final int duration;
+	private final int dayDuration;
 
 	EventSeriesImpl(Date start, Date end, String name, Visibility visibility, 
 			Repetition repetition, EseCalendar calendar, String description) {
 		super(start, end, name, visibility, calendar, description);
 		this.repetition = repetition;
-		duration = (int) (getEnd().getTime() - getStart().getTime());
+		dayDuration = (int) (DateUtils.getStartOfDay(getEnd()).getTime() 
+				- DateUtils.getStartOfDay(getStart()).getTime());
 	}
 
 
@@ -38,7 +39,7 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 
 
 	public Iterator<CalendarEvent> iterator(Date start) {
-		return startingEventIterator(new Date(start.getTime()-duration));
+		return startingEventIterator(new Date(start.getTime()-dayDuration));
 
 	}
 	

@@ -25,7 +25,9 @@ public interface EventSeries {
 		 */
 		WEEKLY("weekly"), 
 		/**
-		 * Monthly repetition, meaning every n'th day of the month.
+		 * Monthly repetition, meaning every n'th day of the month, if the month 
+		 * doesn't has that day the instance occurs earlier as to be occur in each 
+		 * calendar month.
 		 * NOT every 30 days or something of the like.
 		 */
 		MONTHLY("monthly");

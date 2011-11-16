@@ -73,9 +73,16 @@ public class EseCalendarTest2 extends UnitTest {
 	
 	@Test
 	public void longEventSeriesShouldAppear() throws ParseException {
-		Date dayStart = EseDateFormat.getInstance().parse("4.1.2010 00:00");
+		Date dayStart = EseDateFormat.getInstance().parse("4.1.2014 00:00");
 		Iterator<CalendarEvent> eventsAt = calendar.getEventsAt(user.ADMIN, dayStart).iterator();
 		assertEquals(es, eventsAt.next().getSeries());
+		assertFalse(eventsAt.hasNext());
+	}
+	
+	@Test
+	public void longEventSeriesEnds() throws ParseException {
+		Date dayStart = EseDateFormat.getInstance().parse("11.1.2014 00:00");
+		Iterator<CalendarEvent> eventsAt = calendar.getEventsAt(user.ADMIN, dayStart).iterator();
 		assertFalse(eventsAt.hasNext());
 	}
 	
