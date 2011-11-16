@@ -43,7 +43,8 @@ public class ModifyEvent extends Controller {
 	}
 	
 	/**
-	 * Calculates the duration in milliseconds.
+	 * Calculates the duration in milliseconds. One of the parameters being empty 
+	 * causes this method to choose one hour as a standard duration.
 	 * @param dayDuration
 	 * @param hourDuration
 	 * @param minDuration
@@ -51,14 +52,13 @@ public class ModifyEvent extends Controller {
 	 */
 	private static long calculateDuration(String dayDuration, String hourDuration,
 			String minDuration) {
-		if (dayDuration.equals("") || hourDuration.equals("") || minDuration.equals("")) {
-			//TODO: Instead of throwing an exception, assume 0 as value if null
-			throw new IllegalArgumentException();
+		long duration = 1000*60*60;
+		if (!dayDuration.isEmpty() && !hourDuration.isEmpty() && !minDuration.isEmpty()) {
+			long minDur = Long.parseLong(minDuration);
+			long hourDur = Long.parseLong(hourDuration);
+			long dayDur = Long.parseLong(dayDuration);
+			duration = 1000*60*(minDur + 60*hourDur + 1440*dayDur);
 		}
-		long minDur = Long.parseLong(minDuration);
-		long hourDur = Long.parseLong(hourDuration);
-		long dayDur = Long.parseLong(dayDuration);
-		long duration = 1000*60*(minDur + 60*hourDur + 1440*dayDur);
 		return duration;
 	}
 
