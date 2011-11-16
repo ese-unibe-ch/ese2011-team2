@@ -55,7 +55,7 @@ public class Application extends Controller {
 		User user = UserManager.getInstance().getUserByName(userName);
 		CalendarManager calendarManager = CalendarManager.getInstance();
 		EseCalendar calendar;
-		Set<EseCalendar> SelectedOwnCalendars = new HashSet<EseCalendar>();
+		Set<EseCalendar> selectedOwnCalendars = new HashSet<EseCalendar>();
 		if (calendarName != null){
 			calendar = calendarManager.getCalendar(calendarName);
 		}
@@ -63,7 +63,7 @@ public class Application extends Controller {
 			 calendar = selectCalendarToDisplay(user, connectedUser);
 		}
 		if (calendar.isSelected()){
-			SelectedOwnCalendars.add(calendar);
+			selectedOwnCalendars.add(calendar);
 		}
 		Calendar juc = Calendar.getInstance(getLocale());
 		juc.set(selectedYear, selectedMonth, selectedDay, 0, 0, 0);
@@ -76,7 +76,7 @@ public class Application extends Controller {
 		while (ownCalendarsIter.hasNext()){
 			EseCalendar ownCalendar = ownCalendarsIter.next();
 			if (ownCalendar.isSelected() || !user.equals(connectedUser)){
-				SelectedOwnCalendars.add(ownCalendar);
+				selectedOwnCalendars.add(ownCalendar);
 				Iterator<CalendarEvent> iteratorCalEvent =  ownCalendar.
 						getEventsAt(connectedUser, selectedDate).iterator();
 				iterator = EventIteratorUtils.merge(iterator, iteratorCalEvent);
@@ -100,7 +100,7 @@ public class Application extends Controller {
 				}
 			}
 		}
-		CalendarBrowser calendarBrowser = new CalendarBrowser(user, SelectedOwnCalendars ,
+		CalendarBrowser calendarBrowser = new CalendarBrowser(user, selectedOwnCalendars ,
 				selectedUsersCal, selectedDay, selectedMonth, selectedYear, getLocale());
 		Set<User> myContacts = connectedUser.getSortedContacts();
 		SortedSet<EseCalendar> myCalendars = calendarManager.getCalendarsOf(connectedUser);
@@ -128,16 +128,12 @@ public class Application extends Controller {
 		CalendarManager calendarManager = CalendarManager.getInstance();
 		SortedSet<EseCalendar> connectedUserCalendars = calendarManager.
 				getCalendarsOf(connectedUser);
-		//done this way to display a calendar directly. 
-		//triedo will probably change this later
-		EseCalendar calendar = connectedUserCalendars.iterator().next();
+		EseCalendar calendar = null;
+		if (!calendarManager.getCalendarsOf(connectedUser).isEmpty()) {
+			calendar = connectedUserCalendars.iterator().next();
+		}
 		if (!user.equals(connectedUser)) {
-			SortedSet calendars = calendarManager.getCalendarsOf(user);
-			if (calendars.size()<2) {
-				calendar = (EseCalendar) calendars.iterator().next();
-			} else {
-				calendar = calendarManager.getUnionCalendarOf(user);
-			}
+			calendar = calendarManager.getUnionCalendarOf(user);
 		}
 		return calendar;
 	}
