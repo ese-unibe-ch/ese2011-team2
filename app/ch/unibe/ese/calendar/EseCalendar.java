@@ -116,7 +116,10 @@ public abstract class EseCalendar {
 	public abstract String getName();
 
 	/**
-	 * Gets a unmodifiable SortedSet of all events starting at the the specified day;
+	 * Gets a unmodifiable SortedSet of all events starting before the end of the specified day
+	 * and ending after the start of the specified day, i.e. all events that have an intersection 
+	 * with the specified day.
+	 * 
 	 * This returns normal as well as serial events for this day.
 	 * 
 	 * @param day a point in time belonging to the day for which the events are requested
