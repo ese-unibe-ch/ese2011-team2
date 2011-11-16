@@ -18,7 +18,11 @@
 			</p>
 		#{/if}
 		#{else}
-			There are no calendars at the moment
+			<p>
+				Hi ${connectedUser.name}! Create your first calendar by clicking on
+				'Manage my account' down below or click 
+				<a href="@{Application.user()}">right here</a>.
+			</p> 
 		#{/else}
 		<p>
 			#{form @Application.user()} 
