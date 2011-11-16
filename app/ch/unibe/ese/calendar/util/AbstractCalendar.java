@@ -29,9 +29,7 @@ public abstract class AbstractCalendar extends EseCalendar {
 			if (ce.getStart().after(dayEnd)) {
 				break;
 			}
-			if (ce.getEnd().after(dayStart)) {
-				result.add(ce);
-			}
+			result.add(ce);
 				
 		}
 		return result;
