@@ -1,4 +1,4 @@
-# Simple Calendaring application frontend
+# Simple Calendaring application
 Requirement specified at: http://ese.unibe.ch/exercises/simple-ui
 
 ## Compiling
