@@ -146,6 +146,10 @@ public class User {
 		return password;
 	}
 	
+	/**
+	 * Gets the detailed profile visibility of a user
+	 * @return the detailed profile visibility
+	 */
 	public DetailedProfileVisibility getDetailedProfileVisibility() {
 		return detailedProfileVisibility;
 	}
