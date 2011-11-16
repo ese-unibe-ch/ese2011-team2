@@ -1,5 +1,6 @@
 package ch.unibe.ese.calendar.util;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.SortedSet;
@@ -29,12 +30,10 @@ public abstract class AbstractCalendar extends EseCalendar {
 			if (ce.getStart().after(dayEnd)) {
 				break;
 			}
-			if (ce.getEnd().after(dayStart)) {
-				result.add(ce);
-			}
+			result.add(ce);
 				
 		}
-		return result;
+		return Collections.unmodifiableSortedSet(result);
 	}
 
 }
