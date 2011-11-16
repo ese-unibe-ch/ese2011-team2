@@ -9,7 +9,7 @@
 		}%
 		<input type="checkbox" 
 		name="checkedContacts[]" 
-		value=${contact.name} 
+		value="${contact.name}"
 		#{if _connectedUser.isContactSelected(contact)}checked="checked"#{/if}
 		onClick="this.form.submit()">
 		&nbsp;

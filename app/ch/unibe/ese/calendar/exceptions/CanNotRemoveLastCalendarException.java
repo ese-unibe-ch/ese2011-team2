@@ -10,7 +10,7 @@ import ch.unibe.ese.calendar.User;
 public class CanNotRemoveLastCalendarException extends RuntimeException {
 
 	public CanNotRemoveLastCalendarException(User user) {
-		super(user.toString() + " may not remove his last calendar");
+		super(user.getName() + " may not remove his last calendar");
 	}
 
 }

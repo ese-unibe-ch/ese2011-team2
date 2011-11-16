@@ -232,7 +232,11 @@ public class Application extends Controller {
 	
 	public static void deleteCalendar(String calendarName) {
 		CalendarManager calendarManager = CalendarManager.getInstance();
-		calendarManager.removeCalendar(calendarName);
+		try {
+			calendarManager.removeCalendar(calendarName);
+		} catch (Exception e) {
+			error(e.getMessage());
+		}
 		user();
 		
 	}
