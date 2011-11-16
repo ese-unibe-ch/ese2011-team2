@@ -10,7 +10,7 @@ th {
 
 td {
 	text-align: center;
-	width: 80px;
+	width: 70px;
 	height:30px;
 }
 
@@ -45,4 +45,8 @@ td A {
 
 td A:HOVER {
 	font-size: 1.2em;
+}
+
+td A:ACTIVE {
+	font-size: 0.9em;
 }

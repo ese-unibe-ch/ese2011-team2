@@ -1,7 +1,7 @@
 #welcome {
-	margin-left: 2em;
-	float: left;
-	width: 320px;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	padding-bottom: 0.5em;
 }
 
 #search {

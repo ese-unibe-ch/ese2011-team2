@@ -1,13 +1,3 @@
-#contentLeft {
-	float: left;
-	margin: 1em;
-}
-
-#contentRight {
-	float: left;
-	margin-top: 1em;
-}
-
 #calendars {
 	border: thin solid grey;
     -moz-box-shadow: 6px 10px 15px #303030;
@@ -17,16 +7,34 @@
     padding-bottom: 0.5em;
     margin-bottom: 1em;
     min-height: 242px;
-    min-width: 590px
+    min-width: 520px
 }
 
-#addCalendar, #links {
+#addCalendar {
 	border: thin solid grey;
     -moz-box-shadow: 6px 10px 15px #303030;
     -webkit-box-shadow: 6px 10px 15px #303030;
     box-shadow: 6px 10px 15px #303030;
     padding-left: 1em;
     padding-bottom: 0.5em;
+	margin-left: 1em;
 	margin-bottom: 1em;
-	min-width: 320px;
+	min-width: 300px;
+}
+
+#deleteAccount {
+	border: thin solid grey;
+    -moz-box-shadow: 6px 10px 15px #303030;
+    -webkit-box-shadow: 6px 10px 15px #303030;
+    box-shadow: 6px 10px 15px #303030;
+    padding-left: 1em;
+    padding-bottom: 0.5em;
+	margin-left: 1em;
+	min-width: 300px;
+}
+
+#links {
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	padding-bottom: 0.5em;
 }

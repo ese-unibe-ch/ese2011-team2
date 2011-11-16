@@ -7,6 +7,23 @@
 </head>
 
 <div id=contentLeft>
+	<div id="links">
+		<p>
+			#{form @Application.currentCalendar(connectedUser.name)} 
+				<input type="image" src="/public/images/calendar.png" 
+				alt="View my calendars" title="View my calendars">
+			#{/form}
+		</p>
+		<p>
+			#{form @Application.user()} 
+				<input type="image" src="/public/images/settings.png" 
+				alt="Manage my account" title="Manage my account">
+			#{/form}
+		</p>
+	</div>
+</div>
+
+<div id=contentMiddle>
 	<div id=calendars>
 		#{listCalendars calendars:calendars, user:user, connectedUser:connectedUser/}
 	</div>
@@ -21,14 +38,8 @@
 			<input type="submit" value ="Add">
 		#{/form}
 	</div>
-	<div id="links">
-		<p>
-			#{form @Application.currentCalendar(connectedUser.name)} 
-				<input type="image" src="/public/images/calendar.png" 
-				alt="View my calendars" title="View my calendars">
-				&nbsp;&nbsp;View my calendars
-			#{/form}
-		</p>
+	
+	<div id=deleteAccount>
 		<p>
 			#{form @IndexPage.prepareDeleteAccount()} 
 				<input type="image" src="/public/images/delete.png" 

@@ -11,6 +11,23 @@
 </head>
 
 <div id=contentLeft>
+	<div id=links>
+		<p>
+			#{form @Application.currentCalendar(connectedUser.name)} 
+				<input type="image" src="/public/images/calendar.png" 
+				alt="View my calendars" title="View my calendars">
+			#{/form}
+		</p>
+		<p>
+			#{form @Application.user()} 
+				<input type="image" src="/public/images/settings.png" 
+				alt="Manage my account" title="Manage my account">
+			#{/form}
+		</p>
+	</div>
+</div>
+
+<div id=contentMiddle>
 	<div id=month>
 	#{month calendarBrowser /}
 	</div>
@@ -34,37 +51,30 @@
 	#{/if}
 	#{else}
 		<div id=otherUser>
-			<h2>${calendar.owner.name}</h2>
 			#{ifnot connectedUser.name == calendar.owner.name}
 				#{if connectedUser.myContacts.containsKey(calendar.owner)}
+					<br/>
 					#{form @Application.removeFromContacts(calendar.owner.name)} 
-						<input type="submit" name="add" value="remove from myContacts">
+						<input type="image" src="/public/images/removeContact.png" 
+						alt="Remove from myContacts" title="Remove from myContacts">
 					#{/form}
+					<p>
+					${calendar.owner.name} is a contact. Remove ${calendar.owner.name}
+					from my contacts by clicking on the icon above.
+					</p>
 				#{/if}
 				#{else}
+					<br/>
 					#{form @Application.addToContacts(calendar.owner.name)} 
-						<input type="submit" name="add" value="add to myContacts">
+						<input type="image" src="/public/images/addContact.png" 
+						alt="Add to myContacts" title="Add to myContacts">
 					#{/form}
+					<p>
+					${calendar.owner.name} is not a contact. Add ${calendar.owner.name}
+					to my contacts by clicking on the icon above.
+					</p>
 				#{/else}
 			#{/ifnot}
 		</div>
 	#{/else}
-	<div id=links>
-		#{ifnot connectedUser.name == calendar.owner.name}
-			<p>
-				#{form @Application.currentCalendar(connectedUser.name)} 
-					<input type="image" src="/public/images/calendar.png" 
-					alt="View my calendars" title="View my calendars">
-					&nbsp;&nbsp;View my calendars
-				#{/form}
-			</p>
-		#{/ifnot}
-		<p>
-			#{form @Application.user()} 
-				<input type="image" src="/public/images/settings.png" 
-				alt="Manage my account" title="Manage my account">
-				&nbsp;Manage my account
-			#{/form}
-		</p>
-	</div>
 </div>

@@ -17,6 +17,10 @@ A:LINK, A:VISITED {
 	text-decoration: none;
 }
 
+A:ACTIVE {
+	font-size: 0.95em;
+}
+
 #content {
 	background-color: white;
 	width: 1000px;
@@ -25,6 +29,21 @@ A:LINK, A:VISITED {
 	margin: 0 auto;
 	text-align: left;
 	overflow: auto;
+}
+
+#contentLeft {
+	float: left;
+	margin: 1em;
+}
+
+#contentMiddle {
+	float: left;
+	margin-top: 1em;
+}
+
+#contentRight {
+	float: left;
+	margin-top: 1em;
 }
 
 #header {

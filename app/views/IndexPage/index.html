@@ -6,31 +6,33 @@
 	<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/index.css'}">
 </head>
 
-<div id="welcome">
-	<h2>Currently logged in as ${connectedUser.name}</h2>
-	#{if mainCal != null}
+<div id=contentLeft>
+	<div id="welcome">
+		#{if mainCal != null}
+			<p>
+				#{form @Application.currentCalendar(connectedUser.name)} 
+					<input type="image" src="/public/images/calendar.png" 
+					alt="View my calendars" title="View my calendars">
+					&nbsp;&nbsp;View my calendars
+				#{/form}
+			</p>
+		#{/if}
+		#{else}
+			There are no calendars at the moment
+		#{/else}
 		<p>
-			#{form @Application.currentCalendar(connectedUser.name)} 
-				<input type="image" src="/public/images/calendar.png" 
-				alt="View my calendars" title="View my calendars">
-				&nbsp;&nbsp;View my calendars
-			#{/form}
+			#{form @Application.user()} 
+				<input type="image" src="/public/images/settings.png" 
+				alt="Manage my account" title="Manage my account">
+				&nbsp;Manage my account
+			#{/form} 
 		</p>
-	#{/if}
-	#{else}
-		There are no calendars at the moment
-	#{/else}
-	<p>
-		#{form @Application.user()} 
-			<input type="image" src="/public/images/settings.png" 
-			alt="Manage my account" title="Manage my account">
-			&nbsp;Manage my account
-		#{/form} 
-	</p>
+	</div>
 </div>
 
 <div id="search">
-	<h4>Search for other users</h4>
+	<p>Currently logged in as ${connectedUser.name}</p>
+	<h5>Search for other users</h5>
 	#{form @IndexPage.index()}
 		<input type="text" name="searchRegex" placeholder="takes a java regex"/>
 		<input type="submit" value ="search">
