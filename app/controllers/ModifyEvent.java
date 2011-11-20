@@ -22,24 +22,30 @@ public class ModifyEvent extends Controller {
 	
 	public static void createEvent(String calendarName, String name, String startDate, 
 			String dayDuration, String hourDuration, String minDuration, String visibility, 
-			String repetition, String description) throws Throwable {
-		Date sDate = EseDateFormat.getInstance().parse(startDate);
-		long duration = calculateDuration(dayDuration, hourDuration, minDuration);
-		Date eDate = new Date();
-		eDate.setTime(sDate.getTime()+duration);
-		Visibility vis = Visibility.valueOf(visibility.toUpperCase());
-		//Date eDate = EseDateFormat.getInstance().parse(endDate); //old version
+			String repetition, String description) {
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
-		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
-				calendarName);
-		if (repetition.equalsIgnoreCase("never")) {
-			calendar.addEvent(user, sDate, eDate, name, vis, description);
-		} else {
-			calendar.addEventSeries(user, sDate, eDate, name, vis, 
-					Repetition.valueOf(repetition.toUpperCase()), description);
+		try {
+			Date sDate = EseDateFormat.getInstance().parse(startDate);
+			long duration = calculateDuration(dayDuration, hourDuration, minDuration);
+			Date eDate = new Date();
+			eDate.setTime(sDate.getTime()+duration);
+			Visibility vis = Visibility.valueOf(visibility.toUpperCase());
+			//Date eDate = EseDateFormat.getInstance().parse(endDate); //old version
+			final EseCalendar calendar = CalendarManager.getInstance().getCalendar(
+					calendarName);
+			if (repetition.equalsIgnoreCase("never")) {
+				calendar.addEvent(user, sDate, eDate, name, vis, description);
+			} else {
+				calendar.addEventSeries(user, sDate, eDate, name, vis, 
+						Repetition.valueOf(repetition.toUpperCase()), description);
+			}
+			Application.calendar(userName, null);
+		} catch(ParseException e) {
+			error(e.getMessage());
+		} catch(NumberFormatException e) {
+			error(e.getMessage());
 		}
-		Application.calendar(userName, null);
 	}
 	
 	/**
