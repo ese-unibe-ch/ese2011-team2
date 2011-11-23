@@ -9,28 +9,37 @@
 <div id=contentLeft>
 	<div id="welcome">
 		#{if mainCal != null}
-			<p>
-				#{form @Application.currentCalendar(connectedUser.name)} 
-					<input type="image" src="/public/images/calendar.png" 
-					alt="View my calendars" title="View my calendars">
-					&nbsp;&nbsp;View my calendars
-				#{/form}
-			</p>
+			<table>
+				<tr>
+					<td>
+						#{form @Application.currentCalendar(connectedUser.name)} 
+							<input type="image" src="/public/images/calendar.png" 
+							alt="View my calendars" title="View my calendars">
+						#{/form}
+					</td>
+					<td>&nbsp;View my calendars</td>
+				</tr>
+			</table>		
 		#{/if}
 		#{else}
 			<p>
-				Hi ${connectedUser.name}! Create your first calendar by clicking on
-				'Manage my account' down below or click 
+				Hi ${connectedUser.name}! <br/> 
+				Create your first calendar by clicking on
+				'Manage my account' down below or click
 				<a href="@{Application.user()}">right here</a>.
 			</p> 
 		#{/else}
-		<p>
-			#{form @Application.user()} 
-				<input type="image" src="/public/images/settings.png" 
-				alt="Manage my account" title="Manage my account">
-				&nbsp;Manage my account
-			#{/form} 
-		</p>
+		<table>
+			<tr>
+				<td>
+					#{form @Application.user()} 
+						<input type="image" src="/public/images/settings.png" 
+						alt="Manage my account" title="Manage my account">
+					#{/form} 
+				</td>
+				<td>Manage my account</td>
+			</tr>
+		</table>
 	</div>
 </div>
 

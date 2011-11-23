@@ -246,7 +246,10 @@ public class Application extends Controller {
 		UserManager um = UserManager.getInstance();
 		User connectedUser = um.getUserByName(userName);
 		CalendarManager calendarManager = CalendarManager.getInstance();
-		calendarManager.createCalendar(connectedUser, calendarName);
+		EseCalendar cal = calendarManager.createCalendar(connectedUser, calendarName);
+		if (calendarManager.getCalendarsOf(connectedUser).size()==1) {
+			currentCalendar(userName, cal.getName());
+		}
 		user();
 	}
 

@@ -29,12 +29,16 @@
 	</div>
 	
 	<div id=deleteAccount>
-		<p>
-			#{form @IndexPage.prepareDeleteAccount()} 
-				<input type="image" src="/public/images/delete.png" 
-				alt="Delete my account" title="Delete my account">
-				&nbsp;Delete my account
-			#{/form}
-		</p>
+		<table>
+			<tr>
+				<td>
+					#{form @IndexPage.prepareDeleteAccount()} 
+						<input type="image" src="/public/images/delete.png" 
+						alt="Delete my account" title="Delete my account">
+					#{/form}
+				</td>
+				<td>&nbsp;Delete my account</td>
+			</tr>
+		</table>
 	</div>
 </div>
