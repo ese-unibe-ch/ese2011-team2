@@ -1,11 +1,6 @@
 #{extends 'main.html' /}
-#{set title:'Calendar' /}
-%{
-	calendarOwner =  calendar.getOwner().getName() + "'s" + " " + "calendars";
-
-}%
-#{set header: calendarOwner/}
-
+#{set 'title'}&{'calendar.title', calendar.owner.name}#{/set}
+#{set 'header'}&{'calendar.title', calendar.owner.name}#{/set}
 <head>
 	<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/calendar.css'}">
 </head>
@@ -65,22 +60,20 @@
 					<br/>
 					#{form @Application.removeFromContacts(calendar.owner.name)} 
 						<input type="image" src="/public/images/removeContact.png" 
-						alt="Remove from myContacts" title="Remove from myContacts">
+						alt=&{'calendar.removeContact'} title=&{'calendar.removeContact'}>
 					#{/form}
 					<p>
-					${calendar.owner.name} is a contact. Remove ${calendar.owner.name}
-					from my contacts by clicking on the icon above.
+						&{'calendar.removeContactMsg', calendar.owner.name} 
 					</p>
 				#{/if}
 				#{else}
 					<br/>
 					#{form @Application.addToContacts(calendar.owner.name)} 
 						<input type="image" src="/public/images/addContact.png" 
-						alt="Add to myContacts" title="Add to myContacts">
+						alt=&{'calendar.addContact'} title=&{'calendar.addContact'}>
 					#{/form}
 					<p>
-					${calendar.owner.name} is not a contact. Add ${calendar.owner.name}
-					to my contacts by clicking on the icon above.
+						&{'calendar.addContactMsg', calendar.owner.name} 
 					</p>
 				#{/else}
 			#{/ifnot}

@@ -1,0 +1,17 @@
+
+
+# Next 5 lines were automatically added by i18n-extract on 2011-12-07 17:02:45
+secure.signin = Sign in
+secure.remember = Remember password
+secure.password = Password
+secure.username = Username
+secure.title = You need to sign in first!
+secure.register = Register a new User
+
+# This was added manually:
+
+calendar.removeContact = Remove from myContacts
+calendar.removeContactMsg = %1$s is one of your contacts. To remove %1$s from your contacts, click on the icon above.
+calendar.addContact = Add to myContacts
+calendar.addContactMsg = %1$s is not one of your contacts. To add %1$s to your contacts, click on the icon above.
+calendar.title = %s's calendars
