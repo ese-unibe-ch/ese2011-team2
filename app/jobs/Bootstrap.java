@@ -58,6 +58,13 @@ public class Bootstrap extends Job {
 		end = juc.getTime();
 		aaroncal2.addEvent(User.ADMIN, start, end, "super event", Visibility.PUBLIC, "event auf secondary cal");
 		
+		juc = java.util.Calendar.getInstance();
+		juc.set(2011, 11, 03, 20, 15);
+		start = juc.getTime();
+		juc.set(2011, 11, 03, 23, 00);
+		end = juc.getTime();
+		aaroncal2.addEvent(User.ADMIN, start, end, "shhhh, this is private", Visibility.PRIVATE, "sec cal");
+		
 		juc.set(2011, 10, 25, 20, 15);
 		start = juc.getTime();
 		juc.set(2011, 10, 25, 23, 00);
