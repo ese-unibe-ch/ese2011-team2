@@ -1,6 +1,6 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
-#{set header:'Calendar' /}
+#{set 'title'}&{'index.title'}#{/set}
+#{set 'header'}&{'index.title'}#{/set}
 
 <head>
 	<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/index.css'}">
@@ -14,19 +14,20 @@
 					<td>
 						#{form @Application.currentCalendar(connectedUser.name)} 
 							<input type="image" src="/public/images/calendar.png" 
-							alt="View my calendars" title="View my calendars">
+							alt="&{'index.viewCalendars'}" title="&{'index.viewCalendars'}">
 						#{/form}
 					</td>
-					<td>&nbsp;View my calendars</td>
+					<td>&nbsp;&{'index.viewCalendars'}</td>
 				</tr>
 			</table>		
 		#{/if}
 		#{else}
 			<p>
-				Hi ${connectedUser.name}! <br/> 
-				Create your first calendar by clicking on
-				'Manage my account' down below or click
-				<a href="@{Application.user()}">right here</a>.
+				&{'index.welcome', connectedUser.name}
+			</p>
+			<p> 
+				&{'index.createFirstCalendar'}
+				<a href="@{Application.user()}">&{'here'}</a>.
 			</p> 
 		#{/else}
 		<table>
@@ -34,18 +35,18 @@
 				<td>
 					#{form @Application.user()} 
 						<input type="image" src="/public/images/settings.png" 
-						alt="Manage my account" title="Manage my account">
+						alt="&{'index.manageAccount'}" title="&{'index.manageAccount'}">
 					#{/form} 
 				</td>
-				<td>Manage my account</td>
+				<td>&{'index.manageAccount'}</td>
 			</tr>
 		</table>
 	</div>
 </div>
 
 <div id="search">
-	<p>Currently logged in as ${connectedUser.name}</p>
-	<h5>Search for other users</h5>
+	<p>&{'index.loggedInAs', connectedUser.name}</p>
+	<h2>&{'index.searchUsers'}</h2>
 	#{form @IndexPage.index()}
 		<input type="text" name="searchRegex" placeholder="takes a java regex"/>
 		&nbsp;

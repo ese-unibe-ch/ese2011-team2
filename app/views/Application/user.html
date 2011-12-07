@@ -1,6 +1,6 @@
 #{extends 'main.html' /}
-#{set title:'User' /}
-#{set header: 'Manage my account' /}
+#{set 'header'}&{'user.title'}#{/set}
+#{set 'title'}&{'user.title'}#{/set}
 
 <head>
 	<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/user.css'}">
@@ -20,11 +20,10 @@
 
 <div id=contentRight>
 	<div id="addCalendar">
-		<h2>Add a new Calendar</h2>
+		<h2>&{'user.addNewCal'}</h2>
 		#{form @Application.addCalendar()}
-			<label for="name">Calendar Name </label> <br/>
 			<input type="text" name="calendarName" />
-			<input type="submit" value ="Add">
+			<input type="submit" value="&{'add'}">
 		#{/form}
 	</div>
 	
@@ -34,10 +33,10 @@
 				<td>
 					#{form @IndexPage.prepareDeleteAccount()} 
 						<input type="image" src="/public/images/delete.png" 
-						alt="Delete my account" title="Delete my account">
+						alt="&{'user.deleteAccount'}" title="&{'user.deleteAccount'}">
 					#{/form}
 				</td>
-				<td>&nbsp;Delete my account</td>
+				<td>&nbsp;&{'user.deleteAccount'}</td>
 			</tr>
 		</table>
 	</div>
