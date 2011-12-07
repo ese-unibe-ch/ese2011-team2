@@ -53,7 +53,7 @@ public abstract class AbstractCalendar extends EseCalendar {
 			}
 			if (!Pattern.matches(regex, ce.getName()) &&
 			    !Pattern.matches(regex, ce.getDescription())) {
-				break;
+				continue;
 			}
 			result.add(ce);
 		}
