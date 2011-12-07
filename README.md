@@ -8,9 +8,9 @@ This is a play framework project, you don't need to compile it
 
 You need to have [play](http://www.playframework.org/) installed, in the folder where his README is execute:
 
-This Application uses cobertura-2.4. Install it use
+This Application has dependencies besides play!, install them with
 	
-	play install cobertura-2.4
+	play dependencies --sync
 	
 After that you can start the Application with:
 

@@ -126,6 +126,7 @@ public abstract class EseCalendar {
 	 * @return a list of the events
 	 */
 	public abstract SortedSet<CalendarEvent> getEventsAt(User user, Date day);
+	public abstract SortedSet<CalendarEvent> getEventsByRegex(User user, String regex);
 	
 	/** 
 	 * sets the argument isSelected to select

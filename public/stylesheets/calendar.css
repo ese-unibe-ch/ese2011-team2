@@ -1,4 +1,4 @@
-#myCalendars {
+#myCalendars, #searchEvent {
 	border: thin solid grey;
 	-moz-box-shadow: 3px 11px 10px #303030;
 	-webkit-box-shadow: 3px 11px 10px #303030;
@@ -10,6 +10,12 @@
 	width: 290px;
 	min-height: 258px;
 	list-style: none;
+}
+
+#searchEvent {
+	padding-bottom: 1em;
+	margin-bottom: 1em;
+	min-height: 0;
 }
 
 #otherUser {

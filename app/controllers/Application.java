@@ -9,6 +9,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
+import java.util.ArrayList;
 
 import javax.activity.InvalidActivityException;
 
@@ -25,6 +26,7 @@ import ch.unibe.ese.calendar.util.EventIteratorUtils;
 @With(Secure.class)
 public class Application extends Controller {
 	
+	public static final int PAGESIZE = 5;
 	public static int selectedDay, selectedMonth, selectedYear;
 	
 	/**
@@ -49,7 +51,7 @@ public class Application extends Controller {
 	 * @param userName The name of the user whose calendar will be displayed.
 	 * @param calendarName calendarName the name of the calendar which will be displayed
 	 */
-	public static void calendar(String userName, String calendarName) {
+	public static void calendar(String userName, String calendarName, String searchRegex, int curPage) {
 		String connectedUserName = Security.connected();
 		User connectedUser = UserManager.getInstance().getUserByName(connectedUserName);
 		User user = UserManager.getInstance().getUserByName(userName);
@@ -77,8 +79,12 @@ public class Application extends Controller {
 			EseCalendar ownCalendar = ownCalendarsIter.next();
 			if (ownCalendar.isSelected() || !user.equals(connectedUser)){
 				selectedOwnCalendars.add(ownCalendar);
-				Iterator<CalendarEvent> iteratorCalEvent =  ownCalendar.
-						getEventsAt(connectedUser, selectedDate).iterator();
+				Iterator<CalendarEvent> iteratorCalEvent;
+				iteratorCalEvent = (searchRegex == null)
+					?ownCalendar.getEventsAt(connectedUser,
+						selectedDate).iterator()
+					:ownCalendar.getEventsByRegex(connectedUser,
+						searchRegex).iterator();
 				iterator = EventIteratorUtils.merge(iterator, iteratorCalEvent);
 			}
 		}
@@ -94,8 +100,12 @@ public class Application extends Controller {
 				Iterator<EseCalendar> eseCalendarIter = contactCalendars.iterator();
 				while (eseCalendarIter.hasNext()){
 					EseCalendar contactCal = eseCalendarIter.next();
-					Iterator<CalendarEvent> iteratorCalEvent =  contactCal.
-							getEventsAt(user, selectedDate).iterator();
+					Iterator<CalendarEvent> iteratorCalEvent;
+					iteratorCalEvent = (searchRegex == null)
+						?contactCal.getEventsAt(connectedUser,
+							selectedDate).iterator()
+						:contactCal.getEventsByRegex(connectedUser,
+							searchRegex).iterator();
 					iterator = EventIteratorUtils.merge(iterator, iteratorCalEvent); 
 				}
 			}
@@ -107,10 +117,50 @@ public class Application extends Controller {
 		String selectedDateString = EseDateFormat.getInstance().format(
 				new Date(selectedDate.getTime() + 1000*60*60*12));
 		Iterator<EseCalendar> calendarIter = calendarManager.getCalendarsOf(user).iterator();
-		render(iterator, calendar, calendarBrowser, myContacts, 
+
+		/**
+		 *	The following chunk works, but probably belongs
+		 *	somewhere else..
+		 */
+		Object obj;
+		ArrayList<Object> tmp;
+		int skip = curPage*PAGESIZE;
+		int page = PAGESIZE;
+		tmp = new ArrayList<Object>();
+		if (curPage >= 0) {
+			while (iterator.hasNext()) {
+				obj = iterator.next();
+				if (skip != 0) {
+					skip--;
+					continue;
+				}
+				if (page != 0) {
+					page--;
+					tmp.add(obj);
+				}
+				continue;
+			}
+			iterator = tmp.iterator();
+		}
+
+		render(iterator, calendar, calendarBrowser, myContacts, searchRegex, curPage,
 				connectedUser, selectedDateString, myCalendars, calendarIter);
 	}
 	
+	public static void calendar(String userName, String calendarName) {
+		calendar(userName, calendarName, null, -1);
+	}
+
+	public static void searchEvent(String userName, String
+	    calendarName, String searchRegex, int curPage) {
+		calendar(userName, calendarName, searchRegex, curPage);
+	}
+
+	public static void searchEvent(String userName, String
+	    calendarName, String searchRegex) {
+		calendar(userName, calendarName, searchRegex, -1);
+	}
+
 	/**
 	 * Selects the calendar(s) to display according to the user.
 	 * If the user is the connected one, the calendar page will

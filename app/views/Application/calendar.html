@@ -21,7 +21,24 @@
 	#{month calendarBrowser /}
 	</div>
 	<div id=selectedDay>
-	<h2>Events on ${calendarBrowser.dayLabel}:</h2>
+	#{if searchRegex != null}
+		<h2>Search result for "${searchRegex}":</h2>
+		%{prevPage = curPage<=0 ?-1 :curPage-1}%
+		%{prevPageLabel = curPage<=0 ?"all events" :"prev"}%
+		%{nextPage = curPage+1}%
+		#{if curPage >= 0}
+			#{a @Application.searchEvent(
+				calendar.owner.name, calendar.name,
+				searchRegex, prevPage)}${prevPageLabel}#{/a} |
+			page ${curPage} |
+		#{/if}
+		#{a @Application.searchEvent(
+			calendar.owner.name, calendar.name,
+			searchRegex, nextPage)}next#{/a}
+	#{/if}
+	#{else}
+		<h2>Events on ${calendarBrowser.dayLabel}:</h2>
+	#{/else}
 			#{eventInfo myContacts:myContacts, iterator:iterator, calendar:calendar, connectedUser:connectedUser /}
 	</div>
 	#{if connectedUser.name == calendar.owner.name}
@@ -32,6 +49,9 @@
 </div>
 
 <div id=contentRight>
+	<div id="searchEvent">
+		#{searchEvent calendar:calendar /}
+	</div>
 	#{if connectedUser == calendar.owner}
 		<div id=myCalendars>
 			#{myCalendars myCalendars:myCalendars, calendar:calendar /}
