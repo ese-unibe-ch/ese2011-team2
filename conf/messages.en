@@ -11,6 +11,7 @@ secure.register = Register a new User
 # Stuff used in various places:
 add = add
 here = here
+cancel = Cancel
 
 # This was added manually:
 
@@ -31,3 +32,13 @@ index.createFirstCalendar = Create your first calendar by clicking 'Manage my ac
 index.manageAccount = Manage my account
 index.loggedInAs = Currently logged in as %s
 index.searchUsers = Search for other users
+
+prepareDeleteAccount.deleteAccount = Delete Account
+prepareDeleteAccount.areYouSure = Are you sure?
+
+deleteEvent.areYouSure = Do you want do delete all events of this series?
+deleteEvent.yesAllEvents = Yes, all events
+deleteEvent.noJustInstance = No, just this instance
+
+register.registerInfo = To register, put in your information
+register.submit = Register
