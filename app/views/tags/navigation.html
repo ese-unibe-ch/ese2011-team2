@@ -2,13 +2,13 @@
 	#{if !_calendars.isEmpty()}
 		#{form @Application.currentCalendar(_connectedUser.name)} 
 			<input type="image" src="/public/images/calendar.png" 
-			alt="View my calendars" title="View my calendars"> 
+			alt="&{'index.viewCalendars'}" title="&{'index.viewCalendars'}"> 
 		#{/form}
 	#{/if}
 </p>
 <p>
 	#{form @Application.user()} 
 		<input type="image" src="/public/images/settings.png" 
-		alt="Manage my account" title="Manage my account"> 
+		alt="&{'index.manageAccount'}" title="&{'index.manageAccount'}"> 
 	#{/form}
 </p>

@@ -48,10 +48,10 @@
 	<p>&{'index.loggedInAs', connectedUser.name}</p>
 	<h2>&{'index.searchUsers'}</h2>
 	#{form @IndexPage.index()}
-		<input type="text" name="searchRegex" placeholder="takes a java regex"/>
+		<input type="text" name="searchRegex" placeholder="&{'index.searchUsersHint'}"/>
 		&nbsp;
 		<input type="image" src="/public/images/search.png" 
-		alt ="search" title="search">
+		alt ="&{'search'}" title="&{'search'}">
 	#{/form}
 	#{list items:foundUsers, as:'user'}
 	<ul>

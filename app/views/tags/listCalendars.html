@@ -1,10 +1,10 @@
-<h2>My Calendars</h2>
+<h2>&{'listCalendars.myCalendars'}</h2>
 <ul>
 	#{list items: _calendars, as:'calendar'}
 		<li>
 			${calendar.name}
 			#{form @Application.deleteCalendar(calendar.name)} 
-			<input type="submit" name="delete" value="Delete">
+			<input type="submit" name="delete" value="&{'delete'}">
 			#{/form}
 			<br/>
 		</li>

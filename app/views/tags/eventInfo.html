@@ -13,17 +13,17 @@
 <li>
 	${event.name}<br/>
 	${event.start.format("HH:mm"+", "+"dd.MMM")} - ${event.end.format("HH:mm"+", "+"dd.MMM")}<br/>
-	(${event.visibility.name} ${rep} created by 
-	${eventOwner.name})<br/>
-	Description: ${event.description}
+	(${event.visibility.name} ${rep} 
+	&{'eventInfo.createdBy'} ${eventOwner.name})<br/>
+	&{'addEvent.description'}: ${event.description}
 	#{if _connectedUser == eventOwner}
 		<br/>
 		<a href="@{ModifyEvent.editEvent(event.getCalendar().getName(), event.getId(), 
-			event.start.format("dd.MM.yyyy HH:mm"), event.getSeries() != null)}">Edit</a> | 
+			event.start.format("dd.MM.yyyy HH:mm"), event.getSeries() != null)}">&{'edit'}</a> | 
 		<a href="@{ModifyEvent.deleteEvent(event.getCalendar().getName(), event.getId(), 
-			event.start.format("dd.MM.yyyy HH:mm"), event.getSeries() != null)}">Delete</a>
+			event.start.format("dd.MM.yyyy HH:mm"), event.getSeries() != null)}">&{'delete'}</a>
 	#{/if}
 </li>
 </ul>
 #{/list}
-#{else} <p> none </p> #{/else}
+#{else} <p>&{'none'}</p> #{/else}

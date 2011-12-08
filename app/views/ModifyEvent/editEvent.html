@@ -15,39 +15,38 @@
 		<input type="hidden" name="wasSeries" value="${event.getSeries() != null}">
 		<input type="hidden" name="oldStartDate" value="${event.start.format("dd.MM.yyyy HH:mm")}">
 		<p>
-			<label for="name">Event Name: </label> <br/>
+			<label for="name">&{'addEvent.eventName'}</label> <br/>
 			<input type="text" size="35%" name="name" value="${event.name}"/>
 		</p>
 		<p>
-			<label for="startDate">Start Date: </label> <br/>
+			<label for="startDate">&{'addEvent.startDate'}</label> <br/>
 			<input type="text" size="35%" name="startDate" 
 			placeholder="${event.start.format("dd.MM.yyyy HH:mm")}"
 			value="${event.start.format("dd.MM.yyyy HH:mm")}"/>
 		</p>
-		<p>
-			Duration:<br/>
+		<p> &{'addEvent.duration'} <br/>
 					<input type="text" size="2%" name="dayDuration" 
 					placeholder="${durations[0]}" value ="${durations[0]}"/>
-					<label for="dayDuration">days</label>
+					<label for="dayDuration">&{'addEvent.days'}</label>
 					<input type="text" size="2%" name="hourDuration" 
 					placeholder="${durations[1]}" value ="${durations[1]}"/>
-					<label for="hourDuration">hours</label>
+					<label for="hourDuration">&{'addEvent.hours'}</label>
 					<input type="text" size="2%" name="minDuration" 
 					placeholder="${durations[2]}" value ="${durations[2]}"/>
-					<label for="minDuration">min</label>
+					<label for="minDuration">&{'addEvent.minutes'}</label>
 		</p>
 		<p>
 			<textarea name="description" rows="5" cols="27">${event.description}</textarea>
 		</p>
 	</div>
 	<div id=repetition>
-		Visibility:<br/>
+		&{'addEvent.visibility'}<br/>
 		#{list items:visibilities, as:'vis'}
 			<input type="radio" name="visibility" value="${vis}" 
 			#{if event.visibility == vis}checked="checked"#{/if}/> 
 			${vis.name}<br />
 		#{/list}<br/>
-		Repetition:<br/>
+		&{'addEvent.repetition'}<br/>
 		<input type="radio" name="repetition" value="never"
 		#{if (event.getSeries() == null)}checked="checked"#{/if}>
 		never<br/>
@@ -57,14 +56,12 @@
 			${rep.name}<br/>
 		#{/list}
 		<p>
-			<input type="submit" value="Apply">
+			<input type="submit" value="&{'apply'}">
 		</p>
 	#{/form}
 	#{form @Application.calendar()} 
 			<input type="hidden" name="userName" value="${calendar.owner.getName()}">
-			<input type="submit" name="add" value="Cancel">
+			<input type="submit" name="cancel" value="&{'cancel'}">
 	#{/form}
-	</div>
-	
-	
+	</div>	
 </div>

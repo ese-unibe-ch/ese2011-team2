@@ -12,6 +12,14 @@ secure.register = Register a new User
 add = add
 here = here
 cancel = Cancel
+logout = Log out
+home = Home
+apply = Apply
+edit = Edit
+delete = Delete
+none = none
+calendar = Calendar
+search = Search
 
 # This was added manually:
 
@@ -32,13 +40,37 @@ index.createFirstCalendar = Create your first calendar by clicking 'Manage my ac
 index.manageAccount = Manage my account
 index.loggedInAs = Currently logged in as %s
 index.searchUsers = Search for other users
+index.searchUsersHint = Insert a Java regex
 
 prepareDeleteAccount.deleteAccount = Delete Account
 prepareDeleteAccount.areYouSure = Are you sure?
 
+deleteEvent.title = Delete Event
 deleteEvent.areYouSure = Do you want do delete all events of this series?
 deleteEvent.yesAllEvents = Yes, all events
 deleteEvent.noJustInstance = No, just this instance
 
 register.registerInfo = To register, put in your information
 register.submit = Register
+
+addEvent.createNewEvent = Create a new Event
+addEvent.nameExample = Date with secretary (for example)
+addEvent.eventName = Event name: 
+addEvent.startDate = Start date:
+addEvent.duration = Duration:
+addEvent.repetition = Repetition:
+addEvent.days = days
+addEvent.hours = hours
+addEvent.minutes = minutes
+addEvent.description = Description
+addEvent.visibility = Visibility:
+addEvent.submit = Create event
+
+eventInfo.createdBy = created by 
+
+listCalendars.myCalendars = My calendars
+
+myContacts.myContacts = My contacts
+myContacts.noContacts = You have no contacts
+
+searchEvent.hint = Search here for an event

@@ -38,11 +38,11 @@ public class Bootstrap extends Job {
 		EseCalendar aaroncal;
 		EseCalendar aaroncal2;
 		try {
-			aaroncal = cm.createCalendar(aaron, "AaronsCalendar");
-			aaroncal2 = cm.createCalendar(aaron, "AaronsSecondaryCalendar");
+			aaroncal = cm.createCalendar(aaron, "Aarons Calendar");
+			aaroncal2 = cm.createCalendar(aaron, "Aarons Secondary Calendar");
 		} catch (CalendarAlreadyExistsException e) {
-			aaroncal = cm.getCalendar("AaronsCalendar");
-			aaroncal2 = cm.createCalendar(aaron, "AaronsSecondaryCalendar");
+			aaroncal = cm.getCalendar("Aarons Calendar");
+			aaroncal2 = cm.createCalendar(aaron, "Aarons Secondary Calendar");
 		}
 		java.util.Calendar juc = java.util.Calendar.getInstance();
 		juc.set(2011, 10, 23, 20, 15);
@@ -95,9 +95,9 @@ public class Bootstrap extends Job {
 
 		EseCalendar judithcal;
 		try {
-			judithcal = cm.createCalendar(judith, "JudithsCalendar");
+			judithcal = cm.createCalendar(judith, "Judiths Calendar");
 		} catch (CalendarAlreadyExistsException e) {
-			judithcal = cm.getCalendar("JudithsCalendar");
+			judithcal = cm.getCalendar("Judiths Calendar");
 		}
 		juc.set(2011, 11, 23, 22, 15);
 		start = juc.getTime();
@@ -110,9 +110,9 @@ public class Bootstrap extends Job {
 
 		EseCalendar erwanncal;
 		try {
-			erwanncal = cm.createCalendar(erwann, "ErwannsCalendar");
+			erwanncal = cm.createCalendar(erwann, "Erwanns Calendar");
 		} catch (CalendarAlreadyExistsException e) {
-			erwanncal = cm.getCalendar("ErwannsCalendar");
+			erwanncal = cm.getCalendar("Erwanns Calendar");
 		}
 		juc.set(2011, 11, 21, 20, 15);
 		start = juc.getTime();

@@ -1,33 +1,33 @@
-<h2>Create a new Event</h2>
+<h2>&{'addEvent.createNewEvent'}</h2>
 	<div id=forms>
 			#{form @ModifyEvent.createEvent()}
 				<p>
-					<label for="name">Event Name: </label> <br/>
-					<input type="text" size="35%" name="name" placeholder="Date with secretary (for example)"/>
+					<label for="name">&{'addEvent.eventName'}</label> <br/>
+					<input type="text" size="35%" name="name" placeholder="&{'addEvent.nameExample'}"/>
 				</p>
 				<p>
-					<label for="startDate">Start Date: </label> <br/>
+					<label for="startDate">&{'addEvent.startDate'}</label> <br/>
 					<input type="text" size="35%" name="startDate" 
 					placeholder="24.12.2011 20:00 (for example)"
 					value="${_selectedDateString}"/>
 				</p>
 				<p>
-					Duration:<br/>
+					&{'addEvent.duration'}<br/>
 					<input type="text" size="2%" name="dayDuration" placeholder="0" value ="0"/>
-					<label for="duration">days</label>
+					<label for="duration">&{'addEvent.days'}</label>
 					<input type="text" size="2%" name="hourDuration" placeholder="1" value ="1"/>
-					<label for="duration">hours</label>
+					<label for="duration">&{'addEvent.hours'}</label>
 					<input type="text" size="2%" name="minDuration" placeholder="0" value ="0"/>
-					<label for="duration">min</label>
+					<label for="duration">&{'addEvent.minutes'}</label>
 				</p>
 				
 				<p>
-					<textarea name="description" rows="5" cols="27" placeholder="Description"></textarea>
+					<textarea name="description" rows="5" cols="27" placeholder="&{'addEvent.description'}"></textarea>
 				</p>
 	</div>
 	<div id=repetition>	
 				<p>
-					<label for="visibility">Visibility: </label> <br/>
+					<label for="visibility">&{'addEvent.visibility'}</label> <br/>
 					<input type="radio" name="visibility" value ="private" checked="checked" /> Private <br/>
 					<input type="radio" name="visibility" value ="public" /> Public <br/>
 					<input type="radio" name="visibility" value ="busy" /> Show as busy <br/>
@@ -35,14 +35,14 @@
 					
 				</p>
 				<p>
-						<label for="repetition">Repetition: </label> <br/>
+						<label for="repetition">&{'addEvent.repetition'}</label> <br/>
 						<input type="radio" name="repetition" value="never" checked="checked" /> Never<br />
 						<input type="radio" name="repetition" value="daily" /> Daily<br />
 						<input type="radio" name="repetition" value="weekly" /> Weekly<br />
 						<input type="radio" name="repetition" value="monthly" /> Monthly <br />	
 				</p>
 				<p>
-					<label for="choseCalendar">Calendar: </label> <br/>
+					<label for="choseCalendar">&{'calendar'}: </label> <br/>
 					<select type="text" name="calendarName" size="1">
 						#{list items: _calendarIter, as:'cal'}
 							<option>${cal.name}</option>
@@ -50,7 +50,7 @@
     				</select>
   				</p>
 				<p>
-					<input type="submit" value ="create Event">
+					<input type="submit" value ="&{'addEvent.submit'}">
 				</p>
 	</div>	
 

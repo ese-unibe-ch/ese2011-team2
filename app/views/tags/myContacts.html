@@ -1,7 +1,7 @@
-<h2>My Contacts</h2>
+<h2>&{'myContacts.myContacts'}</h2>
 #{form @Application.includeContacts()}
 <input type="hidden" name="calendarName" value="${_calendar.name}">
-#{if _myContacts.isEmpty()}You have no contacts.#{/if}
+#{if _myContacts.isEmpty()}&{'myContacts.noContacts'}#{/if}
 	#{list items:_myContacts, as:'contact'}
 		%{
 			userNb = _myContacts.headSet(contact).size()%6
