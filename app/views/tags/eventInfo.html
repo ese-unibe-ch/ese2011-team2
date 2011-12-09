@@ -4,17 +4,13 @@
 	eventOwner =  event.getCalendar().getOwner()
 	userNb = _myContacts.headSet(eventOwner).size()%6
 	imgSrc = '/public/images/user' + userNb + '.png'
-
-	rep = "Event"
-	if (event.getSeries() != null)
-		rep = "SerialEvent"
 }% 
 <ul #{ifnot eventOwner==_connectedUser}style="list-style-image: url(${imgSrc});"#{/ifnot}>
 <li>
 	${event.name}<br/>
 	${event.start.format("HH:mm"+", "+"dd.MMM")} - ${event.end.format("HH:mm"+", "+"dd.MMM")}<br/>
-	(${event.visibility.name} ${rep} 
-	&{'eventInfo.createdBy'} ${eventOwner.name})<br/>
+	(&{'visibility.' + event.visibility} &{'event'}
+	&{'eventInfo.createdBy', eventOwner.name})<br/>
 	&{'addEvent.description'}: ${event.description}
 	#{if _connectedUser == eventOwner}
 		<br/>

@@ -25,21 +25,22 @@
 					<textarea name="description" rows="5" cols="27" placeholder="&{'addEvent.description'}"></textarea>
 				</p>
 	</div>
+	<!-- We might wanna refactor this to the way this is dealt with in editEvent -->
 	<div id=repetition>	
 				<p>
 					<label for="visibility">&{'addEvent.visibility'}</label> <br/>
-					<input type="radio" name="visibility" value ="private" checked="checked" /> Private <br/>
-					<input type="radio" name="visibility" value ="public" /> Public <br/>
-					<input type="radio" name="visibility" value ="busy" /> Show as busy <br/>
-					<input type="radio" name="visibility" value ="contactsonly" /> Contacts only <br/>
+					<input type="radio" name="visibility" value ="private" checked="checked" /> &{'visibility.PRIVATE'} <br/>
+					<input type="radio" name="visibility" value ="public" /> &{'visibility.PUBLIC'} <br/>
+					<input type="radio" name="visibility" value ="busy" /> &{'visibility.BUSY'} <br/>
+					<input type="radio" name="visibility" value ="contactsonly" /> &{'visibility.CONTACTSONLY'} <br/>
 					
 				</p>
 				<p>
 						<label for="repetition">&{'addEvent.repetition'}</label> <br/>
-						<input type="radio" name="repetition" value="never" checked="checked" /> Never<br />
-						<input type="radio" name="repetition" value="daily" /> Daily<br />
-						<input type="radio" name="repetition" value="weekly" /> Weekly<br />
-						<input type="radio" name="repetition" value="monthly" /> Monthly <br />	
+						<input type="radio" name="repetition" value="never" checked="checked" /> &{'repetition.NEVER'}<br />
+						<input type="radio" name="repetition" value="daily" /> &{'repetition.DAILY'}<br />
+						<input type="radio" name="repetition" value="weekly" /> &{'repetition.WEEKLY'}<br />
+						<input type="radio" name="repetition" value="monthly" /> &{'repetition.MONTHLY'} <br />	
 				</p>
 				<p>
 					<label for="choseCalendar">&{'calendar'}: </label> <br/>

@@ -40,21 +40,25 @@
 		</p>
 	</div>
 	<div id=repetition>
-		&{'addEvent.visibility'}<br/>
-		#{list items:visibilities, as:'vis'}
-			<input type="radio" name="visibility" value="${vis}" 
-			#{if event.visibility == vis}checked="checked"#{/if}/> 
-			${vis.name}<br />
-		#{/list}<br/>
-		&{'addEvent.repetition'}<br/>
-		<input type="radio" name="repetition" value="never"
-		#{if (event.getSeries() == null)}checked="checked"#{/if}>
-		never<br/>
-		#{list items:repetitions, as:'rep'}
-			<input type="radio" name="repetition" value="${rep}"
-			#{if ((event.getSeries() != null) && (event.getSeries().repetition == rep))}checked="checked"#{/if}/>
-			${rep.name}<br/>
-		#{/list}
+		<p>
+			<label for="visibility">&{'addEvent.visibility'}</label> <br/>
+			#{list items:visibilities, as:'vis'}
+				<input type="radio" name="visibility" value="${vis}" 
+					#{if event.visibility == vis}checked="checked"#{/if}/> 
+				&{'visibility.' + vis}<br />
+			#{/list}
+		</p>
+		<p>
+			<label for="repetition">&{'addEvent.repetition'}</label> <br/>
+			<input type="radio" name="repetition" value="never"
+				#{if (event.getSeries() == null)}checked="checked"#{/if}>
+			&{'repetition.NEVER'}<br/>
+			#{list items:repetitions, as:'rep'}
+				<input type="radio" name="repetition" value="${rep}"
+					#{if ((event.getSeries() != null) && (event.getSeries().repetition == rep))}checked="checked"#{/if}/>
+				&{'repetition.' + rep}<br/>
+			#{/list}
+		</p>
 		<p>
 			<input type="submit" value="&{'apply'}">
 		</p>

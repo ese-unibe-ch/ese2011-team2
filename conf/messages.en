@@ -20,6 +20,7 @@ delete = Delete
 none = none
 calendar = Calendar
 search = Search
+event = event
 
 # This was added manually:
 
@@ -66,7 +67,7 @@ addEvent.description = Description
 addEvent.visibility = Visibility:
 addEvent.submit = Create event
 
-eventInfo.createdBy = created by 
+eventInfo.createdBy = created by %s
 
 listCalendars.myCalendars = My calendars
 
@@ -74,3 +75,16 @@ myContacts.myContacts = My contacts
 myContacts.noContacts = You have no contacts
 
 searchEvent.hint = Search here for an event
+
+# For enums:
+visibility.PRIVATE = Private
+visibility.PUBLIC = Public
+visibility.BUSY = Show as busy
+visibility.CONTACTSONLY = Contacts only
+
+repetition.DAILY = Daily
+repetition.WEEKLY = Weekly
+repetition.MONTHLY = Monthly
+
+# Not really part of the enum:
+repetition.NEVER = Never

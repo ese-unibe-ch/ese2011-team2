@@ -23,12 +23,12 @@ td.nonPublic {
 	font-weight: bold;
 }
 
-td.selected {
-	background-color: #A4A4A4;
-}
-
 td.contactEvent {
 	background-color: #E8E8E8;
+}
+
+td.selected {
+	background-color: #A4A4A4;
 }
 
 td.today {
