@@ -41,7 +41,7 @@ public class Application extends Controller {
 		selectedDay = juc.get(java.util.Calendar.DAY_OF_MONTH);
 		selectedMonth = juc.get(java.util.Calendar.MONTH);
 		selectedYear = juc.get(java.util.Calendar.YEAR);
-		calendar(userName, calendarName);
+		calendar(userName, calendarName, null, -1);
 	}
 
 	/**
@@ -146,10 +146,6 @@ public class Application extends Controller {
 		render(iterator, calendar, calendarBrowser, myContacts, searchRegex, curPage,
 				connectedUser, selectedDateString, myCalendars, calendarIter);
 	}
-	
-	public static void calendar(String userName, String calendarName) {
-		calendar(userName, calendarName, null, -1);
-	}
 
 	public static void searchEvent(String userName, String
 	    calendarName, String searchRegex, int curPage) {
@@ -210,7 +206,7 @@ public class Application extends Controller {
 		User user = UserManager.getInstance().getUserByName(userName);
 		User userToAdd = UserManager.getInstance().getUserByName(name);
 		user.addToMyContacts(userToAdd);
-		calendar(name, null);
+		calendar(name, null, null, -1);
 	}
 	
 	/**
@@ -226,7 +222,7 @@ public class Application extends Controller {
 		} catch (InvalidActivityException e) {
 			e.printStackTrace();
 		}
-		calendar(name, null);
+		calendar(name, null, null, -1);
 	}
 	
 	/**
@@ -241,7 +237,7 @@ public class Application extends Controller {
 		selectedDay = day;
 		selectedMonth = month;
 		selectedYear = year;
-		calendar(userName, calendarName);
+		calendar(userName, calendarName, null, -1);
 	}
 	
 	/**
@@ -277,7 +273,7 @@ public class Application extends Controller {
 				user.setContactSelection(u, true);
 			}
 		}	
-		calendar(userName, calendarName);
+		calendar(userName, calendarName, null, -1);
 	}
 	
 	public static void deleteCalendar(String calendarName) {
@@ -322,6 +318,6 @@ public class Application extends Controller {
 				eseCalendar.select(true);
 			}
 		}	
-		calendar(userName, calendarName);
+		calendar(userName, calendarName, null, -1);
 	}
 }
