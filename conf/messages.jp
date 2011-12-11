@@ -1,0 +1,90 @@
+﻿
+
+# Next 5 lines were automatically added by i18n-extract on 2011-12-07 17:02:45
+secure.signin = Sign in
+secure.remember = Remember password
+secure.password = パスワード
+secure.username = ユーザー名
+secure.title = まずサインインしてください
+secure.register =　新しいウサーをregisterする
+
+# Stuff used in various places:
+add = 加える
+here = こちら
+cancel = キャンセル
+logout = ログアウト
+home = ホーム
+apply = Apply
+edit = Edit
+delete = 削除
+none = イベントがない
+calendar = カレンダー
+search = 探し
+event = イベント
+
+# This was added manually:
+
+calendar.removeContact = 私のコンタクトから消す
+calendar.removeContactMsg = %1$sさんはあなたのコンタクトの一人. %1$sを消したいなら、上のアイコンをクリックしてください。
+calendar.addContact = 私のコンタクトに追加する
+calendar.addContactMsg = %1$sさんはあなたのコンタクトにいません。%1$sさんを追加したいなら、上のアイコンをクリックしてください。
+calendar.title = %sのカレンダー
+
+user.title = アカウント管理
+user.addNewCal = 新しいカレンダーを加える
+user.deleteAccount = アカウントを削除
+
+index.title = カレンダーのホーム
+index.viewCalendars =　カレンダーを見る
+index.welcome = こんにちは%sさん
+index.createFirstCalendar = Create your first calendar by clicking 'Manage my account' down below or click 
+index.manageAccount = アカウントを管理する
+index.loggedInAs = Currently logged in as %s
+index.searchUsers = 他のユーザーを探す
+index.searchUsersHint = Insert a Java regex
+
+prepareDeleteAccount.deleteAccount = アカウントを削除する
+prepareDeleteAccount.areYouSure = マジで?
+
+deleteEvent.title = イベントを削除する
+deleteEvent.areYouSure = イベントシーリーの全部を削除したいですか？
+deleteEvent.yesAllEvents = はい、全部
+deleteEvent.noJustInstance = いええ、この一つのイベントだけ
+
+register.registerInfo = To register, put in your information
+register.submit = Register
+
+addEvent.createNewEvent = 新しいイベントを作る
+addEvent.nameExample = Date with secretary (for example)
+addEvent.eventName = イベント名: 
+addEvent.startDate = 始める時間:
+addEvent.duration = 存続:　???
+addEvent.repetition = Repetition:
+addEvent.days = 日
+addEvent.hours = 時間
+addEvent.minutes = 分
+addEvent.description = 技術 ???
+addEvent.visibility = Visibility:
+addEvent.submit = イベントを作る
+
+eventInfo.createdBy = %sさんに作られた
+
+listCalendars.myCalendars = 私のカレンダー
+
+myContacts.myContacts = 私のコンタクト
+myContacts.noContacts = コンタクトはない
+
+searchEvent.hint = こちらでイベント探ししてください
+
+# For enums:
+visibility.PRIVATE = プライベート
+visibility.PUBLIC = 波っぷりク
+visibility.BUSY = 急がしをみせる
+visibility.CONTACTSONLY = コンタクトだけ
+
+repetition.DAILY = 毎日
+repetition.WEEKLY = 毎週
+repetition.MONTHLY = 毎月
+
+# Not really part of the enum:
+repetition.NEVER = 一回だけ
