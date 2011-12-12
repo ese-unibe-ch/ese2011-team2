@@ -1,91 +1,92 @@
 
 
 # Next 5 lines were automatically added by i18n-extract on 2011-12-07 17:02:45
-secure.signin = Sign in
-secure.remember = Remember password
-secure.password = Password
-secure.username = Username
-secure.title = You need to sign in first!
-secure.register = Register a new User
+secure.signin = Connexion
+secure.remember = Se souvenir
+secure.password = Mot de passe
+secure.username = Nom d'utilisateur
+secure.title = Vous devez vous connecter d'abord!
+secure.register = enregistrer un nouvel utilisateur
+
 
 # Stuff used in various places:
-add = add
-here = here
-cancel = Cancel
-logout = Log out
-home = Home
-apply = Apply
-edit = Edit
-delete = Delete
-none = none
-calendar = Calendar
-search = Search
-event = event
+add = ajouter
+here = ici
+cancel = Annuler
+logout = Déconnexion
+home = Accueil
+apply = Appliquer
+edit = Modifier
+delete = Supprimer
+none = aucune
+calendar = Calendrier
+search = Rechercher
+event = évènement
 
 # This was added manually:
 
-calendar.removeContact = Remove from myContacts
-calendar.removeContactMsg = %1$s is one of your contacts. To remove %1$s from your contacts, click on the icon above.
-calendar.addContact = Add to myContacts
-calendar.addContactMsg = %1$s is not one of your contacts. To add %1$s to your contacts, click on the icon above.
-calendar.title = %s's calendars
+calendar.removeContact = Retirer de MesContacts
+calendar.removeContactMsg = %1$s est un de vos contacts. Pour supprimer %1$s de vos contacts, cliquez sur l'icône ci-dessus.
+calendar.addContact = Ajouter à MesContacts
+calendar.addContactMsg = %1$s n'est pas un de vos contacts. Pour ajouter %1$s à vos contacts, cliquez sur l'icône ci-dessus..
+calendar.title = Les calendriers de %s
 
-user.title = Manage my account
-user.addNewCal = Add a new calendar
-user.deleteAccount = Delete my account
+user.title = Gérer mon compte
+user.addNewCal = Ajouter un nouveau calendrier
+user.deleteAccount = Supprimer mon compte
 user.language = language
 
-index.title = Calendar - Home
-index.viewCalendars = View my calendars
-index.welcome = Hi %s
-index.createFirstCalendar = Create your first calendar by clicking 'Manage my account' down below or click 
-index.manageAccount = Manage my account
-index.loggedInAs = Currently logged in as %s
-index.searchUsers = Search for other users
-index.searchUsersHint = Insert a Java regex
+index.title = Calendrier - Accueil
+index.viewCalendars = Voir mes calendriers
+index.welcome = Salut %s
+index.createFirstCalendar = Créez votre premier calendrier en cliquant sur 'Gérer mon compte' en bas ou cliquez sur
+index.manageAccount = Gérer mon compte
+index.loggedInAs = Actuellement connecté en tant que %s
+index.searchUsers = Recherche pour d'autres utilisateurs
+index.searchUsersHint = Insérer une regex de Java
 
-prepareDeleteAccount.deleteAccount = Delete Account
-prepareDeleteAccount.areYouSure = Are you sure?
+prepareDeleteAccount.deleteAccount = Supprimer le compte
+prepareDeleteAccount.areYouSure = Etes-vous sûr?
 
-deleteEvent.title = Delete Event
-deleteEvent.areYouSure = Do you want do delete all events of this series?
-deleteEvent.yesAllEvents = Yes, all events
-deleteEvent.noJustInstance = No, just this instance
+deleteEvent.title = Supprimer l'événement
+deleteEvent.areYouSure = Voulez-vous le faire supprimer tous les événements de cette série?
+deleteEvent.yesAllEvents = Oui, tous les événements
+deleteEvent.noJustInstance = Non, juste cet exemple
 
-register.registerInfo = To register, put in your information
-register.submit = Register
+register.registerInfo = Pour vous inscrire, mettre dans votre information
+register.submit = S'enregistrer
 
-addEvent.createNewEvent = Create a new Event
-addEvent.nameExample = Date with secretary (for example)
-addEvent.eventName = Event name: 
-addEvent.startDate = Start date:
-addEvent.duration = Duration:
-addEvent.repetition = Repetition:
-addEvent.days = days
-addEvent.hours = hours
+addEvent.createNewEvent = Créer un nouvel événement
+addEvent.nameExample = La grande fète (par exemple)
+addEvent.eventName = Nom de l'événement 
+addEvent.startDate = Date de début:
+addEvent.duration = Durée:
+addEvent.repetition = Répétition:
+addEvent.days = jour
+addEvent.hours = heures
 addEvent.minutes = minutes
 addEvent.description = Description
-addEvent.visibility = Visibility:
-addEvent.submit = Create event
+addEvent.visibility = Visibilité:
+addEvent.submit = Créer un événement
 
-eventInfo.createdBy = created by %s
+eventInfo.createdBy = créé par %s
 
-listCalendars.myCalendars = My calendars
+listCalendars.myCalendars = Mes calendries
 
-myContacts.myContacts = My contacts
-myContacts.noContacts = You have no contacts
+myContacts.myContacts = Mes contacts
+myContacts.noContacts = Vous n'avez pas de contacts
 
-searchEvent.hint = Search here for an event
+searchEvent.hint = Recherche ici pour un événement
 
 # For enums:
-visibility.PRIVATE = Private
+visibility.PRIVATE = Privé
 visibility.PUBLIC = Public
-visibility.BUSY = Show as busy
-visibility.CONTACTSONLY = Contacts only
+visibility.BUSY = Montrer comme occupé
+visibility.CONTACTSONLY = Contacts seulement
 
-repetition.DAILY = Daily
-repetition.WEEKLY = Weekly
-repetition.MONTHLY = Monthly
+repetition.DAILY = Quotidien
+repetition.WEEKLY = Hebdomadaire
+repetition.MONTHLY = Mensuelle
 
 # Not really part of the enum:
-repetition.NEVER = Never
+repetition.NEVER = Jamais
