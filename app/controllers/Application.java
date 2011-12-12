@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import javax.activity.InvalidActivityException;
 
+import play.i18n.Lang;
 import play.mvc.Controller;
 import play.mvc.With;
 import ch.unibe.ese.calendar.CalendarEvent;
@@ -184,7 +185,7 @@ public class Application extends Controller {
 	 */
 	private static Locale getLocale() {
 		// TODO make real
-		return new Locale("en", "CH");
+		return new Locale(Lang.get(), "CH");
 	}
 
 	public static void user() {
