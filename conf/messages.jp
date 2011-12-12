@@ -1,90 +1,90 @@
-﻿
+
 
 # Next 5 lines were automatically added by i18n-extract on 2011-12-07 17:02:45
-secure.signin = Sign in
-secure.remember = Remember password
+secure.signin = ログイン
+secure.remember = 次回から自動的にログイン
 secure.password = パスワード
 secure.username = ユーザー名
 secure.title = まずサインインしてください
-secure.register =　新しいウサーをregisterする
+secure.register =　新しいウサーを登録する
 
 # Stuff used in various places:
-add = 加える
+add = 追加
 here = こちら
 cancel = キャンセル
 logout = ログアウト
 home = ホーム
-apply = Apply
-edit = Edit
+apply = 変更を保存
+edit = 編集
 delete = 削除
 none = イベントがない
 calendar = カレンダー
-search = 探し
+search = 検索
 event = イベント
 
 # This was added manually:
 
-calendar.removeContact = 私のコンタクトから消す
-calendar.removeContactMsg = %1$sさんはあなたのコンタクトの一人. %1$sを消したいなら、上のアイコンをクリックしてください。
+calendar.removeContact = コンタクトから削除
+calendar.removeContactMsg = %1$sさんはあなたのコンタクトの一人. %1$sを削除したい場合、上のアイコンをクリックしてください。
 calendar.addContact = 私のコンタクトに追加する
-calendar.addContactMsg = %1$sさんはあなたのコンタクトにいません。%1$sさんを追加したいなら、上のアイコンをクリックしてください。
+calendar.addContactMsg = %1$sさんはあなたのコンタクトではありません。%1$sさんを追加したい場合、上のアイコンをクリックしてください。
 calendar.title = %sのカレンダー
 
 user.title = アカウント管理
-user.addNewCal = 新しいカレンダーを加える
-user.deleteAccount = アカウントを削除
+user.addNewCal = 新しいカレンダーを追加する
+user.deleteAccount = アカウントを削除する
 
 index.title = カレンダーのホーム
-index.viewCalendars =　カレンダーを見る
-index.welcome = こんにちは%sさん
-index.createFirstCalendar = Create your first calendar by clicking 'Manage my account' down below or click 
+index.viewCalendars =　カレンダーを表示する
+index.welcome = こんにちは、%sさん
+index.createFirstCalendar = 最初のカレンダーを作ってください。そのために、「アカウントを管理する」をクリックしてください。それとも
 index.manageAccount = アカウントを管理する
-index.loggedInAs = Currently logged in as %s
+index.loggedInAs = Currently logged in as %s (das weiß ich nicht)
 index.searchUsers = 他のユーザーを探す
-index.searchUsersHint = Insert a Java regex
+index.searchUsersHint = Java regexを挿入する
 
 prepareDeleteAccount.deleteAccount = アカウントを削除する
-prepareDeleteAccount.areYouSure = マジで?
+prepareDeleteAccount.areYouSure = マジで? 
 
 deleteEvent.title = イベントを削除する
-deleteEvent.areYouSure = イベントシーリーの全部を削除したいですか？
+deleteEvent.areYouSure = このイベントシーリーズの全部を削除したいですか？
 deleteEvent.yesAllEvents = はい、全部
 deleteEvent.noJustInstance = いええ、この一つのイベントだけ
 
-register.registerInfo = To register, put in your information
-register.submit = Register
+register.registerInfo = 登録のために情報が必要うです	
+register.submit = 登録する
 
-addEvent.createNewEvent = 新しいイベントを作る
-addEvent.nameExample = Date with secretary (for example)
+addEvent.createNewEvent = 新しいイベントを作成する
+addEvent.nameExample = 例：田中さんと会議
 addEvent.eventName = イベント名: 
 addEvent.startDate = 始める時間:
-addEvent.duration = 存続:　???
-addEvent.repetition = Repetition:
+addEvent.duration = 存続:
+addEvent.repetition = 繰り返し:
 addEvent.days = 日
 addEvent.hours = 時間
 addEvent.minutes = 分
-addEvent.description = 技術 ???
-addEvent.visibility = Visibility:
-addEvent.submit = イベントを作る
+addEvent.description = 記述
+addEvent.visibility = Visibility: (da weiß ich nicht welche Visbility du meinst)
+addEvent.submit = イベントを作成する
 
-eventInfo.createdBy = %sさんに作られた
+eventInfo.createdBy = 投稿：%sさん
 
 listCalendars.myCalendars = 私のカレンダー
 
 myContacts.myContacts = 私のコンタクト
-myContacts.noContacts = コンタクトはない
+myContacts.noContacts = コンタクトはありません
 
-searchEvent.hint = こちらでイベント探ししてください
+searchEvent.hint = こちらでイベント検索してください
 
 # For enums:
-visibility.PRIVATE = プライベート
-visibility.PUBLIC = 波っぷりク
-visibility.BUSY = 急がしをみせる
-visibility.CONTACTSONLY = コンタクトだけ
+visibility.PRIVATE = 非公開
+visibility.PUBLIC = 公開
+visibility.BUSY = 多忙
+visibility.CONTACTSONLY = コンタクトのみ
 
 repetition.DAILY = 毎日
 repetition.WEEKLY = 毎週
 repetition.MONTHLY = 毎月
 
 # Not really part of the enum:
-repetition.NEVER = 一回だけ
+repetition.NEVER = 無し
