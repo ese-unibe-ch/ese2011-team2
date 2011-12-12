@@ -31,8 +31,10 @@ calendar.addContactMsg = %1$s gehört nicht zu ihren Kontakten. Um %1$s zu ihren
 calendar.title = %ss Kalender
 
 user.title = Mein Konto verwalten
-user.addNewCal = einen neuen Kalender hinzufügen
+user.addNewCal = neuen Kalender hinzufügen
 user.deleteAccount = Mein Konto löschen
+user.language = Sprache 
+user.change = ändern
 
 index.title = Kalender - Startseite
 index.viewCalendars = Meine Kalender anschauen

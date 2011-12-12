@@ -33,6 +33,8 @@ calendar.title = %s's calendars
 user.title = Manage my account
 user.addNewCal = Add a new calendar
 user.deleteAccount = Delete my account
+user.language = language
+user.change = change
 
 index.title = Calendar - Home
 index.viewCalendars = View my calendars

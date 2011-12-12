@@ -194,7 +194,18 @@ public class Application extends Controller {
 				currentUserName);
 		SortedSet<EseCalendar> calendars = CalendarManager.getInstance()
 				.getCalendarsOf(connectedUser);
-		render(connectedUser, calendars);
+		String lang = Lang.get();
+		String[] languages = new String[4];
+		languages[0] = "en";
+		languages[1] = "de";
+		languages[2] = "fr";
+		languages[3] = "ja";
+		render(connectedUser, calendars, lang,languages);
+	}
+	
+	public static void changeLanguage(String language){
+		Lang.change(language);
+		user();
 	}
 	
 	public static void addToContacts(String name) {
