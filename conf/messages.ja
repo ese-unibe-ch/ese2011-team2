@@ -33,6 +33,8 @@ calendar.title = %sのカレンダー
 user.title = アカウント管理
 user.addNewCal = 新しいカレンダーを追加する
 user.deleteAccount = アカウントを削除する
+user.language = 言語の
+user.change = に変更
 
 index.title = カレンダーのホーム
 index.viewCalendars = カレンダーを表示する
