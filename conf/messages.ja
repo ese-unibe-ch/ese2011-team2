@@ -1,7 +1,7 @@
 
 
 # Next 5 lines were automatically added by i18n-extract on 2011-12-07 17:02:45
-secure.signin = ログイン
+secure.signin = サインイン
 secure.remember = 次回から自動的にログイン
 secure.password = パスワード
 secure.username = ユーザー名
@@ -35,7 +35,7 @@ user.addNewCal = 新しいカレンダーを追加する
 user.deleteAccount = アカウントを削除する
 
 index.title = カレンダーのホーム
-index.viewCalendars =　カレンダーを表示する
+index.viewCalendars = カレンダーを表示する
 index.welcome = こんにちは、%sさん
 index.createFirstCalendar = 最初のカレンダーを作ってください。そのために、「アカウントを管理する」をクリックしてください。それとも
 index.manageAccount = アカウントを管理する
@@ -64,7 +64,7 @@ addEvent.days = 日
 addEvent.hours = 時間
 addEvent.minutes = 分
 addEvent.description = 記述
-addEvent.visibility = Visibility: (da weiß ich nicht welche Visbility du meinst)
+addEvent.visibility = 内緒設定:
 addEvent.submit = イベントを作成する
 
 eventInfo.createdBy = 投稿：%sさん
