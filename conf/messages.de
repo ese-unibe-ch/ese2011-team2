@@ -1,0 +1,90 @@
+
+
+# Next 5 lines were automatically added by i18n-extract on 2011-12-07 17:02:45
+secure.signin = Anmelden
+secure.remember = Passwort speichern
+secure.password = Passwort
+secure.username = Benutzer
+secure.title = Melden sie sich an!
+secure.register = Neue Benutzer registrieren
+
+# Stuff used in various places:
+add = hinzufügen
+here = hier
+cancel = abbrechen
+logout = Abmelden
+home = Startseite
+apply = Anwenden
+edit = Bearbeiten
+delete = Löschen
+none = Keine
+calendar = Kalender
+search = Suchen
+event = Veranstaltung
+
+# This was added manually:
+
+calendar.removeContact = Aus meinen Kontakten löschen
+calendar.removeContactMsg = %1$s ist einer ihrer Kontakte. Um %1$s von ihren Kontakten zu löschen, klicken sie auf obiges Symbol.
+calendar.addContact = Zu meinen Kontakten hinzufügen
+calendar.addContactMsg = %1$s gehört nicht zu ihren Kontakten. Um %1$s zu ihren Kontakten hinzuzufügen klicken sie auf obiges Symbol.
+calendar.title = %ss Kalender
+
+user.title = Mein Konto verwalten
+user.addNewCal = einen neuen Kalender hinzufügen
+user.deleteAccount = Mein Konto löschen
+
+index.title = Kalender - Startseite
+index.viewCalendars = Meine Kalender anschauen
+index.welcome = Hallo %s
+index.createFirstCalendar = Erstelle deinen ersten Kalender in 'Mein Konto verwalten' oder klicke 
+index.manageAccount = Mein Konto verwalten
+index.loggedInAs = Momentan eingeloggt: %s
+index.searchUsers = Nach anderen Benutzern suchen
+index.searchUsersHint = ein Suchbegriff
+
+prepareDeleteAccount.deleteAccount = Konto löschen
+prepareDeleteAccount.areYouSure = Sind sie sicher?
+
+deleteEvent.title = Veranstalltung löschen
+deleteEvent.areYouSure = Möchten sie alle Veranstalltungen dieser Serie löschen?
+deleteEvent.yesAllEvents = Ja, alle
+deleteEvent.noJustInstance = Nein, nur diese eine
+
+register.registerInfo = Geben sie ihre Informationen ein um sich zu registrieren
+register.submit = Registrieren
+
+addEvent.createNewEvent = Einen neue Veranstalltung erstellen
+addEvent.nameExample = Veranstalltungsname
+addEvent.eventName = Veranstalltungsname: 
+addEvent.startDate = Start Datum:
+addEvent.duration = Dauer:
+addEvent.repetition = Wiederholung:
+addEvent.days = Tage
+addEvent.hours = Stunden
+addEvent.minutes = Minuten
+addEvent.description = Beschreibung
+addEvent.visibility = Visibility:
+addEvent.submit = Veranstalltung hinzufügen
+
+eventInfo.createdBy = von %s erstellt
+
+listCalendars.myCalendars = Meine Kalender
+
+myContacts.myContacts = Meine Kontakte
+myContacts.noContacts = Sie haben noch kiene Kontakte
+
+searchEvent.hint = Veranstalltung
+
+# For enums:
+visibility.PRIVATE = Privat
+visibility.PUBLIC = Öffentlich
+visibility.BUSY = als belegt anzeigen
+visibility.CONTACTSONLY = nur Kontakte
+
+repetition.DAILY = Täglich
+repetition.WEEKLY = Wöchentlich
+repetition.MONTHLY = Monatlich
+
+# Not really part of the enum:
+repetition.NEVER = Nie
