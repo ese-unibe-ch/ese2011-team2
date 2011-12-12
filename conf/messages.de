@@ -34,7 +34,6 @@ user.title = Mein Konto verwalten
 user.addNewCal = neuen Kalender hinzufügen
 user.deleteAccount = Mein Konto löschen
 user.language = Sprache 
-user.change = ändern
 
 index.title = Kalender - Startseite
 index.viewCalendars = Meine Kalender anschauen
