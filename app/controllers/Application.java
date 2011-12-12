@@ -152,11 +152,6 @@ public class Application extends Controller {
 		calendar(userName, calendarName, searchRegex, curPage);
 	}
 
-	public static void searchEvent(String userName, String
-	    calendarName, String searchRegex) {
-		calendar(userName, calendarName, searchRegex, -1);
-	}
-
 	/**
 	 * Selects the calendar(s) to display according to the user.
 	 * If the user is the connected one, the calendar page will
