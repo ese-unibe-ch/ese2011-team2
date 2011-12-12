@@ -34,7 +34,7 @@ calendar.title = Les calendriers de %s
 user.title = Gérer mon compte
 user.addNewCal = Ajouter un nouveau calendrier
 user.deleteAccount = Supprimer mon compte
-user.language = language
+user.language = Langue
 
 index.title = Calendrier - Accueil
 index.viewCalendars = Voir mes calendriers
@@ -79,7 +79,7 @@ myContacts.noContacts = Vous n'avez pas de contacts
 searchEvent.hint = Recherche ici pour un événement
 
 # For enums:
-visibility.PRIVATE = Privé
+visibility.PRIVATE = Privéla
 visibility.PUBLIC = Public
 visibility.BUSY = Montrer comme occupé
 visibility.CONTACTSONLY = Contacts seulement
