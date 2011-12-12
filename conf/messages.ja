@@ -33,14 +33,14 @@ calendar.title = %sのカレンダー
 user.title = アカウント管理
 user.addNewCal = 新しいカレンダーを追加する
 user.deleteAccount = アカウントを削除する
-user.language = 言語の
+user.language = 言語
 
 index.title = カレンダーのホーム
 index.viewCalendars = カレンダーを表示する
 index.welcome = こんにちは、%sさん
 index.createFirstCalendar = 最初のカレンダーを作ってください。そのために、「アカウントを管理する」をクリックしてください。それとも
 index.manageAccount = アカウントを管理する
-index.loggedInAs = Currently logged in as %s (das weiß ich nicht)
+index.loggedInAs = 「%sさん」とサインインしています。
 index.searchUsers = 他のユーザーを探す
 index.searchUsersHint = Java regexを挿入する
 

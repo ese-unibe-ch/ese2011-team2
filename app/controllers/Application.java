@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -74,7 +75,7 @@ public class Application extends Controller {
 		Map<User, Boolean> myContactsMap = user.getMyContacts();
 		Iterator<User> iterMyContacts = myContactsMap.keySet().iterator();
 		Set<EseCalendar> selectedUsersCal = new HashSet<EseCalendar>();
-		Iterator iterator = Collections.EMPTY_LIST.iterator();
+		Iterator<CalendarEvent> iterator = Collections.EMPTY_LIST.iterator();
 		Iterator<EseCalendar> ownCalendarsIter = calendarManager.getCalendarsOf(user).iterator();
 		while (ownCalendarsIter.hasNext()){
 			EseCalendar ownCalendar = ownCalendarsIter.next();
@@ -122,24 +123,24 @@ public class Application extends Controller {
 		/**
 		 *	The following chunk works, but probably belongs
 		 *	somewhere else..
-		 */
-		Object obj;
-		ArrayList<Object> tmp;
+		 */		
 		int skip = curPage*PAGESIZE;
 		int page = PAGESIZE;
-		tmp = new ArrayList<Object>();
 		if (curPage >= 0) {
+			List<CalendarEvent> tmp = new ArrayList<CalendarEvent>();
 			while (iterator.hasNext()) {
-				obj = iterator.next();
+				CalendarEvent obj = iterator.next();
 				if (skip != 0) {
 					skip--;
-					continue;
+				} else {
+					if (page != 0) {
+						page--;
+						tmp.add(obj);
+						if (tmp.size() > PAGESIZE) {
+							break;
+						}
+					}
 				}
-				if (page != 0) {
-					page--;
-					tmp.add(obj);
-				}
-				continue;
 			}
 			iterator = tmp.iterator();
 		}
@@ -184,7 +185,6 @@ public class Application extends Controller {
 	 * @return the client locale guessed from accept-language haeder
 	 */
 	private static Locale getLocale() {
-		// TODO make real
 		return new Locale(Lang.get(), "CH");
 	}
 
