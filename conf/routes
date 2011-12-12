@@ -4,9 +4,9 @@
 
 # Home page
 GET     /                                       IndexPage.index							
-GET		/calendar								Application.calendar
-GET		/users									Application.users
-GET		/user									Application.user
+GET		/calendar								CalendarPage.calendar
+GET		/users									UserPage.users
+GET		/user									UserPage.user
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

@@ -1,5 +1,5 @@
 <h2>&{'myContacts.myContacts'}</h2>
-#{form @Application.includeContacts()}
+#{form @Contacts.includeContacts()}
 <input type="hidden" name="calendarName" value="${_calendar.name}">
 #{if _myContacts.isEmpty()}&{'myContacts.noContacts'}#{/if}
 	#{list items:_myContacts, as:'contact'}
@@ -13,7 +13,7 @@
 		#{if _connectedUser.isContactSelected(contact)}checked="checked"#{/if}
 		onClick="this.form.submit()">
 		&nbsp;
-		<a href="@{Application.currentCalendar(contact.name)}">${contact.name}</a>
+		<a href="@{CalendarPage.currentCalendar(contact.name)}">${contact.name}</a>
 		<img src="${imgSrc}"
 		width="15" height="15" alt="${userNb}" />
 		<br>

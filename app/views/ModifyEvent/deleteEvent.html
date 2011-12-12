@@ -21,7 +21,7 @@
 		<input type="submit" name="single" value="&{'deleteEvent.noJustInstance'}">
 	#{/form}
 	
-	#{form @Application.currentCalendar()} 
+	#{form @CalendarPage.currentCalendar()} 
 		<input type="hidden" name="userName" value="${calendar.owner.name}">
 		<input type="submit" name="cancel" value="&{'cancel'}">
 	#{/form}

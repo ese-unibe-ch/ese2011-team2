@@ -1,5 +1,5 @@
 <h2>&{'listCalendars.myCalendars'}</h2>
-#{form @Application.includeCalendars()}
+#{form @CalendarPage.includeCalendars()}
 	<input type="hidden" name="calendarName" value="${_calendar.name}">
 	#{list items:_myCalendars, as:'calendar'}
 		<li> 

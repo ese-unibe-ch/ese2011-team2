@@ -21,7 +21,7 @@
 <div id=contentRight>
 	<div id="addCalendar">
 		<h2>&{'user.addNewCal'}</h2>
-		#{form @Application.addCalendar()}
+		#{form @UserPage.addCalendar()}
 			<input type="text" name="calendarName" />
 			<input type="submit" value="&{'add'}">
 		#{/form}
@@ -31,7 +31,7 @@
 		<table>
 			<tr>
 				<td>
-					#{form @IndexPage.prepareDeleteAccount()} 
+					#{form @UserPage.prepareDeleteAccount()} 
 						<input type="image" src="/public/images/delete.png" 
 						alt="&{'user.deleteAccount'}" title="&{'user.deleteAccount'}">
 					#{/form}
@@ -42,7 +42,7 @@
 	</div>
 	<div id="changeLanguage">
 		<h2>&{'user.language'}</h2>
-		#{form @Application.changeLanguage()}
+		#{form @UserPage.changeLanguage()}
 			<select type="text" name="language" size="1" onChange="this.form.submit()">
 					<option #{if (lang == "en")} selected #{/if} value="en">English</option>
 					<option #{if (lang == "de")} selected #{/if} value="de">Deutsch</option>

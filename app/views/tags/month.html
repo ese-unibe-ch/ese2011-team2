@@ -4,10 +4,10 @@
 
 <table id=monthTable>
 <tr>
-<td><a href="@{Application.selectDate(_arg.user.name, 
+<td><a href="@{CalendarPage.selectDate(_arg.user.name, 
 _arg.selectedDay, _arg.previousMonth, _arg.previousMonthYear)}">&lt;&lt;</a></td>
 <td colspan="5"><h2>${_arg.monthLabel}</h2></td>
-<td><a href="@{Application.selectDate(_arg.user.name, 
+<td><a href="@{CalendarPage.selectDate(_arg.user.name, 
 _arg.selectedDay, _arg.nextMonth, _arg.nextMonthYear)}">&gt;&gt;</a></td>
 </tr>
 <tr>
@@ -36,7 +36,7 @@ _arg.selectedDay, _arg.nextMonth, _arg.nextMonthYear)}">&gt;&gt;</a></td>
 				classValue = classValue+" contactEvent"
 			}
 		}%
-		<td class="${classValue}"><a href="@{Application.selectDate(_arg.user.name, 
+		<td class="${classValue}"><a href="@{CalendarPage.selectDate(_arg.user.name, 
 		day.dayOfMonth, day.month, day.year)}">${day.dayOfMonth}</a></td>
 		#{/list}
 		</tr>

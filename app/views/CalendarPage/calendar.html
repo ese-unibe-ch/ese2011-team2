@@ -22,12 +22,12 @@
 		%{prevPageLabel = curPage<=0 ?"all events" :"prev"}%
 		%{nextPage = curPage+1}%
 		#{if curPage >= 0}
-			#{a @Application.searchEvent(
+			#{a @CalendarPage.searchEvent(
 				calendar.owner.name, calendar.name,
 				searchRegex, prevPage)}${prevPageLabel}#{/a} |
 			page ${curPage} |
 		#{/if}
-		#{a @Application.searchEvent(
+		#{a @CalendarPage.searchEvent(
 			calendar.owner.name, calendar.name,
 			searchRegex, nextPage)}next#{/a}
 	#{/if}
@@ -58,7 +58,7 @@
 			#{ifnot connectedUser.name == calendar.owner.name}
 				#{if connectedUser.myContacts.containsKey(calendar.owner)}
 					<br/>
-					#{form @Application.removeFromContacts(calendar.owner.name)} 
+					#{form @Contacts.removeFromContacts(calendar.owner.name)} 
 						<input type="image" src="/public/images/removeContact.png" 
 						alt="&{'calendar.removeContact'}" title="&{'calendar.removeContact'}">
 					#{/form}
@@ -68,7 +68,7 @@
 				#{/if}
 				#{else}
 					<br/>
-					#{form @Application.addToContacts(calendar.owner.name)} 
+					#{form @Contacts.addToContacts(calendar.owner.name)} 
 						<input type="image" src="/public/images/addContact.png" 
 						alt="&{'calendar.addContact'}" title="&{'calendar.addContact'}">
 					#{/form}

@@ -12,7 +12,7 @@
 			<table>
 				<tr>
 					<td>
-						#{form @Application.currentCalendar(connectedUser.name)} 
+						#{form @CalendarPage.currentCalendar(connectedUser.name)} 
 							<input type="image" src="/public/images/calendar.png" 
 							alt="&{'index.viewCalendars'}" title="&{'index.viewCalendars'}">
 						#{/form}
@@ -27,13 +27,13 @@
 			</p>
 			<p> 
 				&{'index.createFirstCalendar'}
-				<a href="@{Application.user()}">&{'here'}</a>.
+				<a href="@{UserPage.user()}">&{'here'}</a>.
 			</p> 
 		#{/else}
 		<table>
 			<tr>
 				<td>
-					#{form @Application.user()} 
+					#{form @UserPage.user()} 
 						<input type="image" src="/public/images/settings.png" 
 						alt="&{'index.manageAccount'}" title="&{'index.manageAccount'}">
 					#{/form} 
@@ -57,7 +57,7 @@
 	<ul>
 		#{if user != connectedUser}
 			<li> 
-				<a href="@{Application.currentCalendar(user.name)}">${user.name}</a>
+				<a href="@{CalendarPage.currentCalendar(user.name)}">${user.name}</a>
 			</li>
 		#{/if}
 	</ul>

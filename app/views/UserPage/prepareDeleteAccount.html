@@ -8,10 +8,10 @@
 <div id=contentMiddle>
 	<h2>&{'prepareDeleteAccount.areYouSure'}</h2>
 	
-	#{form @IndexPage.deleteAccount()} 
+	#{form @UserPage.deleteAccount()} 
 	<input type="submit" name="delete" value="&{'prepareDeleteAccount.deleteAccount'}">
 	#{/form}
-	#{form @Application.user()} 
+	#{form @UserPage.user()} 
 	<input type="submit" name="cancel" value="&{'cancel'}">
 	#{/form}
 </div>

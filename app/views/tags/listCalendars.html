@@ -3,7 +3,7 @@
 	#{list items: _calendars, as:'calendar'}
 		<li>
 			${calendar.name}
-			#{form @Application.deleteCalendar(calendar.name)} 
+			#{form @UserPage.deleteCalendar(calendar.name)} 
 			<input type="submit" name="delete" value="&{'delete'}">
 			#{/form}
 			<br/>

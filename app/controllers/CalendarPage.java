@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -10,13 +11,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
-import java.util.ArrayList;
 
-import javax.activity.InvalidActivityException;
-
-import play.i18n.Lang;
-import play.mvc.Controller;
-import play.mvc.With;
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
@@ -25,8 +20,12 @@ import ch.unibe.ese.calendar.UserManager;
 import ch.unibe.ese.calendar.util.EseDateFormat;
 import ch.unibe.ese.calendar.util.EventIteratorUtils;
 
+import play.i18n.Lang;
+import play.mvc.Controller;
+import play.mvc.With;
+
 @With(Secure.class)
-public class Application extends Controller {
+public class CalendarPage extends Controller{
 	
 	public static final int PAGESIZE = 5;
 	public static int selectedDay, selectedMonth, selectedYear;
@@ -45,7 +44,7 @@ public class Application extends Controller {
 		selectedYear = juc.get(java.util.Calendar.YEAR);
 		calendar(userName, calendarName, null, -1);
 	}
-
+	
 	/**
 	 * This method shows the calendar page of a specified user. 
 	 * The selected day is read from instance variables.
@@ -148,12 +147,14 @@ public class Application extends Controller {
 		render(iterator, calendar, calendarBrowser, myContacts, searchRegex, curPage,
 				connectedUser, selectedDateString, myCalendars, calendarIter);
 	}
-
-	public static void searchEvent(String userName, String
-	    calendarName, String searchRegex, int curPage) {
-		calendar(userName, calendarName, searchRegex, curPage);
+	
+	/**
+	 * @return the client locale guessed from accept-language header
+	 */
+	private static Locale getLocale() {
+		return new Locale(Lang.get(), "CH");
 	}
-
+	
 	/**
 	 * Selects the calendar(s) to display according to the user.
 	 * If the user is the connected one, the calendar page will
@@ -179,52 +180,6 @@ public class Application extends Controller {
 			calendar = calendarManager.getUnionCalendarOf(user);
 		}
 		return calendar;
-	}
-
-	/**
-	 * @return the client locale guessed from accept-language haeder
-	 */
-	private static Locale getLocale() {
-		return new Locale(Lang.get(), "CH");
-	}
-
-	public static void user() {
-		String currentUserName = Security.connected();
-		User connectedUser = UserManager.getInstance().getUserByName(
-				currentUserName);
-		SortedSet<EseCalendar> calendars = CalendarManager.getInstance()
-				.getCalendarsOf(connectedUser);
-		String lang = Lang.get();
-		render(connectedUser, calendars, lang);
-	}
-	
-	public static void changeLanguage(String language){
-		Lang.change(language);
-		user();
-	}
-	
-	public static void addToContacts(String name) {
-		String userName = Security.connected();
-		User user = UserManager.getInstance().getUserByName(userName);
-		User userToAdd = UserManager.getInstance().getUserByName(name);
-		user.addToMyContacts(userToAdd);
-		calendar(name, null, null, -1);
-	}
-	
-	/**
-	 * Remove the user with the specified name from myContacts.
-	 * @param name of the user to remove
-	 */
-	public static void removeFromContacts(String name) {
-		String userName = Security.connected();
-		User user = UserManager.getInstance().getUserByName(userName);
-		User userToRemove = UserManager.getInstance().getUserByName(name);
-		try {
-			user.removeFromMyContacts(userToRemove);
-		} catch (InvalidActivityException e) {
-			e.printStackTrace();
-		}
-		calendar(name, null, null, -1);
 	}
 	
 	/**
@@ -260,48 +215,6 @@ public class Application extends Controller {
 	}
 	
 	/**
-	 * First sets all Contacts to unselected then sets all Contacts that have 
-	 * their name in checkedContacts[] to selected
-	 * 
-	 * @param checkedContacts: all Contacts who's checkbox is selected
-	 */
-	public static void includeContacts(String[] checkedContacts, String calendarName) {
-		String userName = Security.connected();
-		User user = UserManager.getInstance().getUserByName(userName);
-		user.unselectAllContacts();
-		if (checkedContacts != null) {
-			for (String uName: checkedContacts) {
-				User u = UserManager.getInstance().getUserByName(uName);
-				user.setContactSelection(u, true);
-			}
-		}	
-		calendar(userName, calendarName, null, -1);
-	}
-	
-	public static void deleteCalendar(String calendarName) {
-		CalendarManager calendarManager = CalendarManager.getInstance();
-		try {
-			calendarManager.removeCalendar(calendarName);
-		} catch (Exception e) {
-			error(e.getMessage());
-		}
-		user();
-		
-	}
-	
-	public static void addCalendar(String calendarName) {
-		String userName = Security.connected();
-		UserManager um = UserManager.getInstance();
-		User connectedUser = um.getUserByName(userName);
-		CalendarManager calendarManager = CalendarManager.getInstance();
-		EseCalendar cal = calendarManager.createCalendar(connectedUser, calendarName);
-		if (calendarManager.getCalendarsOf(connectedUser).size()==1) {
-			currentCalendar(userName, cal.getName());
-		}
-		user();
-	}
-
-	/**
 	 * First sets all Calendars to unselected then sets all Calendars that have 
 	 * their name in checkedCalendars[] to selected
 	 * 
@@ -322,4 +235,8 @@ public class Application extends Controller {
 		}	
 		calendar(userName, calendarName, null, -1);
 	}
+	public static void searchEvent(String userName, String
+		    calendarName, String searchRegex, int curPage) {
+			calendar(userName, calendarName, searchRegex, curPage);
+		}
 }

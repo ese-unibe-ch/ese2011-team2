@@ -1,13 +1,13 @@
 <p>
 	#{if !_calendars.isEmpty()}
-		#{form @Application.currentCalendar(_connectedUser.name)} 
+		#{form @CalendarPage.currentCalendar(_connectedUser.name)} 
 			<input type="image" src="/public/images/calendar.png" 
 			alt="&{'index.viewCalendars'}" title="&{'index.viewCalendars'}"> 
 		#{/form}
 	#{/if}
 </p>
 <p>
-	#{form @Application.user()} 
+	#{form @UserPage.user()} 
 		<input type="image" src="/public/images/settings.png" 
 		alt="&{'index.manageAccount'}" title="&{'index.manageAccount'}"> 
 	#{/form}
