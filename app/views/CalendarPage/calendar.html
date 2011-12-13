@@ -20,12 +20,12 @@
 		<h2>&{'calendar.searchResultsFor', searchRegex}</h2>
 		%{prevPage = curPage<=0 ?-1 :curPage-1}%
 		%{prevPageLabel = curPage<=0 ? 
-			"all Events" : "prev"}%
+			"calendar.allEvents" : "calendar.previous"}%
 		%{nextPage = curPage+1}%
 		#{if curPage >= 0}
 			#{a @CalendarPage.searchEvent(
 				calendar.owner.name, calendar.name,
-				searchRegex, prevPage)}${prevPageLabel}#{/a} |
+				searchRegex, prevPage)}&{prevPageLabel}#{/a} |
 			&{'calendar.page', curPage} |
 		#{/if}
 		#{a @CalendarPage.searchEvent(

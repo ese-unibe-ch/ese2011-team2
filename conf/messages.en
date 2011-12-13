@@ -35,8 +35,8 @@ calendar.eventsOn = Events on %s
 calendar.searchResultsFor = Search result for "%s"
 calendar.previous = prev
 calendar.next = next
-calendar.allEvents = All Events
-calendar.page = Page %s
+calendar.allEvents = All events
+calendar.page = Page %d
 
 user.title = Manage my account
 user.addNewCal = Add a new calendar
