@@ -29,6 +29,14 @@ calendar.removeContactMsg = %1$s is one of your contacts. To remove %1$s from yo
 calendar.addContact = Add to myContacts
 calendar.addContactMsg = %1$s is not one of your contacts. To add %1$s to your contacts, click on the icon above.
 calendar.title = %s's calendars
+calendar.eventsOn = Events on %s
+
+# For the search stuff:
+calendar.searchResultsFor = Search result for "%s"
+calendar.previous = prev
+calendar.next = next
+calendar.allEvents = All Events
+calendar.page = Page %s
 
 user.title = Manage my account
 user.addNewCal = Add a new calendar
@@ -75,6 +83,7 @@ listCalendars.myCalendars = My calendars
 myContacts.myContacts = My contacts
 myContacts.noContacts = You have no contacts
 
+searchEvent.searchForEvents = Search for events
 searchEvent.hint = Search here for an event
 
 # For enums:

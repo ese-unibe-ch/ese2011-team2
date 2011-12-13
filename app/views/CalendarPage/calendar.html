@@ -17,24 +17,25 @@
 	</div>
 	<div id=selectedDay>
 	#{if searchRegex != null}
-		<h2>Search result for "${searchRegex}":</h2>
+		<h2>&{'calendar.searchResultsFor', searchRegex}</h2>
 		%{prevPage = curPage<=0 ?-1 :curPage-1}%
-		%{prevPageLabel = curPage<=0 ?"all events" :"prev"}%
+		%{prevPageLabel = curPage<=0 ? 
+			"all Events" : "prev"}%
 		%{nextPage = curPage+1}%
 		#{if curPage >= 0}
 			#{a @CalendarPage.searchEvent(
 				calendar.owner.name, calendar.name,
 				searchRegex, prevPage)}${prevPageLabel}#{/a} |
-			page ${curPage} |
+			&{'calendar.page', curPage} |
 		#{/if}
 		#{a @CalendarPage.searchEvent(
 			calendar.owner.name, calendar.name,
-			searchRegex, nextPage)}next#{/a}
+			searchRegex, nextPage)} &{'calendar.next'} #{/a}
 	#{/if}
 	#{else}
-		<h2>Events on ${calendarBrowser.dayLabel}:</h2>
+		<h2>&{'calendar.eventsOn', calendarBrowser.dayLabel}</h2>
 	#{/else}
-			#{eventInfo myContacts:myContacts, iterator:iterator, calendar:calendar, connectedUser:connectedUser /}
+	#{eventInfo myContacts:myContacts, iterator:iterator, calendar:calendar, connectedUser:connectedUser /}
 	</div>
 	#{if connectedUser.name == calendar.owner.name}
 	<div id=createEvent>
