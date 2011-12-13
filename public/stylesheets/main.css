@@ -47,21 +47,38 @@ A:ACTIVE {
 }
 
 #header {
-	background-color: #A4A4A4;	
 	overflow: auto;
+	background-color: #BDBDBD;
 }
 
 #headline {
-	width: 700px;
-	float: left;
-	font-size: 3em;
+	padding-bottom: 0.3em;
 	text-align: center;
-	padding-left: 3em;
-	text-shadow:2px 4px 5px #1C1C1C;
+	margin-left: -2.5em;
+	font-size: 2em;
+	text-shadow:1px 2px 3px #1C1C1C;
 }
 
-#tools {
-	width: 90px;
+nav {
 	float: right;
-	list-style: none;
+	font-size: 1em;
+	padding: 0 0.7em;
+	margin-right: 35px;
+	white-space: nowrap;
+}
+
+nav ul {
+	margin: 0;
+	padding: 0;
+}
+
+nav ul li {
+	list-style-type: none;
+	display: inline-block;
+	padding-top: 0.2em;
+}
+
+nav ul li a {
+	padding: 0 5px;
+	font-weight: bold;
 }

@@ -12,17 +12,19 @@
     <body>
     	<div id="content">
 	    	<div id="header">
+    			<nav>
+		            <ul>
+		                <li>    
+		                   	<a href="/">&{'home'}</a>
+		                </li>
+		                <li>
+		                    <a href="@{Secure.logout()}">&{'logout'}</a> <br/>
+		                </li>
+		            </ul>
+            	</nav>
 	            <div id="headline">
 	                #{get 'header' /}
 	            </div>
-	            <ul id="tools">
-	                <li>
-	                    <a href="@{Secure.logout()}">&{'logout'}</a> <br/>
-	                </li>
-	                <li>    
-	                    <a href="/">&{'home'}</a>
-	                </li>
-	            </ul>
 	        </div>
         #{doLayout /}
         </div>

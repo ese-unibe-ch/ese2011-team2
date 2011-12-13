@@ -45,9 +45,6 @@
 </div>
 
 <div id=contentRight>
-	<div id="searchEvent">
-		#{searchEvent calendar:calendar /}
-	</div>
 	#{if connectedUser == calendar.owner}
 		<div id=myCalendars>
 			#{myCalendars myCalendars:myCalendars, calendar:calendar /}
@@ -80,4 +77,7 @@
 			#{/ifnot}
 		</div>
 	#{/else}
+	<div id="searchEvent">
+		#{searchEvent calendar:calendar /}
+	</div>
 </div>
