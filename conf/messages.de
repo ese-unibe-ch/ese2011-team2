@@ -47,17 +47,17 @@ index.searchUsersHint = ein Suchbegriff
 prepareDeleteAccount.deleteAccount = Konto löschen
 prepareDeleteAccount.areYouSure = Sind sie sicher?
 
-deleteEvent.title = Veranstalltung löschen
-deleteEvent.areYouSure = Möchten sie alle Veranstalltungen dieser Serie löschen?
+deleteEvent.title = Veranstaltung löschen
+deleteEvent.areYouSure = Möchten sie alle Veranstaltungen dieser Serie löschen?
 deleteEvent.yesAllEvents = Ja, alle
 deleteEvent.noJustInstance = Nein, nur diese eine
 
 register.registerInfo = Geben sie ihre Informationen ein um sich zu registrieren
 register.submit = Registrieren
 
-addEvent.createNewEvent = Einen neue Veranstalltung erstellen
-addEvent.nameExample = Veranstalltungsname
-addEvent.eventName = Veranstalltungsname: 
+addEvent.createNewEvent = Einen neue Veranstaltung erstellen
+addEvent.nameExample = Veranstaltungsname
+addEvent.eventName = Veranstaltungsname: 
 addEvent.startDate = Start Datum:
 addEvent.duration = Dauer:
 addEvent.repetition = Wiederholung:
@@ -66,7 +66,7 @@ addEvent.hours = Stunden
 addEvent.minutes = Minuten
 addEvent.description = Beschreibung
 addEvent.visibility = Visibility:
-addEvent.submit = Veranstalltung hinzufügen
+addEvent.submit = Veranstaltung hinzufügen
 
 eventInfo.createdBy = von %s erstellt
 
@@ -75,7 +75,7 @@ listCalendars.myCalendars = Meine Kalender
 myContacts.myContacts = Meine Kontakte
 myContacts.noContacts = Sie haben noch kiene Kontakte
 
-searchEvent.hint = Veranstalltung
+searchEvent.hint = Veranstaltung
 
 # For enums:
 visibility.PRIVATE = Privat
@@ -92,8 +92,10 @@ repetition.NEVER = Nie
 
 
 # Next 7 lines were automatically added by i18n-extract on 2011-12-13 13:54:04
-calendar.page = TODO calendar.page
-calendar.eventsOn = TODO calendar.eventsOn
-calendar.searchResultsFor = TODO calendar.searchResultsFor
-calendar.next = TODO calendar.next
-searchEvent.searchForEvents = TODO searchEvent.searchForEvents
+calendar.page = Seite %d
+calendar.eventsOn = Veranstaltungen am %s
+calendar.searchResultsFor = Suchresultate für "%s"
+calendar.next = nächste
+calendar.previous = vorherige
+searchEvent.searchForEvents = Suche nach Veranstaltungen
+calendar.allEvents = Alle Veranstaltungen

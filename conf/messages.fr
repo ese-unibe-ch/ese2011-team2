@@ -93,8 +93,10 @@ repetition.NEVER = Jamais
 
 
 # Next 7 lines were automatically added by i18n-extract on 2011-12-13 13:54:04
-calendar.page = TODO calendar.page
-calendar.eventsOn = TODO calendar.eventsOn
-calendar.searchResultsFor = TODO calendar.searchResultsFor
-calendar.next = TODO calendar.next
-searchEvent.searchForEvents = TODO searchEvent.searchForEvents
+calendar.page = Page %d
+calendar.eventsOn = Evénements pour %s
+calendar.searchResultsFor = Resultat de la recherche pour "%s"
+calendar.next = prochain
+calendar.previous = dernier
+searchEvent.searchForEvents = Recherche pour événements
+calendar.allEvents = Tous les événements
