@@ -6,48 +6,73 @@
     waitForPageToLoad(1000)
     assertNotTitle('Application error')
 
-	// Log-In Erwann, and check that it worked
-	open('/secure/login')
+	// Register subone, and check that it worked
+	open('/security/register')
 	waitForPageToLoad(1000)
-	assertTitle('Login')
-	type('username', 'erwann')
+	type('username', 'subone')
 	type('password', 'ese')
 	clickAndWait('css=input[type=submit]')
-	assertTitle('Home')
-	assertTextPresent('Calendar')
-	assertTextPresent('Search for other users')
-	assertTextPresent('Add a new Calendar')
+	assertTitle('Login')
+	type('username', 'subone')
+	type('password', 'ese')
+	clickAndWait('css=input[type=submit]')
+	assertTitle('Calendar - Home')
+	assertTextPresent('Currently logged in as subone')
+	assertTextPresent('Manage my account')
+	assertTextPresent('Create your first calendar by')
 	
-	// Add a new Calendar
+	// Add a new calendar
+	open('/user')
+    waitForPageToLoad(1000)
 	type('calendarName','aCal')
 	clickAndWait('css=#addCalendar > form > input[type="submit"]')
-	assertTitle('Home')
-	assertTextPresent('aCal')
-	clickAndWait('link=aCal')
-	assertTitle('Calendar')
+	assertTitle('subone's calendars')
 	assertTextPresent('aCal')
 	
 	
-	// Go Home and Delete test Calendar
-	clickAndWait('link=Home')
-	assertTitle('Home')
-	openAndWait('/indexpage/deletecalendar?calendarName=aCal')
-	assertTextNotPresent('aCal')
+	// Create busy Event
+	open(http://localhost:9000/calendarpage/selectdate?month=11&userName=subone&year=2011&day=13)
+	waitForPageToLoad(1000)
+	type('name', 'publicBusyOne')
+	type('description', 'very important thing')
+	click('css=input[value="public"]')
+	clickAndWait('css=input[type=submit]')
+	assertTextPresent('publicBusyOne')
+	assertTextPresent('12:00, 13.Dec - 13:00, 13.Dec')
+	assertTextPresent('(Public event created by subone)')
+	assertTextPresent('Description: very important thing')
 	
 	
-	// Search for other user
-	type('searchRegex', 'judith')
-	clickAndWait('css=#search > form > input[type=submit]')
-	assertTitle('Home')
-	assertTextPresent('judith')
+	// Logout subone, Login subtwo
+	clickAndWait('link=Log out')
+	open('/security/register')
+	waitForPageToLoad(1000)
+	type('username', 'subtwo')
+	type('password', 'ese')
+	clickAndWait('css=input[type=submit]')
+	assertTitle('Login')
+	type('username', 'subtwo')
+	type('password', 'ese')
+	clickAndWait('css=input[type=submit]')
+	assertTitle('Calendar - Home')
 	
-	// GoTo judith
-	clickAndWait('link=judith')
-	assertTitle('User')
-	assertTextPresent('judith')
+	
+	// Search for subone, add to contacts
+	type('searchRegex', 'subone')
+	clickAndWait('css=#search > form > input[type=image]')
+	assertTextPresent('subone')
+	clickAndWait('link=subone')
+	clickAndWait('css=#otherUser > form > input[type=image]')
+	
+	// Check out subone's public events
+	open(http://localhost:9000/calendarpage/selectdate?month=11&userName=subone&year=2011&day=13)
+	waitForPageToLoad(1000)
+	assertTextPresent('publicBusyOne')
+	assertTextPresent('12:00, 13.Dec - 13:00, 13.Dec')
+	assertTextPresent('(Public event created by subone)')
+	assertTextPresent('Description: very important thing')
 	
 	// Logout
-	clickAndWait('link=Home')
 	clickAndWait('link=Log out')
 	assertTitle('Login')
 	
