@@ -15,7 +15,7 @@ public class Contacts extends Controller{
 		User user = UserManager.getInstance().getUserByName(userName);
 		User userToAdd = UserManager.getInstance().getUserByName(name);
 		user.addToMyContacts(userToAdd);
-		CalendarPage.calendar(name, null, null, -1);
+		CalendarPage.calendarWithoutSearch(name, null);
 	}
 	
 	/**
@@ -31,7 +31,7 @@ public class Contacts extends Controller{
 		} catch (InvalidActivityException e) {
 			e.printStackTrace();
 		}
-		CalendarPage.calendar(name, null, null, -1);
+		CalendarPage.calendarWithoutSearch(userName, null);
 	}
 	
 	/**
@@ -50,6 +50,6 @@ public class Contacts extends Controller{
 				user.setContactSelection(u, true);
 			}
 		}	
-		CalendarPage.calendar(userName, calendarName, null, -1);
+		CalendarPage.calendarWithoutSearch(userName, calendarName);
 	}
 }

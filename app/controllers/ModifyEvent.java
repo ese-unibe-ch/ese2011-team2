@@ -38,7 +38,7 @@ public class ModifyEvent extends Controller {
 				calendar.addEventSeries(user, sDate, eDate, name, vis, 
 						Repetition.valueOf(repetition.toUpperCase()), description);
 			}
-			CalendarPage.calendar(userName, null, null, -1);
+			CalendarPage.calendarWithoutSearch(userName, null);
 		} catch(ParseException e) {
 			error(e.getMessage());
 		} catch(NumberFormatException e) {
@@ -84,7 +84,7 @@ public class ModifyEvent extends Controller {
 			render(user, calendar, event);
 		}
 		calendar.removeEvent(user, id);
-		CalendarPage.calendar(userName, null, null, -1);
+		CalendarPage.calendarWithoutSearch(userName, null);
 	}
 	
 	public static void deleteWholeSeries(String calendarName, String id) {
@@ -92,7 +92,7 @@ public class ModifyEvent extends Controller {
 		User user = UserManager.getInstance().getUserByName(userName);
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(calendarName);
 		calendar.removeEventSeries(user, id);
-		CalendarPage.calendar(userName, null, null, -1);
+		CalendarPage.calendarWithoutSearch(userName, null);
 	}
 	
 	/**
@@ -106,7 +106,7 @@ public class ModifyEvent extends Controller {
 		final EseCalendar calendar = CalendarManager.getInstance().getCalendar(calendarName);
 		CalendarEvent event = calendar.getEventById(user, id);
 		event.getSeries().addExceptionalInstance(id, null);
-		CalendarPage.calendar(userName, null, null, -1);
+		CalendarPage.calendarWithoutSearch(userName, null);
 	}
 
 	public static void editEvent(String calendarName, String id, 
@@ -185,6 +185,6 @@ public class ModifyEvent extends Controller {
 			calendar.addEventSeries(user, sDate, eDate, name, vis, 
 					Repetition.valueOf(repetition.toUpperCase()), description);
 		}
-		CalendarPage.calendar(userName, null, null, -1);
+		CalendarPage.calendarWithoutSearch(userName, null);
 	}
 }

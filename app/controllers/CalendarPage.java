@@ -42,6 +42,15 @@ public class CalendarPage extends Controller{
 		selectedDay = juc.get(java.util.Calendar.DAY_OF_MONTH);
 		selectedMonth = juc.get(java.util.Calendar.MONTH);
 		selectedYear = juc.get(java.util.Calendar.YEAR);
+		calendarWithoutSearch(userName, calendarName);
+	}
+	
+	/**
+	 * Renders the calendar page without search results
+	 * @param userName The name of the user whose calendar will be displayed.
+	 * @param calendarName calendarName the name of the calendar which will be displayed
+	 */
+	public static void calendarWithoutSearch(String userName, String calendarName) {
 		calendar(userName, calendarName, null, -1);
 	}
 	
@@ -194,31 +203,14 @@ public class CalendarPage extends Controller{
 		selectedDay = day;
 		selectedMonth = month;
 		selectedYear = year;
-		calendar(userName, calendarName, null, -1);
-	}
-	
-	/**
-	 * -- this method is not in use right now --
-	 * 
-	 * Does same as selectDate(String calendarName, int day, int month, int year),
-	 * but with other parameters. Small helper method.
-	 * Shows the calendar with the given Date selected.	 * 
-	 * @param calendarName
-	 * @param date 
-	 */
-	private static void selectDate(String calendarName, Date date) {
-		Calendar juc = Calendar.getInstance(getLocale());
-		juc.setTime(date);
-		selectDate(calendarName, juc.get(java.util.Calendar.DAY_OF_MONTH),
-				juc.get(java.util.Calendar.MONTH),
-				juc.get(java.util.Calendar.YEAR), calendarName);
+		calendarWithoutSearch(userName, calendarName);
 	}
 	
 	/**
 	 * First sets all Calendars to unselected then sets all Calendars that have 
 	 * their name in checkedCalendars[] to selected
 	 * 
-	 * @param checkedCalendars: all Calendars who's checkbox is selected
+	 * @param checkedCalendars: all Calendars which's checkbox is selected
 	 */
 	public static void includeCalendars(String[] checkedCalendars, String calendarName) {
 		String userName = Security.connected();
@@ -228,13 +220,13 @@ public class CalendarPage extends Controller{
 		calendarManager.unSelectAllCalendars(user);
 		if (checkedCalendars != null) {
 			for (String calendar: checkedCalendars) {
-				System.out.println(calendar);
 				EseCalendar eseCalendar = calendarManager.getCalendar(calendar);
 				eseCalendar.select(true);
 			}
 		}	
-		calendar(userName, calendarName, null, -1);
+		calendarWithoutSearch(userName, calendarName);
 	}
+	
 	public static void searchEvent(String userName, String
 		    calendarName, String searchRegex, int curPage) {
 			calendar(userName, calendarName, searchRegex, curPage);
