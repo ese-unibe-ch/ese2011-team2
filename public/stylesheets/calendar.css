@@ -74,6 +74,10 @@
 	float: left;
 }
 
+#forms textarea {
+	resize: none;
+}
+
 #repetition {
 	float: left;
 	margin-left: 3em;

@@ -6,7 +6,7 @@ secure.remember = 次回から自動的にログイン
 secure.password = パスワード
 secure.username = ユーザー名
 secure.title = まずサインインしてください
-secure.register =　新しいウサーを登録する
+secure.register = 新しいウサーを登録する
 
 # Stuff used in various places:
 add = 追加
