@@ -10,6 +10,7 @@ import java.util.Map;
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.EventSeries;
+import ch.unibe.ese.calendar.Repetition;
 import ch.unibe.ese.calendar.Visibility;
 import ch.unibe.ese.calendar.util.DateUtils;
 
@@ -88,7 +89,6 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 		return false;
 	}
 	/**
-	 * 
 	 * @param date
 	 * @return the consecutive number of an iteration at the day of date
 	 */
@@ -107,35 +107,16 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 		if (jucProtoEventStart.before(startOfEvaluatedDay)) {
 			while (jucProtoEventStart.before(startOfEvaluatedDay)) {
 				i++;
-				increaseCalendarByIterations(startOfEvaluatedDay,-1);
+				startOfEvaluatedDay.add(repetition.getCalendarField(), -1);
 			}
 		} else {
 			while (jucProtoEventStart.after(startOfEvaluatedDay)) {
 				i--;
-				increaseCalendarByIterations(startOfEvaluatedDay,1);
+				startOfEvaluatedDay.add(repetition.getCalendarField(), 1);
 			}
 		}
 		return i;
 	}
-	
-	private int getCalendarFieldForRepetition() {
-		if (repetition.equals(Repetition.DAILY)) {
-			return Calendar.DAY_OF_MONTH;
-		}
-		if (repetition.equals(Repetition.WEEKLY)) {
-			return Calendar.WEEK_OF_YEAR;
-		}
-		if (repetition.equals(Repetition.MONTHLY)) {
-			return Calendar.MONTH;
-		}
-		throw new RuntimeException();
-	}
-
-	private void increaseCalendarByIterations(Calendar calendar,
-			int amount) {
-		calendar.add(getCalendarFieldForRepetition(), amount);
-	}
-
 
 	@Override
 	public CalendarEvent getEventByConsecutiveNumber(long consecutiveNumber) {
@@ -145,8 +126,8 @@ class EventSeriesImpl extends CalendarEntry implements EventSeries {
 		jucEventStart.setTime(getStart());
 		java.util.Calendar jucEventEnd = java.util.Calendar.getInstance(locale);
 		jucEventEnd.setTime(getEnd());
-		jucEventStart.add(getCalendarFieldForRepetition(), (int) consecutiveNumber);
-		jucEventEnd.add(getCalendarFieldForRepetition(), (int) consecutiveNumber);		
+		jucEventStart.add(repetition.getCalendarField(), (int) consecutiveNumber);
+		jucEventEnd.add(repetition.getCalendarField(), (int) consecutiveNumber);		
 		SerialEvent se = new SerialEvent(jucEventStart.getTime(), jucEventEnd.getTime(), getName(), getVisibility(), 
 				this, getCalendar(), getDescription(), consecutiveNumber);
 		return se;

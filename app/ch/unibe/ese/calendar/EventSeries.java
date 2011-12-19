@@ -10,39 +10,7 @@ import java.util.Iterator;
  *
  */
 public interface EventSeries {
-	
-	/**
-	 * Expresses the interval between two instances of a EventSeries.
-	 *
-	 */
-	public static enum Repetition {
-		/**
-		 * Daily repetition, meaning every 1 day
-		 */
-		DAILY("daily"), 
-		/**
-		 * Weekly repetition, meaning every 7 day
-		 */
-		WEEKLY("weekly"), 
-		/**
-		 * Monthly repetition, meaning every n'th day of the month, if the month 
-		 * doesn't has that day the instance occurs earlier as to be occur in each 
-		 * calendar month.
-		 * NOT every 30 days or something of the like.
-		 */
-		MONTHLY("monthly");
-		
-		private String name;
 
-		private Repetition(String name) {
-			this.name = name;
-		}
-		
-		public String getName() {
-			return name;
-		}
-	}
-	
 	//TODO instead of having so many event properties it could have an event prototype
 	/**
 	 * @see Visibility

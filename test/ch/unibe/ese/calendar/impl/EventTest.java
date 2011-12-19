@@ -11,11 +11,9 @@ import org.junit.Test;
 import play.test.UnitTest;
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.EseCalendar;
-import ch.unibe.ese.calendar.EventSeries;
-import ch.unibe.ese.calendar.EventSeries.Repetition;
-import ch.unibe.ese.calendar.util.EseDateFormat;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.Visibility;
+import ch.unibe.ese.calendar.util.EseDateFormat;
 
 public class EventTest extends UnitTest {
 

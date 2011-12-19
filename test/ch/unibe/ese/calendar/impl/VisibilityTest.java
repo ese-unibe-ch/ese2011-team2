@@ -2,7 +2,6 @@ package ch.unibe.ese.calendar.impl;
 
 import java.text.ParseException;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.SortedSet;
 
 import org.junit.Before;
@@ -12,10 +11,8 @@ import play.test.UnitTest;
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
-import ch.unibe.ese.calendar.EventSeries;
-import ch.unibe.ese.calendar.EventSeries.Repetition;
-import ch.unibe.ese.calendar.User.DetailedProfileVisibility;
 import ch.unibe.ese.calendar.User;
+import ch.unibe.ese.calendar.User.DetailedProfileVisibility;
 import ch.unibe.ese.calendar.UserManager;
 import ch.unibe.ese.calendar.Visibility;
 import ch.unibe.ese.calendar.util.EseDateFormat;

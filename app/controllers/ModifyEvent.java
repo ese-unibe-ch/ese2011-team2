@@ -1,21 +1,19 @@
 package controllers;
 
 import java.text.ParseException;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
+import play.mvc.Controller;
+import play.mvc.With;
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.CalendarManager;
 import ch.unibe.ese.calendar.EseCalendar;
+import ch.unibe.ese.calendar.Repetition;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.UserManager;
 import ch.unibe.ese.calendar.Visibility;
-import ch.unibe.ese.calendar.EventSeries.Repetition;
 import ch.unibe.ese.calendar.exceptions.EventNotFoundException;
 import ch.unibe.ese.calendar.util.EseDateFormat;
-import play.mvc.Controller;
-import play.mvc.With;
 
 @With(Secure.class)
 public class ModifyEvent extends Controller {

@@ -4,26 +4,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.EventSeries;
-import ch.unibe.ese.calendar.EventSeries.Repetition;
+import ch.unibe.ese.calendar.Repetition;
 import ch.unibe.ese.calendar.User;
 import ch.unibe.ese.calendar.Visibility;
 import ch.unibe.ese.calendar.exceptions.EventNotFoundException;
-import ch.unibe.ese.calendar.security.MyContactAccessPermission;
 import ch.unibe.ese.calendar.security.Policy;
 import ch.unibe.ese.calendar.security.PrivilegedCalendarAccessPermission;
 import ch.unibe.ese.calendar.util.AbstractCalendar;
-import ch.unibe.ese.calendar.util.DateUtils;
 import ch.unibe.ese.calendar.util.EventIteratorUtils;
 import ch.unibe.ese.calendar.util.StartDateComparator;
 

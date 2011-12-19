@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.SortedSet;
 
-import ch.unibe.ese.calendar.EventSeries.Repetition;
 import ch.unibe.ese.calendar.exceptions.EventNotFoundException;
 import ch.unibe.ese.calendar.security.PermissionDeniedException;
 
