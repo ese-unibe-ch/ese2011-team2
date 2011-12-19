@@ -11,10 +11,10 @@ secure.register = Neue Benutzer registrieren
 # Stuff used in various places:
 add = hinzufügen
 here = hier
-cancel = abbrechen
+cancel = Abbrechen
 logout = Abmelden
 home = Startseite
-apply = Anwenden
+apply = Übernehmen
 edit = Bearbeiten
 delete = Löschen
 none = Keine
@@ -31,7 +31,7 @@ calendar.addContactMsg = %1$s gehört nicht zu ihren Kontakten. Um %1$s zu ihren
 calendar.title = %ss Kalender
 
 user.title = Mein Konto verwalten
-user.addNewCal = neuen Kalender hinzufügen
+user.addNewCal = Neuen Kalender hinzufügen
 user.deleteAccount = Mein Konto löschen
 user.language = Sprache 
 
@@ -56,16 +56,16 @@ register.registerInfo = Geben sie ihre Informationen ein um sich zu registrieren
 register.submit = Registrieren
 
 addEvent.createNewEvent = Einen neue Veranstaltung erstellen
-addEvent.nameExample = Veranstaltungsname
+addEvent.nameExample = Milch einkaufen
 addEvent.eventName = Veranstaltungsname: 
-addEvent.startDate = Start Datum:
+addEvent.startDate = Startdatum:
 addEvent.duration = Dauer:
 addEvent.repetition = Wiederholung:
 addEvent.days = Tage
 addEvent.hours = Stunden
 addEvent.minutes = Minuten
 addEvent.description = Beschreibung
-addEvent.visibility = Visibility:
+addEvent.visibility = Sichtbarkeit:
 addEvent.submit = Veranstaltung hinzufügen
 
 eventInfo.createdBy = von %s erstellt
@@ -73,15 +73,15 @@ eventInfo.createdBy = von %s erstellt
 listCalendars.myCalendars = Meine Kalender
 
 myContacts.myContacts = Meine Kontakte
-myContacts.noContacts = Sie haben noch kiene Kontakte
+myContacts.noContacts = Sie haben noch keine Kontakte
 
-searchEvent.hint = Veranstaltung
+searchEvent.hint = Suche hier nach Veranstaltungen
 
 # For enums:
 visibility.PRIVATE = Privat
 visibility.PUBLIC = Öffentlich
-visibility.BUSY = als belegt anzeigen
-visibility.CONTACTSONLY = nur Kontakte
+visibility.BUSY = Als belegt anzeigen
+visibility.CONTACTSONLY = Nur Kontakte
 
 repetition.DAILY = Täglich
 repetition.WEEKLY = Wöchentlich
