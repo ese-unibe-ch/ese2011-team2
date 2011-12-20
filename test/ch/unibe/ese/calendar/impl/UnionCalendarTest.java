@@ -32,7 +32,7 @@ public class UnionCalendarTest extends UnitTest {
 		mainCal = new EseCalendarImpl("Home", user);
 		otherCal = new EseCalendarImpl("Uni", user);
 		eventInMainCal = mainCal.addEvent(user.ADMIN, new Date(), new Date(), "mainDummy", Visibility.PUBLIC, "this is a test event");
-		eventInOtherCal = mainCal.addEvent(user.ADMIN, new Date(), new Date(), "otherDummy", Visibility.PUBLIC, "this is another test event");
+		eventInOtherCal = otherCal.addEvent(user.ADMIN, new Date(), new Date(), "otherDummy", Visibility.PUBLIC, "this is another test event");
 		unionCal = new UnionCalendar(mainCal, otherCal);
 		compareDate = EseDateFormat.getInstance().parse("12.01.2000 12:00");
 	}
@@ -54,4 +54,15 @@ public class UnionCalendarTest extends UnitTest {
 		assertEquals(eventInMainCal, unionIterator.next());
 		assertEquals(eventInOtherCal, unionIterator.next());
 	}
+	
+	@Test
+	public void removeEvent() {
+		unionCal.removeEvent(user.ADMIN, eventInMainCal.getId());
+		unionCal = new UnionCalendar(mainCal, otherCal);
+		Iterator<CalendarEvent> unionIterator = unionCal.iterate(user, compareDate);
+		assertEquals(eventInOtherCal, unionIterator.next());
+		assertFalse(mainCal.iterate(user, compareDate).hasNext());
+	}
+	
 }
+
