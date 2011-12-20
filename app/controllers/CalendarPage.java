@@ -127,36 +127,36 @@ public class CalendarPage extends Controller{
 		String selectedDateString = EseDateFormat.getInstance().format(
 				new Date(selectedDate.getTime() + 1000*60*60*12));
 		Iterator<EseCalendar> calendarIter = calendarManager.getCalendarsOf(user).iterator();
-
-		/**
-		 *	The following chunk works, but probably belongs
-		 *	somewhere else..
-		 */		
-		int skip = curPage*PAGESIZE;
-		int page = PAGESIZE;
-		if (curPage >= 0) {
-			List<CalendarEvent> tmp = new ArrayList<CalendarEvent>();
-			while (iterator.hasNext()) {
-				CalendarEvent obj = iterator.next();
-				if (skip != 0) {
-					skip--;
-				} else {
-					if (page != 0) {
-						page--;
-						tmp.add(obj);
-						if (tmp.size() > PAGESIZE) {
-							break;
-						}
-					}
-				}
-			}
-			iterator = tmp.iterator();
-		}
-
+		iterator = getPage(curPage, iterator);
 		render(iterator, calendar, calendarBrowser, myContacts, searchRegex, curPage,
 				connectedUser, selectedDateString, myCalendars, calendarIter);
 	}
 	
+	private static Iterator<CalendarEvent> getPage(int curPage,
+			Iterator<CalendarEvent> iterator) {
+		/*
+		 *	The following chunk works, but could be implemented more elegantly and requiring less memory
+		 */		
+		int skip = curPage*PAGESIZE;
+		int page = PAGESIZE;
+		List<CalendarEvent> tmp = new ArrayList<CalendarEvent>();
+		while (iterator.hasNext()) {
+			CalendarEvent obj = iterator.next();
+			if (skip != 0) {
+				skip--;
+			} else {
+				if (page != 0) {
+					page--;
+					tmp.add(obj);
+					if (tmp.size() > PAGESIZE) {
+						break;
+					}
+				}
+			}
+		}
+		return tmp.iterator();	
+	}
+
 	/**
 	 * @return the client locale guessed from accept-language header
 	 */
