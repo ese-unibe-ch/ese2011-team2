@@ -21,6 +21,7 @@ none = none
 calendar = Calendar
 search = Search
 event = event
+busy = Busy
 
 # This was added manually:
 

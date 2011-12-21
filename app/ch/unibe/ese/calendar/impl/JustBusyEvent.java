@@ -2,6 +2,8 @@ package ch.unibe.ese.calendar.impl;
 
 import java.util.Date;
 
+import play.i18n.Messages;
+
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.EseCalendar;
 import ch.unibe.ese.calendar.EventSeries;
@@ -40,7 +42,7 @@ class JustBusyEvent implements CalendarEvent {
 
 	@Override
 	public String getName() {
-		return "Busy";
+		return Messages.get("busy");
 	}
 
 	@Override
@@ -55,7 +57,7 @@ class JustBusyEvent implements CalendarEvent {
 
 	@Override
 	public String getDescription() {
-		return "None";
+		return Messages.get("none");
 	}
 
 	@Override
