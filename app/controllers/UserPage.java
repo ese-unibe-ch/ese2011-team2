@@ -43,9 +43,10 @@ public class UserPage extends Controller{
 		UserManager um = UserManager.getInstance();
 		User connectedUser = um.getUserByName(userName);
 		CalendarManager calendarManager = CalendarManager.getInstance();
-		EseCalendar cal = calendarManager.createCalendar(connectedUser, calendarName);
-		if (calendarManager.getCalendarsOf(connectedUser).size()==1) {
-			CalendarPage.currentCalendar(userName, cal.getName());
+		try {
+			calendarManager.createCalendar(connectedUser, calendarName);
+		} catch (Exception e) {
+			error(e.getMessage());
 		}
 		user();
 	}

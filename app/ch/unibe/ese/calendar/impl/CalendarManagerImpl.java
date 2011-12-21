@@ -35,7 +35,7 @@ public class CalendarManagerImpl extends CalendarManager {
 	@Override
 	public synchronized EseCalendar createCalendar(User user, String name) throws CalendarAlreadyExistsException {
 		if (calendars.containsKey(name)) {
-			throw new CalendarAlreadyExistsException();
+			throw new CalendarAlreadyExistsException("A calendar with the name " + name + " already exists");
 		} else {
 			EseCalendarImpl calendar = new EseCalendarImpl(name, user);
 			calendars.put(name, calendar);
