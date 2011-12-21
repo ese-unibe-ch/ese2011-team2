@@ -14,40 +14,24 @@ import ch.unibe.ese.calendar.util.UserComparator;
 
 @With(Secure.class)
 public class IndexPage extends Controller {
-	
-	public static SortedSet<User> foundUsers;
-	
+		
 	public static void index(String searchRegex) {
 		String userName = Security.connected();
 		UserManager um = UserManager.getInstance();
 		User connectedUser = um.getUserByName(userName);
-		if(foundUsers != null) {
-			foundUsers.clear();
-		}
+		Set<User> foundUsers = null;
 		if (searchRegex != null) {
 			try {
 				foundUsers = new TreeSet<User>(new UserComparator(connectedUser));
 				foundUsers.addAll(UserManager.getInstance().getUserByRegex(searchRegex));
 			} catch (PatternSyntaxException e) {
-				//TODO error handling
+				//TODO better error handling
 				error(e.getMessage());
 			}
 		}
 		CalendarManager calendarManager = CalendarManager.getInstance();
-		SortedSet<EseCalendar> connectedUserCalendars = calendarManager.getCalendarsOf(connectedUser);
-		Set<User> foundUsers = IndexPage.foundUsers; //no idea why this is necessary
-		EseCalendar mainCal = null;
-		String token = "";
-		//done this way to display a calendar directly. triedo will probably change this later
-		if (connectedUserCalendars.iterator().hasNext()){
-			 mainCal = connectedUserCalendars.iterator().next();
-			token = "You (" + connectedUser + ") own: " + connectedUserCalendars.size()
-				+ " calendars";
-			render(token, connectedUser, mainCal, calendarManager, foundUsers);
-		}
-		else{
-			render(token, connectedUser, mainCal, calendarManager, foundUsers);
-		}
+		boolean hasCalendars = !calendarManager.getCalendarsOf(connectedUser).isEmpty();
+		render(connectedUser, hasCalendars, foundUsers);
 	}
 	
 	public static void deleteAccount() throws Throwable {

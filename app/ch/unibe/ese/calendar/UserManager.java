@@ -8,6 +8,7 @@ import java.util.Set;
 import ch.unibe.ese.calendar.User.DetailedProfileVisibility;
 import ch.unibe.ese.calendar.exceptions.UserAlreadyExistsException;
 import ch.unibe.ese.calendar.impl.UserManagerImpl;
+import ch.unibe.ese.calendar.util.UserComparator;
 
 /**
  * Manages the users in a system
@@ -23,10 +24,11 @@ public abstract class UserManager {
 	public abstract Set<User> getAllUsers();
 
 	/**
-	 * Get users with names matching a specific regex
+	 * Get users with names matching a specific regex, not 
+	 * ordered in any specific order.
 	 * 
 	 * @param regex
-	 * @return
+	 * @return A Set of users that match the regex
 	 */
 	public abstract Set<User> getUserByRegex(String regex);
 
