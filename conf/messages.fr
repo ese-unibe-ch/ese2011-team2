@@ -22,6 +22,8 @@ none = aucune
 calendar = Calendrier
 search = Rechercher
 event = évènement
+busy = Occupée
+
 
 # This was added manually:
 

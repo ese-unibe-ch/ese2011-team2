@@ -21,6 +21,7 @@ none = Keine
 calendar = Kalender
 search = Suchen
 event = Veranstaltung
+busy = Beschäftigt
 
 # This was added manually:
 
@@ -80,7 +81,7 @@ searchEvent.hint = Suche hier nach Veranstaltungen
 # For enums:
 visibility.PRIVATE = Privat
 visibility.PUBLIC = Öffentlich
-visibility.BUSY = Als belegt anzeigen
+visibility.BUSY = Als beschäftigt anzeigen
 visibility.CONTACTSONLY = Nur Kontakte
 
 repetition.DAILY = Täglich
