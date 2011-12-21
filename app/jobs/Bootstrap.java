@@ -45,31 +45,31 @@ public class Bootstrap extends Job {
 			aaroncal2 = cm.createCalendar(aaron, "Aarons Secondary Calendar");
 		}
 		java.util.Calendar juc = java.util.Calendar.getInstance();
-		juc.set(2011, 10, 23, 20, 15);
+		juc.set(2011, 11, 7, 20, 15);
 		Date start = juc.getTime();
-		juc.set(2011, 10, 23, 23, 00);
+		juc.set(2011, 11, 7, 23, 00);
 		Date end = juc.getTime();
-		aaroncal.addEvent(User.ADMIN, start, end, "Toller Film", Visibility.PUBLIC, "der Film ist wirklich super");
+		aaroncal2.addEvent(User.ADMIN, start, end, "Toller Film", Visibility.PUBLIC, "der Film ist wirklich super");
 		
 		juc = java.util.Calendar.getInstance();
-		juc.set(2011, 10, 03, 20, 15);
+		juc.set(2011, 11, 9, 20, 15);
 		start = juc.getTime();
-		juc.set(2011, 10, 03, 23, 00);
+		juc.set(2011, 11, 9, 23, 00);
 		end = juc.getTime();
-		aaroncal2.addEvent(User.ADMIN, start, end, "super event", Visibility.PUBLIC, "event auf secondary cal");
+		aaroncal2.addEvent(User.ADMIN, start, end, "super event", Visibility.BUSY, "event auf secondary cal");
 		
 		juc = java.util.Calendar.getInstance();
-		juc.set(2011, 11, 03, 20, 15);
+		juc.set(2011, 11, 8, 20, 15);
 		start = juc.getTime();
-		juc.set(2011, 11, 03, 23, 00);
+		juc.set(2011, 11, 8, 23, 00);
 		end = juc.getTime();
 		aaroncal2.addEvent(User.ADMIN, start, end, "shhhh, this is private", Visibility.PRIVATE, "sec cal");
 		
-		juc.set(2011, 10, 25, 20, 15);
+		juc.set(2011, 11, 10, 20, 15);
 		start = juc.getTime();
-		juc.set(2011, 10, 25, 23, 00);
+		juc.set(2011, 11, 10, 23, 00);
 		end = juc.getTime();
-		aaroncal.addEvent(User.ADMIN, start, end, "Tolle Party", Visibility.CONTACTSONLY, "Friends only!");
+		aaroncal2.addEvent(User.ADMIN, start, end, "Tolle Party", Visibility.CONTACTSONLY, "Friends only!");
 		
 		juc.set(2011, 10, 27, 20, 15);
 		start = juc.getTime();
@@ -109,10 +109,13 @@ public class Bootstrap extends Job {
 		User erwann = um.createUser("erwann", "ese", erwannBirthday, DetailedProfileVisibility.PRIVATE);
 
 		EseCalendar erwanncal;
+		EseCalendar erwanncal2;
 		try {
 			erwanncal = cm.createCalendar(erwann, "Erwanns Calendar");
+			erwanncal2 = cm.createCalendar(erwann, "Erwanns Calendar2");
 		} catch (CalendarAlreadyExistsException e) {
 			erwanncal = cm.getCalendar("Erwanns Calendar");
+			erwanncal2 = cm.getCalendar("Erwanns Calendar2");
 		}
 		juc.set(2011, 11, 21, 20, 15);
 		start = juc.getTime();
@@ -120,6 +123,11 @@ public class Bootstrap extends Job {
 		end = juc.getTime();
 		erwanncal.addEvent(User.ADMIN, start, end, "Standardlager", Visibility.PUBLIC, "random Kommentar3");
 		
+		juc.set(2011, 11, 13, 20, 15);
+		start = juc.getTime();
+		juc.set(2011, 11, 13, 23, 00);
+		end = juc.getTime();
+		erwanncal2.addEvent(User.ADMIN, start, end, "Standardlager", Visibility.PUBLIC, "random Kommentar3");
 		
 		juc.set(2011, 11, 3, 20, 15);
 		start = juc.getTime();
