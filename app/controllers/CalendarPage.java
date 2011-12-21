@@ -83,7 +83,7 @@ public class CalendarPage extends Controller{
 		Map<User, Boolean> myContactsMap = user.getMyContacts();
 		Iterator<User> iterMyContacts = myContactsMap.keySet().iterator();
 		Set<EseCalendar> selectedUsersCal = new HashSet<EseCalendar>();
-		Iterator<CalendarEvent> iterator = Collections.EMPTY_LIST.iterator();
+		Iterator<CalendarEvent> eventIterator = Collections.EMPTY_LIST.iterator();
 		Iterator<EseCalendar> ownCalendarsIter = calendarManager.getCalendarsOf(user).iterator();
 		while (ownCalendarsIter.hasNext()){
 			EseCalendar ownCalendar = ownCalendarsIter.next();
@@ -95,7 +95,7 @@ public class CalendarPage extends Controller{
 						selectedDate).iterator()
 					:ownCalendar.getEventsByRegex(connectedUser,
 						searchRegex).iterator();
-				iterator = EventIteratorUtils.merge(iterator, iteratorCalEvent);
+				eventIterator = EventIteratorUtils.merge(eventIterator, iteratorCalEvent);
 			}
 		}
 		
@@ -116,7 +116,7 @@ public class CalendarPage extends Controller{
 							selectedDate).iterator()
 						:contactCal.getEventsByRegex(connectedUser,
 							searchRegex).iterator();
-					iterator = EventIteratorUtils.merge(iterator, iteratorCalEvent); 
+					eventIterator = EventIteratorUtils.merge(eventIterator, iteratorCalEvent); 
 				}
 			}
 		}
@@ -127,8 +127,9 @@ public class CalendarPage extends Controller{
 		String selectedDateString = EseDateFormat.getInstance().format(
 				new Date(selectedDate.getTime() + 1000*60*60*12));
 		Iterator<EseCalendar> calendarIter = calendarManager.getCalendarsOf(user).iterator();
-		iterator = getPage(curPage, iterator);
-		render(iterator, calendar, calendarBrowser, myContacts, searchRegex, curPage,
+		if (searchRegex != null)
+			eventIterator = getPage(curPage, eventIterator);
+		render(eventIterator, calendar, calendarBrowser, myContacts, searchRegex, curPage,
 				connectedUser, selectedDateString, myCalendars, calendarIter);
 	}
 	
@@ -223,7 +224,7 @@ public class CalendarPage extends Controller{
 				EseCalendar eseCalendar = calendarManager.getCalendar(calendar);
 				eseCalendar.select(true);
 			}
-		}	
+		}
 		calendarWithoutSearch(userName, calendarName);
 	}
 	

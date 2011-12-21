@@ -35,7 +35,7 @@
 	#{else}
 		<h2>&{'calendar.eventsOn', calendarBrowser.dayLabel}</h2>
 	#{/else}
-	#{eventInfo myContacts:myContacts, iterator:iterator, calendar:calendar, connectedUser:connectedUser /}
+	#{eventInfo myContacts:myContacts, eventIterator:eventIterator, calendar:calendar, connectedUser:connectedUser /}
 	</div>
 	#{if connectedUser.name == calendar.owner.name}
 	<div id=createEvent>

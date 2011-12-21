@@ -209,9 +209,6 @@ public class CalendarBrowser {
 		return result ;
 	}
 
-
-	
-	
 	public int getMonth() {
 		return month;
 	}
