@@ -36,7 +36,7 @@ public class UserPage extends Controller{
 			error(e.getMessage());
 		}
 		user();
-		}
+	}
 	
 	public static void addCalendar(String calendarName) {
 		String userName = Security.connected();

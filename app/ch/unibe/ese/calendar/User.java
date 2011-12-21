@@ -65,15 +65,8 @@ public class User {
 	 * Removes a user from the Map myContacts.
 	 * There is no return value.
 	 * @param userToRemove The user you want to remove
-	 * @throws InvalidActivityException if user tries to remove himself
-	 * from myContacts.
 	 */
-	public void removeFromMyContacts(User userToRemove) 
-			throws InvalidActivityException {
-		if (userToRemove.equals(this)) {
-			throw new InvalidActivityException("You can't remove " +
-					"yourself from your contacts");
-		}
+	public void removeFromMyContacts(User userToRemove) {
 		myContacts.remove(userToRemove);
 	}
 	

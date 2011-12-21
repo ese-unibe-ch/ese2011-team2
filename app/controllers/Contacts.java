@@ -26,11 +26,7 @@ public class Contacts extends Controller{
 		String userName = Security.connected();
 		User user = UserManager.getInstance().getUserByName(userName);
 		User userToRemove = UserManager.getInstance().getUserByName(name);
-		try {
-			user.removeFromMyContacts(userToRemove);
-		} catch (InvalidActivityException e) {
-			e.printStackTrace();
-		}
+		user.removeFromMyContacts(userToRemove);
 		CalendarPage.calendarWithoutSearch(userName, null);
 	}
 	
