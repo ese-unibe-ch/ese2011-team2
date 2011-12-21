@@ -1,5 +1,6 @@
 package ch.unibe.ese.calendar.impl;
 
+
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Iterator;

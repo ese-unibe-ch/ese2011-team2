@@ -98,9 +98,9 @@ public class UserTest extends UnitTest {
 		assertTrue(uOne.getMyContacts().keySet().contains(uTwo));
 	}
 	
-	@Test(expected=InvalidActivityException.class)
-	public void removeSelfFromContacts() throws InvalidActivityException {
-		uOne.removeFromMyContacts(uOne);
+	@Test
+	public void selfShouldNotInContacts() {
+		assertFalse(uOne.getMyContacts().keySet().contains(uOne));
 	}
 
 	@Test
@@ -117,12 +117,6 @@ public class UserTest extends UnitTest {
 		assertTrue(uOne.getMyContacts().keySet().contains(uTwo));
 		uOne.removeFromMyContacts(uTwo);
 		assertFalse(uOne.getMyContacts().keySet().contains(uTwo));
-	}
-	
-	@Test (expected=InvalidActivityException.class)
-	public void tryToRemoveConnectedUserFromOwnContacts() 
-			throws InvalidActivityException {
-		uOne.removeFromMyContacts(uOne);
 	}
 	
 	@Test

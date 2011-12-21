@@ -26,6 +26,7 @@
     waitForPageToLoad(1000)
 	type('calendarName','aCal')
 	clickAndWait('css=#addCalendar > form > input[type="submit"]')
+	open('http://localhost:9000/calendar?userName=subone&curPage=-1')
 	assertTitle('subone's calendars')
 	assertTextPresent('aCal')
 	

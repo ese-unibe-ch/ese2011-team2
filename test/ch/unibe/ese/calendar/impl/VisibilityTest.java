@@ -7,6 +7,7 @@ import java.util.SortedSet;
 import org.junit.Before;
 import org.junit.Test;
 
+import play.i18n.Messages;
 import play.test.UnitTest;
 import ch.unibe.ese.calendar.CalendarEvent;
 import ch.unibe.ese.calendar.CalendarManager;
@@ -78,8 +79,8 @@ public class VisibilityTest extends UnitTest {
 		assertNotSame(eventBusy, eventStalkerSees);
 		//Not implemented yet:
 		//assertEquals(new JustBusyEvent(eventBusy), eventsAt.first());
-		assertEquals("Busy", eventStalkerSees.getName());
-		assertEquals("None", eventStalkerSees.getDescription());
+		assertEquals(Messages.get("busy"), eventStalkerSees.getName());
+		assertEquals(Messages.get("none"), eventStalkerSees.getDescription());
 	}
 	
 	@Test
@@ -107,8 +108,8 @@ public class VisibilityTest extends UnitTest {
 		assertNotSame(eventContactsOnly, eventStalkerSees);
 		//Not implemented yet:
 		//assertEquals(new JustBusyEvent(eventContactsOnly), eventsAt.first());
-		assertEquals("Busy", eventStalkerSees.getName());
-		assertEquals("None", eventStalkerSees.getDescription());
+		assertEquals(Messages.get("busy"), eventStalkerSees.getName());
+		assertEquals(Messages.get("none"), eventStalkerSees.getDescription());
 		assertEquals(eventContactsOnly.getId()+"-BUSY", eventStalkerSees.getId());
 		assertEquals(eventContactsOnly.getCalendar(), eventStalkerSees.getCalendar());
 		assertEquals(eventContactsOnly.getStart(), eventStalkerSees.getStart());

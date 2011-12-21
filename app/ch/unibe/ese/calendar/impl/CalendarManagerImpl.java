@@ -117,5 +117,4 @@ public class CalendarManagerImpl extends CalendarManager {
 			eseCalendar.select(false);
 		}
 	}
-
 }
